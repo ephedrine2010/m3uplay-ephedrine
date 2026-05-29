@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M3U Playlist Manager</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <header>
+        <h1>🎵 M3U Playlist Manager</h1>
+        <div id="user-bar">
+            <span id="user-email"></span>
+            <button id="signout-btn" class="secondary">Sign out</button>
+        </div>
+    </header>
+
+    <!-- Sign-in gate -->
+    <section id="signin-box">
+        <p>Sign in to manage your playlists.</p>
+        <button id="signin-btn">Sign in with Google</button>
+    </section>
+
+    <!-- Main app (shown after sign-in) -->
+    <main id="app" class="hidden">
+
+        <!-- VIEW 1: Library -->
+        <section id="library-view">
+            <h2>Your playlists</h2>
+            <ul id="playlist-list"></ul>
+
+            <div class="create-row">
+                <input id="new-name" placeholder="New playlist name (e.g. chill)" />
+                <button id="create-btn">+ Create</button>
+            </div>
+        </section>
+
+        <!-- VIEW 2: Editor -->
+        <section id="editor-view" class="hidden">
+            <div class="editor-head">
+                <button id="back-btn" class="secondary">← Back</button>
+                <h2 id="editor-title"></h2>
+                <button id="copy-editor-link-btn" class="secondary">🔗 Copy m3u link</button>
+            </div>
+
+            <ul id="track-list"></ul>
+
+            <div class="add-row">
+                <input id="add-name" placeholder="Name (optional)" />
+                <input id="add-url" placeholder="https://…/song.mp3" />
+                <button id="add-track-btn">+ Add link</button>
+            </div>
+
+            <div class="editor-actions">
+                <button id="save-btn">💾 Save</button>
+            </div>
+        </section>
+
+    </main>
+
+    <p id="status"></p>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
