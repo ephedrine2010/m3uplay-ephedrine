@@ -9,10 +9,10 @@
 // ============================================================================
 
 import {
-    getStorage, ref, listAll, uploadString, getBytes, deleteObject, getDownloadURL
+    getStorage, ref, listAll, uploadString, getBytes, deleteObject
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 import { app } from "./firebase.js";
-import { appConfig as cfg } from "./config.js";
+import { appConfig as cfg, firebaseConfig } from "./config.js";
 
 const storage = getStorage(app);
 
@@ -50,6 +50,12 @@ export async function deleteFile(path, _sha, _message) {
 }
 
 // Public, playable URL for a file — paste this into VLC / any music player.
-export async function getPlayUrl(path) {
-    return await getDownloadURL(ref(storage, path));
+// Uses the direct Cloud Storage path so the URL ENDS IN ".m3u" (no token /
+// query string). That lets players recognize it as a playlist and expand all
+// tracks, and the link stays stable across edits. Requires the bucket objects
+// to be publicly readable (allUsers:objectViewer).
+export function getPlayUrl(path) {
+    const bucket = firebaseConfig.storageBucket; // e.g. m3uplay-d9b1f.firebasestorage.app
+    const encoded = path.split("/").map(encodeURIComponent).join("/");
+    return `https://storage.googleapis.com/${bucket}/${encoded}`;
 }
