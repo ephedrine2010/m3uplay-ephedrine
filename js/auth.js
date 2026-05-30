@@ -1,15 +1,13 @@
 // ============================================================================
-//  AUTH  —  Firebase Google sign-in. Used only to learn the user's email,
-//  which becomes their playlist folder name. No deep authorization here.
+//  AUTH  —  Firebase Google sign-in. Used to learn the user's email (which
+//  names their playlist folder) AND to authorize writes to Firebase Storage.
 // ============================================================================
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
     getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { firebaseConfig } from "./config.js";
+import { app } from "./firebase.js";
 
-const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 

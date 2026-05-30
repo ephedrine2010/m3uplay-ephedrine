@@ -1,62 +1,95 @@
 # 🎵 M3U Playlist Manager
 
-A static web app to create and edit `.m3u` playlists stored in a GitHub repo.
-Users sign in with Google (Firebase Auth) and get their own folder, named from
-their email. Each playlist gets a public `raw.githubusercontent.com` URL you can
-paste into VLC or any music player.
+A static web app to create and edit `.m3u` playlists, stored in **Firebase
+Storage**. Users sign in with Google and get their own folder (named from their
+email). Each playlist has a public URL you can paste into VLC or any music player.
 
 ```
-Sign in (Google)  →  pick/create playlist  →  add mp3 links  →  Save  →  Copy link  →  play in any player
+Sign in (Google)  →  pick/create playlist  →  add mp3 links  →  Save  →  Copy link  →  play anywhere
 ```
+
+There is **no secret token anywhere** — write access comes from being signed in,
+checked by Firebase Storage Rules on Google's servers. Nothing to leak.
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `index.html` | The page shell (sign-in, library view, editor view) |
+| `index.html` | Page shell (Google sign-in, library view, editor view) |
 | `css/style.css` | Styling |
-| `js/config.js` | **You edit this** — GitHub repo + token, Firebase config |
-| `js/auth.js` | Firebase Google sign-in |
-| `js/github.js` | Read/write playlists via the GitHub Contents API |
+| `js/config.js` | Firebase config + folder name (no secrets) |
+| `js/firebase.js` | Initializes Firebase once, shared by other modules |
+| `js/auth.js` | Google sign-in |
+| `js/storage.js` | List/read/write/delete playlists in Firebase Storage |
 | `js/m3u.js` | Parse & serialize `.m3u` text |
-| `js/app.js` | UI logic tying it all together |
+| `js/app.js` | UI logic |
 
-## Setup (one time)
+## Setup (one time, in the Firebase console)
 
-### 1. Fill in `js/config.js`
-- `owner` / `repo` — the GitHub repo that will hold the playlists.
-- `branch` — usually `main`.
-- `token` — a **fine-grained personal access token**:
-  - GitHub → Settings → Developer settings → Fine-grained tokens → Generate.
-  - **Repository access:** only the one playlists repo.
-  - **Permissions:** *Contents → Read and write*.
-  - Paste the `github_pat_…` value into `token`.
+Project: **m3uplay-d9b1f** → <https://console.firebase.google.com/>
 
-### 2. Authorize your domain in Firebase
-Firebase → your project → Authentication → Settings → **Authorized domains** →
-add the domain you'll serve the app from (e.g. `yourname.github.io`, and
-`localhost` for local testing). Also enable **Google** as a sign-in provider
-under Authentication → Sign-in method.
+### 1. Enable Google sign-in
+Authentication → **Sign-in method** → enable **Google**.
 
-### 3. Serve the app (it will NOT work from file://)
-Google sign-in popups and ES-module imports require http(s). Options:
-- **Local test:** run a static server in this folder, e.g.
-  `python -m http.server 8000` → open <http://localhost:8000>.
-- **Deploy:** push these files to your repo and enable **GitHub Pages**
-  (Settings → Pages → deploy from branch). App lives at
-  `https://<owner>.github.io/<repo>/`.
+### 2. Authorize your domains
+Authentication → **Settings** → **Authorized domains** → add:
+- `localhost` (for local testing)
+- `ephedrine2010.github.io` (your GitHub Pages domain, if you deploy there)
 
-## ⚠️ Security note (read this)
+### 3. Create Storage + set Rules
+Build → **Storage** → Get started (pick a location).
+Then **Rules** tab → paste this → **Publish**:
 
-The GitHub token sits in `js/config.js`, which ships to every visitor's browser.
-**Anyone who opens the app can read the token and could edit or delete any file
-in the repo** — the per-user folders are a naming convention, not a security
-wall. This is the accepted trade-off for a no-backend, clean-URL setup. Use it
-for a personal/trusted-users project only. Scope the token to a single repo so
-the blast radius is limited to that repo. Do **not** commit a real token to a
-public repo you care about.
+```
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /playlists/{userFolder}/{file=**} {
+      allow read: if true;                  // public so music players can fetch
+      allow write: if request.auth != null; // any signed-in user can save
+    }
+  }
+}
+```
+
+> Note: this lets any signed-in user write to any folder — matching the
+> "login is just for naming" model. The folders organize playlists; they are
+> not a strict security wall. Fine for a personal/trusted app.
+
+### 4. Set CORS on the Storage bucket (needed so the editor can LOAD playlists)
+The browser fetching file contents cross-origin needs CORS. Run once with the
+[gcloud CLI](https://cloud.google.com/sdk/docs/install) (`gsutil`):
+
+Create `cors.json`:
+```json
+[
+  {
+    "origin": ["http://localhost:8000", "https://ephedrine2010.github.io"],
+    "method": ["GET"],
+    "responseHeader": ["Content-Type"],
+    "maxAgeSeconds": 3600
+  }
+]
+```
+Then:
+```
+gsutil cors set cors.json gs://m3uplay-d9b1f.firebasestorage.app
+```
+(Skip/adjust origins to match wherever you actually serve the app.)
+
+## Run it (NOT from file:// — needs http for ES modules + Google popup)
+
+- **Local:** `python -m http.server 8000` in this folder → <http://localhost:8000>
+- **Deploy:** push to your repo and enable **GitHub Pages**
+  (Settings → Pages → deploy from `main` / root) →
+  `https://ephedrine2010.github.io/m3uplay-ephedrine/`
 
 ## Playing a playlist
 
-In the app, click **Copy m3u link**, then in VLC: *Media → Open Network Stream*
+Click **Copy m3u link** in the app, then in VLC: *Media → Open Network Stream*
 and paste it. Mobile players: use their "add playlist by URL" field.
+
+## Housekeeping
+
+The old GitHub personal access token from the earlier design is no longer used —
+**revoke it** at GitHub → Settings → Developer settings → Fine-grained tokens.

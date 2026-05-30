@@ -1,13 +1,13 @@
 // ============================================================================
-//  APP  —  ties auth + GitHub + M3U + the UI together.
+//  APP  —  ties auth + storage (Firebase) + M3U + the UI together.
 //  Two views: #library-view (list/create playlists) and #editor-view
 //  (add/modify/delete tracks, save, copy link).
 // ============================================================================
 
 import { watchAuth, signIn, signOutUser } from "./auth.js";
 import {
-    folderForEmail, listPlaylists, getFile, putFile, deleteFile, rawUrl
-} from "./github.js";
+    folderForEmail, listPlaylists, getFile, putFile, deleteFile, getPlayUrl
+} from "./storage.js";
 import { parseM3U, serializeM3U } from "./m3u.js";
 
 // ---- app state -------------------------------------------------------------
@@ -243,7 +243,14 @@ $("#back-btn").addEventListener("click", () => openLibrary());
 //  SHARED
 // ============================================================================
 async function copyLink(path) {
-    const url = rawUrl(path);
+    setStatus("Getting link…");
+    let url;
+    try {
+        url = await getPlayUrl(path);
+    } catch (e) {
+        setStatus(e.message, true);
+        return;
+    }
     try {
         await navigator.clipboard.writeText(url);
         setStatus(`Link copied: ${url}`);
