@@ -51,17 +51,30 @@ export function parseM3U(text) {
     return tracks;
 }
 
+// Derive a readable default name from a media URL's filename.
+// e.g. ".../Albumaty.Com_amr-diab_02._Yetalemo.mp3" -> "Albumaty.Com amr-diab 02. Yetalemo"
+export function nameFromUrl(url) {
+    try {
+        const file = decodeURIComponent((url.split("?")[0].split("/").pop() || "").trim());
+        const base = file.replace(/\.[^.]+$/, "");      // drop extension
+        const pretty = base.replace(/[_+]+/g, " ").trim();
+        return pretty || "Track";
+    } catch {
+        return "Track";
+    }
+}
+
 // Turn track objects back into valid extended-M3U text.
+// Always writes an #EXTINF line (extended format) with a name — using the
+// user's name if given, otherwise a default derived from the URL.
 export function serializeM3U(tracks) {
     let out = "#EXTM3U\n";
     for (const t of tracks) {
-        const name = (t.name || "").trim();
+        const url = (t.url || "").trim();
+        if (!url) continue;
+        const name = (t.name || "").trim() || nameFromUrl(url);
         const duration = Number.isFinite(t.duration) ? t.duration : -1;
-        // Only write an #EXTINF line if there is a name; otherwise keep it plain.
-        if (name) {
-            out += `#EXTINF:${duration},${name}\n`;
-        }
-        out += `${t.url}\n`;
+        out += `#EXTINF:${duration},${name}\n${url}\n`;
     }
     return out;
 }
