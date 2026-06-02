@@ -45,6 +45,8 @@
                     <input id="new-name" placeholder="New playlist…" />
                     <button id="create-btn">+</button>
                 </div>
+                <button id="import-btn" class="ghost import-btn">⬆ Import .m3u</button>
+                <input id="import-file" type="file" accept=".m3u,.m3u8,audio/x-mpegurl,audio/mpegurl" class="hidden" />
             </aside>
 
             <!-- Right: tracks of selected playlist -->
@@ -52,6 +54,7 @@
                 <div id="content-head">
                     <h2 id="content-title">Select a playlist</h2>
                     <span class="spacer"></span>
+                    <button id="play-all-btn" class="hidden">▶ Play all</button>
                     <button id="save-btn" class="hidden">💾 Save</button>
                     <button id="download-btn" class="ghost hidden">⬇ Download</button>
                 </div>
@@ -69,9 +72,14 @@
         <!-- Bottom: player bar -->
         <footer id="player-bar">
             <button id="prev-btn" class="ghost" title="Previous">⏮</button>
+            <div id="viz" class="viz" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+            </div>
             <div id="now-playing">Nothing playing</div>
             <audio id="audio" controls preload="none"></audio>
             <button id="next-btn" class="ghost" title="Next">⏭</button>
+            <button id="repeat-btn" class="ghost" title="Repeat playlist">🔁</button>
         </footer>
 
     </div>

@@ -22,12 +22,12 @@ export async function listPlaylists(uid) {
     return out;
 }
 
-// Create an empty playlist, return its new id.
-export async function createPlaylist(uid, name) {
+// Create a playlist (optionally pre-filled, e.g. from an imported file).
+export async function createPlaylist(uid, name, tracks = []) {
     const ref = await addDoc(playlistsRef, {
         owner: uid,
         name,
-        tracks: [],
+        tracks,
         updatedAt: serverTimestamp()
     });
     return ref.id;

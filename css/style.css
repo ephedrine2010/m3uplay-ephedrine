@@ -128,11 +128,12 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
 #playlist-list .del { background: none; color: var(--muted); min-height: auto; padding: 4px 8px; }
 
 .create-row {
-    display: flex; gap: 8px; padding: 10px;
+    display: flex; gap: 8px; padding: 10px 10px 4px;
     border-top: 1px solid var(--line);
 }
 .create-row input { flex: 1; }
 .create-row button { flex: 0 0 48px; padding: 10px 0; }
+.import-btn { margin: 4px 10px 10px; width: calc(100% - 20px); }
 
 /* ---- content / tracks ---- */
 #content {
@@ -160,8 +161,12 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
 #track-list li.playing { border-color: var(--accent); background: #16223a; }
 .t-play { flex: 0 0 44px; background: var(--panel-2); }
 .t-play.is-playing { background: var(--accent); }
-.t-name { flex: 0 0 30%; }
-.t-url { flex: 1; }
+.t-name-text {
+    flex: 1; min-width: 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    cursor: pointer; padding: 4px 2px;
+}
+#track-list li.playing .t-name-text { color: #bfdbfe; font-weight: 500; }
 .t-btn { flex: 0 0 42px; padding: 8px 0; background: var(--panel-2); color: var(--text); }
 .t-btn.danger { background: var(--danger); color:#fff; }
 .empty { color: var(--muted); text-align: center; padding: 24px; }
@@ -182,6 +187,25 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
     border-top: 1px solid var(--line);
 }
 #player-bar .ghost { flex: 0 0 52px; font-size: 1.2rem; padding: 8px 0; }
+#player-bar .ghost.active { background: var(--accent); color: #fff; }
+
+/* decorative equalizer — animates only while a track is playing */
+.viz { display: flex; align-items: flex-end; gap: 3px; height: 30px; flex: 0 0 auto; }
+.viz span {
+    width: 4px; height: 5px;
+    background: var(--accent); border-radius: 2px;
+    transition: height .2s ease;
+}
+.viz.playing span { animation: viz-bounce .9s ease-in-out infinite; }
+.viz span:nth-child(1) { animation-delay: 0s; }
+.viz span:nth-child(2) { animation-delay: -.7s; }
+.viz span:nth-child(3) { animation-delay: -.3s; }
+.viz span:nth-child(4) { animation-delay: -.9s; }
+.viz span:nth-child(5) { animation-delay: -.2s; }
+.viz span:nth-child(6) { animation-delay: -.6s; }
+.viz span:nth-child(7) { animation-delay: -.4s; }
+.viz span:nth-child(8) { animation-delay: -.8s; }
+@keyframes viz-bounce { 0%, 100% { height: 5px; } 50% { height: 28px; } }
 #now-playing {
     flex: 0 0 180px; color: var(--text); font-weight: 500;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
@@ -206,4 +230,5 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
     #sidebar { max-height: 38vh; border-right: none; border-bottom: 1px solid var(--line); }
     #now-playing { flex-basis: 100px; }
     .t-name { flex-basis: 36%; }
+    #viz { display: none; }
 }
