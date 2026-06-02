@@ -2,27 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>M3U Playlist Manager</title>
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <header>
-        <h1>🎵 M3U Playlist Manager</h1>
-        <div id="user-bar">
-            <span id="user-email"></span>
-            <button id="signout-btn" class="secondary">Sign out</button>
-        </div>
-    </header>
 
-    <!-- Sign-in gate -->
+    <!-- ===== Sign-in screen ===== -->
     <section id="signin-box">
         <div class="signin-card">
             <div class="signin-logo">🎵</div>
-            <h2>M3U Playlist Manager</h2>
-            <p>Sign in to create and edit your playlists.</p>
+            <h1>M3U Player</h1>
+            <p>Your playlists, anywhere. Sign in to start.</p>
             <button id="signin-btn" class="google-btn">
-                <svg class="g-icon" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
+                <svg class="g-icon" viewBox="0 0 18 18" width="20" height="20" aria-hidden="true">
                     <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/>
                     <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"/>
                     <path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33z"/>
@@ -33,42 +26,55 @@
         </div>
     </section>
 
-    <!-- Main app (shown after sign-in) -->
-    <main id="app" class="hidden">
+    <!-- ===== Main app (3-pane + player bar) ===== -->
+    <div id="app" class="hidden">
 
-        <!-- VIEW 1: Library -->
-        <section id="library-view">
-            <h2>Your playlists</h2>
-            <ul id="playlist-list"></ul>
+        <header id="topbar">
+            <span class="brand">🎵 M3U Player</span>
+            <span class="spacer"></span>
+            <span id="user-email"></span>
+            <button id="signout-btn" class="ghost">Sign out</button>
+        </header>
 
-            <div class="create-row">
-                <input id="new-name" placeholder="New playlist name (e.g. chill)" />
-                <button id="create-btn">+ Create</button>
-            </div>
-        </section>
+        <main id="panes">
+            <!-- Left: playlists -->
+            <aside id="sidebar">
+                <h2>Playlists</h2>
+                <ul id="playlist-list"></ul>
+                <div class="create-row">
+                    <input id="new-name" placeholder="New playlist…" />
+                    <button id="create-btn">+</button>
+                </div>
+            </aside>
 
-        <!-- VIEW 2: Editor -->
-        <section id="editor-view" class="hidden">
-            <div class="editor-head">
-                <button id="back-btn" class="secondary">← Back</button>
-                <h2 id="editor-title"></h2>
-                <button id="copy-editor-link-btn" class="secondary">🔗 Copy m3u link</button>
-            </div>
+            <!-- Right: tracks of selected playlist -->
+            <section id="content">
+                <div id="content-head">
+                    <h2 id="content-title">Select a playlist</h2>
+                    <span class="spacer"></span>
+                    <button id="save-btn" class="hidden">💾 Save</button>
+                    <button id="download-btn" class="ghost hidden">⬇ Download</button>
+                </div>
 
-            <ul id="track-list"></ul>
+                <ul id="track-list"></ul>
 
-            <div class="add-row">
-                <input id="add-name" placeholder="Name (optional)" />
-                <input id="add-url" placeholder="https://…/song.mp3" />
-                <button id="add-track-btn">+ Add link</button>
-            </div>
+                <div id="add-row" class="add-row hidden">
+                    <input id="add-name" placeholder="Name (optional)" />
+                    <input id="add-url" placeholder="https://…/song.mp3" />
+                    <button id="add-track-btn">+ Add</button>
+                </div>
+            </section>
+        </main>
 
-            <div class="editor-actions">
-                <button id="save-btn">💾 Save</button>
-            </div>
-        </section>
+        <!-- Bottom: player bar -->
+        <footer id="player-bar">
+            <button id="prev-btn" class="ghost" title="Previous">⏮</button>
+            <div id="now-playing">Nothing playing</div>
+            <audio id="audio" controls preload="none"></audio>
+            <button id="next-btn" class="ghost" title="Next">⏭</button>
+        </footer>
 
-    </main>
+    </div>
 
     <p id="status"></p>
 

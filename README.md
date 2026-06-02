@@ -1,95 +1,86 @@
-# 🎵 M3U Playlist Manager
+# 🎵 M3U Player
 
-A static web app to create and edit `.m3u` playlists, stored in **Firebase
-Storage**. Users sign in with Google and get their own folder (named from their
-email). Each playlist has a public URL you can paste into VLC or any music player.
+A small web app to manage and **play** M3U playlists. Sign in with Google,
+keep your playlists in the cloud (Firestore), play them in a built-in player,
+and download any playlist as an `.m3u` file. Designed for an ~8″ touch screen.
 
 ```
-Sign in (Google)  →  pick/create playlist  →  add mp3 links  →  Save  →  Copy link  →  play anywhere
+┌─ Google login ─────────────────────────────────────────┐
+│  PLAYLISTS │            TRACKS              [Save][⬇]    │
+│  (left)    │   ▶ 1. Song A                              │
+│  chill     │     2. Song B                              │
+│  + Create  │     + Add track                            │
+├────────────┴─────────────────────────────────────────── ┤
+│  ⏮   ▶ Song A   ──●──── 1:23 / 4:05   🔊    ⏭           │
+└──────────────────────────────────────────────────────── ┘
 ```
 
-There is **no secret token anywhere** — write access comes from being signed in,
-checked by Firebase Storage Rules on Google's servers. Nothing to leak.
+## How it works
+
+- **Auth:** Firebase Authentication (Google sign-in).
+- **Data:** Firestore — each playlist is a document:
+  `playlists/{id} = { owner, name, tracks: [{name, url}], updatedAt }`.
+  No files, no Storage, no CORS, no tokens.
+- **Playback:** a built-in HTML5 `<audio>` player plays each track URL directly
+  in the browser — works on desktop and tablet, no external player needed.
+- **Download:** generates an `.m3u` file in the browser from the current tracks
+  (open it in VLC/AIMP/etc. as a local file — local files expand to all tracks).
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Page shell (Google sign-in, library view, editor view) |
-| `css/style.css` | Styling |
-| `js/config.js` | Firebase config + folder name (no secrets) |
-| `js/firebase.js` | Initializes Firebase once, shared by other modules |
+| `index.html` | 3-pane layout + player bar + sign-in |
+| `css/style.css` | Styling (8″ touch layout) |
+| `js/config.js` | Firebase config (public, no secrets) |
+| `js/firebase.js` | Initializes Firebase once |
 | `js/auth.js` | Google sign-in |
-| `js/storage.js` | List/read/write/delete playlists in Firebase Storage |
-| `js/m3u.js` | Parse & serialize `.m3u` text |
-| `js/app.js` | UI logic |
+| `js/firestore.js` | Playlist CRUD in Firestore |
+| `js/player.js` | Built-in audio player (queue, next/prev, auto-advance) |
+| `js/m3u.js` | Serialize tracks to `.m3u` (for Download) |
+| `js/app.js` | UI wiring |
 
-## Setup (one time, in the Firebase console)
-
-Project: **m3uplay-d9b1f** → <https://console.firebase.google.com/>
+## One-time setup (Firebase console — project `m3uplay-d9b1f`)
 
 ### 1. Enable Google sign-in
 Authentication → **Sign-in method** → enable **Google**.
 
 ### 2. Authorize your domains
-Authentication → **Settings** → **Authorized domains** → add:
-- `localhost` (for local testing)
-- `ephedrine2010.github.io` (your GitHub Pages domain, if you deploy there)
+Authentication → **Settings** → **Authorized domains** → add the domains you
+serve from (e.g. `localhost`, `127.0.0.1`, your server's domain, GitHub Pages).
 
-### 3. Create Storage + set Rules
-Build → **Storage** → Get started (pick a location).
-Then **Rules** tab → paste this → **Publish**:
+### 3. Create Firestore + set Rules
+Build → **Firestore Database** → **Create database** (Production mode, pick a
+region). Then **Rules** tab → paste → **Publish**:
 
 ```
 rules_version = '2';
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /playlists/{userFolder}/{file=**} {
-      allow read: if true;                  // public so music players can fetch
-      allow write: if request.auth != null; // any signed-in user can save
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /playlists/{id} {
+      // Read/write only your own playlists
+      allow read: if request.auth != null && resource.data.owner == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.owner == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.owner == request.auth.uid;
     }
   }
 }
 ```
 
-> Note: this lets any signed-in user write to any folder — matching the
-> "login is just for naming" model. The folders organize playlists; they are
-> not a strict security wall. Fine for a personal/trusted app.
+> Note: these rules scope each user to their **own** playlists (by `owner` =
+> their account uid). No Storage rules or CORS needed anymore.
 
-### 4. Set CORS on the Storage bucket (needed so the editor can LOAD playlists)
-The browser fetching file contents cross-origin needs CORS. Run once with the
-[gcloud CLI](https://cloud.google.com/sdk/docs/install) (`gsutil`):
+## Run it (needs http, not file://)
 
-Create `cors.json`:
-```json
-[
-  {
-    "origin": ["http://localhost:8000", "https://ephedrine2010.github.io"],
-    "method": ["GET"],
-    "responseHeader": ["Content-Type"],
-    "maxAgeSeconds": 3600
-  }
-]
-```
-Then:
-```
-gsutil cors set cors.json gs://m3uplay-d9b1f.firebasestorage.app
-```
-(Skip/adjust origins to match wherever you actually serve the app.)
+- **Local:** `python -m http.server 8000` → <http://localhost:8000>
+- **Deploy:** any static host (GitHub Pages, your own server). It's just static files.
 
-## Run it (NOT from file:// — needs http for ES modules + Google popup)
+## Notes
 
-- **Local:** `python -m http.server 8000` in this folder → <http://localhost:8000>
-- **Deploy:** push to your repo and enable **GitHub Pages**
-  (Settings → Pages → deploy from `main` / root) →
-  `https://ephedrine2010.github.io/m3uplay-ephedrine/`
-
-## Playing a playlist
-
-Click **Copy m3u link** in the app, then in VLC: *Media → Open Network Stream*
-and paste it. Mobile players: use their "add playlist by URL" field.
-
-## Housekeeping
-
-The old GitHub personal access token from the earlier design is no longer used —
-**revoke it** at GitHub → Settings → Developer settings → Fine-grained tokens.
+- The built-in player plays whatever the **browser** supports (mp3/m4a/ogg —
+  mp3 is universal). It plays only while the tab is open.
+- Cross-origin audio playback needs **no** CORS setup (only reading raw audio
+  data for visualizers would — and we don't do that).
+- The old Firebase **Storage** approach (files, CORS, public IAM) is gone; you
+  can delete the `playlists/` folder in Storage and the public-read IAM binding
+  if you want to clean up.

@@ -1,201 +1,195 @@
 // ============================================================================
-//  APP  —  ties auth + storage (Firebase) + M3U + the UI together.
-//  Two views: #library-view (list/create playlists) and #editor-view
-//  (add/modify/delete tracks, save, copy link).
+//  APP  —  ties together auth + Firestore + the built-in player + the UI.
+//  Layout: playlists (left) | tracks (right) | player bar (bottom).
 // ============================================================================
 
 import { watchAuth, signIn, signOutUser } from "./auth.js";
 import {
-    folderForEmail, listPlaylists, getFile, putFile, deleteFile, getPlayUrl
-} from "./storage.js";
-import { parseM3U, serializeM3U } from "./m3u.js";
+    listPlaylists, createPlaylist, savePlaylistTracks, deletePlaylist
+} from "./firestore.js";
+import { serializeM3U, nameFromUrl } from "./m3u.js";
+import { initPlayer, setQueue, playAt, next, prev, playingIndex } from "./player.js";
 
-// ---- app state -------------------------------------------------------------
+// ---- state -----------------------------------------------------------------
 const state = {
-    user: null,        // firebase user
-    folder: null,      // playlists/<email>
-    current: null,     // { name, path, sha } of the open playlist
-    tracks: []         // editable track objects for the open playlist
+    uid: null,
+    playlists: [],   // [{ id, name, tracks }]
+    current: null,   // selected playlist { id, name }
+    tracks: []       // editable copy of current playlist's tracks
 };
 
-// ---- tiny DOM helpers ------------------------------------------------------
+// ---- DOM helpers -----------------------------------------------------------
 const $ = sel => document.querySelector(sel);
 const show = sel => $(sel).classList.remove("hidden");
 const hide = sel => $(sel).classList.add("hidden");
 
+let statusTimer = null;
 function setStatus(msg, isError = false) {
     const el = $("#status");
     el.textContent = msg || "";
     el.classList.toggle("error", !!isError);
-}
-
-function showView(view) {
-    hide("#library-view");
-    hide("#editor-view");
-    show(view);
+    clearTimeout(statusTimer);
+    if (msg) statusTimer = setTimeout(() => { el.textContent = ""; }, 3500);
 }
 
 // ============================================================================
-//  AUTH WIRING
+//  AUTH
 // ============================================================================
 watchAuth(async (user) => {
-    state.user = user;
     if (user) {
-        state.folder = folderForEmail(user.email);
+        state.uid = user.uid;
         $("#user-email").textContent = user.email;
         hide("#signin-box");
         show("#app");
-        show("#user-bar");
-        await openLibrary();
+        await loadPlaylists();
     } else {
-        state.folder = null;
+        state.uid = null;
+        state.playlists = [];
+        state.current = null;
+        state.tracks = [];
         show("#signin-box");
         hide("#app");
-        hide("#user-bar");
     }
 });
 
 $("#signin-btn").addEventListener("click", async () => {
-    try { await signIn(); }
-    catch (e) { setStatus(e.message, true); }
+    try { await signIn(); } catch (e) { setStatus(e.message, true); }
 });
-
 $("#signout-btn").addEventListener("click", () => signOutUser());
 
 // ============================================================================
-//  LIBRARY VIEW  —  list playlists, create a new one
+//  PLAYLISTS (left pane)
 // ============================================================================
-async function openLibrary() {
-    showView("#library-view");
-    setStatus("Loading your playlists…");
+async function loadPlaylists() {
+    setStatus("Loading playlists…");
     try {
-        const playlists = await listPlaylists(state.folder);
-        renderLibrary(playlists);
+        state.playlists = await listPlaylists(state.uid);
+        renderPlaylists();
         setStatus("");
     } catch (e) {
         setStatus(e.message, true);
     }
 }
 
-function renderLibrary(playlists) {
+function renderPlaylists() {
     const ul = $("#playlist-list");
     ul.innerHTML = "";
-    if (playlists.length === 0) {
-        ul.innerHTML = `<li class="empty">No playlists yet. Create your first one below.</li>`;
+    if (state.playlists.length === 0) {
+        ul.innerHTML = `<li class="empty">No playlists yet</li>`;
         return;
     }
-    for (const pl of playlists) {
+    for (const pl of state.playlists) {
         const li = document.createElement("li");
+        if (state.current && state.current.id === pl.id) li.classList.add("active");
 
         const name = document.createElement("span");
         name.className = "pl-name";
         name.textContent = pl.name;
+        name.addEventListener("click", () => selectPlaylist(pl));
 
-        const openBtn = document.createElement("button");
-        openBtn.textContent = "Open";
-        openBtn.addEventListener("click", () => openEditor(pl));
+        const del = document.createElement("button");
+        del.className = "del";
+        del.textContent = "✕";
+        del.title = "Delete playlist";
+        del.addEventListener("click", (e) => { e.stopPropagation(); removePlaylist(pl); });
 
-        const copyBtn = document.createElement("button");
-        copyBtn.textContent = "Copy link";
-        copyBtn.className = "secondary";
-        copyBtn.addEventListener("click", () => copyLink(pl.path));
-
-        const delBtn = document.createElement("button");
-        delBtn.textContent = "Delete";
-        delBtn.className = "danger";
-        delBtn.addEventListener("click", () => removePlaylist(pl));
-
-        li.append(name, openBtn, copyBtn, delBtn);
+        li.append(name, del);
         ul.appendChild(li);
     }
 }
 
 $("#create-btn").addEventListener("click", async () => {
-    let name = ($("#new-name").value || "").trim();
+    const name = ($("#new-name").value || "").trim();
     if (!name) { setStatus("Enter a playlist name.", true); return; }
-    if (!name.toLowerCase().endsWith(".m3u")) name += ".m3u";
-    name = name.replace(/[^a-z0-9._-]+/gi, "_"); // keep filenames safe
-
-    const path = `${state.folder}/${name}`;
-    setStatus("Creating playlist…");
+    setStatus("Creating…");
     try {
-        await putFile(path, serializeM3U([]), `Create playlist ${name}`);
+        const id = await createPlaylist(state.uid, name);
         $("#new-name").value = "";
-        await openLibrary();
+        await loadPlaylists();
+        const pl = state.playlists.find(p => p.id === id);
+        if (pl) selectPlaylist(pl);
     } catch (e) {
         setStatus(e.message, true);
     }
 });
 
 async function removePlaylist(pl) {
-    if (!confirm(`Delete "${pl.name}"? This cannot be undone.`)) return;
-    setStatus("Deleting…");
+    if (!confirm(`Delete "${pl.name}"?`)) return;
     try {
-        await deleteFile(pl.path, pl.sha, `Delete playlist ${pl.name}`);
-        await openLibrary();
+        await deletePlaylist(pl.id);
+        if (state.current && state.current.id === pl.id) {
+            state.current = null;
+            state.tracks = [];
+            $("#content-title").textContent = "Select a playlist";
+            hide("#save-btn"); hide("#download-btn"); hide("#add-row");
+            renderTracks();
+        }
+        await loadPlaylists();
     } catch (e) {
         setStatus(e.message, true);
     }
 }
 
 // ============================================================================
-//  EDITOR VIEW  —  add / modify / delete tracks, save, copy link
+//  TRACKS (right pane)
 // ============================================================================
-async function openEditor(pl) {
-    setStatus("Opening…");
-    try {
-        const { text, sha } = await getFile(pl.path);
-        state.current = { ...pl, sha };
-        state.tracks = parseM3U(text);
-        $("#editor-title").textContent = pl.name;
-        renderTracks();
-        showView("#editor-view");
-        setStatus("");
-    } catch (e) {
-        setStatus(e.message, true);
-    }
+function selectPlaylist(pl) {
+    state.current = { id: pl.id, name: pl.name };
+    state.tracks = (pl.tracks || []).map(t => ({ name: t.name || "", url: t.url || "" }));
+    $("#content-title").textContent = pl.name;
+    show("#save-btn"); show("#download-btn"); show("#add-row");
+    setQueue(state.tracks);
+    renderPlaylists();   // refresh active highlight
+    renderTracks();
 }
 
 function renderTracks() {
     const ul = $("#track-list");
     ul.innerHTML = "";
-    if (state.tracks.length === 0) {
-        ul.innerHTML = `<li class="empty">No tracks yet. Add an mp3 link below.</li>`;
+    if (!state.current) {
+        ul.innerHTML = `<li class="empty">Pick a playlist on the left</li>`;
         return;
     }
+    if (state.tracks.length === 0) {
+        ul.innerHTML = `<li class="empty">No tracks yet — add one below</li>`;
+        return;
+    }
+    const playing = playingIndex();
     state.tracks.forEach((t, i) => {
         const li = document.createElement("li");
+        if (i === playing) li.classList.add("playing");
+
+        const playBtn = document.createElement("button");
+        playBtn.className = "t-play" + (i === playing ? " is-playing" : "");
+        playBtn.textContent = "▶";
+        playBtn.title = "Play";
+        playBtn.addEventListener("click", () => { playAt(i); renderTracks(); updateNowPlaying(); });
 
         const nameInput = document.createElement("input");
-        nameInput.className = "track-name";
-        nameInput.placeholder = "Name (optional)";
+        nameInput.className = "t-name";
+        nameInput.placeholder = "Name";
         nameInput.value = t.name || "";
         nameInput.addEventListener("input", () => { t.name = nameInput.value; });
 
         const urlInput = document.createElement("input");
-        urlInput.className = "track-url";
+        urlInput.className = "t-url";
         urlInput.placeholder = "https://…/song.mp3";
         urlInput.value = t.url || "";
-        urlInput.addEventListener("input", () => { t.url = urlInput.value; });
+        urlInput.addEventListener("input", () => { t.url = urlInput.value; setQueue(state.tracks); });
 
-        const upBtn = document.createElement("button");
-        upBtn.textContent = "↑";
-        upBtn.className = "secondary";
-        upBtn.disabled = i === 0;
-        upBtn.addEventListener("click", () => moveTrack(i, -1));
+        const up = document.createElement("button");
+        up.className = "t-btn"; up.textContent = "↑"; up.disabled = i === 0;
+        up.addEventListener("click", () => moveTrack(i, -1));
 
-        const downBtn = document.createElement("button");
-        downBtn.textContent = "↓";
-        downBtn.className = "secondary";
-        downBtn.disabled = i === state.tracks.length - 1;
-        downBtn.addEventListener("click", () => moveTrack(i, +1));
+        const down = document.createElement("button");
+        down.className = "t-btn"; down.textContent = "↓"; down.disabled = i === state.tracks.length - 1;
+        down.addEventListener("click", () => moveTrack(i, +1));
 
-        const delBtn = document.createElement("button");
-        delBtn.textContent = "✕";
-        delBtn.className = "danger";
-        delBtn.addEventListener("click", () => { state.tracks.splice(i, 1); renderTracks(); });
+        const del = document.createElement("button");
+        del.className = "t-btn danger"; del.textContent = "✕";
+        del.addEventListener("click", () => { state.tracks.splice(i, 1); setQueue(state.tracks); renderTracks(); });
 
-        li.append(nameInput, urlInput, upBtn, downBtn, delBtn);
+        li.append(playBtn, nameInput, urlInput, up, down, del);
         ul.appendChild(li);
     });
 }
@@ -204,30 +198,34 @@ function moveTrack(i, dir) {
     const j = i + dir;
     if (j < 0 || j >= state.tracks.length) return;
     [state.tracks[i], state.tracks[j]] = [state.tracks[j], state.tracks[i]];
+    setQueue(state.tracks);
     renderTracks();
 }
 
 $("#add-track-btn").addEventListener("click", () => {
     const url = ($("#add-url").value || "").trim();
-    const name = ($("#add-name").value || "").trim();
     if (!url) { setStatus("Paste an mp3 link first.", true); return; }
-    state.tracks.push({ url, name, duration: -1 });
-    $("#add-url").value = "";
+    const name = ($("#add-name").value || "").trim() || nameFromUrl(url);
+    state.tracks.push({ name, url });
     $("#add-name").value = "";
-    setStatus("");
+    $("#add-url").value = "";
+    setQueue(state.tracks);
     renderTracks();
 });
 
 $("#save-btn").addEventListener("click", async () => {
-    const cleaned = state.tracks.filter(t => (t.url || "").trim() !== "");
+    if (!state.current) return;
+    const cleaned = state.tracks
+        .filter(t => (t.url || "").trim() !== "")
+        .map(t => ({ name: (t.name || "").trim() || nameFromUrl(t.url), url: t.url.trim() }));
     setStatus("Saving…");
     try {
-        const text = serializeM3U(cleaned);
-        const { sha } = await putFile(
-            state.current.path, text, `Update playlist ${state.current.name}`, state.current.sha
-        );
-        state.current.sha = sha; // keep latest sha so further saves work
+        await savePlaylistTracks(state.current.id, cleaned);
         state.tracks = cleaned;
+        // keep local cache in sync
+        const cached = state.playlists.find(p => p.id === state.current.id);
+        if (cached) cached.tracks = cleaned;
+        setQueue(state.tracks);
         renderTracks();
         setStatus("Saved ✓");
     } catch (e) {
@@ -235,27 +233,32 @@ $("#save-btn").addEventListener("click", async () => {
     }
 });
 
-$("#copy-editor-link-btn").addEventListener("click", () => copyLink(state.current.path));
-
-$("#back-btn").addEventListener("click", () => openLibrary());
+// ---- download the current playlist as an .m3u file -------------------------
+$("#download-btn").addEventListener("click", () => {
+    if (!state.current) return;
+    const text = serializeM3U(state.tracks.filter(t => (t.url || "").trim() !== ""));
+    const blob = new Blob([text], { type: "audio/x-mpegurl" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = state.current.name.toLowerCase().endsWith(".m3u")
+        ? state.current.name
+        : `${state.current.name}.m3u`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+});
 
 // ============================================================================
-//  SHARED
+//  PLAYER (bottom bar)
 // ============================================================================
-async function copyLink(path) {
-    setStatus("Getting link…");
-    let url;
-    try {
-        url = await getPlayUrl(path);
-    } catch (e) {
-        setStatus(e.message, true);
-        return;
-    }
-    try {
-        await navigator.clipboard.writeText(url);
-        setStatus(`Link copied: ${url}`);
-    } catch {
-        // Clipboard API can fail on file:// — show the URL so it can be copied manually.
-        setStatus(`Copy this link: ${url}`);
-    }
+function updateNowPlaying() {
+    const i = playingIndex();
+    const t = i >= 0 ? state.tracks[i] : null;
+    $("#now-playing").textContent = t ? (t.name || nameFromUrl(t.url)) : "Nothing playing";
 }
+
+initPlayer($("#audio"), () => { renderTracks(); updateNowPlaying(); });
+$("#prev-btn").addEventListener("click", () => { prev(); renderTracks(); updateNowPlaying(); });
+$("#next-btn").addEventListener("click", () => { next(); renderTracks(); updateNowPlaying(); });

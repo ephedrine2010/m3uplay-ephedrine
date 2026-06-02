@@ -1,6 +1,6 @@
 // ============================================================================
 //  FIREBASE  —  initialize the app ONCE and share it across modules.
-//  Both auth.js (sign-in) and storage.js (playlist files) import `app`.
+//  Both auth.js (sign-in) and firestore.js (playlist data) import `app`.
 // ============================================================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
