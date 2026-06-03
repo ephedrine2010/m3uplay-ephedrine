@@ -89,7 +89,7 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
 
 #topbar {
     display: flex; align-items: center; gap: 12px;
-    padding: 10px 16px;
+    padding: 6px 14px;
     background: var(--panel);
     border-bottom: 1px solid var(--line);
 }
@@ -110,7 +110,7 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
     min-height: 0;
 }
 #sidebar h2, #content-head h2 { font-size: 1rem; margin: 0; }
-#sidebar h2 { padding: 14px 16px 8px; }
+#sidebar h2 { padding: 9px 14px 5px; }
 
 #playlist-list {
     list-style: none; margin: 0; padding: 0 8px;
@@ -118,9 +118,10 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
 }
 #playlist-list li {
     display: flex; align-items: center; gap: 6px;
-    padding: 12px 12px; margin-bottom: 4px;
-    border-radius: var(--radius);
+    padding: 7px 10px; margin-bottom: 3px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 0.9rem;
 }
 #playlist-list li:active { background: var(--panel-2); }
 #playlist-list li.active { background: var(--accent-2); }
@@ -141,33 +142,33 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
     min-height: 0;
 }
 #content-head {
-    display: flex; align-items: center; gap: 10px;
-    padding: 14px 16px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 14px; border-bottom: 1px solid var(--line);
 }
 #content-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #save-btn { background: var(--ok); }
 
 #track-list {
-    list-style: none; margin: 0; padding: 8px 12px;
+    list-style: none; margin: 0; padding: 6px 10px;
     flex: 1; overflow-y: auto;
 }
 #track-list li {
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center; gap: 6px;
     background: var(--panel);
     border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 8px 10px; margin-bottom: 8px;
+    border-radius: 8px;
+    padding: 4px 8px; margin-bottom: 5px;
 }
 #track-list li.playing { border-color: var(--accent); background: #16223a; }
-.t-play { flex: 0 0 44px; background: var(--panel-2); }
+.t-play { flex: 0 0 38px; min-height: 36px; padding: 6px 0; background: var(--panel-2); }
 .t-play.is-playing { background: var(--accent); }
 .t-name-text {
-    flex: 1; min-width: 0;
+    flex: 1; min-width: 0; font-size: 0.9rem;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    cursor: pointer; padding: 4px 2px;
+    cursor: pointer; padding: 2px;
 }
 #track-list li.playing .t-name-text { color: #bfdbfe; font-weight: 500; }
-.t-btn { flex: 0 0 42px; padding: 8px 0; background: var(--panel-2); color: var(--text); }
+.t-btn { flex: 0 0 36px; min-height: 36px; padding: 6px 0; background: var(--panel-2); color: var(--text); }
 .t-btn.danger { background: var(--danger); color:#fff; }
 .empty { color: var(--muted); text-align: center; padding: 24px; }
 
