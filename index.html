@@ -64,10 +64,6 @@
 
             <!-- Right: tracks of selected playlist -->
             <section id="content">
-                <div id="content-head">
-                    <h2 id="content-title">Select a playlist</h2>
-                </div>
-
                 <ul id="track-list"></ul>
             </section>
         </main>
@@ -103,6 +99,17 @@
                 <div class="modal-actions">
                     <button id="add-song-done" class="ghost">Done</button>
                     <button id="add-track-btn">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirm popup (reusable) -->
+        <div id="confirm-modal" class="modal-overlay hidden">
+            <div class="modal">
+                <h3 id="confirm-text">Are you sure?</h3>
+                <div class="modal-actions">
+                    <button id="confirm-cancel" class="ghost">Cancel</button>
+                    <button id="confirm-ok" class="danger">Remove</button>
                 </div>
             </div>
         </div>

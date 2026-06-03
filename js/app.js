@@ -101,6 +101,23 @@ function renderPlaylists() {
     }
 }
 
+// ---- reusable confirm popup → returns a Promise<boolean> -------------------
+const confirmModal = $("#confirm-modal");
+let confirmResolve = null;
+function askConfirm(message, okLabel = "Remove") {
+    $("#confirm-text").textContent = message;
+    $("#confirm-ok").textContent = okLabel;
+    confirmModal.classList.remove("hidden");
+    return new Promise(resolve => { confirmResolve = resolve; });
+}
+function resolveConfirm(value) {
+    confirmModal.classList.add("hidden");
+    if (confirmResolve) { confirmResolve(value); confirmResolve = null; }
+}
+$("#confirm-ok").addEventListener("click", () => resolveConfirm(true));
+$("#confirm-cancel").addEventListener("click", () => resolveConfirm(false));
+confirmModal.addEventListener("click", (e) => { if (e.target === confirmModal) resolveConfirm(false); });
+
 // ---- New-playlist popup ----------------------------------------------------
 const newPlModal = $("#new-pl-modal");
 function openNewPlaylist() {
@@ -136,13 +153,12 @@ $("#new-name").addEventListener("keydown", (e) => {
 });
 
 async function removePlaylist(pl) {
-    if (!confirm(`Delete "${pl.name}"?`)) return;
+    if (!await askConfirm(`Delete playlist "${pl.name}"?`, "Delete")) return;
     try {
         await deletePlaylist(pl.id);
         if (state.current && state.current.id === pl.id) {
             state.current = null;
             state.tracks = [];
-            $("#content-title").textContent = "Select a playlist";
             hide("#play-all-btn"); hide("#add-song-btn"); hide("#download-btn");
             renderTracks();
         }
@@ -158,7 +174,6 @@ async function removePlaylist(pl) {
 function selectPlaylist(pl) {
     state.current = { id: pl.id, name: pl.name };
     state.tracks = (pl.tracks || []).map(t => ({ name: t.name || "", url: t.url || "" }));
-    $("#content-title").textContent = pl.name;
     show("#play-all-btn"); show("#add-song-btn"); show("#download-btn");
     setQueue(state.tracks);
     updatePlayAllBtn();
@@ -207,8 +222,15 @@ function renderTracks() {
         down.addEventListener("click", () => moveTrack(i, +1));
 
         const del = document.createElement("button");
-        del.className = "t-btn danger"; del.textContent = "✕";
-        del.addEventListener("click", () => { state.tracks.splice(i, 1); setQueue(state.tracks); renderTracks(); scheduleSave(); });
+        del.className = "del"; del.textContent = "✕"; del.title = "Remove";
+        del.addEventListener("click", async () => {
+            const ok = await askConfirm(`Remove "${t.name || nameFromUrl(t.url)}"?`);
+            if (!ok) return;
+            state.tracks.splice(i, 1);
+            setQueue(state.tracks);
+            renderTracks();
+            scheduleSave();
+        });
 
         li.append(playBtn, nameEl, up, down, del);
         ul.appendChild(li);
