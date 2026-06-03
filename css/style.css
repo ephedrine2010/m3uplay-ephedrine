@@ -111,7 +111,16 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
     min-height: 0;
 }
 #sidebar h2, #content-head h2 { font-size: 1rem; margin: 0; }
-#sidebar h2 { padding: 9px 14px 5px; }
+#sidebar-head {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 10px 6px;
+    border-bottom: 1px solid var(--line);
+}
+.icon-btn {
+    flex: 0 0 auto; min-height: 34px; min-width: 34px;
+    padding: 4px 8px; font-size: 1.05rem;
+    background: var(--panel-2); color: var(--text);
+}
 
 #playlist-list {
     list-style: none; margin: 0; padding: 0 8px;
@@ -129,13 +138,21 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
 #playlist-list .pl-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #playlist-list .del { background: none; color: var(--muted); min-height: auto; padding: 4px 8px; }
 
-.create-row {
-    display: flex; gap: 8px; padding: 10px 10px 4px;
-    border-top: 1px solid var(--line);
+/* ---- new-playlist popup ---- */
+.modal-overlay {
+    position: fixed; inset: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, .55); padding: 24px;
 }
-.create-row input { flex: 1; }
-.create-row button { flex: 0 0 48px; padding: 10px 0; }
-.import-btn { margin: 4px 10px 10px; width: calc(100% - 20px); }
+.modal {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 16px; padding: 20px;
+    width: 100%; max-width: 340px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+}
+.modal h3 { margin: 0 0 14px; font-size: 1.1rem; }
+.modal input { margin-bottom: 16px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
 
 /* ---- content / tracks ---- */
 #content {
@@ -147,7 +164,6 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
     padding: 7px 14px; border-bottom: 1px solid var(--line);
 }
 #content-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-#save-btn { background: var(--ok); }
 
 #track-list {
     list-style: none; margin: 0; padding: 6px 10px;

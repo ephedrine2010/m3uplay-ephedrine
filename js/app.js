@@ -9,7 +9,7 @@ import {
 } from "./firestore.js";
 import { serializeM3U, parseM3U, nameFromUrl } from "./m3u.js";
 import {
-    initPlayer, setQueue, playAt, next, prev, playingIndex, setRepeat, getRepeat,
+    initPlayer, setQueue, playAt, next, prev, playingIndex, setRepeat,
     pause, resume, isPlaying
 } from "./player.js";
 
@@ -101,19 +101,38 @@ function renderPlaylists() {
     }
 }
 
-$("#create-btn").addEventListener("click", async () => {
+// ---- New-playlist popup ----------------------------------------------------
+const newPlModal = $("#new-pl-modal");
+function openNewPlaylist() {
+    newPlModal.classList.remove("hidden");
+    const input = $("#new-name");
+    input.value = "";
+    input.focus();
+}
+function closeNewPlaylist() { newPlModal.classList.add("hidden"); }
+
+async function createPlaylistFromModal() {
     const name = ($("#new-name").value || "").trim();
     if (!name) { setStatus("Enter a playlist name.", true); return; }
     setStatus("Creating…");
     try {
         const id = await createPlaylist(state.uid, name);
-        $("#new-name").value = "";
+        closeNewPlaylist();
         await loadPlaylists();
         const pl = state.playlists.find(p => p.id === id);
         if (pl) selectPlaylist(pl);
     } catch (e) {
         setStatus(e.message, true);
     }
+}
+
+$("#new-pl-btn").addEventListener("click", openNewPlaylist);
+$("#new-pl-cancel").addEventListener("click", closeNewPlaylist);
+$("#new-pl-create").addEventListener("click", createPlaylistFromModal);
+newPlModal.addEventListener("click", (e) => { if (e.target === newPlModal) closeNewPlaylist(); });
+$("#new-name").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") createPlaylistFromModal();
+    else if (e.key === "Escape") closeNewPlaylist();
 });
 
 async function removePlaylist(pl) {
@@ -124,7 +143,7 @@ async function removePlaylist(pl) {
             state.current = null;
             state.tracks = [];
             $("#content-title").textContent = "Select a playlist";
-            hide("#play-all-btn"); hide("#save-btn"); hide("#download-btn"); hide("#add-row");
+            hide("#play-all-btn"); hide("#download-btn"); hide("#add-row");
             renderTracks();
         }
         await loadPlaylists();
@@ -140,7 +159,7 @@ function selectPlaylist(pl) {
     state.current = { id: pl.id, name: pl.name };
     state.tracks = (pl.tracks || []).map(t => ({ name: t.name || "", url: t.url || "" }));
     $("#content-title").textContent = pl.name;
-    show("#play-all-btn"); show("#save-btn"); show("#download-btn"); show("#add-row");
+    show("#play-all-btn"); show("#download-btn"); show("#add-row");
     setQueue(state.tracks);
     updatePlayAllBtn();
     renderPlaylists();   // refresh active highlight
@@ -257,9 +276,6 @@ async function persist(reRender) {
     }
 }
 
-$("#save-btn").addEventListener("click", () => persist(true));
-
-// ---- download the current playlist as an .m3u file -------------------------
 // ---- Play all / Stop / Continue (one toggle button) ------------------------
 // Idle  → "▶ Play all"  (plays from the top)
 // Playing → "⏹ Stop"    (pauses, so it can resume)
@@ -321,6 +337,7 @@ function updateNowPlaying() {
 }
 
 initPlayer($("#audio"), () => { renderTracks(); updateNowPlaying(); });
+setRepeat(true); // looping is always on (no toggle)
 
 // Tap a track: play it, or pause/resume if it's already the current one.
 function toggleTrack(i) {
@@ -348,13 +365,6 @@ audioEl.addEventListener("pause", reflectPlayState);
 audioEl.addEventListener("ended", reflectPlayState);
 $("#prev-btn").addEventListener("click", () => { prev(); renderTracks(); updateNowPlaying(); });
 $("#next-btn").addEventListener("click", () => { next(); renderTracks(); updateNowPlaying(); });
-
-$("#repeat-btn").addEventListener("click", () => {
-    const on = !getRepeat();
-    setRepeat(on);
-    $("#repeat-btn").classList.toggle("active", on);
-    setStatus(on ? "Repeat on" : "Repeat off");
-});
 
 // ============================================================================
 //  IMPORT  —  upload an .m3u file → parse → create a new playlist from it

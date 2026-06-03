@@ -38,6 +38,7 @@
 
         <header id="topbar">
             <span class="brand">🎵 M3U Player</span>
+            <button id="play-all-btn" class="hidden">▶ Play all</button>
             <span class="spacer"></span>
             <span id="user-email"></span>
             <button id="signout-btn" class="ghost">Sign out</button>
@@ -46,13 +47,13 @@
         <main id="panes">
             <!-- Left: playlists -->
             <aside id="sidebar">
-                <h2>Playlists</h2>
-                <ul id="playlist-list"></ul>
-                <div class="create-row">
-                    <input id="new-name" placeholder="New playlist…" />
-                    <button id="create-btn">+</button>
+                <div id="sidebar-head">
+                    <h2>Playlists</h2>
+                    <span class="spacer"></span>
+                    <button id="new-pl-btn" class="icon-btn" title="New playlist">＋</button>
+                    <button id="import-btn" class="icon-btn" title="Import .m3u">⬆</button>
                 </div>
-                <button id="import-btn" class="ghost import-btn">⬆ Import .m3u</button>
+                <ul id="playlist-list"></ul>
                 <input id="import-file" type="file" accept=".m3u,.m3u8,audio/x-mpegurl,audio/mpegurl" class="hidden" />
             </aside>
 
@@ -61,8 +62,6 @@
                 <div id="content-head">
                     <h2 id="content-title">Select a playlist</h2>
                     <span class="spacer"></span>
-                    <button id="play-all-btn" class="hidden">▶ Play all</button>
-                    <button id="save-btn" class="hidden">💾 Save</button>
                     <button id="download-btn" class="ghost hidden">⬇ Download</button>
                 </div>
 
@@ -86,8 +85,19 @@
             <div id="now-playing">Nothing playing</div>
             <audio id="audio" controls preload="none"></audio>
             <button id="next-btn" class="ghost" title="Next">⏭</button>
-            <button id="repeat-btn" class="ghost" title="Repeat playlist">🔁</button>
         </footer>
+
+        <!-- New-playlist popup -->
+        <div id="new-pl-modal" class="modal-overlay hidden">
+            <div class="modal">
+                <h3>New playlist</h3>
+                <input id="new-name" placeholder="Playlist name…" />
+                <div class="modal-actions">
+                    <button id="new-pl-cancel" class="ghost">Cancel</button>
+                    <button id="new-pl-create">Create</button>
+                </div>
+            </div>
+        </div>
 
     </div>
 
