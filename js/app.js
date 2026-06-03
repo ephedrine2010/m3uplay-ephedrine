@@ -9,7 +9,7 @@ import {
 } from "./firestore.js";
 import { serializeM3U, parseM3U, nameFromUrl } from "./m3u.js";
 import {
-    initPlayer, setQueue, playAt, next, prev, playingIndex, setRepeat,
+    initPlayer, setQueue, playAt, playingIndex, setRepeat,
     pause, resume, isPlaying
 } from "./player.js";
 
@@ -143,7 +143,7 @@ async function removePlaylist(pl) {
             state.current = null;
             state.tracks = [];
             $("#content-title").textContent = "Select a playlist";
-            hide("#play-all-btn"); hide("#download-btn"); hide("#add-row");
+            hide("#play-all-btn"); hide("#add-song-btn"); hide("#download-btn");
             renderTracks();
         }
         await loadPlaylists();
@@ -159,7 +159,7 @@ function selectPlaylist(pl) {
     state.current = { id: pl.id, name: pl.name };
     state.tracks = (pl.tracks || []).map(t => ({ name: t.name || "", url: t.url || "" }));
     $("#content-title").textContent = pl.name;
-    show("#play-all-btn"); show("#download-btn"); show("#add-row");
+    show("#play-all-btn"); show("#add-song-btn"); show("#download-btn");
     setQueue(state.tracks);
     updatePlayAllBtn();
     renderPlaylists();   // refresh active highlight
@@ -224,7 +224,19 @@ function moveTrack(i, dir) {
     scheduleSave();
 }
 
-$("#add-track-btn").addEventListener("click", () => {
+// ---- Add-song popup --------------------------------------------------------
+const addModal = $("#add-song-modal");
+function openAddSong() {
+    if (!state.current) return;
+    addModal.classList.remove("hidden");
+    $("#add-url").value = "";
+    $("#add-name").value = "";
+    $("#add-url").focus();
+}
+function closeAddSong() { addModal.classList.add("hidden"); }
+
+// Adds the song and keeps the popup open (clears fields) so you can add several.
+function addCurrentSong() {
     const url = ($("#add-url").value || "").trim();
     if (!url) { setStatus("Paste an mp3 link first.", true); return; }
     const name = ($("#add-name").value || "").trim() || nameFromUrl(url);
@@ -234,6 +246,21 @@ $("#add-track-btn").addEventListener("click", () => {
     setQueue(state.tracks);
     renderTracks();
     scheduleSave();
+    setStatus("Added ✓");
+    $("#add-url").focus();
+}
+
+$("#add-song-btn").addEventListener("click", openAddSong);
+$("#add-song-done").addEventListener("click", closeAddSong);
+$("#add-track-btn").addEventListener("click", addCurrentSong);
+addModal.addEventListener("click", (e) => { if (e.target === addModal) closeAddSong(); });
+
+// Enter adds, Esc closes — from either field.
+["#add-url", "#add-name"].forEach(sel => {
+    $(sel).addEventListener("keydown", (e) => {
+        if (e.key === "Enter") addCurrentSong();
+        else if (e.key === "Escape") closeAddSong();
+    });
 });
 
 // Auto-fill the name box from the URL as you paste/type (until you type a name).
@@ -363,8 +390,6 @@ function reflectPlayState() {
 audioEl.addEventListener("play", reflectPlayState);
 audioEl.addEventListener("pause", reflectPlayState);
 audioEl.addEventListener("ended", reflectPlayState);
-$("#prev-btn").addEventListener("click", () => { prev(); renderTracks(); updateNowPlaying(); });
-$("#next-btn").addEventListener("click", () => { next(); renderTracks(); updateNowPlaying(); });
 
 // ============================================================================
 //  IMPORT  —  upload an .m3u file → parse → create a new playlist from it
