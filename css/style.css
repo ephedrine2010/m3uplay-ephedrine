@@ -231,6 +231,7 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 #audio { flex: 1; height: 40px; }
+#sc-widget { flex: 1; height: 166px; border: none; border-radius: var(--radius); background: var(--panel-2); }
 
 /* ---- status toast ---- */
 #status {

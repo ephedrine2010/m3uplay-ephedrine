@@ -21,8 +21,9 @@ and download any playlist as an `.m3u` file. Designed for an ~8″ touch screen.
 - **Data:** Firestore — each playlist is a document:
   `playlists/{id} = { owner, name, tracks: [{name, url}], updatedAt }`.
   No files, no Storage, no CORS, no tokens.
-- **Playback:** a built-in HTML5 `<audio>` player plays each track URL directly
-  in the browser — works on desktop and tablet, no external player needed.
+- **Playback:** a built-in player that handles two URL types automatically:
+  - **Direct audio URLs** (`.mp3`, streams, etc.) — played via the native HTML5 `<audio>` element.
+  - **SoundCloud links** (`soundcloud.com/…`) — played via the official SoundCloud Widget iframe (no API key needed, works on any public track). The widget appears inline in the player bar.
 - **Download:** generates an `.m3u` file in the browser from the current tracks
   (open it in VLC/AIMP/etc. as a local file — local files expand to all tracks).
 
@@ -36,7 +37,7 @@ and download any playlist as an `.m3u` file. Designed for an ~8″ touch screen.
 | `js/firebase.js` | Initializes Firebase once |
 | `js/auth.js` | Google sign-in |
 | `js/firestore.js` | Playlist CRUD in Firestore |
-| `js/player.js` | Built-in audio player (queue, next/prev, auto-advance) |
+| `js/player.js` | Two-mode player: `<audio>` for direct URLs, SC Widget iframe for SoundCloud links |
 | `js/m3u.js` | Serialize tracks to `.m3u` (for Download) |
 | `js/app.js` | UI wiring |
 
@@ -79,6 +80,9 @@ service cloud.firestore {
 
 - The built-in player plays whatever the **browser** supports (mp3/m4a/ogg —
   mp3 is universal). It plays only while the tab is open.
+- **SoundCloud links** work out of the box — paste any `soundcloud.com/…` URL
+  as a track and the player switches to the SC Widget automatically. You can mix
+  SoundCloud and direct audio links in the same playlist; auto-advance works across both.
 - Cross-origin audio playback needs **no** CORS setup (only reading raw audio
   data for visualizers would — and we don't do that).
 - The old Firebase **Storage** approach (files, CORS, public IAM) is gone; you

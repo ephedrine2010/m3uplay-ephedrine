@@ -260,7 +260,7 @@ function closeAddSong() { addModal.classList.add("hidden"); }
 // Adds the song and keeps the popup open (clears fields) so you can add several.
 function addCurrentSong() {
     const url = ($("#add-url").value || "").trim();
-    if (!url) { setStatus("Paste an mp3 link first.", true); return; }
+    if (!url) { setStatus("Paste an audio or SoundCloud link.", true); return; }
     const name = ($("#add-name").value || "").trim() || nameFromUrl(url);
     state.tracks.push({ name, url });
     $("#add-name").value = "";
@@ -385,7 +385,7 @@ function updateNowPlaying() {
     $("#now-playing").textContent = t ? (t.name || nameFromUrl(t.url)) : "Nothing playing";
 }
 
-initPlayer($("#audio"), () => { renderTracks(); updateNowPlaying(); });
+initPlayer($("#audio"), $("#sc-widget"), reflectPlayState);
 setRepeat(true); // looping is always on (no toggle)
 
 // Tap a track: play it, or pause/resume if it's already the current one.
