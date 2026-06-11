@@ -51,9 +51,33 @@ export function parseM3U(text) {
     return tracks;
 }
 
+// ---- YouTube URL helpers ---------------------------------------------------
+// True for watch / youtu.be / embed / shorts / live links.
+export function isYouTube(url) {
+    return /(?:youtube\.com\/|youtu\.be\/)/i.test(url || "");
+}
+
+// Extract the 11-char video id from any common YouTube URL form, else null.
+export function youTubeId(url) {
+    if (!url) return null;
+    try {
+        const u = new URL(url);
+        const host = u.hostname.replace(/^www\./, "");
+        if (host === "youtu.be") return u.pathname.slice(1).split("/")[0] || null;
+        if (host.endsWith("youtube.com")) {
+            if (u.searchParams.get("v")) return u.searchParams.get("v");
+            const m = u.pathname.match(/\/(?:embed|shorts|v|live)\/([^/?#]+)/);
+            if (m) return m[1];
+        }
+    } catch { /* not a URL */ }
+    return null;
+}
+
 // Derive a readable default name from a media URL's filename.
 // e.g. ".../Albumaty.Com_amr-diab_02._Yetalemo.mp3" -> "Albumaty.Com amr-diab 02. Yetalemo"
 export function nameFromUrl(url) {
+    // YouTube watch URLs have no useful filename ("watch") — give a clean label.
+    if (isYouTube(url)) return "YouTube video";
     try {
         const file = decodeURIComponent((url.split("?")[0].split("/").pop() || "").trim());
         const base = file.replace(/\.[^.]+$/, "");      // drop extension

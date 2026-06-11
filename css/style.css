@@ -233,6 +233,35 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
 #audio { flex: 1; height: 40px; }
 #sc-widget { flex: 1; height: 166px; border: none; border-radius: var(--radius); background: var(--panel-2); }
 
+/* ---- YouTube: small thumbnail with a collapse-to-audio toggle ---- */
+#yt-widget { flex: 0 0 auto; position: relative; width: 160px; height: 90px; }
+#yt-widget #yt-player,
+#yt-widget iframe {
+    width: 100%; height: 100%;
+    border: 0; border-radius: var(--radius);
+    background: #000;
+}
+#yt-toggle {
+    position: absolute; top: 4px; right: 4px;
+    min-height: auto; min-width: auto;
+    padding: 3px 8px; font-size: 0.72rem; line-height: 1;
+    background: rgba(0, 0, 0, .6); color: #fff;
+    border-radius: 999px;
+}
+/* collapsed = audio-only: keep the iframe alive but clipped out of view,
+   and show the toggle as a normal "show" pill in the bar. */
+#yt-widget.collapsed { width: auto; height: auto; }
+#yt-widget.collapsed #yt-player,
+#yt-widget.collapsed iframe {
+    position: absolute; width: 1px; height: 1px;
+    opacity: 0; pointer-events: none; overflow: hidden;
+}
+#yt-widget.collapsed #yt-toggle {
+    position: static;
+    background: var(--panel-2); color: var(--text);
+    font-size: 0.85rem; padding: 8px 12px;
+}
+
 /* ---- status toast ---- */
 #status {
     position: fixed; left: 50%; bottom: 92px; transform: translateX(-50%);

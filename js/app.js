@@ -260,7 +260,7 @@ function closeAddSong() { addModal.classList.add("hidden"); }
 // Adds the song and keeps the popup open (clears fields) so you can add several.
 function addCurrentSong() {
     const url = ($("#add-url").value || "").trim();
-    if (!url) { setStatus("Paste an audio or SoundCloud link.", true); return; }
+    if (!url) { setStatus("Paste an audio, SoundCloud or YouTube link.", true); return; }
     const name = ($("#add-name").value || "").trim() || nameFromUrl(url);
     state.tracks.push({ name, url });
     $("#add-name").value = "";
@@ -385,8 +385,18 @@ function updateNowPlaying() {
     $("#now-playing").textContent = t ? (t.name || nameFromUrl(t.url)) : "Nothing playing";
 }
 
-initPlayer($("#audio"), $("#sc-widget"), reflectPlayState);
+initPlayer($("#audio"), $("#sc-widget"), $("#yt-widget"), reflectPlayState, (msg) => setStatus(msg));
 setRepeat(true); // looping is always on (no toggle)
+
+// YouTube video can be collapsed to audio-only (the player keeps playing —
+// the iframe is just clipped out of view, not removed).
+const ytWidget = $("#yt-widget");
+$("#yt-toggle").addEventListener("click", () => {
+    const collapsed = ytWidget.classList.toggle("collapsed");
+    const btn = $("#yt-toggle");
+    btn.textContent = collapsed ? "▸ Show video" : "▾ Hide";
+    btn.title = collapsed ? "Show video" : "Hide video";
+});
 
 // Tap a track: play it, or pause/resume if it's already the current one.
 function toggleTrack(i) {

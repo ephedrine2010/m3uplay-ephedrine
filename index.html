@@ -13,6 +13,7 @@
     <link rel="icon" href="icon.svg" />
     <link rel="apple-touch-icon" href="icon.svg" />
     <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
 
@@ -78,6 +79,12 @@
             <div id="now-playing">Nothing playing</div>
             <audio id="audio" controls preload="none"></audio>
             <iframe id="sc-widget" allow="autoplay" hidden></iframe>
+            <!-- YouTube: the IFrame API replaces #yt-player with an <iframe>.
+                 #yt-toggle collapses the video to audio-only (keeps playing). -->
+            <div id="yt-widget" hidden>
+                <div id="yt-player"></div>
+                <button id="yt-toggle" type="button" title="Hide video">▾ Hide</button>
+            </div>
         </footer>
 
         <!-- New-playlist popup -->
@@ -96,7 +103,7 @@
         <div id="add-song-modal" class="modal-overlay hidden">
             <div class="modal">
                 <h3>Add song</h3>
-                <input id="add-url" placeholder="https://…/song.mp3 or soundcloud.com/…" />
+                <input id="add-url" placeholder="https://…/song.mp3 · soundcloud.com/… · youtube.com/…" />
                 <input id="add-name" placeholder="Name (optional)" />
                 <div class="modal-actions">
                     <button id="add-song-done" class="ghost">Done</button>

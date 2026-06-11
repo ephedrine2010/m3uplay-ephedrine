@@ -1,6 +1,6 @@
 # M3U Player — Architecture & Reference
 
-> **Last updated:** 2026-06-03
+> **Last updated:** 2026-06-11
 > **Audience:** developers and AI agents working on this codebase.
 > **Goal of this doc:** let anyone (human or AI) understand the whole app quickly without re-reading every file or re-discovering past decisions.
 
@@ -26,7 +26,7 @@ No backend server. Everything is static files + Firebase (Auth + Firestore) call
 | Modules | Native **ES modules** (`<script type="module">`), imported from `https://www.gstatic.com/firebasejs/10.12.2/...` |
 | Auth | Firebase Authentication — **Google sign-in only** |
 | Data | Firebase **Firestore** (`playlists` collection) |
-| Playback | Native `<audio controls>` + a thin JS queue (`player.js`) |
+| Playback | One queue (`player.js`), three per-URL modes: native `<audio>` · SoundCloud Widget iframe · YouTube IFrame API |
 | Hosting | GitHub Pages (also runs from any static server / VS Code Live Server) |
 | Install | PWA via `manifest.json` + `icon.svg` (**no service worker**) |
 
@@ -78,8 +78,8 @@ documents/
 - **`firebase.js`** → `app`. Single `initializeApp(firebaseConfig)`; shared by `auth.js` and `firestore.js`.
 - **`auth.js`** → `watchAuth(cb)`, `signIn()`, `signOutUser()`. Google popup sign-in. *(The file's top comment still mentions "Firebase Storage / folder" — that is **stale**; auth now only provides identity for Firestore.)*
 - **`firestore.js`** → `listPlaylists(uid)`, `createPlaylist(uid, name, tracks=[])`, `savePlaylistTracks(id, tracks)`, `renamePlaylist(id, name)`, `deletePlaylist(id)`. `listPlaylists` queries `where("owner","==",uid)` and sorts by name client-side (avoids needing a composite index).
-- **`m3u.js`** → `parseM3U(text)`, `serializeM3U(tracks)`, `nameFromUrl(url)`. Track object = `{ url, name, duration }` (duration `-1` = unknown). `serializeM3U` always writes **extended** M3U (`#EXTINF` with a name; default name derived from the URL filename).
-- **`player.js`** → `initPlayer(audioEl, onChange)`, `setQueue(tracks)`, `playAt(i)`, `pause()`, `resume()`, `isPlaying()`, `stop()`, `next()`, `prev()`, `setRepeat(on)`, `getRepeat()`, `playingIndex()`. Wraps a native `<audio>`; auto-advances on `ended`. *(`stop`, `prev`, `getRepeat` are exported but currently unused by `app.js`.)*
+- **`m3u.js`** → `parseM3U(text)`, `serializeM3U(tracks)`, `nameFromUrl(url)`, `isYouTube(url)`, `youTubeId(url)`. Track object = `{ url, name, duration }` (duration `-1` = unknown). `serializeM3U` always writes **extended** M3U (`#EXTINF` with a name; default name derived from the URL filename — YouTube links fall back to `"YouTube video"`).
+- **`player.js`** → `initPlayer(audioEl, scIframe, ytWidget, onChange, notify)`, `setQueue(tracks)`, `playAt(i)`, `pause()`, `resume()`, `isPlaying()`, `stop()`, `next()`, `prev()`, `setRepeat(on)`, `getRepeat()`, `playingIndex()`. Plays each track in one of three modes chosen by URL — native `<audio>`, the **SoundCloud** Widget iframe, or the **YouTube** IFrame API player. An internal `mode` flag tracks the active one; `_switchMode()` pauses + hides the other two so they never overlap. All three auto-advance into the same queue (`<audio>` `ended`, SC `FINISH`, YT `ENDED`). YouTube videos whose owner disabled embedding (or that are removed/private/region-locked) fire YT `onError`; the player toasts via `notify` and auto-skips to the next track, with an `errorSkips` guard so an all-unplayable queue stops instead of looping. *(`stop`, `prev`, `getRepeat` are exported but currently unused by `app.js`.)*
 - **`app.js`** — the only stateful controller. Holds `state = { uid, playlists[], current, tracks[] }` and wires every DOM event to the modules.
 
 ---
@@ -126,7 +126,7 @@ service cloud.firestore {
 - **Sign in:** `watchAuth` callback fires → store `uid`, show `#app`, `loadPlaylists()`.
 - **Load playlists:** `listPlaylists(uid)` → `state.playlists` → `renderPlaylists()`.
 - **Select playlist:** copy its `tracks` into `state.tracks`, `setQueue`, show topbar actions, `renderTracks()`.
-- **Play:** tap a track (`toggleTrack`) or **Play all** → `playAt(i)` sets `audio.src` and plays. `audio` `play/pause/ended` events run `reflectPlayState()` which updates the equalizer, the Play-all button label, the row icons, and "now playing".
+- **Play:** tap a track (`toggleTrack`) or **Play all** → `playAt(i)` routes by URL to the right mode (audio / SoundCloud / YouTube) and plays. Each mode reports back through the `onChange` callback (`reflectPlayState`), and the `<audio>` element's `play/pause/ended` events also fire it; it updates the equalizer, the Play-all button label, the row icons, and "now playing". A YouTube track shows a small video thumbnail in the player bar that **`#yt-toggle`** collapses to audio-only.
 - **Add song:** **＋ Add** opens `#add-song-modal`; `addCurrentSong()` pushes `{name,url}` to `state.tracks`, keeps the popup open (clears fields) for rapid entry, then `scheduleSave()`.
 - **Auto-save:** any edit (add/delete/reorder) calls `scheduleSave()` → debounced ~1s → `persist(false)` writes `cleanTracks()` to Firestore. Does **not** re-render (won't disrupt focus). There is **no manual Save button** anymore.
 - **Import:** **⬆** → file picker → `parseM3U` → `createPlaylist(uid, name, tracks)` (name from filename) → select it.
@@ -212,6 +212,8 @@ This app went through several storage designs. **Do not re-attempt the abandoned
 | `#new-pl-btn` / `#import-btn` / `#import-file` | new-playlist popup / import / hidden file input |
 | `#content` / `#track-list` | right pane / tracks `<ul>` |
 | `#player-bar` / `#viz` / `#now-playing` / `#audio` | player bar / equalizer / label / `<audio>` |
+| `#sc-widget` | SoundCloud Widget iframe (shown only for SC tracks) |
+| `#yt-widget` (`#yt-player`, `#yt-toggle`) | YouTube player wrapper / IFrame-API target div / collapse-to-audio toggle |
 | `#new-pl-modal` (`#new-name`,`#new-pl-create`,`#new-pl-cancel`) | create-playlist popup |
 | `#add-song-modal` (`#add-url`,`#add-name`,`#add-track-btn`,`#add-song-done`) | add-song popup |
 | `#confirm-modal` (`#confirm-text`,`#confirm-ok`,`#confirm-cancel`) | reusable confirm popup |
