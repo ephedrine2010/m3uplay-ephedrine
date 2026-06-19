@@ -385,7 +385,7 @@ function updateNowPlaying() {
     $("#now-playing").textContent = t ? (t.name || nameFromUrl(t.url)) : "Nothing playing";
 }
 
-initPlayer($("#audio"), $("#sc-widget"), $("#yt-widget"), reflectPlayState, (msg) => setStatus(msg));
+initPlayer($("#audio"), $("#sc-widget"), $("#yt-widget"), $("#angh-widget"), reflectPlayState, (msg) => setStatus(msg));
 setRepeat(true); // looping is always on (no toggle)
 
 // YouTube video can be collapsed to audio-only (the player keeps playing —

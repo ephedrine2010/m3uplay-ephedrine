@@ -1,27 +1,24 @@
 // ============================================================================
-//  PLAYER  —  plays a queue of tracks in one of three modes, chosen per-URL:
-//    • "audio"  direct audio URLs        → native <audio> element
-//    • "sc"     soundcloud.com links     → SC Widget <iframe>
-//    • "yt"     youtube.com / youtu.be   → YouTube IFrame API player
-//  Only one mode is active at a time; switching pauses + hides the others so
-//  they never overlap. All three auto-advance into the same queue.
+//  PLAYER  —  coordinator. Owns the queue + current index and delegates actual
+//  playback to one of the per-source engines in ./players/, chosen per-URL:
+//    • players/audio.js       direct audio URLs    → native <audio> (catch-all)
+//    • players/soundcloud.js  soundcloud.com        → SC Widget <iframe>
+//    • players/youtube.js     youtube.com/youtu.be  → YouTube IFrame API
+//    • players/anghami.js     anghami.com           → plain embed <iframe>
+//  Every engine exposes the same interface — init / matches / play / pause /
+//  resume / stop / isPlaying / setActive — and reports back through the shared
+//  `callbacks`. Only one engine is active at a time; switching stops + hides
+//  the others so they never overlap. audio/sc/yt auto-advance into the queue;
+//  Anghami cannot (no JS API — see players/anghami.js).
 // ============================================================================
 
-import { isYouTube, youTubeId } from "./m3u.js";
+import * as audio from "./players/audio.js";
+import * as soundcloud from "./players/soundcloud.js";
+import * as youtube from "./players/youtube.js";
+import * as anghami from "./players/anghami.js";
 
-let audioEl = null;
-let scIframeEl = null;
-let scWidget = null;
-let scPlaying = false;
-
-// YouTube
-let ytEl = null;        // the #yt-widget wrapper
-let ytPlayer = null;    // YT.Player instance (created lazily)
-let ytReady = false;    // true once the player's onReady has fired
-let ytPlaying = false;
-let pendingYTId = null; // video id to load as soon as the player is ready
-
-let mode = "audio";     // "audio" | "sc" | "yt" — the currently active player
+let engines = [];       // specific engines first, audio (catch-all) last
+let active = null;      // the engine currently selected
 let queue = [];
 let index = -1;
 let repeat = false;
@@ -29,22 +26,38 @@ let onChange = () => {};
 let notify = () => {};  // surfaces a short user-facing message (a status toast)
 let errorSkips = 0;     // consecutive unplayable tracks auto-skipped in a row
 
-function isSC(url) {
-    return /soundcloud\.com\//i.test(url || "");
-}
+// Events every engine reports back through. The coordinator owns the queue, so
+// auto-advance, the auto-skip guard and the change notifications all live here.
+const callbacks = {
+    onPlay:  () => { errorSkips = 0; onChange(index, queue[index]); },
+    onPause: () => onChange(index, queue[index]),
+    onEnded: () => next(),
+    onError: (msg) => {
+        // A track that can't play here. Warn and auto-advance, but a per-queue
+        // guard stops us looping forever if every track is unplayable.
+        if (++errorSkips >= queue.length) {
+            errorSkips = 0;
+            stop();
+            notify("No playable tracks.");
+            return;
+        }
+        notify(msg || "Can't play this track — skipping.");
+        next();
+    }
+};
 
 export function setRepeat(on) { repeat = !!on; }
 export function getRepeat() { return repeat; }
 
-export function initPlayer(audioElement, scIframe, ytWidget, changeCb, notifyCb) {
-    audioEl = audioElement;
-    scIframeEl = scIframe;
-    ytEl = ytWidget;
+export function initPlayer(audioElement, scIframe, ytWidget, anghIframe, changeCb, notifyCb) {
     onChange = changeCb || (() => {});
     notify = notifyCb || (() => {});
-    audioEl.addEventListener("ended", next);
-    // Any track that actually starts clears the auto-skip guard.
-    audioEl.addEventListener("playing", () => { errorSkips = 0; });
+    audio.init(audioElement, callbacks);
+    soundcloud.init(scIframe, callbacks);
+    youtube.init(ytWidget, callbacks);
+    anghami.init(anghIframe, callbacks);
+    // Order matters: audio.matches() is a catch-all, so it must come last.
+    engines = [youtube, soundcloud, anghami, audio];
 }
 
 export function setQueue(tracks) {
@@ -56,188 +69,39 @@ export function playAt(i) {
     if (i < 0 || i >= queue.length) return;
     index = i;
     const url = queue[i].url;
-    const vid = isYouTube(url) ? youTubeId(url) : null;
-
-    if (vid) {
-        _switchMode("yt");
-        _playYT(vid);
-    } else if (isSC(url)) {
-        _switchMode("sc");
-        _playSC(url);
-    } else {
-        _switchMode("audio");
-        audioEl.src = url;
-        audioEl.play().catch(() => {});
-    }
+    const engine = engines.find(e => e.matches(url)) || audio;
+    _activate(engine);
+    engine.play(url);
     onChange(index, queue[index]);
 }
 
-// Make `m` the only audible/visible player: pause + hide the other two.
-function _switchMode(m) {
-    mode = m;
-    if (m !== "audio") { audioEl.pause(); audioEl.src = ""; }
-    if (m !== "sc") _pauseSC();
-    if (m !== "yt") _pauseYT();
-    audioEl.hidden = m !== "audio";
-    scIframeEl.hidden = m !== "sc";
-    if (ytEl) ytEl.hidden = m !== "yt";
-}
-
-// ---- SoundCloud ------------------------------------------------------------
-function _playSC(url) {
-    if (scWidget) {
-        scWidget.load(url, { auto_play: true });
-        return;
+// Make `engine` the only audible/visible player: stop + hide all the others.
+function _activate(engine) {
+    for (const e of engines) {
+        if (e !== engine) e.stop();
+        e.setActive(e === engine);
     }
-    const widgetUrl =
-        "https://w.soundcloud.com/player/?url=" + encodeURIComponent(url) +
-        "&auto_play=true&hide_related=true&show_comments=false" +
-        "&show_user=false&show_reposts=false&visual=false";
-    scIframeEl.src = widgetUrl;
-    scIframeEl.addEventListener("load", _initSCWidget, { once: true });
+    active = engine;
 }
 
-function _initSCWidget() {
-    if (!window.SC) return;
-    scWidget = window.SC.Widget(scIframeEl);
-    scWidget.bind(window.SC.Widget.Events.FINISH, () => {
-        scPlaying = false;
-        next();
-    });
-    scWidget.bind(window.SC.Widget.Events.PLAY, () => {
-        scPlaying = true;
-        errorSkips = 0;
-        onChange(index, queue[index]);
-    });
-    scWidget.bind(window.SC.Widget.Events.PAUSE, () => {
-        scPlaying = false;
-        onChange(index, queue[index]);
-    });
-}
-
-function _pauseSC() {
-    if (scWidget) scWidget.pause();
-    scPlaying = false;
-}
-
-// ---- YouTube ---------------------------------------------------------------
-// The IFrame API script (loaded in <head>) calls this once it's ready. We only
-// build the player if a YT track is already waiting (pendingYTId) — that keeps
-// YouTube fully lazy (no iframe loaded for users who never play a YT link). If
-// the API was already ready before the first click, _playYT() creates it then.
-window.onYouTubeIframeAPIReady = function () { if (pendingYTId) _ensureYTPlayer(); };
-
-function _ensureYTPlayer() {
-    if (ytPlayer || !ytEl) return;
-    if (!(window.YT && window.YT.Player)) return; // API not ready yet
-    const placeholder = ytEl.querySelector("#yt-player");
-    if (!placeholder) return;
-    ytPlayer = new window.YT.Player(placeholder, {
-        height: "90",
-        width: "160",
-        playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1 },
-        events: {
-            onReady: () => {
-                ytReady = true;
-                if (pendingYTId) { ytPlayer.loadVideoById(pendingYTId); pendingYTId = null; }
-            },
-            onStateChange: _onYTState,
-            onError: _onYTError
-        }
-    });
-}
-
-function _onYTState(e) {
-    const S = window.YT.PlayerState;
-    if (e.data === S.ENDED) {
-        ytPlaying = false;
-        next();
-    } else if (e.data === S.PLAYING) {
-        ytPlaying = true;
-        errorSkips = 0;
-        onChange(index, queue[index]);
-    } else if (e.data === S.PAUSED) {
-        ytPlaying = false;
-        onChange(index, queue[index]);
-    }
-}
-
-// A YouTube track that can't play here — owner disabled embedding (101/150),
-// or it's removed/private/region-locked (100/2/5). Nothing we can do about the
-// video itself, so warn and auto-advance instead of stalling. The guard stops
-// us looping forever if every track in the queue is unplayable.
-function _onYTError() {
-    ytPlaying = false;
-    if (++errorSkips >= queue.length) {
-        errorSkips = 0;
-        stop();
-        notify("No playable tracks.");
-        return;
-    }
-    notify("This video can't be played here — skipping.");
-    next();
-}
-
-function _playYT(id) {
-    if (ytPlayer && ytReady) {
-        ytPlayer.loadVideoById(id);
-    } else {
-        pendingYTId = id;       // remembered; loaded on onReady
-        _ensureYTPlayer();      // create now if the API is already up
-    }
-}
-
-function _pauseYT() {
-    if (ytPlayer && ytReady) { try { ytPlayer.pauseVideo(); } catch { /* not ready */ } }
-    ytPlaying = false;
-}
-
-// ---- transport (mode-aware) ------------------------------------------------
-export function pause() {
-    if (mode === "yt") _pauseYT();
-    else if (mode === "sc") _pauseSC();
-    else if (audioEl) audioEl.pause();
-}
-
-export function resume() {
-    if (mode === "yt") {
-        if (ytPlayer && ytReady) { ytPlaying = true; ytPlayer.playVideo(); }
-    } else if (mode === "sc") {
-        if (scWidget) { scPlaying = true; scWidget.play(); }
-    } else if (audioEl) {
-        audioEl.play().catch(() => {});
-    }
-}
-
-export function isPlaying() {
-    if (mode === "yt") return ytPlaying;
-    if (mode === "sc") return scPlaying;
-    return !!audioEl && !audioEl.paused;
-}
+// ---- transport (delegates to the active engine) ---------------------------
+export function pause()  { if (active) active.pause(); }
+export function resume() { if (active) active.resume(); }
+export function isPlaying() { return active ? active.isPlaying() : false; }
 
 export function stop() {
-    _pauseSC();
-    _pauseYT();
-    if (audioEl) {
-        audioEl.pause();
-        try { audioEl.currentTime = 0; } catch {}
-    }
+    for (const e of engines) e.stop();
     index = -1;
     onChange(index, null);
 }
 
 export function next() {
-    if (index + 1 < queue.length) {
-        playAt(index + 1);
-    } else if (repeat && queue.length > 0) {
-        playAt(0);
-    }
+    if (index + 1 < queue.length) playAt(index + 1);
+    else if (repeat && queue.length > 0) playAt(0);
 }
 
 export function prev() {
     if (index - 1 >= 0) playAt(index - 1);
 }
 
-export function playingIndex() {
-    return index;
-}
+export function playingIndex() { return index; }
