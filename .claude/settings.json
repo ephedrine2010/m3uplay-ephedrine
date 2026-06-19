@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:play.anghami.com)",
+      "WebFetch(domain:www.anghami.com)",
+      "WebFetch(domain:support.anghami.com)",
+      "WebFetch(domain:core.trac.wordpress.org)",
+      "Bash(node --check js/player.js)",
+      "Bash(node --check js/m3u.js)",
+      "Bash(node --check js/app.js)",
+      "WebFetch(domain:developer.spotify.com)",
+      "Bash(curl -sI \"https://open.anghami.com/KS1iGWAb63b\")",
+      "Bash(cp js/m3u.js /tmp/m3u_test.mjs)",
+      "Bash(node --input-type=module -e ' *)",
+      "Bash(rm -f /tmp/m3u_test.mjs)",
+      "Bash(curl -sI \"https://play.anghami.com/song/1282326340\")"
+    ]
+  }
+}
