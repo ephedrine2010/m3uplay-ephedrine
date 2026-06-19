@@ -7,7 +7,7 @@ import { watchAuth, signIn, signOutUser } from "./auth.js";
 import {
     listPlaylists, createPlaylist, savePlaylistTracks, deletePlaylist
 } from "./firestore.js";
-import { serializeM3U, parseM3U, nameFromUrl } from "./m3u.js";
+import { serializeM3U, parseM3U, nameFromUrl, extractUrl } from "./m3u.js";
 import {
     initPlayer, setQueue, playAt, playingIndex, setRepeat,
     pause, resume, isPlaying
@@ -259,7 +259,9 @@ function closeAddSong() { addModal.classList.add("hidden"); }
 
 // Adds the song and keeps the popup open (clears fields) so you can add several.
 function addCurrentSong() {
-    const url = ($("#add-url").value || "").trim();
+    // Accept a pasted share message (e.g. Anghami's "♫ … https://…"), not just a
+    // bare URL — extractUrl pulls the link out of any surrounding text.
+    const url = extractUrl($("#add-url").value || "");
     if (!url) { setStatus("Paste an audio, SoundCloud or YouTube link.", true); return; }
     const name = ($("#add-name").value || "").trim() || nameFromUrl(url);
     state.tracks.push({ name, url });
@@ -287,7 +289,7 @@ addModal.addEventListener("click", (e) => { if (e.target === addModal) closeAddS
 
 // Auto-fill the name box from the URL as you paste/type (until you type a name).
 $("#add-url").addEventListener("input", () => {
-    const url = ($("#add-url").value || "").trim();
+    const url = extractUrl($("#add-url").value || "");
     const nameField = $("#add-name");
     if (url && !nameField.value.trim()) nameField.value = nameFromUrl(url);
 });
@@ -385,7 +387,7 @@ function updateNowPlaying() {
     $("#now-playing").textContent = t ? (t.name || nameFromUrl(t.url)) : "Nothing playing";
 }
 
-initPlayer($("#audio"), $("#sc-widget"), $("#yt-widget"), $("#angh-widget"), reflectPlayState, (msg) => setStatus(msg));
+initPlayer($("#audio"), $("#sc-widget"), $("#yt-widget"), reflectPlayState, (msg) => setStatus(msg));
 setRepeat(true); // looping is always on (no toggle)
 
 // YouTube video can be collapsed to audio-only (the player keeps playing —

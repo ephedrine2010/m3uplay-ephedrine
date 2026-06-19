@@ -51,6 +51,17 @@ export function parseM3U(text) {
     return tracks;
 }
 
+// Pull the first http(s) URL out of pasted text. Share buttons (e.g. Anghami's
+// "♫ استمع إلى … https://open.anghami.com/…") copy a whole sentence around the
+// link, so we extract just the URL and drop any surrounding text. Trailing
+// junk often stuck to a shared link (closing quotes/brackets/punctuation) is
+// trimmed. Returns the original trimmed text if no URL is found.
+export function extractUrl(text) {
+    const m = (text || "").match(/https?:\/\/[^\s]+/i);
+    if (!m) return (text || "").trim();
+    return m[0].replace(/["'”’»)\]>.,؛،]+$/, "");
+}
+
 // ---- YouTube URL helpers ---------------------------------------------------
 // True for watch / youtu.be / embed / shorts / live links.
 export function isYouTube(url) {
@@ -73,33 +84,11 @@ export function youTubeId(url) {
     return null;
 }
 
-// ---- Anghami URL helpers ---------------------------------------------------
-// True for any anghami.com link (song / album / playlist / artist).
-export function isAnghami(url) {
-    return /anghami\.com\//i.test(url || "");
-}
-
-// Normalize an Anghami share link to its frameable player host. The marketing
-// site (www.anghami.com) blocks framing (X-Frame-Options); the player subdomain
-// (play.anghami.com) is the one meant to be embedded. The path (e.g.
-// /song/12345) is preserved as-is.
-export function anghamiEmbedUrl(url) {
-    try {
-        const u = new URL(url);
-        u.hostname = "play.anghami.com";
-        return u.toString();
-    } catch {
-        return url;
-    }
-}
-
 // Derive a readable default name from a media URL's filename.
 // e.g. ".../Albumaty.Com_amr-diab_02._Yetalemo.mp3" -> "Albumaty.Com amr-diab 02. Yetalemo"
 export function nameFromUrl(url) {
     // YouTube watch URLs have no useful filename ("watch") — give a clean label.
     if (isYouTube(url)) return "YouTube video";
-    // Anghami links are numeric ids (/song/12345) — no readable filename either.
-    if (isAnghami(url)) return "Anghami track";
     try {
         const file = decodeURIComponent((url.split("?")[0].split("/").pop() || "").trim());
         const base = file.replace(/\.[^.]+$/, "");      // drop extension

@@ -85,9 +85,6 @@
                 <div id="yt-player"></div>
                 <button id="yt-toggle" type="button" title="Hide video">▾ Hide</button>
             </div>
-            <!-- Anghami: a plain embed iframe with no JS API — the user plays/pauses
-                 with Anghami's own buttons inside the frame (see player.js). -->
-            <iframe id="angh-widget" allow="autoplay" hidden></iframe>
         </footer>
 
         <!-- New-playlist popup -->
@@ -106,7 +103,7 @@
         <div id="add-song-modal" class="modal-overlay hidden">
             <div class="modal">
                 <h3>Add song</h3>
-                <input id="add-url" placeholder="…/song.mp3 · soundcloud.com/… · youtube.com/… · anghami.com/…" />
+                <input id="add-url" placeholder="https://…/song.mp3 · soundcloud.com/… · youtube.com/…" />
                 <input id="add-name" placeholder="Name (optional)" />
                 <div class="modal-actions">
                     <button id="add-song-done" class="ghost">Done</button>

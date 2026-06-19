@@ -232,7 +232,6 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
 }
 #audio { flex: 1; height: 40px; }
 #sc-widget { flex: 1; height: 166px; border: none; border-radius: var(--radius); background: var(--panel-2); }
-#angh-widget { flex: 1; height: 166px; border: none; border-radius: var(--radius); background: var(--panel-2); }
 
 /* ---- YouTube: small thumbnail with a collapse-to-audio toggle ---- */
 #yt-widget { flex: 0 0 auto; position: relative; width: 160px; height: 90px; }

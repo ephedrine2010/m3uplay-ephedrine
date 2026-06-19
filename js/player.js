@@ -4,18 +4,15 @@
 //    • players/audio.js       direct audio URLs    → native <audio> (catch-all)
 //    • players/soundcloud.js  soundcloud.com        → SC Widget <iframe>
 //    • players/youtube.js     youtube.com/youtu.be  → YouTube IFrame API
-//    • players/anghami.js     anghami.com           → plain embed <iframe>
 //  Every engine exposes the same interface — init / matches / play / pause /
 //  resume / stop / isPlaying / setActive — and reports back through the shared
 //  `callbacks`. Only one engine is active at a time; switching stops + hides
-//  the others so they never overlap. audio/sc/yt auto-advance into the queue;
-//  Anghami cannot (no JS API — see players/anghami.js).
+//  the others so they never overlap. All three auto-advance into the queue.
 // ============================================================================
 
 import * as audio from "./players/audio.js";
 import * as soundcloud from "./players/soundcloud.js";
 import * as youtube from "./players/youtube.js";
-import * as anghami from "./players/anghami.js";
 
 let engines = [];       // specific engines first, audio (catch-all) last
 let active = null;      // the engine currently selected
@@ -49,15 +46,14 @@ const callbacks = {
 export function setRepeat(on) { repeat = !!on; }
 export function getRepeat() { return repeat; }
 
-export function initPlayer(audioElement, scIframe, ytWidget, anghIframe, changeCb, notifyCb) {
+export function initPlayer(audioElement, scIframe, ytWidget, changeCb, notifyCb) {
     onChange = changeCb || (() => {});
     notify = notifyCb || (() => {});
     audio.init(audioElement, callbacks);
     soundcloud.init(scIframe, callbacks);
     youtube.init(ytWidget, callbacks);
-    anghami.init(anghIframe, callbacks);
     // Order matters: audio.matches() is a catch-all, so it must come last.
-    engines = [youtube, soundcloud, anghami, audio];
+    engines = [youtube, soundcloud, audio];
 }
 
 export function setQueue(tracks) {

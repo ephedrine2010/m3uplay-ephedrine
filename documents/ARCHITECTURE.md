@@ -26,7 +26,7 @@ No backend server. Everything is static files + Firebase (Auth + Firestore) call
 | Modules | Native **ES modules** (`<script type="module">`), imported from `https://www.gstatic.com/firebasejs/10.12.2/...` |
 | Auth | Firebase Authentication — **Google sign-in only** |
 | Data | Firebase **Firestore** (`playlists` collection) |
-| Playback | One queue (`player.js` coordinator) delegating to per-source engines in `js/players/`, picked per-URL: native `<audio>` · SoundCloud Widget iframe · YouTube IFrame API · Anghami embed iframe |
+| Playback | One queue (`player.js` coordinator) delegating to per-source engines in `js/players/`, picked per-URL: native `<audio>` · SoundCloud Widget iframe · YouTube IFrame API |
 | Hosting | GitHub Pages (also runs from any static server / VS Code Live Server) |
 | Install | PWA via `manifest.json` + `icon.svg` (**no service worker**) |
 
@@ -66,13 +66,12 @@ js/
   firebase.js       # initializes Firebase app ONCE, exports `app`
   auth.js           # Google sign-in (watchAuth / signIn / signOutUser)
   firestore.js      # playlist CRUD in Firestore
-  m3u.js            # parseM3U / serializeM3U / nameFromUrl + URL helpers (YouTube, Anghami)
+  m3u.js            # parseM3U / serializeM3U / nameFromUrl / extractUrl + YouTube URL helpers
   player.js         # playback COORDINATOR: owns the queue, routes per-URL to an engine
   players/          # one playback engine per source, all sharing the same interface
     audio.js        #   native <audio> element (catch-all)
     soundcloud.js   #   SoundCloud Widget iframe
     youtube.js      #   YouTube IFrame API player
-    anghami.js      #   Anghami embed iframe (no JS API)
   app.js            # the controller: wires DOM <-> auth/firestore/player/m3u
 documents/
   ARCHITECTURE.md   # this file
@@ -83,13 +82,12 @@ documents/
 - **`firebase.js`** → `app`. Single `initializeApp(firebaseConfig)`; shared by `auth.js` and `firestore.js`.
 - **`auth.js`** → `watchAuth(cb)`, `signIn()`, `signOutUser()`. Google popup sign-in. *(The file's top comment still mentions "Firebase Storage / folder" — that is **stale**; auth now only provides identity for Firestore.)*
 - **`firestore.js`** → `listPlaylists(uid)`, `createPlaylist(uid, name, tracks=[])`, `savePlaylistTracks(id, tracks)`, `renamePlaylist(id, name)`, `deletePlaylist(id)`. `listPlaylists` queries `where("owner","==",uid)` and sorts by name client-side (avoids needing a composite index).
-- **`m3u.js`** → `parseM3U(text)`, `serializeM3U(tracks)`, `nameFromUrl(url)`, `isYouTube(url)`, `youTubeId(url)`, `isAnghami(url)`, `anghamiEmbedUrl(url)`. Track object = `{ url, name, duration }` (duration `-1` = unknown). `serializeM3U` always writes **extended** M3U (`#EXTINF` with a name; default name derived from the URL filename — YouTube links fall back to `"YouTube video"`, Anghami links to `"Anghami track"`).
-- **`player.js`** (coordinator) → `initPlayer(audioEl, scIframe, ytWidget, anghIframe, onChange, notify)`, `setQueue(tracks)`, `playAt(i)`, `pause()`, `resume()`, `isPlaying()`, `stop()`, `next()`, `prev()`, `setRepeat(on)`, `getRepeat()`, `playingIndex()`. Owns the **queue + current index** but does no playback itself: it holds an ordered list of **engines** (`js/players/*.js`) and routes each URL to the first engine whose `matches(url)` returns true (`audio` is the catch-all, kept **last**). `_activate(engine)` makes one engine the only audible/visible one — it calls `stop()` + `setActive(false)` on every other engine so they never overlap. Engines report back through a shared `callbacks` object — `onPlay`/`onPause` (UI sync), `onEnded` (auto-advance via `next()`), `onError` (toast + auto-skip, guarded by `errorSkips` so an all-unplayable queue stops instead of looping). *(`stop`, `prev`, `getRepeat` are exported but currently unused by `app.js`.)*
+- **`m3u.js`** → `parseM3U(text)`, `serializeM3U(tracks)`, `nameFromUrl(url)`, `extractUrl(text)`, `isYouTube(url)`, `youTubeId(url)`. Track object = `{ url, name, duration }` (duration `-1` = unknown). `serializeM3U` always writes **extended** M3U (`#EXTINF` with a name; default name derived from the URL filename — YouTube links fall back to `"YouTube video"`). `extractUrl` pulls the first `http(s)` link out of pasted text so a copied **share message** (a sentence wrapped around a URL) still adds cleanly.
+- **`player.js`** (coordinator) → `initPlayer(audioEl, scIframe, ytWidget, onChange, notify)`, `setQueue(tracks)`, `playAt(i)`, `pause()`, `resume()`, `isPlaying()`, `stop()`, `next()`, `prev()`, `setRepeat(on)`, `getRepeat()`, `playingIndex()`. Owns the **queue + current index** but does no playback itself: it holds an ordered list of **engines** (`js/players/*.js`) and routes each URL to the first engine whose `matches(url)` returns true (`audio` is the catch-all, kept **last**). `_activate(engine)` makes one engine the only audible/visible one — it calls `stop()` + `setActive(false)` on every other engine so they never overlap. Engines report back through a shared `callbacks` object — `onPlay`/`onPause` (UI sync), `onEnded` (auto-advance via `next()`), `onError` (toast + auto-skip, guarded by `errorSkips` so an all-unplayable queue stops instead of looping). *(`stop`, `prev`, `getRepeat` are exported but currently unused by `app.js`.)*
 - **`players/*.js`** — one **engine per source**, each exposing the identical interface: `init(el, callbacks)`, `matches(url)`, `play(url)`, `pause()`, `resume()`, `stop()`, `isPlaying()`, `setActive(on)`. They hold their own DOM/SDK state and never touch the queue. Engines:
   - **`audio.js`** — native `<audio>`. The catch-all (`matches()` always `true`). Auto-advances on the `ended` event.
   - **`soundcloud.js`** — SC Widget iframe; binds `FINISH` → `onEnded`, `PLAY`/`PAUSE` → `onPlay`/`onPause`.
   - **`youtube.js`** — YouTube IFrame API; player created lazily (`pendingId` covers a click before the API is ready). `ENDED` → `onEnded`; `onError` (embed-blocked 101/150, removed/private/region-locked 100/2/5) → `onError`.
-  - **`anghami.js`** — plain Anghami embed iframe with **no JS API**: user controls it inside the frame, `isPlaying()` is always `false`, no auto-advance, and `stop()` unloads the iframe (`src="about:blank"`) since that's the only way to silence it. `resume()` reloads the last URL fresh.
 - **`app.js`** — the only stateful controller. Holds `state = { uid, playlists[], current, tracks[] }` and wires every DOM event to the modules.
 
 ---
@@ -136,7 +134,7 @@ service cloud.firestore {
 - **Sign in:** `watchAuth` callback fires → store `uid`, show `#app`, `loadPlaylists()`.
 - **Load playlists:** `listPlaylists(uid)` → `state.playlists` → `renderPlaylists()`.
 - **Select playlist:** copy its `tracks` into `state.tracks`, `setQueue`, show topbar actions, `renderTracks()`.
-- **Play:** tap a track (`toggleTrack`) or **Play all** → `playAt(i)` picks the engine whose `matches(url)` wins (audio / SoundCloud / YouTube / Anghami), `_activate()`s it (stopping + hiding the rest), and plays. Each engine reports back through the `onChange` callback (`reflectPlayState`), and the `<audio>` element's `play/pause/ended` events also fire it; it updates the equalizer, the Play-all button label, the row icons, and "now playing". A YouTube track shows a small video thumbnail in the player bar that **`#yt-toggle`** collapses to audio-only. An **Anghami** track is played/paused by the user inside its own iframe — the transport bar can't drive it, and the queue won't auto-advance off it (no JS API).
+- **Play:** tap a track (`toggleTrack`) or **Play all** → `playAt(i)` picks the engine whose `matches(url)` wins (audio / SoundCloud / YouTube), `_activate()`s it (stopping + hiding the rest), and plays. Each engine reports back through the `onChange` callback (`reflectPlayState`), and the `<audio>` element's `play/pause/ended` events also fire it; it updates the equalizer, the Play-all button label, the row icons, and "now playing". A YouTube track shows a small video thumbnail in the player bar that **`#yt-toggle`** collapses to audio-only.
 - **Add song:** **＋ Add** opens `#add-song-modal`; `addCurrentSong()` pushes `{name,url}` to `state.tracks`, keeps the popup open (clears fields) for rapid entry, then `scheduleSave()`.
 - **Auto-save:** any edit (add/delete/reorder) calls `scheduleSave()` → debounced ~1s → `persist(false)` writes `cleanTracks()` to Firestore. Does **not** re-render (won't disrupt focus). There is **no manual Save button** anymore.
 - **Import:** **⬆** → file picker → `parseM3U` → `createPlaylist(uid, name, tracks)` (name from filename) → select it.
@@ -176,7 +174,7 @@ The player is engine-based (`js/players/`) so adding a source is "write one engi
 | Direct audio URL | ✅ in (`audio.js`) | native `<audio>`; the catch-all engine. |
 | SoundCloud | ✅ in (`soundcloud.js`) | SC Widget iframe — **no API key needed**. The SC **API v1/v2** is *not* used: no new keys are issued and stream URLs require SoundCloud Go+. |
 | YouTube | ✅ in (`youtube.js`) | IFrame Player API (with video). **No audio-only / no forcing embed-blocked videos**: there's no legitimate raw-stream URL, and an owner who disables embedding can't be overridden client-side (we toast + auto-skip; the block also can't be detected before play time). |
-| Anghami | ✅ in (`anghami.js`), limited | Plain embed iframe with **no JS control API** — user-driven, no auto-advance, `isPlaying()` always false, preview-only unless signed into Anghami Plus in the same browser. Kept anyway because it still plays. |
+| Anghami | ❌ ruled out | **Every** endpoint blocks third-party framing server-side: `open.anghami.com/<code>` → `CSP: frame-ancestors 'self'`; `play.anghami.com/song/<id>` → `X-Frame-Options: DENY`; even Anghami's own `www.anghami.com/embed/song/<id>` → `X-Frame-Options: SAMEORIGIN` (anghami.com only). No iframe URL will render off-site, and there's no JS API or stream URL. An iframe engine was built then removed once these headers were confirmed. |
 | Spotify | ❌ ruled out | iFrame Embed API is technically a good fit (real play/pause/seek + `playback_update`), **but** plays **30-second previews only** unless the listener is signed into Spotify **Premium in that browser**. Full tracks need the Web Playback SDK (OAuth + Premium) — too heavy for a preview-only payoff. |
 
 ---
@@ -237,7 +235,6 @@ The player is engine-based (`js/players/`) so adding a source is "write one engi
 | `#player-bar` / `#viz` / `#now-playing` / `#audio` | player bar / equalizer / label / `<audio>` |
 | `#sc-widget` | SoundCloud Widget iframe (shown only for SC tracks) |
 | `#yt-widget` (`#yt-player`, `#yt-toggle`) | YouTube player wrapper / IFrame-API target div / collapse-to-audio toggle |
-| `#angh-widget` | Anghami embed iframe (shown only for Anghami tracks; user-controlled) |
 | `#new-pl-modal` (`#new-name`,`#new-pl-create`,`#new-pl-cancel`) | create-playlist popup |
 | `#add-song-modal` (`#add-url`,`#add-name`,`#add-track-btn`,`#add-song-done`) | add-song popup |
 | `#confirm-modal` (`#confirm-text`,`#confirm-ok`,`#confirm-cancel`) | reusable confirm popup |
