@@ -22,6 +22,7 @@ let repeat = false;
 let onChange = () => {};
 let notify = () => {};  // surfaces a short user-facing message (a status toast)
 let errorSkips = 0;     // consecutive unplayable tracks auto-skipped in a row
+let oneOff = false;     // true while playing a single ad-hoc track (trends board)
 
 // Events every engine reports back through. The coordinator owns the queue, so
 // auto-advance, the auto-skip guard and the change notifications all live here.
@@ -59,7 +60,24 @@ export function initPlayer(audioElement, scIframe, ytWidget, changeCb, notifyCb)
 export function setQueue(tracks) {
     queue = (tracks || []).filter(t => (t.url || "").trim() !== "");
     if (index >= queue.length) index = -1;
+    oneOff = false;   // any explicit playlist queue exits one-off mode
 }
+
+// Play a single ad-hoc track that is NOT part of a saved playlist — used by the
+// trends board for Deezer previews and one-off YouTube plays. Replaces the queue
+// with just this track; because it's a one-off, it stops at the end instead of
+// repeating (so a 30s preview doesn't loop forever).
+export function playOneOff(track) {
+    setQueue([track]);
+    oneOff = true;
+    playAt(0);
+}
+
+export function isOneOff() { return oneOff; }
+
+// The track the coordinator is actually on (playlist item OR one-off), so the
+// now-playing label is correct in both modes.
+export function currentTrack() { return index >= 0 ? queue[index] : null; }
 
 export function playAt(i) {
     if (i < 0 || i >= queue.length) return;
@@ -88,11 +106,13 @@ export function isPlaying() { return active ? active.isPlaying() : false; }
 export function stop() {
     for (const e of engines) e.stop();
     index = -1;
+    oneOff = false;
     onChange(index, null);
 }
 
 export function next() {
     if (index + 1 < queue.length) playAt(index + 1);
+    else if (oneOff) stop();                        // one-off ended → stop, don't loop
     else if (repeat && queue.length > 0) playAt(0);
 }
 

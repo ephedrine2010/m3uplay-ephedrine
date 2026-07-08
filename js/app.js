@@ -10,8 +10,10 @@ import {
 import { serializeM3U, parseM3U, nameFromUrl, extractUrl } from "./m3u.js";
 import {
     initPlayer, setQueue, playAt, playingIndex, setRepeat,
-    pause, resume, isPlaying
+    pause, resume, isPlaying, playOneOff, isOneOff, currentTrack, stop
 } from "./player.js";
+import { initTrendsBoard } from "./trends_board/index.js";
+import { fetchPreview } from "./trends_board/deezer.js";
 
 // ---- state -----------------------------------------------------------------
 const state = {
@@ -45,6 +47,7 @@ watchAuth(async (user) => {
         hide("#signin-box");
         show("#app");
         await loadPlaylists();
+        showBoard();   // land on the discovery board until a playlist is opened
     } else {
         state.uid = null;
         state.playlists = [];
@@ -161,6 +164,7 @@ async function removePlaylist(pl) {
             state.tracks = [];
             hide("#play-all-btn"); hide("#add-song-btn"); hide("#download-btn");
             renderTracks();
+            showBoard();   // deleted the open playlist → back to discovery
         }
         await loadPlaylists();
     } catch (e) {
@@ -172,6 +176,7 @@ async function removePlaylist(pl) {
 //  TRACKS (right pane)
 // ============================================================================
 function selectPlaylist(pl) {
+    if (isOneOff()) stop();   // leaving discovery: stop any trends preview
     state.current = { id: pl.id, name: pl.name };
     state.tracks = (pl.tracks || []).map(t => ({ name: t.name || "", url: t.url || "" }));
     show("#play-all-btn"); show("#add-song-btn"); show("#download-btn");
@@ -179,6 +184,7 @@ function selectPlaylist(pl) {
     updatePlayAllBtn();
     renderPlaylists();   // refresh active highlight
     renderTracks();
+    showTracks();        // swap the discovery board out for this playlist
 }
 
 function renderTracks() {
@@ -382,13 +388,42 @@ $("#download-btn").addEventListener("click", () => {
 //  PLAYER (bottom bar)
 // ============================================================================
 function updateNowPlaying() {
-    const i = playingIndex();
-    const t = i >= 0 ? state.tracks[i] : null;
+    // Use the coordinator's actual current track so the label is right for both
+    // playlist tracks and one-off trends-board plays.
+    const t = currentTrack();
     $("#now-playing").textContent = t ? (t.name || nameFromUrl(t.url)) : "Nothing playing";
 }
 
 initPlayer($("#audio"), $("#sc-widget"), $("#yt-widget"), reflectPlayState, (msg) => setStatus(msg));
 setRepeat(true); // looping is always on (no toggle)
+
+// ============================================================================
+//  TRENDS BOARD (discovery) — shown by default in #content; hidden once a
+//  playlist is opened; brought back by clicking the 🎵 brand.
+// ============================================================================
+const trendsBoard = initTrendsBoard({
+    mount: $("#content"),
+    deps: {
+        player: { playOneOff },
+        resolvePreview: fetchPreview,   // fresh Deezer preview URL at click-time
+        openExternal: (url, label) => {
+            if (!url) { setStatus("No link for this item.", true); return; }
+            window.open(url, "_blank", "noopener");
+            setStatus(`Opening ${label} ↗`);
+        },
+        notify: (msg) => setStatus(msg)
+    }
+});
+
+function showBoard() { hide("#track-list"); trendsBoard.show(); }
+function showTracks() { trendsBoard.hide(); show("#track-list"); }
+
+$("#brand").addEventListener("click", () => {
+    state.current = null;
+    hide("#play-all-btn"); hide("#add-song-btn"); hide("#download-btn");
+    renderPlaylists();   // clear the active highlight
+    showBoard();
+});
 
 // YouTube video can be collapsed to audio-only (the player keeps playing —
 // the iframe is just clipped out of view, not removed).

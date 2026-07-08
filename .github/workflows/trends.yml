@@ -1,0 +1,41 @@
+name: Refresh Egypt trends
+
+# Snapshots the Deezer/Apple/(YouTube) charts into data/trending.json once a day
+# and commits it. The static client just fetches that file — no backend, no CORS,
+# no API keys in the browser. Deezer + Apple need no secrets; add a YT_API_KEY
+# repo secret to upgrade YouTube from a link-out tile to per-track cards.
+
+on:
+  schedule:
+    - cron: "0 4 * * *"      # 04:00 UTC daily
+  workflow_dispatch: {}       # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch trends
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}   # optional; empty → YouTube tile
+        run: node scripts/fetch-trends.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "trends-bot"
+          git config user.email "trends-bot@users.noreply.github.com"
+          if [ -n "$(git status --porcelain data/trending.json)" ]; then
+            git add data/trending.json
+            git commit -m "chore(trends): refresh Egypt charts snapshot"
+            git push
+          else
+            echo "No change in data/trending.json"
+          fi

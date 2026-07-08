@@ -1,6 +1,6 @@
 # M3U Player — Architecture & Reference
 
-> **Last updated:** 2026-06-19
+> **Last updated:** 2026-07-09
 > **Audience:** developers and AI agents working on this codebase.
 > **Goal of this doc:** let anyone (human or AI) understand the whole app quickly without re-reading every file or re-discovering past decisions.
 
@@ -72,10 +72,23 @@ js/
     audio.js        #   native <audio> element (catch-all)
     soundcloud.js   #   SoundCloud Widget iframe
     youtube.js      #   YouTube IFrame API player
-  app.js            # the controller: wires DOM <-> auth/firestore/player/m3u
+  trends_board/     # "Trending in Egypt" discovery board (landing view in #content)
+    index.js        #   public entry: initTrendsBoard({ mount, deps }) → { show, hide }
+    data.js         #   loadTrending() → fetch data/trending.json; relTime()
+    deezer.js       #   fetchPreview(deezerId) → fresh 30s preview URL via JSONP
+    actions.js      #   hybrid click dispatch (preview / youtube / link)
+    board.js band.js card.js tile.js image.js dom.js sources.js   # pure render + presentation
+  app.js            # the controller: wires DOM <-> auth/firestore/player/m3u/trends_board
+css/trends_board.css # all .tb-* board styles (reuses style.css tokens)
+data/trending.json  # snapshot the board fetches (generated; committed)
+scripts/fetch-trends.mjs      # Node snapshot fetcher (Deezer/Apple/YouTube → trending.json)
+.github/workflows/trends.yml  # daily cron + manual dispatch → runs fetcher, commits JSON
 documents/
   ARCHITECTURE.md   # this file
+  TRENDS_BOARD.md   # full reference for the discovery board
 ```
+
+> The discovery board is documented in depth in [`TRENDS_BOARD.md`](TRENDS_BOARD.md); this file covers the core player/playlist app.
 
 ### Module responsibilities & exports
 
@@ -83,7 +96,7 @@ documents/
 - **`auth.js`** → `watchAuth(cb)`, `signIn()`, `signOutUser()`. Google popup sign-in. *(The file's top comment still mentions "Firebase Storage / folder" — that is **stale**; auth now only provides identity for Firestore.)*
 - **`firestore.js`** → `listPlaylists(uid)`, `createPlaylist(uid, name, tracks=[])`, `savePlaylistTracks(id, tracks)`, `renamePlaylist(id, name)`, `deletePlaylist(id)`. `listPlaylists` queries `where("owner","==",uid)` and sorts by name client-side (avoids needing a composite index).
 - **`m3u.js`** → `parseM3U(text)`, `serializeM3U(tracks)`, `nameFromUrl(url)`, `extractUrl(text)`, `isYouTube(url)`, `youTubeId(url)`. Track object = `{ url, name, duration }` (duration `-1` = unknown). `serializeM3U` always writes **extended** M3U (`#EXTINF` with a name; default name derived from the URL filename — YouTube links fall back to `"YouTube video"`). `extractUrl` pulls the first `http(s)` link out of pasted text so a copied **share message** (a sentence wrapped around a URL) still adds cleanly.
-- **`player.js`** (coordinator) → `initPlayer(audioEl, scIframe, ytWidget, onChange, notify)`, `setQueue(tracks)`, `playAt(i)`, `pause()`, `resume()`, `isPlaying()`, `stop()`, `next()`, `prev()`, `setRepeat(on)`, `getRepeat()`, `playingIndex()`. Owns the **queue + current index** but does no playback itself: it holds an ordered list of **engines** (`js/players/*.js`) and routes each URL to the first engine whose `matches(url)` returns true (`audio` is the catch-all, kept **last**). `_activate(engine)` makes one engine the only audible/visible one — it calls `stop()` + `setActive(false)` on every other engine so they never overlap. Engines report back through a shared `callbacks` object — `onPlay`/`onPause` (UI sync), `onEnded` (auto-advance via `next()`), `onError` (toast + auto-skip, guarded by `errorSkips` so an all-unplayable queue stops instead of looping). *(`stop`, `prev`, `getRepeat` are exported but currently unused by `app.js`.)*
+- **`player.js`** (coordinator) → `initPlayer(audioEl, scIframe, ytWidget, onChange, notify)`, `setQueue(tracks)`, `playAt(i)`, `pause()`, `resume()`, `isPlaying()`, `stop()`, `next()`, `prev()`, `setRepeat(on)`, `getRepeat()`, `playingIndex()`. Owns the **queue + current index** but does no playback itself: it holds an ordered list of **engines** (`js/players/*.js`) and routes each URL to the first engine whose `matches(url)` returns true (`audio` is the catch-all, kept **last**). `_activate(engine)` makes one engine the only audible/visible one — it calls `stop()` + `setActive(false)` on every other engine so they never overlap. Engines report back through a shared `callbacks` object — `onPlay`/`onPause` (UI sync), `onEnded` (auto-advance via `next()`), `onError` (toast + auto-skip, guarded by `errorSkips` so an all-unplayable queue stops instead of looping). Also exposes `playOneOff(track)` / `isOneOff()` / `currentTrack()` for the trends board's ad-hoc plays — `playOneOff` swaps in a single-item queue and **stops at the end instead of repeating**; `currentTrack()` backs the now-playing label so it is correct for one-offs too. *(`prev`, `getRepeat` are exported but currently unused by `app.js`; `stop` is now used by the trends-board wiring.)*
 - **`players/*.js`** — one **engine per source**, each exposing the identical interface: `init(el, callbacks)`, `matches(url)`, `play(url)`, `pause()`, `resume()`, `stop()`, `isPlaying()`, `setActive(on)`. They hold their own DOM/SDK state and never touch the queue. Engines:
   - **`audio.js`** — native `<audio>`. The catch-all (`matches()` always `true`). Auto-advances on the `ended` event.
   - **`soundcloud.js`** — SC Widget iframe; binds `FINISH` → `onEnded`, `PLAY`/`PAUSE` → `onPlay`/`onPause`.
