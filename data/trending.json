@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-10T07:31:30.922Z",
+  "updated": "2026-07-11T06:09:08.898Z",
   "region": "EG",
   "sources": [
     {
@@ -185,9 +185,149 @@
       "label": "Apple Music",
       "chart": "Most-played · EG",
       "play": "link",
-      "tile": true,
       "chartUrl": "https://music.apple.com/eg",
-      "tracks": []
+      "tracks": [
+        {
+          "rank": 1,
+          "title": "Nano",
+          "artist": "TUL8TE & Saint Levant",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e9/e4/8f/e9e48fb1-33f2-487f-3eca-433ba3e8b0ca/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/nano/6771043145?i=6771043152"
+        },
+        {
+          "rank": 2,
+          "title": "Garee2a Awy - A COLORS SHOW",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/17/16/d8/1716d894-4de6-0494-3568-5d36af85304e/840054915345.png/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/garee2a-awy-a-colors-show/6783339190?i=6783339191"
+        },
+        {
+          "rank": 3,
+          "title": "الولا حمو جه",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/22/14/e3/2214e37b-dad6-707e-9495-aae762338d19/6221216940070_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%A7%D9%84%D9%88%D9%84%D8%A7-%D8%AD%D9%85%D9%88-%D8%AC%D9%87/6771734683?i=6771734686"
+        },
+        {
+          "rank": 4,
+          "title": "Kelma",
+          "artist": "Ramy Sabry",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d6/86/6b/d6866b86-9c68-5488-ea5b-b406ce47ebfb/689860602922_cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/kelma/1833232028?i=1833232274"
+        },
+        {
+          "rank": 5,
+          "title": "3alam Kadaba (From The TV Series Ma Trah Lays Kama Ybdo)",
+          "artist": "Lege-Cy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c6/cd/c1/c6cdc191-22a6-6395-7a3d-e28865940c38/25UM1IM22988.rgb.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/3alam-kadaba-from-the-tv-series-ma-trah-lays-kama-ybdo/1834402793?i=1834403065"
+        },
+        {
+          "rank": 6,
+          "title": "Heseeny",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/fd/a2/4bfda2f7-d1ca-f702-7be3-8e46b514005c/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/heseeny/1828447926?i=1828448343"
+        },
+        {
+          "rank": 7,
+          "title": "عيال جديدة لانج",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4c/8f/72/4c8f72b1-5b27-6bf8-2ed3-6a5665e5bdb5/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%B9%D9%8A%D8%A7%D9%84-%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9-%D9%84%D8%A7%D9%86%D8%AC/6781349237?i=6781349378"
+        },
+        {
+          "rank": 8,
+          "title": "صباحك بيور",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/8c/4c/91/8c4c9102-3277-8c95-16c3-505572ee35d9/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%B5%D8%A8%D8%A7%D8%AD%D9%83-%D8%A8%D9%8A%D9%88%D8%B1/6778083132?i=6778083559"
+        },
+        {
+          "rank": 9,
+          "title": "انا 5 استار على كوكبى",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/de/3d/36/de3d36dc-50cd-6d16-9b71-61a5d5ba30ef/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%A7%D9%86%D8%A7-5-%D8%A7%D8%B3%D8%AA%D8%A7%D8%B1-%D8%B9%D9%84%D9%89-%D9%83%D9%88%D9%83%D8%A8%D9%89/1877134885?i=1877135052"
+        },
+        {
+          "rank": 10,
+          "title": "Seneen",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b4/8c/38/b48c3805-c878-3c15-0220-d2018e83428b/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/seneen/1867566022?i=1867566024"
+        },
+        {
+          "rank": 11,
+          "title": "SEBY NAFSEK KHALES",
+          "artist": "Lege-Cy & HatemBas",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a6/1d/83/a61d83b6-c687-8e0b-d576-33f54b2f2a72/6221216944535_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/seby-nafsek-khales/6776735229?i=6776735233"
+        },
+        {
+          "rank": 12,
+          "title": "Khalik Maaya",
+          "artist": "Amr Diab",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Features/v4/be/aa/f0/beaaf038-dcc3-7cc3-0537-ff032c32594b/dj.rzniqsgh.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/khalik-maaya/582047931?i=582048008"
+        },
+        {
+          "rank": 13,
+          "title": "طول منا عالي طول منا ناجح",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/2c/40/d6/2c40d6d2-5e39-b467-baf0-809ac6f0a25e/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%B7%D9%88%D9%84-%D9%85%D9%86%D8%A7-%D8%B9%D8%A7%D9%84%D9%8A-%D8%B7%D9%88%D9%84-%D9%85%D9%86%D8%A7-%D9%86%D8%A7%D8%AC%D8%AD/1884404856?i=1884404857"
+        },
+        {
+          "rank": 14,
+          "title": "Narein",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/fd/a2/4bfda2f7-d1ca-f702-7be3-8e46b514005c/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/narein/1828447926?i=1828447931"
+        },
+        {
+          "rank": 15,
+          "title": "لو تعرف",
+          "artist": "Ramy Sabry",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/98/79/b4/9879b499-a6b8-2ae4-4b7a-f4486b30199b/197048057292_cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D9%84%D9%88-%D8%AA%D8%B9%D8%B1%D9%81/6780179668?i=6780180026"
+        },
+        {
+          "rank": 16,
+          "title": "YALLY BEATOUNA",
+          "artist": "ZIAD ZAZA, Amjad Jomaa, Ismail Nosrat & Sleiman Damien",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ad/fe/02/adfe02cd-a069-dd39-eb40-5b1686f897a5/26UMGIM84547.rgb.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/yally-beatouna/6785578310?i=6785578311"
+        },
+        {
+          "rank": 17,
+          "title": "3ammak We 3am 3ammak",
+          "artist": "Mahmoud El Esseily & Essam Sasa",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4d/d3/56/4dd35699-6206-cd6e-0add-fe846ea9b1c9/196874555514.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/3ammak-we-3am-3ammak/6784245451?i=6784245628"
+        },
+        {
+          "rank": 18,
+          "title": "الصدارة بيتى",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ff/f1/e1/fff1e18e-54b1-fa02-2580-b5f37d1bec05/6221216894045_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%A7%D9%84%D8%B5%D8%AF%D8%A7%D8%B1%D8%A9-%D8%A8%D9%8A%D8%AA%D9%89/1886121759?i=1886121761"
+        },
+        {
+          "rank": 19,
+          "title": "Tebaa'n Tebaa'n",
+          "artist": "Sherine",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c7/80/f8/c780f86b-f6f9-ecd3-7ec0-febe963ac0e2/196874384763.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/tebaan-tebaan/6767568286?i=6767568287"
+        },
+        {
+          "rank": 20,
+          "title": "Bahareya",
+          "artist": "Mohamed Hamaki & Sherine",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f6/92/a3/f692a30e-b7c0-2554-d9c2-59a6231bce33/6221117226075.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/bahareya/6772970059?i=6772970060"
+        }
+      ]
     },
     {
       "id": "anghami",
