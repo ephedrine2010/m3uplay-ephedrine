@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-14T06:06:28.920Z",
+  "updated": "2026-07-15T06:10:15.780Z",
   "region": "EG",
   "sources": [
     {
@@ -11,102 +11,22 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "Angel Baby",
-          "artist": "Troye Sivan",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0309bb418eee43eb76a1b53f58aa006d/250x250-000000-80-0-0.jpg",
-          "deezerId": 1490258042,
-          "link": "https://www.deezer.com/track/1490258042"
+          "title": "Paris",
+          "artist": "Nono La Grinta",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/b226e62b360b1373c7049dc7f83431e1/250x250-000000-80-0-0.jpg",
+          "deezerId": 3294048841,
+          "link": "https://www.deezer.com/track/3294048841"
         },
         {
           "rank": 2,
-          "title": "هنا مصر هفضل كل مرة اجيلك",
-          "artist": "Mahmoud El Esseily",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c778f327c7329d65998c0a785fd84968/250x250-000000-80-0-0.jpg",
-          "deezerId": 3843808081,
-          "link": "https://www.deezer.com/track/3843808081"
+          "title": "My World",
+          "artist": "Conan Gray",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a827e769491a705534261902c17af3fb/250x250-000000-80-0-0.jpg",
+          "deezerId": 3498160521,
+          "link": "https://www.deezer.com/track/3498160521"
         },
         {
           "rank": 3,
-          "title": "Superman",
-          "artist": "Twitch 4EVA",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/f727bba26c71a0562311a70dfbd5275a/250x250-000000-80-0-0.jpg",
-          "deezerId": 797054132,
-          "link": "https://www.deezer.com/track/797054132"
-        },
-        {
-          "rank": 4,
-          "title": "Still Learning",
-          "artist": "Halsey",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c27fbb9676eb01dae411b5ab8a9609ec/250x250-000000-80-0-0.jpg",
-          "deezerId": 851327872,
-          "link": "https://www.deezer.com/track/851327872"
-        },
-        {
-          "rank": 5,
-          "title": "RICH BOY",
-          "artist": "Payton",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c704942d61efcff46a9f303b5de188ca/250x250-000000-80-0-0.jpg",
-          "deezerId": 1875524307,
-          "link": "https://www.deezer.com/track/1875524307"
-        },
-        {
-          "rank": 6,
-          "title": "Tempo",
-          "artist": "Marshmello",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/885b97e1b2d05e863a7f6f27b2f86e7d/250x250-000000-80-0-0.jpg",
-          "deezerId": 2404395575,
-          "link": "https://www.deezer.com/track/2404395575"
-        },
-        {
-          "rank": 7,
-          "title": "Nano",
-          "artist": "TUL8TE",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d34d3a8bbf8ece9727f43fb4ceb04ff4/250x250-000000-80-0-0.jpg",
-          "deezerId": 4030957121,
-          "link": "https://www.deezer.com/track/4030957121"
-        },
-        {
-          "rank": 8,
-          "title": "اه يالالي (لايف من باب الخلق)",
-          "artist": "Mai Kamal",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/7fb0782e1612df3eb8fcd6cfcfdac42c/250x250-000000-80-0-0.jpg",
-          "deezerId": 1296726442,
-          "link": "https://www.deezer.com/track/1296726442"
-        },
-        {
-          "rank": 9,
-          "title": "Kamin",
-          "artist": "Emin",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2983509b0e7f8fc6c739ebba4ca5ed12/250x250-000000-80-0-0.jpg",
-          "deezerId": 1390568232,
-          "link": "https://www.deezer.com/track/1390568232"
-        },
-        {
-          "rank": 10,
-          "title": "UNETHICAL",
-          "artist": "Faouzia",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/cca6dba02653fbdf9694ae7bc8d6a195/250x250-000000-80-0-0.jpg",
-          "deezerId": 3458894481,
-          "link": "https://www.deezer.com/track/3458894481"
-        },
-        {
-          "rank": 11,
-          "title": "Disfruto",
-          "artist": "Carla Morrison",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/30fc2ee23667ab1774ee733c09b720a7/250x250-000000-80-0-0.jpg",
-          "deezerId": 3729273372,
-          "link": "https://www.deezer.com/track/3729273372"
-        },
-        {
-          "rank": 12,
-          "title": "Self Aware",
-          "artist": "Temper City",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/4e803aeb014d512c960b5cc7ccaa1800/250x250-000000-80-0-0.jpg",
-          "deezerId": 3848530521,
-          "link": "https://www.deezer.com/track/3848530521"
-        },
-        {
-          "rank": 13,
           "title": "شبح المجال",
           "artist": "حمو المرشدي",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/f5b995b3b97860428115be5946c9b619/250x250-000000-80-0-0.jpg",
@@ -114,60 +34,140 @@
           "link": "https://www.deezer.com/track/3965452881"
         },
         {
+          "rank": 4,
+          "title": "Nano",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/d34d3a8bbf8ece9727f43fb4ceb04ff4/250x250-000000-80-0-0.jpg",
+          "deezerId": 4030957121,
+          "link": "https://www.deezer.com/track/4030957121"
+        },
+        {
+          "rank": 5,
+          "title": "Big Jet Plane",
+          "artist": "Clubhouse",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f1aa134aead7b7994c1d334f30243e4d/250x250-000000-80-0-0.jpg",
+          "deezerId": 3307742371,
+          "link": "https://www.deezer.com/track/3307742371"
+        },
+        {
+          "rank": 6,
+          "title": "TU PENSA QUE EU SOU TIMIDA",
+          "artist": "Dj Luan Gomes",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/02bc8fae08c5cfb8c71494fb494df2d0/250x250-000000-80-0-0.jpg",
+          "deezerId": 4129496611,
+          "link": "https://www.deezer.com/track/4129496611"
+        },
+        {
+          "rank": 7,
+          "title": "MONTAGEM ECO",
+          "artist": "VXLTAGE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/765d6e74ee76caeef4a282fff9415597/250x250-000000-80-0-0.jpg",
+          "deezerId": 4129591791,
+          "link": "https://www.deezer.com/track/4129591791"
+        },
+        {
+          "rank": 8,
+          "title": "To Make You Feel My Love",
+          "artist": "Amy Vachal",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/c3694ecf6658cd8b4d64064b8a688e01/250x250-000000-80-0-0.jpg",
+          "deezerId": 131352388,
+          "link": "https://www.deezer.com/track/131352388"
+        },
+        {
+          "rank": 9,
+          "title": "Tabini Lek",
+          "artist": "Abdul Majeed Abdullah",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/9d69748b7067dbc5fb5760536394605a/250x250-000000-80-0-0.jpg",
+          "deezerId": 408964342,
+          "link": "https://www.deezer.com/track/408964342"
+        },
+        {
+          "rank": 10,
+          "title": "Angel Baby",
+          "artist": "Troye Sivan",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0309bb418eee43eb76a1b53f58aa006d/250x250-000000-80-0-0.jpg",
+          "deezerId": 1490258042,
+          "link": "https://www.deezer.com/track/1490258042"
+        },
+        {
+          "rank": 11,
+          "title": "3LA BALI",
+          "artist": "SOFYVNOXO",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/4b559e898beaa6fc0e51f91d347aa270/250x250-000000-80-0-0.jpg",
+          "deezerId": 3737013442,
+          "link": "https://www.deezer.com/track/3737013442"
+        },
+        {
+          "rank": 12,
+          "title": "هنا مصر هفضل كل مرة اجيلك",
+          "artist": "Mahmoud El Esseily",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/c778f327c7329d65998c0a785fd84968/250x250-000000-80-0-0.jpg",
+          "deezerId": 3843808081,
+          "link": "https://www.deezer.com/track/3843808081"
+        },
+        {
+          "rank": 13,
+          "title": "Dai Dai",
+          "artist": "Shakira",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a7f9bae0243c512059298a68d09f45a1/250x250-000000-80-0-0.jpg",
+          "deezerId": 4015341011,
+          "link": "https://www.deezer.com/track/4015341011"
+        },
+        {
           "rank": 14,
-          "title": "Story of a Warrior",
-          "artist": "John Michael Howell",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/63135cc38c85d317f2ade61f4594de05/250x250-000000-80-0-0.jpg",
-          "deezerId": 4057555601,
-          "link": "https://www.deezer.com/track/4057555601"
+          "title": "Superman",
+          "artist": "Twitch 4EVA",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f727bba26c71a0562311a70dfbd5275a/250x250-000000-80-0-0.jpg",
+          "deezerId": 797054132,
+          "link": "https://www.deezer.com/track/797054132"
         },
         {
           "rank": 15,
-          "title": "Looping The Rooms",
-          "artist": "Matt Dusk",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/46817232094d1c1f10de50022c68be86/250x250-000000-80-0-0.jpg",
-          "deezerId": 4131417221,
-          "link": "https://www.deezer.com/track/4131417221"
+          "title": "Break Through It All (feat. Kellin Quinn)",
+          "artist": "SEGA SOUND TEAM / Tomoya Ohtani",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a2097d079a9186b5da04ab6cdc53a8e7/250x250-000000-80-0-0.jpg",
+          "deezerId": 1999552397,
+          "link": "https://www.deezer.com/track/1999552397"
         },
         {
           "rank": 16,
-          "title": "Let Down",
-          "artist": "Radiohead",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/05a186e0a859a36f9cd51cdae2158fe1/250x250-000000-80-0-0.jpg",
-          "deezerId": 138539979,
-          "link": "https://www.deezer.com/track/138539979"
+          "title": "Yaah",
+          "artist": "Tamer Ashour",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/bea4b5e7a59129bad9b4ad023271e302/250x250-000000-80-0-0.jpg",
+          "deezerId": 3143844381,
+          "link": "https://www.deezer.com/track/3143844381"
         },
         {
           "rank": 17,
-          "title": "Bruises",
-          "artist": "Lewis Capaldi",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/f3432a1b6e530b349aa257162a04ddc0/250x250-000000-80-0-0.jpg",
-          "deezerId": 678686642,
-          "link": "https://www.deezer.com/track/678686642"
+          "title": "NEED ME",
+          "artist": "SOFYVNOXO",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5c0a58c529479556ccf1484640ba3ad3/250x250-000000-80-0-0.jpg",
+          "deezerId": 3325161901,
+          "link": "https://www.deezer.com/track/3325161901"
         },
         {
           "rank": 18,
-          "title": "Charm",
-          "artist": "Rema",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/1d4942d3e1817e9b723eceb6dae28636/250x250-000000-80-0-0.jpg",
-          "deezerId": 2248578427,
-          "link": "https://www.deezer.com/track/2248578427"
+          "title": "Gut Genug (mit Blumengarten & Shirin David)",
+          "artist": "KitschKrieg",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/cbea6de4d3abb807bec86b64be3769a5/250x250-000000-80-0-0.jpg",
+          "deezerId": 3805356232,
+          "link": "https://www.deezer.com/track/3805356232"
         },
         {
           "rank": 19,
-          "title": "No One Noticed",
-          "artist": "The Marías",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/574bd156ad04b9af443cdf6775cfa8c3/250x250-000000-80-0-0.jpg",
-          "deezerId": 2816073752,
-          "link": "https://www.deezer.com/track/2816073752"
+          "title": "Self Aware",
+          "artist": "Temper City",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/4e803aeb014d512c960b5cc7ccaa1800/250x250-000000-80-0-0.jpg",
+          "deezerId": 3848530521,
+          "link": "https://www.deezer.com/track/3848530521"
         },
         {
           "rank": 20,
-          "title": "West Zahmet El Weshosh (From Athena Series)",
-          "artist": "Aziz Maraka",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2e1f3ccb54640e96c0bd087f5acfefd9/250x250-000000-80-0-0.jpg",
-          "deezerId": 3268063311,
-          "link": "https://www.deezer.com/track/3268063311"
+          "title": "Elsadara Bety",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0c94e810336de8dc023e3a634a2cd70f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3908329291,
+          "link": "https://www.deezer.com/track/3908329291"
         }
       ]
     },
@@ -231,17 +231,17 @@
         },
         {
           "rank": 7,
-          "title": "Seneen",
-          "artist": "TUL8TE",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b4/8c/38/b48c3805-c878-3c15-0220-d2018e83428b/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/seneen/1867566022?i=1867566024"
-        },
-        {
-          "rank": 8,
           "title": "صباحك بيور",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/8c/4c/91/8c4c9102-3277-8c95-16c3-505572ee35d9/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D8%B5%D8%A8%D8%A7%D8%AD%D9%83-%D8%A8%D9%8A%D9%88%D8%B1/6778083132?i=6778083559"
+        },
+        {
+          "rank": 8,
+          "title": "Seneen",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b4/8c/38/b48c3805-c878-3c15-0220-d2018e83428b/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/seneen/1867566022?i=1867566024"
         },
         {
           "rank": 9,
@@ -259,24 +259,24 @@
         },
         {
           "rank": 11,
-          "title": "SEBY NAFSEK KHALES",
-          "artist": "Lege-Cy & HatemBas",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a6/1d/83/a61d83b6-c687-8e0b-d576-33f54b2f2a72/6221216944535_Artwork.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/seby-nafsek-khales/6776735229?i=6776735233"
-        },
-        {
-          "rank": 12,
           "title": "Khalik Maaya",
           "artist": "Amr Diab",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Features/v4/be/aa/f0/beaaf038-dcc3-7cc3-0537-ff032c32594b/dj.rzniqsgh.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/khalik-maaya/582047931?i=582048008"
         },
         {
-          "rank": 13,
+          "rank": 12,
           "title": "Narein",
           "artist": "TUL8TE",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/fd/a2/4bfda2f7-d1ca-f702-7be3-8e46b514005c/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/narein/1828447926?i=1828447931"
+        },
+        {
+          "rank": 13,
+          "title": "SEBY NAFSEK KHALES",
+          "artist": "Lege-Cy & HatemBas",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a6/1d/83/a61d83b6-c687-8e0b-d576-33f54b2f2a72/6221216944535_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/seby-nafsek-khales/6776735229?i=6776735233"
         },
         {
           "rank": 14,
@@ -294,38 +294,38 @@
         },
         {
           "rank": 16,
-          "title": "3ammak We 3am 3ammak",
-          "artist": "Mahmoud El Esseily & Essam Sasa",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4d/d3/56/4dd35699-6206-cd6e-0add-fe846ea9b1c9/196874555514.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/3ammak-we-3am-3ammak/6784245451?i=6784245628"
-        },
-        {
-          "rank": 17,
           "title": "الصدارة بيتى",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ff/f1/e1/fff1e18e-54b1-fa02-2580-b5f37d1bec05/6221216894045_Artwork.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D8%A7%D9%84%D8%B5%D8%AF%D8%A7%D8%B1%D8%A9-%D8%A8%D9%8A%D8%AA%D9%89/1886121759?i=1886121761"
         },
         {
-          "rank": 18,
-          "title": "Bahareya",
-          "artist": "Mohamed Hamaki & Sherine",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f6/92/a3/f692a30e-b7c0-2554-d9c2-59a6231bce33/6221117226075.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/bahareya/6772970059?i=6772970060"
+          "rank": 17,
+          "title": "Tamly Maak",
+          "artist": "Amr Diab",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music69/v4/31/4d/d4/314dd42d-3246-e7a3-107a-3d521fa9a7e2/dj.iiicnpub.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/tamly-maak/880940009?i=880940097"
         },
         {
-          "rank": 19,
+          "rank": 18,
           "title": "Tebaa'n Tebaa'n",
           "artist": "Sherine",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c7/80/f8/c780f86b-f6f9-ecd3-7ec0-febe963ac0e2/196874384763.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/tebaan-tebaan/6767568286?i=6767568287"
         },
         {
+          "rank": 19,
+          "title": "اخدت الكدر من الجميع",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4f/6c/ad/4f6cada2-8aa4-fca7-eca1-e24ddc89dc4e/6221216923998_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%A7%D8%AE%D8%AF%D8%AA-%D8%A7%D9%84%D9%83%D8%AF%D8%B1-%D9%85%D9%86-%D8%A7%D9%84%D8%AC%D9%85%D9%8A%D8%B9/1894301834?i=1894301836"
+        },
+        {
           "rank": 20,
-          "title": "Tamly Maak",
-          "artist": "Amr Diab",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music69/v4/31/4d/d4/314dd42d-3246-e7a3-107a-3d521fa9a7e2/dj.iiicnpub.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/tamly-maak/880940009?i=880940097"
+          "title": "Bahareya",
+          "artist": "Mohamed Hamaki & Sherine",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f6/92/a3/f692a30e-b7c0-2554-d9c2-59a6231bce33/6221117226075.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/bahareya/6772970059?i=6772970060"
         }
       ]
     },
