@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-05T06:22:57.770Z",
+  "updated": "2026-08-06T06:25:15.219Z",
   "region": "EG",
   "sources": [
     {
@@ -11,110 +11,22 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "Galbi Maak",
-          "artist": "Marco",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d39ff92b21e24bea804fb9fcfe5c222e/250x250-000000-80-0-0.jpg",
-          "deezerId": 3749059262,
-          "link": "https://www.deezer.com/track/3749059262"
+          "title": "Lights Off",
+          "artist": "Charlie Cunningham",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/7f3827269510aa25fde4cd3bcd3d8465/250x250-000000-80-0-0.jpg",
+          "deezerId": 2236836267,
+          "link": "https://www.deezer.com/track/2236836267"
         },
         {
           "rank": 2,
-          "title": "عيال جديدة لانج",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5905dc404918bc576ee6b2ee72c1b1fd/250x250-000000-80-0-0.jpg",
-          "deezerId": 4094181321,
-          "link": "https://www.deezer.com/track/4094181321"
+          "title": "tolerate it",
+          "artist": "Taylor Swift",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5bced293f3a0568a5f5111f92cbca47f/250x250-000000-80-0-0.jpg",
+          "deezerId": 1173900922,
+          "link": "https://www.deezer.com/track/1173900922"
         },
         {
           "rank": 3,
-          "title": "MONTAGEM FAVELA",
-          "artist": "SLXSHER",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/6bb3009428ec40ca842fa223e02e4841/250x250-000000-80-0-0.jpg",
-          "deezerId": 4137759701,
-          "link": "https://www.deezer.com/track/4137759701"
-        },
-        {
-          "rank": 4,
-          "title": "الغابة ليها بابا ( هو الديب لما يغيب )",
-          "artist": "مصطفي الجن و هادي الصغير - تيم الابداع",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/fbff3caa7b20c27caee6f476981ae4e3/250x250-000000-80-0-0.jpg",
-          "deezerId": 3922607651,
-          "link": "https://www.deezer.com/track/3922607651"
-        },
-        {
-          "rank": 5,
-          "title": "Passacaglia (Piano Arrangement)",
-          "artist": "Alexandre Pachabezian",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/bfb9931b88296de2780c8718036712a7/250x250-000000-80-0-0.jpg",
-          "deezerId": 2522177331,
-          "link": "https://www.deezer.com/track/2522177331"
-        },
-        {
-          "rank": 6,
-          "title": "هنا مصر هفضل كل مرة اجيلك",
-          "artist": "Mahmoud El Esseily",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c778f327c7329d65998c0a785fd84968/250x250-000000-80-0-0.jpg",
-          "deezerId": 3843808081,
-          "link": "https://www.deezer.com/track/3843808081"
-        },
-        {
-          "rank": 7,
-          "title": "EMMENEZ-MOI",
-          "artist": "Luv0",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0b2d3c26765ac98899139abc3b3ffa25/250x250-000000-80-0-0.jpg",
-          "deezerId": 4127609381,
-          "link": "https://www.deezer.com/track/4127609381"
-        },
-        {
-          "rank": 8,
-          "title": "right where you left me",
-          "artist": "Taylor Swift",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5bced293f3a0568a5f5111f92cbca47f/250x250-000000-80-0-0.jpg",
-          "deezerId": 1199760612,
-          "link": "https://www.deezer.com/track/1199760612"
-        },
-        {
-          "rank": 9,
-          "title": "Where's My Love",
-          "artist": "SYML",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/9c3e76cd14972ee8191754729375bb40/250x250-000000-80-0-0.jpg",
-          "deezerId": 1628690152,
-          "link": "https://www.deezer.com/track/1628690152"
-        },
-        {
-          "rank": 10,
-          "title": "Getlak",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
-          "deezerId": 4167205882,
-          "link": "https://www.deezer.com/track/4167205882"
-        },
-        {
-          "rank": 11,
-          "title": "Movin' To The Sun",
-          "artist": "HUGEL",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/021770bfdd65ae5978680a8e3b9e8899/250x250-000000-80-0-0.jpg",
-          "deezerId": 4019797791,
-          "link": "https://www.deezer.com/track/4019797791"
-        },
-        {
-          "rank": 12,
-          "title": "Take Me There",
-          "artist": "DA TI",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/3776b22e483a6fc6dc357f8d6008f9f5/250x250-000000-80-0-0.jpg",
-          "deezerId": 4130325821,
-          "link": "https://www.deezer.com/track/4130325821"
-        },
-        {
-          "rank": 13,
-          "title": "El Alwan",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
-          "deezerId": 4167205872,
-          "link": "https://www.deezer.com/track/4167205872"
-        },
-        {
-          "rank": 14,
           "title": "Nesena",
           "artist": "Cairokee",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
@@ -122,52 +34,140 @@
           "link": "https://www.deezer.com/track/4192089132"
         },
         {
+          "rank": 4,
+          "title": "Mategy",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089142,
+          "link": "https://www.deezer.com/track/4192089142"
+        },
+        {
+          "rank": 5,
+          "title": "Ana Fadel",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089152,
+          "link": "https://www.deezer.com/track/4192089152"
+        },
+        {
+          "rank": 6,
+          "title": "Tata Tata",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089162,
+          "link": "https://www.deezer.com/track/4192089162"
+        },
+        {
+          "rank": 7,
+          "title": "Haseb Haseb",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089172,
+          "link": "https://www.deezer.com/track/4192089172"
+        },
+        {
+          "rank": 8,
+          "title": "MONTAGEM FAVELA",
+          "artist": "SLXSHER",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6bb3009428ec40ca842fa223e02e4841/250x250-000000-80-0-0.jpg",
+          "deezerId": 4137759701,
+          "link": "https://www.deezer.com/track/4137759701"
+        },
+        {
+          "rank": 9,
+          "title": "Ana Bakbr",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089212,
+          "link": "https://www.deezer.com/track/4192089212"
+        },
+        {
+          "rank": 10,
+          "title": "Wahdy",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089202,
+          "link": "https://www.deezer.com/track/4192089202"
+        },
+        {
+          "rank": 11,
+          "title": "Enty Crazy",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/39f445145249ddc36279f9a349990d76/250x250-000000-80-0-0.jpg",
+          "deezerId": 3474927251,
+          "link": "https://www.deezer.com/track/3474927251"
+        },
+        {
+          "rank": 12,
+          "title": "Mot Leh",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089182,
+          "link": "https://www.deezer.com/track/4192089182"
+        },
+        {
+          "rank": 13,
+          "title": "Alf Meraya",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089192,
+          "link": "https://www.deezer.com/track/4192089192"
+        },
+        {
+          "rank": 14,
+          "title": "Fel Khetam",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089222,
+          "link": "https://www.deezer.com/track/4192089222"
+        },
+        {
           "rank": 15,
-          "title": "Big Jet Plane",
-          "artist": "Clubhouse",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/f1aa134aead7b7994c1d334f30243e4d/250x250-000000-80-0-0.jpg",
-          "deezerId": 3307742371,
-          "link": "https://www.deezer.com/track/3307742371"
+          "title": "حكمدار",
+          "artist": "Marwan Pablo",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/fcc87d10ea321981534b5a19fdaf16ae/250x250-000000-80-0-0.jpg",
+          "deezerId": 3950071391,
+          "link": "https://www.deezer.com/track/3950071391"
         },
         {
           "rank": 16,
-          "title": "UNETHICAL",
-          "artist": "Faouzia",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/cca6dba02653fbdf9694ae7bc8d6a195/250x250-000000-80-0-0.jpg",
-          "deezerId": 3458894481,
-          "link": "https://www.deezer.com/track/3458894481"
+          "title": "ضاعت دروبي",
+          "artist": "Mashari Bin Nafl",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/2be493a9087d605452d2dafed50b1f16/250x250-000000-80-0-0.jpg",
+          "deezerId": 4112565901,
+          "link": "https://www.deezer.com/track/4112565901"
         },
         {
           "rank": 17,
-          "title": "Die For You",
-          "artist": "From Ashes To New",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/8578556010fa460a7e2ce3550b8a50a9/250x250-000000-80-0-0.jpg",
-          "deezerId": 3706116832,
-          "link": "https://www.deezer.com/track/3706116832"
+          "title": "When I’m Home",
+          "artist": "James Blake",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/dd000448a0e2f7f44c0e3150fcc42da9/250x250-000000-80-0-0.jpg",
+          "deezerId": 4152514452,
+          "link": "https://www.deezer.com/track/4152514452"
         },
         {
           "rank": 18,
-          "title": "Tebaa'n Tebaa'n",
-          "artist": "Sherine",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/a79421a2314647c099d39c7502a28489/250x250-000000-80-0-0.jpg",
-          "deezerId": 4009772821,
-          "link": "https://www.deezer.com/track/4009772821"
+          "title": "Tawahin",
+          "artist": "MOSCOW",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/07335f29e2a949b89f3c6653b5e229f7/250x250-000000-80-0-0.jpg",
+          "deezerId": 4173426762,
+          "link": "https://www.deezer.com/track/4173426762"
         },
         {
           "rank": 19,
-          "title": "Nano",
-          "artist": "TUL8TE",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d34d3a8bbf8ece9727f43fb4ceb04ff4/250x250-000000-80-0-0.jpg",
-          "deezerId": 4030957121,
-          "link": "https://www.deezer.com/track/4030957121"
+          "title": "Fous",
+          "artist": "Emma Peters",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/06552e4b49bf6f5a46eb891fe8d13dfb/250x250-000000-80-0-0.jpg",
+          "deezerId": 1368446812,
+          "link": "https://www.deezer.com/track/1368446812"
         },
         {
           "rank": 20,
-          "title": "Techno Shaman",
-          "artist": "Ummet Ozcan",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/7726d7806e2ee54d3a819c68bd1fa8b7/250x250-000000-80-0-0.jpg",
-          "deezerId": 4122072921,
-          "link": "https://www.deezer.com/track/4122072921"
+          "title": "Midnight Prayer (feat. Key note & LK Deepstix)",
+          "artist": "Felo Le Tee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6b2c0412cff1552cdc8e1fd1a80252a7/250x250-000000-80-0-0.jpg",
+          "deezerId": 2217716207,
+          "link": "https://www.deezer.com/track/2217716207"
         }
       ]
     },
@@ -203,24 +203,24 @@
         },
         {
           "rank": 3,
-          "title": "Garee2a Awy - A COLORS SHOW",
-          "artist": "TUL8TE",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/17/16/d8/1716d894-4de6-0494-3568-5d36af85304e/840054915345.png/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/garee2a-awy-a-colors-show/6783339190?i=6783339191"
-        },
-        {
-          "rank": 4,
           "title": "Ana Fadel",
           "artist": "Cairokee",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/ana-fadel/6796408980?i=6796409276"
         },
         {
-          "rank": 5,
+          "rank": 4,
           "title": "Wahdy",
           "artist": "Cairokee",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/wahdy/6796408980?i=6796409454"
+        },
+        {
+          "rank": 5,
+          "title": "Mot Leh (feat. Sary Hany)",
+          "artist": "Cairokee",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/mot-leh-feat-sary-hany/6796408980?i=6796409444"
         },
         {
           "rank": 6,
@@ -231,38 +231,38 @@
         },
         {
           "rank": 7,
-          "title": "Mot Leh (feat. Sary Hany)",
-          "artist": "Cairokee",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/mot-leh-feat-sary-hany/6796408980?i=6796409444"
+          "title": "Garee2a Awy - A COLORS SHOW",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/17/16/d8/1716d894-4de6-0494-3568-5d36af85304e/840054915345.png/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/garee2a-awy-a-colors-show/6783339190?i=6783339191"
         },
         {
           "rank": 8,
-          "title": "Shoft Kalam",
-          "artist": "Marwan Pablo, Lege-Cy & HatemBas",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/01/c4/31/01c43187-da8b-fc50-b68e-2e71cd1d7c85/885288123609.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/shoft-kalam/6793678943?i=6793679161"
-        },
-        {
-          "rank": 9,
           "title": "Ana Bakbr (feat. Sary Hany)",
           "artist": "Cairokee",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/ana-bakbr-feat-sary-hany/6796408980?i=6796409457"
         },
         {
-          "rank": 10,
-          "title": "Haseb Haseb",
-          "artist": "Cairokee",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/haseb-haseb/6796408980?i=6796409438"
-        },
-        {
-          "rank": 11,
+          "rank": 9,
           "title": "Fel Khetam",
           "artist": "Cairokee",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/fel-khetam/6796408980?i=6796409462"
+        },
+        {
+          "rank": 10,
+          "title": "Shoft Kalam",
+          "artist": "Marwan Pablo, Lege-Cy & HatemBas",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/01/c4/31/01c43187-da8b-fc50-b68e-2e71cd1d7c85/885288123609.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/shoft-kalam/6793678943?i=6793679161"
+        },
+        {
+          "rank": 11,
+          "title": "Haseb Haseb",
+          "artist": "Cairokee",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/haseb-haseb/6796408980?i=6796409438"
         },
         {
           "rank": 12,
@@ -301,17 +301,17 @@
         },
         {
           "rank": 17,
-          "title": "Eta'akhar Etabna",
-          "artist": "Amr Diab",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/5b/fd/4b5bfdec-c374-afcc-ed93-26207f245082/196874624913.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/etaakhar-etabna/6793040762?i=6793040914"
-        },
-        {
-          "rank": 18,
           "title": "El Alwan",
           "artist": "Amr Diab",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/5b/fd/4b5bfdec-c374-afcc-ed93-26207f245082/196874624913.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/el-alwan/6793040762?i=6793040767"
+        },
+        {
+          "rank": 18,
+          "title": "Eta'akhar Etabna",
+          "artist": "Amr Diab",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/5b/fd/4b5bfdec-c374-afcc-ed93-26207f245082/196874624913.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/etaakhar-etabna/6793040762?i=6793040914"
         },
         {
           "rank": 19,
