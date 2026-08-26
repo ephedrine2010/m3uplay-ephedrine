@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-25T04:33:17.063Z",
+  "updated": "2026-08-26T04:34:08.288Z",
   "region": "EG",
   "sources": [
     {
@@ -11,38 +11,14 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "FARAWLA - فراولة",
-          "artist": "Abyusif",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/455ffd102fea172e1821db7f8e66a035/250x250-000000-80-0-0.jpg",
-          "deezerId": 3321390451,
-          "link": "https://www.deezer.com/track/3321390451"
+          "title": "Cornfield Chase",
+          "artist": "Hans Zimmer",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/4193cfd449576b01d33adeb54c2589ce/250x250-000000-80-0-0.jpg",
+          "deezerId": 1137370842,
+          "link": "https://www.deezer.com/track/1137370842"
         },
         {
           "rank": 2,
-          "title": "Think Of Me Once In A While, Take Care",
-          "artist": "Take Care",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/38d29a4105f36a735770693a06da24bd/250x250-000000-80-0-0.jpg",
-          "deezerId": 1913474617,
-          "link": "https://www.deezer.com/track/1913474617"
-        },
-        {
-          "rank": 3,
-          "title": "صباحك بيور",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/be0375f028ae1bdf56db1158844028d8/250x250-000000-80-0-0.jpg",
-          "deezerId": 4054671321,
-          "link": "https://www.deezer.com/track/4054671321"
-        },
-        {
-          "rank": 4,
-          "title": "EL W2ala 7AMO GAH",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/ec947e158283556ea726c0ea0d7c2f24/250x250-000000-80-0-0.jpg",
-          "deezerId": 4035830811,
-          "link": "https://www.deezer.com/track/4035830811"
-        },
-        {
-          "rank": 5,
           "title": "Elshabab Nabara",
           "artist": "حمو المرشدي",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/c947dfba09fa2f53fe26aa54169871a5/250x250-000000-80-0-0.jpg",
@@ -50,124 +26,148 @@
           "link": "https://www.deezer.com/track/4214598312"
         },
         {
+          "rank": 3,
+          "title": "Places",
+          "artist": "Yoyle Cake",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/dc6aec2fe19cbfc85014785424dac1be/250x250-000000-80-0-0.jpg",
+          "deezerId": 2833623362,
+          "link": "https://www.deezer.com/track/2833623362"
+        },
+        {
+          "rank": 4,
+          "title": "انا 5 استار على كوكبى",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0e22ad7ed78ee74ec6d80048f6833af3/250x250-000000-80-0-0.jpg",
+          "deezerId": 3843065941,
+          "link": "https://www.deezer.com/track/3843065941"
+        },
+        {
+          "rank": 5,
+          "title": "عيال جديدة لانج",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5905dc404918bc576ee6b2ee72c1b1fd/250x250-000000-80-0-0.jpg",
+          "deezerId": 4094181321,
+          "link": "https://www.deezer.com/track/4094181321"
+        },
+        {
           "rank": 6,
-          "title": "LA POIRE - لابوار",
-          "artist": "Abyusif",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/455ffd102fea172e1821db7f8e66a035/250x250-000000-80-0-0.jpg",
-          "deezerId": 3321390461,
-          "link": "https://www.deezer.com/track/3321390461"
+          "title": "Enta Habeeby",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8445af48f681444a7d8c5997ad8cd74a/250x250-000000-80-0-0.jpg",
+          "deezerId": 4199103682,
+          "link": "https://www.deezer.com/track/4199103682"
         },
         {
           "rank": 7,
-          "title": "YOQADAM BAREDAN - يقدم بارد",
-          "artist": "Abyusif",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/455ffd102fea172e1821db7f8e66a035/250x250-000000-80-0-0.jpg",
-          "deezerId": 3321390471,
-          "link": "https://www.deezer.com/track/3321390471"
+          "title": "Haneish",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8445af48f681444a7d8c5997ad8cd74a/250x250-000000-80-0-0.jpg",
+          "deezerId": 4199103702,
+          "link": "https://www.deezer.com/track/4199103702"
         },
         {
           "rank": 8,
-          "title": "MADINA L 2 - مدينة ل اتنين",
-          "artist": "Abyusif",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/455ffd102fea172e1821db7f8e66a035/250x250-000000-80-0-0.jpg",
-          "deezerId": 3321390481,
-          "link": "https://www.deezer.com/track/3321390481"
+          "title": "Light of the Seven",
+          "artist": "Ramin Djawadi",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e95c56161aec0e2da72183f11c2dc0dc/250x250-000000-80-0-0.jpg",
+          "deezerId": 127563043,
+          "link": "https://www.deezer.com/track/127563043"
         },
         {
           "rank": 9,
-          "title": "Wahdy",
-          "artist": "Cairokee",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
-          "deezerId": 4192089202,
-          "link": "https://www.deezer.com/track/4192089202"
+          "title": "Plie",
+          "artist": "Ayumi HIRUSAKI",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/319382d90da92f1830ebff748c1f68b2/250x250-000000-80-0-0.jpg",
+          "deezerId": 1886589627,
+          "link": "https://www.deezer.com/track/1886589627"
         },
         {
           "rank": 10,
-          "title": "Men Gheir Kalam",
-          "artist": "TUL8TE",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/8445af48f681444a7d8c5997ad8cd74a/250x250-000000-80-0-0.jpg",
-          "deezerId": 4199103672,
-          "link": "https://www.deezer.com/track/4199103672"
+          "title": "if looks could kill",
+          "artist": "Destroy Lonely",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/140ca6ca7f793846ddec5995a733b288/250x250-000000-80-0-0.jpg",
+          "deezerId": 2166024007,
+          "link": "https://www.deezer.com/track/2166024007"
         },
         {
           "rank": 11,
-          "title": "Drunk in Love (feat. JAY-Z)",
-          "artist": "Beyoncé",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/fd920280eb3de243b3d0d7b313428c13/250x250-000000-80-0-0.jpg",
-          "deezerId": 73724283,
-          "link": "https://www.deezer.com/track/73724283"
+          "title": "SHAR X KHEIR",
+          "artist": "Mousv",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/96f54421845cefe3d4675c3dab6a2a1f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3383810591,
+          "link": "https://www.deezer.com/track/3383810591"
         },
         {
           "rank": 12,
-          "title": "GHOSTS - عفاريت",
-          "artist": "Abyusif",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/455ffd102fea172e1821db7f8e66a035/250x250-000000-80-0-0.jpg",
-          "deezerId": 3321390441,
-          "link": "https://www.deezer.com/track/3321390441"
+          "title": "Heseeny",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/39f445145249ddc36279f9a349990d76/250x250-000000-80-0-0.jpg",
+          "deezerId": 3474927201,
+          "link": "https://www.deezer.com/track/3474927201"
         },
         {
           "rank": 13,
-          "title": "bloodstream",
-          "artist": "Alyssa Grace",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/a373d43175c979ba4b843d993eefd700/250x250-000000-80-0-0.jpg",
-          "deezerId": 4095687781,
-          "link": "https://www.deezer.com/track/4095687781"
+          "title": "Non vivo più senza te",
+          "artist": "Biagio Antonacci",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/2b272341760ec9fe10b08457e222e7d0/250x250-000000-80-0-0.jpg",
+          "deezerId": 18225232,
+          "link": "https://www.deezer.com/track/18225232"
         },
         {
           "rank": 14,
-          "title": "Ana Fadel",
-          "artist": "Cairokee",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
-          "deezerId": 4192089152,
-          "link": "https://www.deezer.com/track/4192089152"
+          "title": "So Bad",
+          "artist": "Simi",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/2e40edefdd064886de9db059176ef45b/250x250-000000-80-0-0.jpg",
+          "deezerId": 1567237252,
+          "link": "https://www.deezer.com/track/1567237252"
         },
         {
           "rank": 15,
-          "title": "Mot Leh",
-          "artist": "Cairokee",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
-          "deezerId": 4192089182,
-          "link": "https://www.deezer.com/track/4192089182"
+          "title": "You Are a Memory",
+          "artist": "Message To Bears",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a4fd31b7e6027524f10db0a64121ae14/250x250-000000-80-0-0.jpg",
+          "deezerId": 2329637085,
+          "link": "https://www.deezer.com/track/2329637085"
         },
         {
           "rank": 16,
-          "title": "Vergiss meinen Namen",
-          "artist": "Schillah",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0830b4046a783fc00976ef7535dc54d0/250x250-000000-80-0-0.jpg",
-          "deezerId": 4076815441,
-          "link": "https://www.deezer.com/track/4076815441"
+          "title": "Lose My Mind - A COLORS SHOW",
+          "artist": "Brown Joel",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/48e9b30f8b2d7443ce1ba16ef97b9d77/250x250-000000-80-0-0.jpg",
+          "deezerId": 3142025721,
+          "link": "https://www.deezer.com/track/3142025721"
         },
         {
           "rank": 17,
-          "title": "Black Out Days",
-          "artist": "Phantogram",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/999a34342ea724914eea9b461402a2e5/250x250-000000-80-0-0.jpg",
-          "deezerId": 74835728,
-          "link": "https://www.deezer.com/track/74835728"
+          "title": "Love Somebody",
+          "artist": "Mathame",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/527b6c80f5d1a774fe7151dece1b92a0/250x250-000000-80-0-0.jpg",
+          "deezerId": 3466071771,
+          "link": "https://www.deezer.com/track/3466071771"
         },
         {
           "rank": 18,
-          "title": "Habits (Stay High)",
-          "artist": "Tove Lo",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/bca07a0bfaaf112657e078b3cbc48d82/250x250-000000-80-0-0.jpg",
-          "deezerId": 84669141,
-          "link": "https://www.deezer.com/track/84669141"
+          "title": "طول منا عالي طول منا ناجح",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a8a9a572a0cc36ef45d59c9b7028fd86/250x250-000000-80-0-0.jpg",
+          "deezerId": 3894380001,
+          "link": "https://www.deezer.com/track/3894380001"
         },
         {
           "rank": 19,
-          "title": "3aslya",
-          "artist": "Mousv",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/25b6b085603cba00760d936bd758b3b2/250x250-000000-80-0-0.jpg",
-          "deezerId": 1246174532,
-          "link": "https://www.deezer.com/track/1246174532"
+          "title": "Nano",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/d34d3a8bbf8ece9727f43fb4ceb04ff4/250x250-000000-80-0-0.jpg",
+          "deezerId": 4030957121,
+          "link": "https://www.deezer.com/track/4030957121"
         },
         {
           "rank": 20,
-          "title": "VALENTINO",
-          "artist": "Afroto",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2d9227bd26c07f139e096cea4dd79364/250x250-000000-80-0-0.jpg",
-          "deezerId": 1841579627,
-          "link": "https://www.deezer.com/track/1841579627"
+          "title": "EL W2ala 7AMO GAH",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/ec947e158283556ea726c0ea0d7c2f24/250x250-000000-80-0-0.jpg",
+          "deezerId": 4035830811,
+          "link": "https://www.deezer.com/track/4035830811"
         }
       ]
     },
@@ -245,24 +245,24 @@
         },
         {
           "rank": 9,
+          "title": "Nano",
+          "artist": "TUL8TE & Saint Levant",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e9/e4/8f/e9e48fb1-33f2-487f-3eca-433ba3e8b0ca/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/nano/6771043145?i=6771043152"
+        },
+        {
+          "rank": 10,
           "title": "Enta Habeeby",
           "artist": "TUL8TE",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/enta-habeeby/6797576792?i=6797576803"
         },
         {
-          "rank": 10,
+          "rank": 11,
           "title": "اركب الدبابه",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/d6/c1/f7d6c105-d70a-aa47-f9a4-2b273c579498/6221216993755_Artwork.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D8%A7%D8%B1%D9%83%D8%A8-%D8%A7%D9%84%D8%AF%D8%A8%D8%A7%D8%A8%D9%87/6799391412?i=6799391413"
-        },
-        {
-          "rank": 11,
-          "title": "Nano",
-          "artist": "TUL8TE & Saint Levant",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e9/e4/8f/e9e48fb1-33f2-487f-3eca-433ba3e8b0ca/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/nano/6771043145?i=6771043152"
         },
         {
           "rank": 12,
@@ -294,31 +294,31 @@
         },
         {
           "rank": 16,
-          "title": "Ha'ak Alaya",
-          "artist": "TUL8TE",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/haak-alaya/6797576792?i=6797577228"
-        },
-        {
-          "rank": 17,
           "title": "كوكب النسيان",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/95/6d/d0/956dd0cb-9ec9-b311-85d7-7e7623270bec/6221216995742_Artwork.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D9%83%D9%88%D9%83%D8%A8-%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D8%A7%D9%86/6799628007?i=6799628008"
         },
         {
-          "rank": 18,
-          "title": "Ana Bakbr (feat. Sary Hany)",
-          "artist": "Cairokee",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/ana-bakbr-feat-sary-hany/6796408980?i=6796409457"
+          "rank": 17,
+          "title": "Ha'ak Alaya",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/haak-alaya/6797576792?i=6797577228"
         },
         {
-          "rank": 19,
+          "rank": 18,
           "title": "صباحك بيور",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/8c/4c/91/8c4c9102-3277-8c95-16c3-505572ee35d9/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D8%B5%D8%A8%D8%A7%D8%AD%D9%83-%D8%A8%D9%8A%D9%88%D8%B1/6778083132?i=6778083559"
+        },
+        {
+          "rank": 19,
+          "title": "Ana Bakbr (feat. Sary Hany)",
+          "artist": "Cairokee",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/ana-bakbr-feat-sary-hany/6796408980?i=6796409457"
         },
         {
           "rank": 20,
