@@ -1,14 +1,16 @@
 // ============================================================================
 //  band.js — one source section: a header (brand dot + label + chart + the
 //  action-mode chip + "open all") followed by either a horizontal rail of cards
-//  or a single link-out tile. A source is shown as a tile when it is flagged
-//  `tile` or simply has no tracks.
+//  (built by rail.js, which adds the ‹ › nav, wheel and drag scrolling) or a
+//  single link-out tile. A source is shown as a tile when it is flagged `tile`
+//  or simply has no tracks.
 // ============================================================================
 
 import { el } from "./dom.js";
 import { metaFor } from "./sources.js";
 import { buildCard } from "./card.js";
 import { buildTile } from "./tile.js";
+import { buildRail } from "./rail.js";
 
 const MODE_LABEL = {
     preview: "▶ in-app preview",
@@ -32,7 +34,7 @@ export function buildBand(source, handlers) {
 
     const body = asTile
         ? buildTile(source, handlers.onOpen)
-        : el("div", { class: "tb-rail" }, source.tracks.map(t => buildCard(t, source, handlers.onActivate)));
+        : buildRail(source.tracks.map(t => buildCard(t, source, handlers.onActivate)));
 
     return el("section", { class: "tb-band" }, [head, body]);
 }

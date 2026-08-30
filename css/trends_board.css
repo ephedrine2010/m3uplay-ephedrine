@@ -8,14 +8,18 @@
 #trends-board {
     flex: 1;
     min-height: 0;
+    min-width: 0;                /* grid/flex default is min-content — without
+                                    this the pane widens instead of the rail
+                                    scrolling */
     overflow-y: auto;
+    overflow-x: hidden;          /* rails scroll sideways, the board does not */
 }
 
 /* brand doubles as the "back to Discover" control */
 #brand { cursor: pointer; padding: 4px 8px; border-radius: 8px; }
 #brand:hover { background: var(--panel-2); }
 
-.tb-board { padding: 14px 16px 24px; }
+.tb-board { padding: 14px 16px 24px; min-width: 0; }
 
 /* ---- header ---- */
 .tb-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
@@ -49,13 +53,67 @@
 }
 .tb-open-all:hover { color: var(--text); background: var(--panel); }
 
-/* ---- carousel of cards ---- */
-.tb-rail {
-    display: flex; gap: 12px; overflow-x: auto; padding: 2px 2px 10px;
-    scroll-snap-type: x proximity; scrollbar-width: thin;
+/* ---- carousel of cards ----
+   The wrapper is the positioning context for the ‹ › nav buttons and the edge
+   fade masks; .tb-rail is the actual scroll container. rail.js toggles
+   .at-start / .at-end / .no-scroll on the wrapper as the rail moves. */
+.tb-rail-wrap { position: relative; min-width: 0; }
+
+/* edge fades — purely decorative, never eat clicks */
+.tb-rail-wrap::before,
+.tb-rail-wrap::after {
+    content: ""; position: absolute; top: 0; bottom: 12px; width: 46px;
+    pointer-events: none; z-index: 1; opacity: 1; transition: opacity .18s;
 }
+.tb-rail-wrap::before { left: 0;  background: linear-gradient(to right, var(--bg), transparent); }
+.tb-rail-wrap::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
+.tb-rail-wrap.at-start::before,
+.tb-rail-wrap.at-end::after,
+.tb-rail-wrap.no-scroll::before,
+.tb-rail-wrap.no-scroll::after { opacity: 0; }
+
+.tb-rail {
+    display: flex; gap: 12px; overflow-x: auto; overflow-y: hidden;
+    padding: 4px 2px 12px; min-width: 0;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-x: contain;        /* don't chain to the board/page */
+    scrollbar-width: thin;
+    scrollbar-color: var(--panel-2) transparent;
+}
+.tb-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
 .tb-rail::-webkit-scrollbar { height: 8px; }
-.tb-rail::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+.tb-rail::-webkit-scrollbar-track { background: transparent; }
+.tb-rail::-webkit-scrollbar-thumb { background: var(--panel-2); border-radius: 99px; }
+.tb-rail:hover::-webkit-scrollbar-thumb { background: var(--line); }
+
+/* drag-to-pan: kill the text/image drag ghost while a drag is in flight */
+.tb-rail.dragging { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; }
+.tb-rail.dragging * { user-select: none; pointer-events: none; }
+
+/* ---- rail nav buttons ---- */
+.tb-nav {
+    position: absolute; top: 53px; z-index: 2;   /* centred on the 132px thumb */
+    width: 34px; height: 34px; min-height: 34px; padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; line-height: 1;
+    background: var(--panel-2); color: var(--text);
+    border: 1px solid var(--line); border-radius: 999px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .45);
+    opacity: 0; transition: opacity .18s, background .15s;
+}
+.tb-nav-l { left: -4px; }
+.tb-nav-r { right: -4px; }
+.tb-rail-wrap:hover .tb-nav,
+.tb-nav:focus-visible { opacity: 1; }
+.tb-nav:hover { background: var(--accent); }
+.tb-rail-wrap.at-start .tb-nav-l,
+.tb-rail-wrap.at-end .tb-nav-r,
+.tb-rail-wrap.no-scroll .tb-nav { opacity: 0; pointer-events: none; }
+
+/* coarse pointers pan by touch — the arrows would just cover cards */
+@media (hover: none), (pointer: coarse) {
+    .tb-nav { display: none; }
+}
 
 .tb-card {
     flex: 0 0 132px; scroll-snap-align: start; cursor: pointer;
@@ -69,7 +127,10 @@
     background: var(--panel-2);
     display: flex; align-items: center; justify-content: center;
 }
-.tb-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tb-thumb-img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    -webkit-user-drag: none; user-select: none;   /* let the rail pan instead */
+}
 .tb-thumb-ph {
     width: 100%; height: 100%;
     display: flex; align-items: center; justify-content: center;
@@ -126,5 +187,5 @@
 .tb-tile-arrow { color: var(--muted); font-size: 1.1rem; }
 
 @media (prefers-reduced-motion: reduce) {
-    .tb-overlay { transition: none; }
+    .tb-overlay, .tb-nav, .tb-rail-wrap::before, .tb-rail-wrap::after { transition: none; }
 }

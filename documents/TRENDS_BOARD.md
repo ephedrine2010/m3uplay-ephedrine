@@ -139,6 +139,7 @@ js/trends_board/
   actions.js   # makeHandlers({player, resolvePreview, openExternal, notify}) → onActivate/onOpen
   board.js     # buildBoard(data, handlers) → header + note + one band per source
   band.js      # buildBand(source, handlers) → header + rail-of-cards OR a tile
+  rail.js      # buildRail(cards) → the horizontal carousel: ‹ › nav, wheel→x, drag-to-pan
   card.js      # buildCard(track, source, onActivate) → one track card
   tile.js      # buildTile(source, onOpen) → one link-out tile
   image.js     # coverImage(track) → <img> with gradient+initials fallback
@@ -152,7 +153,39 @@ css/trends_board.css            # all .tb-* styles (+ #brand, #trends-board); re
 
 **Separation of concerns is deliberate:** `data.js`/fetcher own *what* is
 trending; `sources.js`/CSS own *how it looks*; `actions.js` owns *what a click
-does*; `dom.js`/`card.js`/`tile.js`/`band.js`/`board.js` are pure render.
+does*; `dom.js`/`card.js`/`tile.js`/`band.js`/`board.js` are pure render, and
+`rail.js` owns *scroll behaviour only*.
+
+---
+
+## 5b. Horizontal scrolling of a rail (`rail.js`)
+
+A rail is a plain `overflow-x: auto` flex row, which on a phone is enough (touch
+pans it natively) but on a desktop is not: a mouse wheel over it scrolls the
+board *vertically*, and the thin dark scrollbar is nearly invisible against the
+dark theme. `rail.js` adds the missing affordances:
+
+- **‹ › nav buttons** — page by 80% of the visible width, `scroll-behavior:
+  smooth` (skipped under `prefers-reduced-motion`). Hidden on coarse pointers.
+- **Wheel → horizontal.** A vertical wheel over the rail pans it sideways. It
+  only calls `preventDefault()` while the rail can still move that way, so once
+  you hit either end the wheel falls through and the board scrolls vertically
+  again — no scroll trap.
+- **Drag-to-pan** with the mouse (`pointerType === "mouse"` only; touch already
+  pans). A drag past 4px of slop captures the pointer and swallows the trailing
+  `click` so releasing over a card doesn't start playing it. The cover `<img>`
+  is `draggable="false"` — otherwise the browser's native image drag steals the
+  gesture.
+- **Edge state.** `.at-start` / `.at-end` / `.no-scroll` are toggled on the
+  wrapper from the scroll position (plus a `ResizeObserver`), and the CSS uses
+  them to fade the arrows and the gradient edge masks.
+
+**Layout gotcha:** the rail can only scroll if its ancestors refuse to widen.
+`#content` is a `1fr` grid item and grid/flex items default to `min-width:
+auto` (= min-content), so without an explicit **`min-width: 0`** on `#content`,
+`#trends-board` and `.tb-board` the pane grows to fit the 20 cards instead of
+letting the rail scroll. `#trends-board` is also pinned to `overflow-x: hidden`
+so the rails are the only things that move sideways.
 
 ---
 

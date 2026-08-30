@@ -36,7 +36,8 @@ export function coverImage(track) {
     if (!track.thumb) return placeholder(track);
     const img = el("img", {
         class: "tb-thumb-img", src: track.thumb, alt: "",
-        loading: "lazy", decoding: "async"
+        loading: "lazy", decoding: "async",
+        draggable: "false"          // otherwise it hijacks drag-to-pan on the rail
     });
     img.addEventListener("error", () => img.replaceWith(placeholder(track)), { once: true });
     return img;

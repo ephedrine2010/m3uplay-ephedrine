@@ -166,6 +166,10 @@ input:focus { outline: 2px solid var(--accent); border-color: transparent; }
 #content {
     display: flex; flex-direction: column;
     min-height: 0;
+    min-width: 0;                         /* a grid item defaults to min-content;
+                                             without this the 1fr column grows to
+                                             fit wide children (the trends rails)
+                                             instead of letting them scroll */
 }
 
 #track-list {
