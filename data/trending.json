@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-01T09:05:42.887Z",
+  "updated": "2026-09-02T08:19:21.871Z",
   "region": "EG",
   "sources": [
     {
@@ -11,78 +11,126 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "bleed",
-          "artist": "Amotti",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/dd54822fb3dc87fb08016175fb943e00/250x250-000000-80-0-0.jpg",
-          "deezerId": 3206281701,
-          "link": "https://www.deezer.com/track/3206281701"
+          "title": "Ana Fadel",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089152,
+          "link": "https://www.deezer.com/track/4192089152"
         },
         {
           "rank": 2,
-          "title": "انا 5 استار على كوكبى",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0e22ad7ed78ee74ec6d80048f6833af3/250x250-000000-80-0-0.jpg",
-          "deezerId": 3843065941,
-          "link": "https://www.deezer.com/track/3843065941"
+          "title": "Basrah w Atooh",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/59aca1990910aa9314c818af8dada52e/250x250-000000-80-0-0.jpg",
+          "deezerId": 1917028037,
+          "link": "https://www.deezer.com/track/1917028037"
         },
         {
           "rank": 3,
-          "title": "أنا مش شايفك (أنا السالك وأنا السهم المنطلق)",
+          "title": "Elshabab Nabara",
           "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/fd94f256a529e442a5c0977ab8161a3c/250x250-000000-80-0-0.jpg",
-          "deezerId": 3930737981,
-          "link": "https://www.deezer.com/track/3930737981"
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/c947dfba09fa2f53fe26aa54169871a5/250x250-000000-80-0-0.jpg",
+          "deezerId": 4214598312,
+          "link": "https://www.deezer.com/track/4214598312"
         },
         {
           "rank": 4,
-          "title": "كاتم الانفاس",
-          "artist": "مصطفي الجن و هادي الصغير - تيم الابداع",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/6b569f4fd65184dc343795ac1ace27be/250x250-000000-80-0-0.jpg",
-          "deezerId": 3116440561,
-          "link": "https://www.deezer.com/track/3116440561"
+          "title": "Dreams And Spirits",
+          "artist": "Vasily Igor",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/1b3633859d33d5b9036c13e95fcc4e9d/250x250-000000-80-0-0.jpg",
+          "deezerId": 3654073172,
+          "link": "https://www.deezer.com/track/3654073172"
         },
         {
           "rank": 5,
-          "title": "طول منا عالي طول منا ناجح",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/a8a9a572a0cc36ef45d59c9b7028fd86/250x250-000000-80-0-0.jpg",
-          "deezerId": 3894380001,
-          "link": "https://www.deezer.com/track/3894380001"
+          "title": "Tata Tata",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089162,
+          "link": "https://www.deezer.com/track/4192089162"
         },
         {
           "rank": 6,
-          "title": "Routine",
-          "artist": "Karim Osama",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/f091ae9b3013b7ed6d7a763b5c8f37dc/250x250-000000-80-0-0.jpg",
-          "deezerId": 2177337107,
-          "link": "https://www.deezer.com/track/2177337107"
+          "title": "Haseb Haseb",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089172,
+          "link": "https://www.deezer.com/track/4192089172"
         },
         {
           "rank": 7,
-          "title": "Baba",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/b4d27b5330e5a279dc225a75267c5f63/250x250-000000-80-0-0.jpg",
-          "deezerId": 3439612841,
-          "link": "https://www.deezer.com/track/3439612841"
+          "title": "Wahdy",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089202,
+          "link": "https://www.deezer.com/track/4192089202"
         },
         {
           "rank": 8,
-          "title": "يابا متخدناش بالهيئه ( بطل هري خدتها جري )",
-          "artist": "مصطفي الجن و هادي الصغير - تيم الابداع",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/e909ad5d5134e358de0aeb5f67008b43/250x250-000000-80-0-0.jpg",
-          "deezerId": 3722458462,
-          "link": "https://www.deezer.com/track/3722458462"
+          "title": "Ana Bakbr",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089212,
+          "link": "https://www.deezer.com/track/4192089212"
         },
         {
           "rank": 9,
-          "title": "الغابة ليها بابا ( هو الديب لما يغيب )",
-          "artist": "مصطفي الجن و هادي الصغير - تيم الابداع",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/fbff3caa7b20c27caee6f476981ae4e3/250x250-000000-80-0-0.jpg",
-          "deezerId": 3922607651,
-          "link": "https://www.deezer.com/track/3922607651"
+          "title": "Mal aimer",
+          "artist": "Yu_Gen",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6915fc3b6a2c4eb18f892fd608f279b4/250x250-000000-80-0-0.jpg",
+          "deezerId": 3941288481,
+          "link": "https://www.deezer.com/track/3941288481"
         },
         {
           "rank": 10,
+          "title": "Shoft Kalam",
+          "artist": "Marwan Pablo",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/334c4ee30ce1a1fdae634c8677d0d34c/250x250-000000-80-0-0.jpg",
+          "deezerId": 4170855672,
+          "link": "https://www.deezer.com/track/4170855672"
+        },
+        {
+          "rank": 11,
+          "title": "Mategy",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089142,
+          "link": "https://www.deezer.com/track/4192089142"
+        },
+        {
+          "rank": 12,
+          "title": "Mot Leh",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089182,
+          "link": "https://www.deezer.com/track/4192089182"
+        },
+        {
+          "rank": 13,
+          "title": "Alf Meraya",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089192,
+          "link": "https://www.deezer.com/track/4192089192"
+        },
+        {
+          "rank": 14,
+          "title": "Fel Khetam",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089222,
+          "link": "https://www.deezer.com/track/4192089222"
+        },
+        {
+          "rank": 15,
+          "title": "Purple Rain",
+          "artist": "Prince",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8cc37398de3ee92bd31d286f30e7972d/250x250-000000-80-0-0.jpg",
+          "deezerId": 374283061,
+          "link": "https://www.deezer.com/track/374283061"
+        },
+        {
+          "rank": 16,
           "title": "Dai Dai",
           "artist": "Shakira",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/a7f9bae0243c512059298a68d09f45a1/250x250-000000-80-0-0.jpg",
@@ -90,84 +138,36 @@
           "link": "https://www.deezer.com/track/4015341011"
         },
         {
-          "rank": 11,
-          "title": "Ahe Ahe (feat. Eirini Papadopoulou)",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/78d562db5a88c934679ccdeee0b1066a/250x250-000000-80-0-0.jpg",
-          "deezerId": 3060621331,
-          "link": "https://www.deezer.com/track/3060621331"
-        },
-        {
-          "rank": 12,
-          "title": "SHAR X KHEIR",
-          "artist": "Mousv",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/96f54421845cefe3d4675c3dab6a2a1f/250x250-000000-80-0-0.jpg",
-          "deezerId": 3383810591,
-          "link": "https://www.deezer.com/track/3383810591"
-        },
-        {
-          "rank": 13,
-          "title": "Easy",
-          "artist": "Karim Osama",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/b9f2435c6cb65809f5c071b299bc1cda/250x250-000000-80-0-0.jpg",
-          "deezerId": 4035627531,
-          "link": "https://www.deezer.com/track/4035627531"
-        },
-        {
-          "rank": 14,
-          "title": "Ymkin Ala Bali",
-          "artist": "Karim Osama",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/f091ae9b3013b7ed6d7a763b5c8f37dc/250x250-000000-80-0-0.jpg",
-          "deezerId": 2177337137,
-          "link": "https://www.deezer.com/track/2177337137"
-        },
-        {
-          "rank": 15,
-          "title": "bake shop",
-          "artist": "kuala",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/639578f68ab62eeb25bc4631ec1ace5a/250x250-000000-80-0-0.jpg",
-          "deezerId": 3805739532,
-          "link": "https://www.deezer.com/track/3805739532"
-        },
-        {
-          "rank": 16,
-          "title": "Pastel Flowers",
-          "artist": "Kayou.",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/480a5ad3678afeaf57393318e180e94b/250x250-000000-80-0-0.jpg",
-          "deezerId": 4151367472,
-          "link": "https://www.deezer.com/track/4151367472"
-        },
-        {
           "rank": 17,
-          "title": "Arkab Eldababa",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c8b369e65ac85a42ed86dd742bb1ab11/250x250-000000-80-0-0.jpg",
-          "deezerId": 4211283832,
-          "link": "https://www.deezer.com/track/4211283832"
+          "title": "Nesena",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089132,
+          "link": "https://www.deezer.com/track/4192089132"
         },
         {
           "rank": 18,
-          "title": "Kawkab Elnsyan",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/bf90571f3a3877da64c487b94bd08965/250x250-000000-80-0-0.jpg",
-          "deezerId": 4212645972,
-          "link": "https://www.deezer.com/track/4212645972"
+          "title": "Dream Lover",
+          "artist": "Bobby Darin",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6a4040375ba6ded7b305b9f189053b29/250x250-000000-80-0-0.jpg",
+          "deezerId": 3613861,
+          "link": "https://www.deezer.com/track/3613861"
         },
         {
           "rank": 19,
-          "title": "Plie",
-          "artist": "Ayumi HIRUSAKI",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/319382d90da92f1830ebff748c1f68b2/250x250-000000-80-0-0.jpg",
-          "deezerId": 1886589627,
-          "link": "https://www.deezer.com/track/1886589627"
+          "title": "Haneialik",
+          "artist": "Muslim - مُسلِم",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/2f7d96e6ab552ecba3b613be2bff2a3b/250x250-000000-80-0-0.jpg",
+          "deezerId": 1120734692,
+          "link": "https://www.deezer.com/track/1120734692"
         },
         {
           "rank": 20,
-          "title": "Geeb Ely Fi Batnak",
-          "artist": "Karim Osama",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/f091ae9b3013b7ed6d7a763b5c8f37dc/250x250-000000-80-0-0.jpg",
-          "deezerId": 2177337097,
-          "link": "https://www.deezer.com/track/2177337097"
+          "title": "Don't Let Me Drown",
+          "artist": "Burna Boy",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/04fc92712f724ceb3aef570fa09fed48/250x250-000000-80-0-0.jpg",
+          "deezerId": 3434062741,
+          "link": "https://www.deezer.com/track/3434062741"
         }
       ]
     },
@@ -224,31 +224,31 @@
         },
         {
           "rank": 6,
-          "title": "Mot Leh (feat. Sary Hany)",
-          "artist": "Cairokee",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/mot-leh-feat-sary-hany/6796408980?i=6796409444"
-        },
-        {
-          "rank": 7,
           "title": "Nesena",
           "artist": "Cairokee",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/nesena/6796408980?i=6796409260"
         },
         {
-          "rank": 8,
-          "title": "Nano",
-          "artist": "TUL8TE & Saint Levant",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e9/e4/8f/e9e48fb1-33f2-487f-3eca-433ba3e8b0ca/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/nano/6771043145?i=6771043152"
+          "rank": 7,
+          "title": "Mot Leh (feat. Sary Hany)",
+          "artist": "Cairokee",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/mot-leh-feat-sary-hany/6796408980?i=6796409444"
         },
         {
-          "rank": 9,
+          "rank": 8,
           "title": "اركب الدبابه",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/d6/c1/f7d6c105-d70a-aa47-f9a4-2b273c579498/6221216993755_Artwork.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D8%A7%D8%B1%D9%83%D8%A8-%D8%A7%D9%84%D8%AF%D8%A8%D8%A7%D8%A8%D9%87/6799391412?i=6799391413"
+        },
+        {
+          "rank": 9,
+          "title": "Nano",
+          "artist": "TUL8TE & Saint Levant",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e9/e4/8f/e9e48fb1-33f2-487f-3eca-433ba3e8b0ca/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/nano/6771043145?i=6771043152"
         },
         {
           "rank": 10,
@@ -273,31 +273,31 @@
         },
         {
           "rank": 13,
-          "title": "Lola El Banat",
-          "artist": "Amr Diab",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/5b/fd/4b5bfdec-c374-afcc-ed93-26207f245082/196874624913.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/lola-el-banat/6793040762?i=6793040764"
-        },
-        {
-          "rank": 14,
           "title": "Getlak",
           "artist": "Amr Diab",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/5b/fd/4b5bfdec-c374-afcc-ed93-26207f245082/196874624913.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/getlak/6793040762?i=6793040769"
         },
         {
-          "rank": 15,
-          "title": "صباحك بيور",
-          "artist": "Hamo El Morshedy",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/8c/4c/91/8c4c9102-3277-8c95-16c3-505572ee35d9/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/%D8%B5%D8%A8%D8%A7%D8%AD%D9%83-%D8%A8%D9%8A%D9%88%D8%B1/6778083132?i=6778083559"
+          "rank": 14,
+          "title": "Lola El Banat",
+          "artist": "Amr Diab",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/4b/5b/fd/4b5bfdec-c374-afcc-ed93-26207f245082/196874624913.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/lola-el-banat/6793040762?i=6793040764"
         },
         {
-          "rank": 16,
+          "rank": 15,
           "title": "Ha'ak Alaya",
           "artist": "TUL8TE",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/haak-alaya/6797576792?i=6797577228"
+        },
+        {
+          "rank": 16,
+          "title": "صباحك بيور",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/8c/4c/91/8c4c9102-3277-8c95-16c3-505572ee35d9/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%B5%D8%A8%D8%A7%D8%AD%D9%83-%D8%A8%D9%8A%D9%88%D8%B1/6778083132?i=6778083559"
         },
         {
           "rank": 17,
