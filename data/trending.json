@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-16T09:00:06.183Z",
+  "updated": "2026-09-17T09:06:31.807Z",
   "region": "EG",
   "sources": [
     {
@@ -11,6 +11,14 @@
       "tracks": [
         {
           "rank": 1,
+          "title": "لاعبت الكبار",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/cbb5f9a0779d5113d30e60ef4c231be5/250x250-000000-80-0-0.jpg",
+          "deezerId": 4271248202,
+          "link": "https://www.deezer.com/track/4271248202"
+        },
+        {
+          "rank": 2,
           "title": "طب ب بحبك (عشان بحبك)",
           "artist": "حمو المرشدي",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/9b47a1747f4e0ebbff9433ae5294529e/250x250-000000-80-0-0.jpg",
@@ -18,15 +26,39 @@
           "link": "https://www.deezer.com/track/4279876602"
         },
         {
-          "rank": 2,
-          "title": "Arkab Eldababa",
+          "rank": 3,
+          "title": "ولا فكك",
           "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c8b369e65ac85a42ed86dd742bb1ab11/250x250-000000-80-0-0.jpg",
-          "deezerId": 4211283832,
-          "link": "https://www.deezer.com/track/4211283832"
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f546642998bab0c455970efd45de21b8/250x250-000000-80-0-0.jpg",
+          "deezerId": 4238204042,
+          "link": "https://www.deezer.com/track/4238204042"
         },
         {
-          "rank": 3,
+          "rank": 4,
+          "title": "الكوتش شوكس والحالة ريلاكس",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/dc2b5786f8df9c70260e2126009584cf/250x250-000000-80-0-0.jpg",
+          "deezerId": 3965466611,
+          "link": "https://www.deezer.com/track/3965466611"
+        },
+        {
+          "rank": 5,
+          "title": "MONTAGEM URANIUM",
+          "artist": "Zaylo",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/59bf77a30e0b22bbf7076f69143a437d/250x250-000000-80-0-0.jpg",
+          "deezerId": 4016564211,
+          "link": "https://www.deezer.com/track/4016564211"
+        },
+        {
+          "rank": 6,
+          "title": "MTG DIABÓLICA",
+          "artist": "DJ SXD",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/1e32c4b163c945c05dde6ca933182e64/250x250-000000-80-0-0.jpg",
+          "deezerId": 4048640121,
+          "link": "https://www.deezer.com/track/4048640121"
+        },
+        {
+          "rank": 7,
           "title": "Kawkab Elnsyan",
           "artist": "حمو المرشدي",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/bf90571f3a3877da64c487b94bd08965/250x250-000000-80-0-0.jpg",
@@ -34,55 +66,7 @@
           "link": "https://www.deezer.com/track/4212645972"
         },
         {
-          "rank": 4,
-          "title": "EL W2ala 7AMO GAH",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/ec947e158283556ea726c0ea0d7c2f24/250x250-000000-80-0-0.jpg",
-          "deezerId": 4035830811,
-          "link": "https://www.deezer.com/track/4035830811"
-        },
-        {
-          "rank": 5,
-          "title": "Eyni Aleyk",
-          "artist": "Nancy Ajram",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/a4461c45350c075a15eb0f83b95b5ffa/250x250-000000-80-0-0.jpg",
-          "deezerId": 77578483,
-          "link": "https://www.deezer.com/track/77578483"
-        },
-        {
-          "rank": 6,
-          "title": "Elshabab Nabara",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/22bcb18af942ead44d71b4de5fc3c642/250x250-000000-80-0-0.jpg",
-          "deezerId": 4214598312,
-          "link": "https://www.deezer.com/track/4214598312"
-        },
-        {
-          "rank": 7,
-          "title": "Lola El Banat",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
-          "deezerId": 4167205862,
-          "link": "https://www.deezer.com/track/4167205862"
-        },
-        {
           "rank": 8,
-          "title": "Petty Too (feat. Future)",
-          "artist": "Lil Durk",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2fd25712fa8362f7b3e0b87942a1c659/250x250-000000-80-0-0.jpg",
-          "deezerId": 1801497877,
-          "link": "https://www.deezer.com/track/1801497877"
-        },
-        {
-          "rank": 9,
-          "title": "Cuestion de feeling",
-          "artist": "Mina",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2fab1f19758ae3b42c90cf619a20ec51/250x250-000000-80-0-0.jpg",
-          "deezerId": 2303390975,
-          "link": "https://www.deezer.com/track/2303390975"
-        },
-        {
-          "rank": 10,
           "title": "Ana Keter",
           "artist": "Sherine",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/666b8f396bf03ed6dc55468a9c8d1627/250x250-000000-80-0-0.jpg",
@@ -90,84 +74,100 @@
           "link": "https://www.deezer.com/track/660199552"
         },
         {
+          "rank": 9,
+          "title": "لِلّي",
+          "artist": "Mohamed Mounir",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/cb68afa2460eeca550ce47825bb69b8d/250x250-000000-80-0-0.jpg",
+          "deezerId": 1830834487,
+          "link": "https://www.deezer.com/track/1830834487"
+        },
+        {
+          "rank": 10,
+          "title": "حملى علي الله",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5cba93488a0af89844d670733ff86d1a/250x250-000000-80-0-0.jpg",
+          "deezerId": 4205725072,
+          "link": "https://www.deezer.com/track/4205725072"
+        },
+        {
           "rank": 11,
-          "title": "Broken Vision Rhythm",
-          "artist": "Loathe",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/7dd1ed047e040ab1c5daac704e135b4d/250x250-000000-80-0-0.jpg",
-          "deezerId": 802762142,
-          "link": "https://www.deezer.com/track/802762142"
+          "title": "خد كشافي",
+          "artist": "Eslam Kabonga",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8bda4ea915a8821efc66ad27cf9021af/250x250-000000-80-0-0.jpg",
+          "deezerId": 4229101542,
+          "link": "https://www.deezer.com/track/4229101542"
         },
         {
           "rank": 12,
-          "title": "يا بخت",
-          "artist": "Sultan Elshan",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/1d3c9ed10c7055b121582021be78a70d/250x250-000000-80-0-0.jpg",
-          "deezerId": 3663102822,
-          "link": "https://www.deezer.com/track/3663102822"
+          "title": "Elsadara Elgadara Away Saheb Elomara",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/66c39307ff9483cf497650030fab4755/250x250-000000-80-0-0.jpg",
+          "deezerId": 4237739762,
+          "link": "https://www.deezer.com/track/4237739762"
         },
         {
           "rank": 13,
-          "title": "Mish Hasmaak",
-          "artist": "Rawan Bin Hussain",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/3222f55d13824885cf8825ba233e4513/250x250-000000-80-0-0.jpg",
-          "deezerId": 4274038202,
-          "link": "https://www.deezer.com/track/4274038202"
+          "title": "Hobboh Ganna",
+          "artist": "Sherine",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e5ab08f782135c3cc88289ac8a8bf7be/250x250-000000-80-0-0.jpg",
+          "deezerId": 573699492,
+          "link": "https://www.deezer.com/track/573699492"
         },
         {
           "rank": 14,
-          "title": "Dari Ya Alby",
-          "artist": "Hamza Namira",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0bb8e74f70e5f8e6632b78b2215fb17f/250x250-000000-80-0-0.jpg",
-          "deezerId": 462011812,
-          "link": "https://www.deezer.com/track/462011812"
+          "title": "Kül",
+          "artist": "Cem Adrian",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0b451ce1ac3a45d7a4f349352fa8b1e6/250x250-000000-80-0-0.jpg",
+          "deezerId": 1199994172,
+          "link": "https://www.deezer.com/track/1199994172"
         },
         {
           "rank": 15,
-          "title": "Basrah w Atooh",
-          "artist": "Cairokee",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/59aca1990910aa9314c818af8dada52e/250x250-000000-80-0-0.jpg",
-          "deezerId": 1917028037,
-          "link": "https://www.deezer.com/track/1917028037"
+          "title": "Cuestion de feeling",
+          "artist": "Mina",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/2fab1f19758ae3b42c90cf619a20ec51/250x250-000000-80-0-0.jpg",
+          "deezerId": 2303390975,
+          "link": "https://www.deezer.com/track/2303390975"
         },
         {
           "rank": 16,
+          "title": "Ashkal Mohdetha",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/44f863dab779c475d191e9e5ba085215/250x250-000000-80-0-0.jpg",
+          "deezerId": 4178005612,
+          "link": "https://www.deezer.com/track/4178005612"
+        },
+        {
+          "rank": 17,
+          "title": "F&N",
+          "artist": "Future",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e573905d52432f38c8cce59ae2f6857a/250x250-000000-80-0-0.jpg",
+          "deezerId": 618160472,
+          "link": "https://www.deezer.com/track/618160472"
+        },
+        {
+          "rank": 18,
+          "title": "The Happy Song",
+          "artist": "Imogen Heap",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/36d206131373a030b6a9d21924d992cf/250x250-000000-80-0-0.jpg",
+          "deezerId": 1689221997,
+          "link": "https://www.deezer.com/track/1689221997"
+        },
+        {
+          "rank": 19,
+          "title": "Petty Too (feat. Future)",
+          "artist": "Lil Durk",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/2fd25712fa8362f7b3e0b87942a1c659/250x250-000000-80-0-0.jpg",
+          "deezerId": 1801497877,
+          "link": "https://www.deezer.com/track/1801497877"
+        },
+        {
+          "rank": 20,
           "title": "Ancora, ancora, ancora",
           "artist": "Mina",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/947cd810e512a49b3fb4235c8b26f644/250x250-000000-80-0-0.jpg",
           "deezerId": 2505716871,
           "link": "https://www.deezer.com/track/2505716871"
-        },
-        {
-          "rank": 17,
-          "title": "Questione di feeling",
-          "artist": "Mina",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/bcc8d981853051f10ad3138fb3a49c43/250x250-000000-80-0-0.jpg",
-          "deezerId": 2669274552,
-          "link": "https://www.deezer.com/track/2669274552"
-        },
-        {
-          "rank": 18,
-          "title": "Ebtsmt",
-          "artist": "Sherine",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/b6c44be1dd0747c7901e6f66e2881af0/250x250-000000-80-0-0.jpg",
-          "deezerId": 3435653011,
-          "link": "https://www.deezer.com/track/3435653011"
-        },
-        {
-          "rank": 19,
-          "title": "3wdtny Eldonia",
-          "artist": "Sherine",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/b6c44be1dd0747c7901e6f66e2881af0/250x250-000000-80-0-0.jpg",
-          "deezerId": 3435653021,
-          "link": "https://www.deezer.com/track/3435653021"
-        },
-        {
-          "rank": 20,
-          "title": "Elly Y2abel Habibi",
-          "artist": "Sherine",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/b6c44be1dd0747c7901e6f66e2881af0/250x250-000000-80-0-0.jpg",
-          "deezerId": 3435653071,
-          "link": "https://www.deezer.com/track/3435653071"
         }
       ]
     },
@@ -224,45 +224,45 @@
         },
         {
           "rank": 6,
-          "title": "اركب الدبابه",
-          "artist": "Hamo El Morshedy",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/d6/c1/f7d6c105-d70a-aa47-f9a4-2b273c579498/6221216993755_Artwork.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/%D8%A7%D8%B1%D9%83%D8%A8-%D8%A7%D9%84%D8%AF%D8%A8%D8%A7%D8%A8%D9%87/6799391412?i=6799391413"
-        },
-        {
-          "rank": 7,
           "title": "لاعبت الكبار",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8d/7f/24/8d7f245f-589b-2b70-a23e-4fc3c6a66d66/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D9%84%D8%A7%D8%B9%D8%A8%D8%AA-%D8%A7%D9%84%D9%83%D8%A8%D8%A7%D8%B1/6809517915?i=6809517923"
         },
         {
-          "rank": 8,
-          "title": "Ana Fadel",
-          "artist": "Cairokee",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/ana-fadel/6796408980?i=6796409276"
+          "rank": 7,
+          "title": "اركب الدبابه",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/d6/c1/f7d6c105-d70a-aa47-f9a4-2b273c579498/6221216993755_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%A7%D8%B1%D9%83%D8%A8-%D8%A7%D9%84%D8%AF%D8%A8%D8%A7%D8%A8%D9%87/6799391412?i=6799391413"
         },
         {
-          "rank": 9,
+          "rank": 8,
           "title": "كوكب النسيان",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/95/6d/d0/956dd0cb-9ec9-b311-85d7-7e7623270bec/6221216995742_Artwork.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D9%83%D9%88%D9%83%D8%A8-%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D8%A7%D9%86/6799628007?i=6799628008"
         },
         {
-          "rank": 10,
-          "title": "Kelma",
-          "artist": "Ramy Sabry",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d6/86/6b/d6866b86-9c68-5488-ea5b-b406ce47ebfb/689860602922_cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/kelma/1833232028?i=1833232274"
+          "rank": 9,
+          "title": "Ana Fadel",
+          "artist": "Cairokee",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/ana-fadel/6796408980?i=6796409276"
         },
         {
-          "rank": 11,
+          "rank": 10,
           "title": "Nano",
           "artist": "TUL8TE & Saint Levant",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e9/e4/8f/e9e48fb1-33f2-487f-3eca-433ba3e8b0ca/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/nano/6771043145?i=6771043152"
+        },
+        {
+          "rank": 11,
+          "title": "Kelma",
+          "artist": "Ramy Sabry",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d6/86/6b/d6866b86-9c68-5488-ea5b-b406ce47ebfb/689860602922_cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/kelma/1833232028?i=1833232274"
         },
         {
           "rank": 12,
@@ -301,31 +301,31 @@
         },
         {
           "rank": 17,
-          "title": "Enta Habeeby",
-          "artist": "TUL8TE",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/enta-habeeby/6797576792?i=6797576803"
-        },
-        {
-          "rank": 18,
           "title": "Mot Leh (feat. Sary Hany)",
           "artist": "Cairokee",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/7f/a0/00/7fa00086-e72c-191b-6547-e8992f774a9a/885288056853.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/mot-leh-feat-sary-hany/6796408980?i=6796409444"
         },
         {
-          "rank": 19,
-          "title": "3alam Kadaba (From The TV Series Ma Trah Lays Kama Ybdo)",
-          "artist": "Lege-Cy",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c6/cd/c1/c6cdc191-22a6-6395-7a3d-e28865940c38/25UM1IM22988.rgb.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/3alam-kadaba-from-the-tv-series-ma-trah-lays-kama-ybdo/1834402793?i=1834403065"
+          "rank": 18,
+          "title": "Enta Habeeby",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/enta-habeeby/6797576792?i=6797576803"
         },
         {
-          "rank": 20,
+          "rank": 19,
           "title": "يا حبيبنا | ريدبُل مزيكا صالونات",
           "artist": "Red Bull Sika, Hakim & Houda Bondok",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b7/ed/7e/b7ed7e10-b16d-4799-3232-458cd81bafbf/759009835259.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D9%8A%D8%A7-%D8%AD%D8%A8%D9%8A%D8%A8%D9%86%D8%A7-%D8%B1%D9%8A%D8%AF%D8%A8-%D9%84-%D9%85%D8%B2%D9%8A%D9%83%D8%A7-%D8%B5%D8%A7%D9%84%D9%88%D9%86%D8%A7%D8%AA/6803568777?i=6803568785"
+        },
+        {
+          "rank": 20,
+          "title": "3alam Kadaba (From The TV Series Ma Trah Lays Kama Ybdo)",
+          "artist": "Lege-Cy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c6/cd/c1/c6cdc191-22a6-6395-7a3d-e28865940c38/25UM1IM22988.rgb.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/3alam-kadaba-from-the-tv-series-ma-trah-lays-kama-ybdo/1834402793?i=1834403065"
         }
       ]
     },
