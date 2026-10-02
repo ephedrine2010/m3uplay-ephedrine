@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T10:40:04.929Z",
+  "updated": "2026-10-02T10:15:31.864Z",
   "region": "EG",
   "sources": [
     {
@@ -11,78 +11,22 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "Ain't No Time",
-          "artist": "Future",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d67a9d21359a1704127c45dde2c8c57c/250x250-000000-80-0-0.jpg",
-          "deezerId": 122703248,
-          "link": "https://www.deezer.com/track/122703248"
+          "title": "تربيتى هتخمكو فيا ( مين دا اللى يجس ورقتى )",
+          "artist": "مصطفي الجن و هادي الصغير - تيم الابداع",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a34819d17f440204dc992f9b7eafdb35/250x250-000000-80-0-0.jpg",
+          "deezerId": 3951073481,
+          "link": "https://www.deezer.com/track/3951073481"
         },
         {
           "rank": 2,
-          "title": "Searchlight",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/4d11474b874a1f7b0a98ee5632f6570f/250x250-000000-80-0-0.jpg",
-          "deezerId": 3648628902,
-          "link": "https://www.deezer.com/track/3648628902"
+          "title": "Freedom",
+          "artist": "Pharrell Williams",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0943f3bf4a5d6fcc210ebdb2c016e818/250x250-000000-80-0-0.jpg",
+          "deezerId": 103446218,
+          "link": "https://www.deezer.com/track/103446218"
         },
         {
           "rank": 3,
-          "title": "Tata Tata",
-          "artist": "Cairokee",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
-          "deezerId": 4192089162,
-          "link": "https://www.deezer.com/track/4192089162"
-        },
-        {
-          "rank": 4,
-          "title": "Loser",
-          "artist": "Tame Impala",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c1c347119545b167c97183055b86011e/250x250-000000-80-0-0.jpg",
-          "deezerId": 3537337561,
-          "link": "https://www.deezer.com/track/3537337561"
-        },
-        {
-          "rank": 5,
-          "title": "Young Again",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132641,
-          "link": "https://www.deezer.com/track/3844132641"
-        },
-        {
-          "rank": 6,
-          "title": "Machine Gun",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132671,
-          "link": "https://www.deezer.com/track/3844132671"
-        },
-        {
-          "rank": 7,
-          "title": "Outlaw",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132681,
-          "link": "https://www.deezer.com/track/3844132681"
-        },
-        {
-          "rank": 8,
-          "title": "Bundy",
-          "artist": "Animal Alpha",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/4413936166beee92d87e092407622432/250x250-000000-80-0-0.jpg",
-          "deezerId": 11179917,
-          "link": "https://www.deezer.com/track/11179917"
-        },
-        {
-          "rank": 9,
-          "title": "Three Six Five",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/b94f8b584727c0e7d407a579d3d20ed7/250x250-000000-80-0-0.jpg",
-          "deezerId": 3191325881,
-          "link": "https://www.deezer.com/track/3191325881"
-        },
-        {
-          "rank": 10,
           "title": "Mascaritas de Cristal",
           "artist": "Natalia Lafourcade",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/e57e62d4255d2f50a009133572dd070f/250x250-000000-80-0-0.jpg",
@@ -90,84 +34,140 @@
           "link": "https://www.deezer.com/track/3274357831"
         },
         {
+          "rank": 4,
+          "title": "El Coconito",
+          "artist": "Natalia Lafourcade",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e57e62d4255d2f50a009133572dd070f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3274357841,
+          "link": "https://www.deezer.com/track/3274357841"
+        },
+        {
+          "rank": 5,
+          "title": "Try",
+          "artist": "P!nk",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a43e104f2ff2872df2e1bf4207b6b5e6/250x250-000000-80-0-0.jpg",
+          "deezerId": 60200381,
+          "link": "https://www.deezer.com/track/60200381"
+        },
+        {
+          "rank": 6,
+          "title": "Базовый минимум",
+          "artist": "Sabi",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a725091bca4ee33a328aa0de903601cf/250x250-000000-80-0-0.jpg",
+          "deezerId": 4045212371,
+          "link": "https://www.deezer.com/track/4045212371"
+        },
+        {
+          "rank": 7,
+          "title": "Tata Tata",
+          "artist": "Cairokee",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/570a84020d10120147172e2cc82bf473/250x250-000000-80-0-0.jpg",
+          "deezerId": 4192089162,
+          "link": "https://www.deezer.com/track/4192089162"
+        },
+        {
+          "rank": 8,
+          "title": "Plie",
+          "artist": "Ayumi HIRUSAKI",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/319382d90da92f1830ebff748c1f68b2/250x250-000000-80-0-0.jpg",
+          "deezerId": 1886589627,
+          "link": "https://www.deezer.com/track/1886589627"
+        },
+        {
+          "rank": 9,
+          "title": "El Palomo y La Negra",
+          "artist": "Natalia Lafourcade",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e57e62d4255d2f50a009133572dd070f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3274357851,
+          "link": "https://www.deezer.com/track/3274357851"
+        },
+        {
+          "rank": 10,
+          "title": "La Bruja",
+          "artist": "Natalia Lafourcade",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e57e62d4255d2f50a009133572dd070f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3274357871,
+          "link": "https://www.deezer.com/track/3274357871"
+        },
+        {
           "rank": 11,
-          "title": "Imposter",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132661,
-          "link": "https://www.deezer.com/track/3844132661"
+          "title": "Don't Stop Me Now",
+          "artist": "Queen",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/4b8ab9c1f112b63c07e3983b98e98006/250x250-000000-80-0-0.jpg",
+          "deezerId": 4092329741,
+          "link": "https://www.deezer.com/track/4092329741"
         },
         {
           "rank": 12,
-          "title": "Safe And Sound",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132691,
-          "link": "https://www.deezer.com/track/3844132691"
+          "title": "Cancionera",
+          "artist": "Natalia Lafourcade",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/c62573dd08395099861d822c220f340a/250x250-000000-80-0-0.jpg",
+          "deezerId": 3234638681,
+          "link": "https://www.deezer.com/track/3234638681"
         },
         {
           "rank": 13,
-          "title": "Bear With Me",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132711,
-          "link": "https://www.deezer.com/track/3844132711"
+          "title": "Apertura Cancionera",
+          "artist": "Natalia Lafourcade",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e57e62d4255d2f50a009133572dd070f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3274357651,
+          "link": "https://www.deezer.com/track/3274357651"
         },
         {
           "rank": 14,
-          "title": "Deep End",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132721,
-          "link": "https://www.deezer.com/track/3844132721"
+          "title": "Luna Creciente",
+          "artist": "Natalia Lafourcade",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e57e62d4255d2f50a009133572dd070f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3274357881,
+          "link": "https://www.deezer.com/track/3274357881"
         },
         {
           "rank": 15,
-          "title": "Killing Fields",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132731,
-          "link": "https://www.deezer.com/track/3844132731"
+          "title": "Lágrimas Cancioneras",
+          "artist": "Natalia Lafourcade",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e57e62d4255d2f50a009133572dd070f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3274357891,
+          "link": "https://www.deezer.com/track/3274357891"
         },
         {
           "rank": 16,
-          "title": "Back To The Living",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132741,
-          "link": "https://www.deezer.com/track/3844132741"
+          "title": "اللهم صل | Allahuma Salli",
+          "artist": "Mohammad Bashir",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/d8ad6466e594e7c068366025241f5dd6/250x250-000000-80-0-0.jpg",
+          "deezerId": 3897373911,
+          "link": "https://www.deezer.com/track/3897373911"
         },
         {
           "rank": 17,
-          "title": "Wide Open",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132751,
-          "link": "https://www.deezer.com/track/3844132751"
+          "title": "Garee2a Awy - A COLORS SHOW",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/bcd0a882a71b52028859f925483a979b/250x250-000000-80-0-0.jpg",
+          "deezerId": 4090326081,
+          "link": "https://www.deezer.com/track/4090326081"
         },
         {
           "rank": 18,
-          "title": "So Glad That You Asked",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132761,
-          "link": "https://www.deezer.com/track/3844132761"
+          "title": "Lola El Banat",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
+          "deezerId": 4167205862,
+          "link": "https://www.deezer.com/track/4167205862"
         },
         {
           "rank": 19,
-          "title": "The Pilot",
-          "artist": "Shinedown",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d0ef6a630517581779bbb67359791070/250x250-000000-80-0-0.jpg",
-          "deezerId": 3844132771,
-          "link": "https://www.deezer.com/track/3844132771"
+          "title": "Habeitek",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
+          "deezerId": 4167205892,
+          "link": "https://www.deezer.com/track/4167205892"
         },
         {
           "rank": 20,
-          "title": "Aal Fakerny",
-          "artist": "Tamer Hosny",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/a73f40448e81ed509849f6f4de59e8f4/250x250-000000-80-0-0.jpg",
-          "deezerId": 4193287612,
-          "link": "https://www.deezer.com/track/4193287612"
+          "title": "Bahawel",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
+          "deezerId": 4167205942,
+          "link": "https://www.deezer.com/track/4167205942"
         }
       ]
     },
