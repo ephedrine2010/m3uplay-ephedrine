@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-12T11:35:36.185Z",
+  "updated": "2026-10-13T11:20:50.007Z",
   "region": "EG",
   "sources": [
     {
@@ -11,14 +11,30 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "Offended (feat. Young Thug & 21 Savage)",
-          "artist": "Meek Mill",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/279d34ffdb655b99fa1ae8c7e5da84e4/250x250-000000-80-0-0.jpg",
-          "deezerId": 135026574,
-          "link": "https://www.deezer.com/track/135026574"
+          "title": "Frank's Choice",
+          "artist": "Tyler Bates",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/1dc6781d10da11a29753ca4bbab9c84f/250x250-000000-80-0-0.jpg",
+          "deezerId": 427250742,
+          "link": "https://www.deezer.com/track/427250742"
         },
         {
           "rank": 2,
+          "title": "Mascaritas de Cristal",
+          "artist": "Natalia Lafourcade",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e57e62d4255d2f50a009133572dd070f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3274357831,
+          "link": "https://www.deezer.com/track/3274357831"
+        },
+        {
+          "rank": 3,
+          "title": "Lola El Banat",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
+          "deezerId": 4167205862,
+          "link": "https://www.deezer.com/track/4167205862"
+        },
+        {
+          "rank": 4,
           "title": "ولا فكك",
           "artist": "حمو المرشدي",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/f546642998bab0c455970efd45de21b8/250x250-000000-80-0-0.jpg",
@@ -26,15 +42,7 @@
           "link": "https://www.deezer.com/track/4238204042"
         },
         {
-          "rank": 3,
-          "title": "Ric Flair Drip",
-          "artist": "Offset",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0c66a6a4eb8e99de2dbc96e99675deb4/250x250-000000-80-0-0.jpg",
-          "deezerId": 426977052,
-          "link": "https://www.deezer.com/track/426977052"
-        },
-        {
-          "rank": 4,
+          "rank": 5,
           "title": "لاعبت الكبار",
           "artist": "حمو المرشدي",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/cbb5f9a0779d5113d30e60ef4c231be5/250x250-000000-80-0-0.jpg",
@@ -42,23 +50,7 @@
           "link": "https://www.deezer.com/track/4271248202"
         },
         {
-          "rank": 5,
-          "title": "Sebebi Yar",
-          "artist": "BLOK3",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/379a6348bf4d09c6d21a8cbca6a10444/250x250-000000-80-0-0.jpg",
-          "deezerId": 4046076601,
-          "link": "https://www.deezer.com/track/4046076601"
-        },
-        {
           "rank": 6,
-          "title": "Looking Out for You",
-          "artist": "Joy Again",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/94fed2ddc6f304a9cd09f595033a7b72/250x250-000000-80-0-0.jpg",
-          "deezerId": 1380130192,
-          "link": "https://www.deezer.com/track/1380130192"
-        },
-        {
-          "rank": 7,
           "title": "حبيبي ليه",
           "artist": "TUL8TE",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/8a0cfa8420e6cf468a60c721bc5bdf3d/250x250-000000-80-0-0.jpg",
@@ -66,108 +58,116 @@
           "link": "https://www.deezer.com/track/2911085421"
         },
         {
+          "rank": 7,
+          "title": "Reliquia",
+          "artist": "ROSALÍA",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0dd6cd0e783f1505cd57778953ab77a1/250x250-000000-80-0-0.jpg",
+          "deezerId": 3640140902,
+          "link": "https://www.deezer.com/track/3640140902"
+        },
+        {
           "rank": 8,
-          "title": "Sunshine, Lollipops And Rainbows",
-          "artist": "Lesley Gore",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2ab2f53b49645bec1046417128de2715/250x250-000000-80-0-0.jpg",
-          "deezerId": 131743194,
-          "link": "https://www.deezer.com/track/131743194"
+          "title": "Music",
+          "artist": "underscores",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/2b7ebf336f61c1aca52c0bfec0a4b30e/250x250-000000-80-0-0.jpg",
+          "deezerId": 3896751351,
+          "link": "https://www.deezer.com/track/3896751351"
         },
         {
           "rank": 9,
-          "title": "Potato Salad",
-          "artist": "Tyler, The Creator",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5c3823601b15b5cfe7ed8dc95467a60d/250x250-000000-80-0-0.jpg",
-          "deezerId": 559711712,
-          "link": "https://www.deezer.com/track/559711712"
+          "title": "By Myself",
+          "artist": "Linkin Park",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/033a271b5ec10842c287827c39244fb5/250x250-000000-80-0-0.jpg",
+          "deezerId": 676178,
+          "link": "https://www.deezer.com/track/676178"
         },
         {
           "rank": 10,
-          "title": "Malkshy Makan",
-          "artist": "Ahmed Saad",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5dd1c48238e50549c1eeb59ddba89966/250x250-000000-80-0-0.jpg",
-          "deezerId": 618533092,
-          "link": "https://www.deezer.com/track/618533092"
+          "title": "The Boys Of Summer",
+          "artist": "Don Henley",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e374e05d5e2991dda20e1b2636e69cc9/250x250-000000-80-0-0.jpg",
+          "deezerId": 3977905,
+          "link": "https://www.deezer.com/track/3977905"
         },
         {
           "rank": 11,
-          "title": "و افتكرت",
-          "artist": "Mohamed Hamaki",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/3dc76eb74a1f60def1bdc53a79b7e00d/250x250-000000-80-0-0.jpg",
-          "deezerId": 2139811977,
-          "link": "https://www.deezer.com/track/2139811977"
+          "title": "BURN IT DOWN",
+          "artist": "Linkin Park",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0ce480e7723712dee352c68fdfef2599/250x250-000000-80-0-0.jpg",
+          "deezerId": 37734411,
+          "link": "https://www.deezer.com/track/37734411"
         },
         {
           "rank": 12,
-          "title": "Margealesh",
-          "artist": "Farid",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c23df8d9a7894bfad9c4a2ecf1da297b/250x250-000000-80-0-0.jpg",
-          "deezerId": 2904772981,
-          "link": "https://www.deezer.com/track/2904772981"
+          "title": "Tití Me Preguntó",
+          "artist": "Bad Bunny",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/b29d1070377b784384c2456093f96a66/250x250-000000-80-0-0.jpg",
+          "deezerId": 1741494317,
+          "link": "https://www.deezer.com/track/1741494317"
         },
         {
           "rank": 13,
-          "title": "SO WHAT? / زي القمر بتغيب",
-          "artist": "Saint Levant",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0b35fe0e7521c4d192fca75a212c9bc5/250x250-000000-80-0-0.jpg",
-          "deezerId": 4233937192,
-          "link": "https://www.deezer.com/track/4233937192"
+          "title": "سورة البقرة الآية (1:5)",
+          "artist": "Sheikh Abdul Basset Abdel Samad",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0138f985b874138f577d897736b8b431/250x250-000000-80-0-0.jpg",
+          "deezerId": 2196270487,
+          "link": "https://www.deezer.com/track/2196270487"
         },
         {
           "rank": 14,
-          "title": "Cuenta (feat. Meryl & Shay)",
-          "artist": "Ronisia",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c4417a5dda608ec67e1489f51f08071e/250x250-000000-80-0-0.jpg",
-          "deezerId": 4285685232,
-          "link": "https://www.deezer.com/track/4285685232"
+          "title": "El Coconito",
+          "artist": "Natalia Lafourcade",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e57e62d4255d2f50a009133572dd070f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3274357841,
+          "link": "https://www.deezer.com/track/3274357841"
         },
         {
           "rank": 15,
-          "title": "Love My Life",
-          "artist": "Robbie Williams",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/cfaadd59bcd246231645ccbbcdf93cb2/250x250-000000-80-0-0.jpg",
-          "deezerId": 135374352,
-          "link": "https://www.deezer.com/track/135374352"
+          "title": "Sabah Wu Masaa",
+          "artist": "Fairuz",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/3a5adcb901624d58175e1ba8893de904/250x250-000000-80-0-0.jpg",
+          "deezerId": 3457590,
+          "link": "https://www.deezer.com/track/3457590"
         },
         {
           "rank": 16,
-          "title": "على بالي",
-          "artist": "Muslim - مُسلِم",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/1acefdd630c39d970022aa2f907c06dd/250x250-000000-80-0-0.jpg",
-          "deezerId": 916493722,
-          "link": "https://www.deezer.com/track/916493722"
+          "title": "Should I Stay or Should I Go",
+          "artist": "The Clash",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/dcb57e195538467662fbce4492f89c20/250x250-000000-80-0-0.jpg",
+          "deezerId": 69962764,
+          "link": "https://www.deezer.com/track/69962764"
         },
         {
           "rank": 17,
-          "title": "Etnaset",
-          "artist": "Muslim",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/85101214fdf03f259b4e60fce132ac4f/250x250-000000-80-0-0.jpg",
-          "deezerId": 1527318522,
-          "link": "https://www.deezer.com/track/1527318522"
+          "title": "Surah Al-Fatiha",
+          "artist": "Sheikh Abdul Basset Abdel Samad",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/71f13a923d4a293fadede054a777b158/250x250-000000-80-0-0.jpg",
+          "deezerId": 75102845,
+          "link": "https://www.deezer.com/track/75102845"
         },
         {
           "rank": 18,
-          "title": "Loverboy",
-          "artist": "A-Wall",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/34315eb6bfb0d26b6aef1772e437dcd9/250x250-000000-80-0-0.jpg",
-          "deezerId": 3037943991,
-          "link": "https://www.deezer.com/track/3037943991"
+          "title": "Tensa wahda",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/13352a3e74de9b2e67131bb1b711d0b5/250x250-000000-80-0-0.jpg",
+          "deezerId": 614124232,
+          "link": "https://www.deezer.com/track/614124232"
         },
         {
           "rank": 19,
-          "title": "Awl Mara",
-          "artist": "Hamza Al Mahmdawi",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/e89a2608507a4a7028272f550bd52a24/250x250-000000-80-0-0.jpg",
-          "deezerId": 3044960941,
-          "link": "https://www.deezer.com/track/3044960941"
+          "title": "Godzilla",
+          "artist": "Eminem",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/4d00a7848dc8af475973ff1761ad828d/250x250-000000-80-0-0.jpg",
+          "deezerId": 854914322,
+          "link": "https://www.deezer.com/track/854914322"
         },
         {
           "rank": 20,
-          "title": "Be Amaret Meen",
-          "artist": "Farid",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0feb0393cb9c120c322f67a5603d3db5/250x250-000000-80-0-0.jpg",
-          "deezerId": 3303576681,
-          "link": "https://www.deezer.com/track/3303576681"
+          "title": "GAZAR",
+          "artist": "Begad",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f9135519d3edd0fbb42950c607bd8bb8/250x250-000000-80-0-0.jpg",
+          "deezerId": 2385982295,
+          "link": "https://www.deezer.com/track/2385982295"
         }
       ]
     },
@@ -196,24 +196,24 @@
         },
         {
           "rank": 2,
+          "title": "EL BADLA WEL FOSTAN",
+          "artist": "abulhawa",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c9/b3/31/c9b3319b-2686-9d1c-4fcd-9c629c8f3161/artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/el-badla-wel-fostan/6786618013?i=6786618014"
+        },
+        {
+          "rank": 3,
           "title": "Shoft Kalam",
           "artist": "Marwan Pablo, Lege-Cy & HatemBas",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/01/c4/31/01c43187-da8b-fc50-b68e-2e71cd1d7c85/885288123609.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/shoft-kalam/6793678943?i=6793679161"
         },
         {
-          "rank": 3,
+          "rank": 4,
           "title": "اخوك جايبها م الصفر",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f8/19/10/f81910e9-0e0a-5d77-fda2-9b80571cf162/6221216981868_Artwork.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D8%A7%D8%AE%D9%88%D9%83-%D8%AC%D8%A7%D9%8A%D8%A8%D9%87%D8%A7-%D9%85-%D8%A7%D9%84%D8%B5%D9%81%D8%B1/6795519308?i=6795519311"
-        },
-        {
-          "rank": 4,
-          "title": "EL BADLA WEL FOSTAN",
-          "artist": "abulhawa",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c9/b3/31/c9b3319b-2686-9d1c-4fcd-9c629c8f3161/artwork.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/el-badla-wel-fostan/6786618013?i=6786618014"
         },
         {
           "rank": 5,
@@ -266,24 +266,24 @@
         },
         {
           "rank": 12,
-          "title": "Kelma",
-          "artist": "Ramy Sabry",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d6/86/6b/d6866b86-9c68-5488-ea5b-b406ce47ebfb/689860602922_cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/kelma/1833232028?i=1833232274"
-        },
-        {
-          "rank": 13,
           "title": "Wlad ElHalal",
           "artist": "Tamer Ashour",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a1/1e/cd/a11ecd2f-ee9c-16f9-b38d-e760b43afc2a/619165335423.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/wlad-elhalal/6792757012?i=6792757021"
         },
         {
-          "rank": 14,
+          "rank": 13,
           "title": "كوكب النسيان",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/95/6d/d0/956dd0cb-9ec9-b311-85d7-7e7623270bec/6221216995742_Artwork.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D9%83%D9%88%D9%83%D8%A8-%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D8%A7%D9%86/6799628007?i=6799628008"
+        },
+        {
+          "rank": 14,
+          "title": "Kelma",
+          "artist": "Ramy Sabry",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d6/86/6b/d6866b86-9c68-5488-ea5b-b406ce47ebfb/689860602922_cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/kelma/1833232028?i=1833232274"
         },
         {
           "rank": 15,
@@ -315,17 +315,17 @@
         },
         {
           "rank": 19,
-          "title": "3alam Kadaba (From The TV Series Ma Trah Lays Kama Ybdo)",
-          "artist": "Lege-Cy",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c6/cd/c1/c6cdc191-22a6-6395-7a3d-e28865940c38/25UM1IM22988.rgb.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/3alam-kadaba-from-the-tv-series-ma-trah-lays-kama-ybdo/1834402793?i=1834403065"
-        },
-        {
-          "rank": 20,
           "title": "الولا حمو جه",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/22/14/e3/2214e37b-dad6-707e-9495-aae762338d19/6221216940070_Artwork.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D8%A7%D9%84%D9%88%D9%84%D8%A7-%D8%AD%D9%85%D9%88-%D8%AC%D9%87/6771734683?i=6771734686"
+        },
+        {
+          "rank": 20,
+          "title": "3alam Kadaba (From The TV Series Ma Trah Lays Kama Ybdo)",
+          "artist": "Lege-Cy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c6/cd/c1/c6cdc191-22a6-6395-7a3d-e28865940c38/25UM1IM22988.rgb.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/3alam-kadaba-from-the-tv-series-ma-trah-lays-kama-ybdo/1834402793?i=1834403065"
         }
       ]
     },
