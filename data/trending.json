@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T08:34:20.291Z",
+  "updated": "2026-10-25T08:53:24.679Z",
   "region": "EG",
   "sources": [
     {
@@ -11,22 +11,6 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "Destroy it All / YUJI",
-          "artist": "Ryutqc",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/3c5ebde3c88eec9dd673832374e180ae/250x250-000000-80-0-0.jpg",
-          "deezerId": 3965284121,
-          "link": "https://www.deezer.com/track/3965284121"
-        },
-        {
-          "rank": 2,
-          "title": "Hala Ana Geet Terayh Yala",
-          "artist": "حمو الطيخا",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5d402dfbefb4c7a8273d70f5812e7dd9/250x250-000000-80-0-0.jpg",
-          "deezerId": 1393272152,
-          "link": "https://www.deezer.com/track/1393272152"
-        },
-        {
-          "rank": 3,
           "title": "Bombs Away",
           "artist": "Shotgun Willy",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/2c8f32b18cd2ef77a7638c9715a72cbe/250x250-000000-80-0-0.jpg",
@@ -34,31 +18,31 @@
           "link": "https://www.deezer.com/track/2524814481"
         },
         {
+          "rank": 2,
+          "title": "Vintage",
+          "artist": "68 East",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/3c40a825a9b59e272243a0bebc4d3930/250x250-000000-80-0-0.jpg",
+          "deezerId": 4301250212,
+          "link": "https://www.deezer.com/track/4301250212"
+        },
+        {
+          "rank": 3,
+          "title": "one of wun",
+          "artist": "Gunna",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a32e96724b42fba8b1b4f094ba4ffda5/250x250-000000-80-0-0.jpg",
+          "deezerId": 2790183862,
+          "link": "https://www.deezer.com/track/2790183862"
+        },
+        {
           "rank": 4,
-          "title": "Rap God",
-          "artist": "Eminem",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/b6938db3addc3ccd9575d6d12220e466/250x250-000000-80-0-0.jpg",
-          "deezerId": 72160314,
-          "link": "https://www.deezer.com/track/72160314"
+          "title": "Good For You",
+          "artist": "Selena Gomez",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/9a39b79700f46907e82542f7a67939b5/250x250-000000-80-0-0.jpg",
+          "deezerId": 105755646,
+          "link": "https://www.deezer.com/track/105755646"
         },
         {
           "rank": 5,
-          "title": "Life Goes On",
-          "artist": "Oliver Tree",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/7d6c8cb35554b5343a8b130f0a54fa0f/250x250-000000-80-0-0.jpg",
-          "deezerId": 1380101222,
-          "link": "https://www.deezer.com/track/1380101222"
-        },
-        {
-          "rank": 6,
-          "title": "Plie",
-          "artist": "Ayumi HIRUSAKI",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/319382d90da92f1830ebff748c1f68b2/250x250-000000-80-0-0.jpg",
-          "deezerId": 1886589627,
-          "link": "https://www.deezer.com/track/1886589627"
-        },
-        {
-          "rank": 7,
           "title": "Without Me",
           "artist": "Eminem",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/ec3c8ed67427064c70f67e5815b74cef/250x250-000000-80-0-0.jpg",
@@ -66,31 +50,7 @@
           "link": "https://www.deezer.com/track/916424"
         },
         {
-          "rank": 8,
-          "title": "Godzilla",
-          "artist": "Eminem",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/4d00a7848dc8af475973ff1761ad828d/250x250-000000-80-0-0.jpg",
-          "deezerId": 854914322,
-          "link": "https://www.deezer.com/track/854914322"
-        },
-        {
-          "rank": 9,
-          "title": "Amrikkka",
-          "artist": "Shabjdeed",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/347c68ce1549032e4aaf7a8fba93536e/250x250-000000-80-0-0.jpg",
-          "deezerId": 1194756882,
-          "link": "https://www.deezer.com/track/1194756882"
-        },
-        {
-          "rank": 10,
-          "title": "Garee2a Awy - A COLORS SHOW",
-          "artist": "TUL8TE",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/bcd0a882a71b52028859f925483a979b/250x250-000000-80-0-0.jpg",
-          "deezerId": 4090326081,
-          "link": "https://www.deezer.com/track/4090326081"
-        },
-        {
-          "rank": 11,
+          "rank": 6,
           "title": "لاعبت الكبار",
           "artist": "حمو المرشدي",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/cbb5f9a0779d5113d30e60ef4c231be5/250x250-000000-80-0-0.jpg",
@@ -98,7 +58,39 @@
           "link": "https://www.deezer.com/track/4271248202"
         },
         {
-          "rank": 12,
+          "rank": 7,
+          "title": "Rap God",
+          "artist": "Eminem",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/b6938db3addc3ccd9575d6d12220e466/250x250-000000-80-0-0.jpg",
+          "deezerId": 72160314,
+          "link": "https://www.deezer.com/track/72160314"
+        },
+        {
+          "rank": 8,
+          "title": "Life Goes On",
+          "artist": "Oliver Tree",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/7d6c8cb35554b5343a8b130f0a54fa0f/250x250-000000-80-0-0.jpg",
+          "deezerId": 1380101222,
+          "link": "https://www.deezer.com/track/1380101222"
+        },
+        {
+          "rank": 9,
+          "title": "boa duvet lain",
+          "artist": "Vision",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/743e6290a6c29b8a93d160f2d6da1245/250x250-000000-80-0-0.jpg",
+          "deezerId": 1927917477,
+          "link": "https://www.deezer.com/track/1927917477"
+        },
+        {
+          "rank": 10,
+          "title": "bounce (i just wanna dance)",
+          "artist": "фрози",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/699c1cfde54c976ace3f5cc9ce287339/250x250-000000-80-0-0.jpg",
+          "deezerId": 2452726785,
+          "link": "https://www.deezer.com/track/2452726785"
+        },
+        {
+          "rank": 11,
           "title": "Матушка",
           "artist": "Татьяна Куртукова",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/cd6660b6cac4d06a3f5c4c45c716ff9f/250x250-000000-80-0-0.jpg",
@@ -106,7 +98,7 @@
           "link": "https://www.deezer.com/track/2670228962"
         },
         {
-          "rank": 13,
+          "rank": 12,
           "title": "MATUSHKA ULTRAFUNK (SUPER SLOWED)",
           "artist": "satirin",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/e581448c37d94f5cd57a9d372f6ffbbd/250x250-000000-80-0-0.jpg",
@@ -114,60 +106,68 @@
           "link": "https://www.deezer.com/track/3312810691"
         },
         {
+          "rank": 13,
+          "title": "Godzilla",
+          "artist": "Eminem",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/4d00a7848dc8af475973ff1761ad828d/250x250-000000-80-0-0.jpg",
+          "deezerId": 854914322,
+          "link": "https://www.deezer.com/track/854914322"
+        },
+        {
           "rank": 14,
-          "title": "اخبار اهرام الجمهوريه",
-          "artist": "Magdy El Zahar",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/520f589eaad1276b2c3342b0260b3128/250x250-000000-80-0-0.jpg",
-          "deezerId": 3392918331,
-          "link": "https://www.deezer.com/track/3392918331"
+          "title": "Fill The Void",
+          "artist": "The Weeknd",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/cf979d162bdd9430a742be2ba588c7f6/250x250-000000-80-0-0.jpg",
+          "deezerId": 2338371095,
+          "link": "https://www.deezer.com/track/2338371095"
         },
         {
           "rank": 15,
-          "title": "خليها عليك شويه",
-          "artist": "احمد عادل كروان الصعيد",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/ae961ff4c3dc3969dc2fd1870e4cf08b/250x250-000000-80-0-0.jpg",
-          "deezerId": 3555542471,
-          "link": "https://www.deezer.com/track/3555542471"
+          "title": "MASENKO",
+          "artist": "Jolagreen23",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/7c43f76f455e31c734566e53fb914432/250x250-000000-80-0-0.jpg",
+          "deezerId": 4080520231,
+          "link": "https://www.deezer.com/track/4080520231"
         },
         {
           "rank": 16,
-          "title": "Sac à dos",
-          "artist": "PLK",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/da047273c9d96904ebb7d2585fcb5021/250x250-000000-80-0-0.jpg",
-          "deezerId": 3862146621,
-          "link": "https://www.deezer.com/track/3862146621"
+          "title": "Ta3mel Leh Keda",
+          "artist": "Farid",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/b617ef193149fb66788b5d94852d0c42/250x250-000000-80-0-0.jpg",
+          "deezerId": 3483056851,
+          "link": "https://www.deezer.com/track/3483056851"
         },
         {
           "rank": 17,
-          "title": "لساني بلعب وانا فرداني ( عمها مين فيكو قال انتهي )",
-          "artist": "مصطفي الجن و هادي الصغير - تيم الابداع",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/680ad9afcafae843d26920f025d1e70e/250x250-000000-80-0-0.jpg",
-          "deezerId": 4160413562,
-          "link": "https://www.deezer.com/track/4160413562"
+          "title": "Tebaa'n Tebaa'n",
+          "artist": "Sherine",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a79421a2314647c099d39c7502a28489/250x250-000000-80-0-0.jpg",
+          "deezerId": 4009772821,
+          "link": "https://www.deezer.com/track/4009772821"
         },
         {
           "rank": 18,
-          "title": "Lola El Banat",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
-          "deezerId": 4167205862,
-          "link": "https://www.deezer.com/track/4167205862"
+          "title": "frog",
+          "artist": "Joyful",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/01cdcc9500152eaa19dca3f2c79e0ad8/250x250-000000-80-0-0.jpg",
+          "deezerId": 3277875431,
+          "link": "https://www.deezer.com/track/3277875431"
         },
         {
           "rank": 19,
-          "title": "Getlak",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
-          "deezerId": 4167205882,
-          "link": "https://www.deezer.com/track/4167205882"
+          "title": "Still Dreaming",
+          "artist": "Nas",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5fbd95b73afe9965d4f3109223831dd3/250x250-000000-80-0-0.jpg",
+          "deezerId": 558528722,
+          "link": "https://www.deezer.com/track/558528722"
         },
         {
           "rank": 20,
-          "title": "Apocalypse",
-          "artist": "Cigarettes After Sex",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2db20377876da16feb8ec9652e835a81/250x250-000000-80-0-0.jpg",
-          "deezerId": 144010758,
-          "link": "https://www.deezer.com/track/144010758"
+          "title": "Off To The Races",
+          "artist": "Lana Del Rey",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/967ac8605268db88a1e597394115365d/250x250-000000-80-0-0.jpg",
+          "deezerId": 930263862,
+          "link": "https://www.deezer.com/track/930263862"
         }
       ]
     },
@@ -245,17 +245,17 @@
         },
         {
           "rank": 9,
-          "title": "HASESS BIK",
-          "artist": "Zaid Khaled & Nasser",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0a/c8/b1/0ac8b1a4-a758-66bd-5d81-814d257c8313/26UM1IM20600.rgb.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/hasess-bik/6813444889?i=6813445326"
-        },
-        {
-          "rank": 10,
           "title": "Men Gheir Kalam",
           "artist": "TUL8TE",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/men-gheir-kalam/6797576792?i=6797576801"
+        },
+        {
+          "rank": 10,
+          "title": "HASESS BIK",
+          "artist": "Zaid Khaled & Nasser",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0a/c8/b1/0ac8b1a4-a758-66bd-5d81-814d257c8313/26UM1IM20600.rgb.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/hasess-bik/6813444889?i=6813445326"
         },
         {
           "rank": 11,
@@ -273,24 +273,24 @@
         },
         {
           "rank": 13,
-          "title": "Garee2a Awy - A COLORS SHOW",
-          "artist": "TUL8TE",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/17/16/d8/1716d894-4de6-0494-3568-5d36af85304e/840054915345.png/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/garee2a-awy-a-colors-show/6783339190?i=6783339191"
-        },
-        {
-          "rank": 14,
           "title": "كوكب النسيان",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/95/6d/d0/956dd0cb-9ec9-b311-85d7-7e7623270bec/6221216995742_Artwork.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D9%83%D9%88%D9%83%D8%A8-%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D8%A7%D9%86/6799628007?i=6799628008"
         },
         {
+          "rank": 14,
+          "title": "El Hazz",
+          "artist": "Wegz",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/33/f0/ec/33f0ece3-d007-4cdd-03b7-de6dfaa1442b/199806680476.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/el-hazz/6822433775?i=6822434904"
+        },
+        {
           "rank": 15,
-          "title": "MVP",
-          "artist": "Arsenik & Abyusif",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e6/ed/b8/e6edb820-bbdd-74a7-bc3c-cc04612a050b/0.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/mvp/6824544479?i=6824544480"
+          "title": "Garee2a Awy - A COLORS SHOW",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/17/16/d8/1716d894-4de6-0494-3568-5d36af85304e/840054915345.png/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/garee2a-awy-a-colors-show/6783339190?i=6783339191"
         },
         {
           "rank": 16,
@@ -322,10 +322,10 @@
         },
         {
           "rank": 20,
-          "title": "El Hazz",
-          "artist": "Wegz",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/33/f0/ec/33f0ece3-d007-4cdd-03b7-de6dfaa1442b/199806680476.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/el-hazz/6822433775?i=6822434904"
+          "title": "MVP",
+          "artist": "Arsenik & Abyusif",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e6/ed/b8/e6edb820-bbdd-74a7-bc3c-cc04612a050b/0.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/mvp/6824544479?i=6824544480"
         }
       ]
     },
