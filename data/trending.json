@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T09:32:11.515Z",
+  "updated": "2026-10-28T10:16:23.926Z",
   "region": "EG",
   "sources": [
     {
@@ -11,38 +11,14 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "Hatikva",
-          "artist": "Gerry Buikman and His Orchestra",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2da4ed659458ba42acef2d903f96bfa7/250x250-000000-80-0-0.jpg",
-          "deezerId": 8129380,
-          "link": "https://www.deezer.com/track/8129380"
+          "title": "Mockingbird",
+          "artist": "Eminem",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/250x250-000000-80-0-0.jpg",
+          "deezerId": 1109739,
+          "link": "https://www.deezer.com/track/1109739"
         },
         {
           "rank": 2,
-          "title": "boa duvet lain",
-          "artist": "Vision",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/743e6290a6c29b8a93d160f2d6da1245/250x250-000000-80-0-0.jpg",
-          "deezerId": 1927917477,
-          "link": "https://www.deezer.com/track/1927917477"
-        },
-        {
-          "rank": 3,
-          "title": "bounce (i just wanna dance)",
-          "artist": "фрози",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/699c1cfde54c976ace3f5cc9ce287339/250x250-000000-80-0-0.jpg",
-          "deezerId": 2452726785,
-          "link": "https://www.deezer.com/track/2452726785"
-        },
-        {
-          "rank": 4,
-          "title": "frog",
-          "artist": "Joyful",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/01cdcc9500152eaa19dca3f2c79e0ad8/250x250-000000-80-0-0.jpg",
-          "deezerId": 3277875431,
-          "link": "https://www.deezer.com/track/3277875431"
-        },
-        {
-          "rank": 5,
           "title": "Lola El Banat",
           "artist": "Amr Diab",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
@@ -50,55 +26,31 @@
           "link": "https://www.deezer.com/track/4167205862"
         },
         {
+          "rank": 3,
+          "title": "Akhok Gaybha Mn Elsefr",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/79dd58c38a80c67183d2bdcb7e35f3aa/250x250-000000-80-0-0.jpg",
+          "deezerId": 4181963772,
+          "link": "https://www.deezer.com/track/4181963772"
+        },
+        {
+          "rank": 4,
+          "title": "Blueprint 2",
+          "artist": "JAŸ-Z",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0523cf4b4cb9c352be5f3b771fcbed28/250x250-000000-80-0-0.jpg",
+          "deezerId": 80224382,
+          "link": "https://www.deezer.com/track/80224382"
+        },
+        {
+          "rank": 5,
+          "title": "Osad einy",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f8bc052bf7ebc5ebd4c93d5bd367a7d8/250x250-000000-80-0-0.jpg",
+          "deezerId": 477635012,
+          "link": "https://www.deezer.com/track/477635012"
+        },
+        {
           "rank": 6,
-          "title": "HAWA / هوا",
-          "artist": "Saint Levant",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0b35fe0e7521c4d192fca75a212c9bc5/250x250-000000-80-0-0.jpg",
-          "deezerId": 4233937242,
-          "link": "https://www.deezer.com/track/4233937242"
-        },
-        {
-          "rank": 7,
-          "title": "MVP",
-          "artist": "Arsenik",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/73e49d95ca2f05aa084779dff1180b61/250x250-000000-80-0-0.jpg",
-          "deezerId": 4357243882,
-          "link": "https://www.deezer.com/track/4357243882"
-        },
-        {
-          "rank": 8,
-          "title": "Intro to Shamstep",
-          "artist": "47 Soul",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/ce8255c8e65fd4de0888c8a082635eef/250x250-000000-80-0-0.jpg",
-          "deezerId": 3657004362,
-          "link": "https://www.deezer.com/track/3657004362"
-        },
-        {
-          "rank": 9,
-          "title": "Ana Ayesh",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/8259ad5e5dd08ed512a2f73ba1c9bde4/250x250-000000-80-0-0.jpg",
-          "deezerId": 80714222,
-          "link": "https://www.deezer.com/track/80714222"
-        },
-        {
-          "rank": 10,
-          "title": "Wish U Well",
-          "artist": "underscores",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2b7ebf336f61c1aca52c0bfec0a4b30e/250x250-000000-80-0-0.jpg",
-          "deezerId": 3896751431,
-          "link": "https://www.deezer.com/track/3896751431"
-        },
-        {
-          "rank": 11,
-          "title": "El Alwan",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
-          "deezerId": 4167205872,
-          "link": "https://www.deezer.com/track/4167205872"
-        },
-        {
-          "rank": 12,
           "title": "لاعبت الكبار",
           "artist": "حمو المرشدي",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/cbb5f9a0779d5113d30e60ef4c231be5/250x250-000000-80-0-0.jpg",
@@ -106,68 +58,116 @@
           "link": "https://www.deezer.com/track/4271248202"
         },
         {
+          "rank": 7,
+          "title": "90210 Resonance",
+          "artist": "citrulinq",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/699cdcee3871f465e046aa351fe60f46/250x250-000000-80-0-0.jpg",
+          "deezerId": 3123979421,
+          "link": "https://www.deezer.com/track/3123979421"
+        },
+        {
+          "rank": 8,
+          "title": "صباحك بيور",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/be0375f028ae1bdf56db1158844028d8/250x250-000000-80-0-0.jpg",
+          "deezerId": 4054671321,
+          "link": "https://www.deezer.com/track/4054671321"
+        },
+        {
+          "rank": 9,
+          "title": "Ice Cream Man",
+          "artist": "Tyga",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/954c57c005f3af673d2de4b15fecbd5c/250x250-000000-80-0-0.jpg",
+          "deezerId": 106297170,
+          "link": "https://www.deezer.com/track/106297170"
+        },
+        {
+          "rank": 10,
+          "title": "boa duvet lain",
+          "artist": "Vision",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/743e6290a6c29b8a93d160f2d6da1245/250x250-000000-80-0-0.jpg",
+          "deezerId": 1927917477,
+          "link": "https://www.deezer.com/track/1927917477"
+        },
+        {
+          "rank": 11,
+          "title": "frog",
+          "artist": "Joyful",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/01cdcc9500152eaa19dca3f2c79e0ad8/250x250-000000-80-0-0.jpg",
+          "deezerId": 3277875431,
+          "link": "https://www.deezer.com/track/3277875431"
+        },
+        {
+          "rank": 12,
+          "title": "Elsadara Bety",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0c94e810336de8dc023e3a634a2cd70f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3908329291,
+          "link": "https://www.deezer.com/track/3908329291"
+        },
+        {
           "rank": 13,
-          "title": "Woop Woop",
-          "artist": "Space Motion",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/af64a082dd744909d2dd97e83e3bd9a7/250x250-000000-80-0-0.jpg",
-          "deezerId": 4323918632,
-          "link": "https://www.deezer.com/track/4323918632"
+          "title": "Garee2a Awy - A COLORS SHOW",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/bcd0a882a71b52028859f925483a979b/250x250-000000-80-0-0.jpg",
+          "deezerId": 4090326081,
+          "link": "https://www.deezer.com/track/4090326081"
         },
         {
           "rank": 14,
-          "title": "Eye of the Needle",
-          "artist": "Sia",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/4d71eac6e789be52ec8ae5586a9b06a3/250x250-000000-80-0-0.jpg",
-          "deezerId": 78917929,
-          "link": "https://www.deezer.com/track/78917929"
+          "title": "Shoft Kalam",
+          "artist": "Marwan Pablo",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/334c4ee30ce1a1fdae634c8677d0d34c/250x250-000000-80-0-0.jpg",
+          "deezerId": 4170855672,
+          "link": "https://www.deezer.com/track/4170855672"
         },
         {
           "rank": 15,
-          "title": "Trouble In Mind",
-          "artist": "Hailey Tuck",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/011f1c17c8d9705c3eed7e248abead71/250x250-000000-80-0-0.jpg",
-          "deezerId": 484411502,
-          "link": "https://www.deezer.com/track/484411502"
+          "title": "Garabt",
+          "artist": "El Madfaagya",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/2b5e5f02c8f2233f0323c4dbaf4cd4e1/250x250-000000-80-0-0.jpg",
+          "deezerId": 698846692,
+          "link": "https://www.deezer.com/track/698846692"
         },
         {
           "rank": 16,
-          "title": "Outro: Tear",
-          "artist": "BTS",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/dcc8935a93fc007454aa0715328b9d94/250x250-000000-80-0-0.jpg",
-          "deezerId": 1576170182,
-          "link": "https://www.deezer.com/track/1576170182"
+          "title": "bounce (i just wanna dance)",
+          "artist": "фрози",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/699c1cfde54c976ace3f5cc9ce287339/250x250-000000-80-0-0.jpg",
+          "deezerId": 2452726785,
+          "link": "https://www.deezer.com/track/2452726785"
         },
         {
           "rank": 17,
-          "title": "Mongini",
-          "artist": "Arsenik",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/73e49d95ca2f05aa084779dff1180b61/250x250-000000-80-0-0.jpg",
-          "deezerId": 4357243892,
-          "link": "https://www.deezer.com/track/4357243892"
+          "title": "Ta3mel Leh Keda",
+          "artist": "Farid",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/b617ef193149fb66788b5d94852d0c42/250x250-000000-80-0-0.jpg",
+          "deezerId": 3483056851,
+          "link": "https://www.deezer.com/track/3483056851"
         },
         {
           "rank": 18,
-          "title": "Tamally Maak",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/123994eb2834a27c0832210a7cce6e16/250x250-000000-80-0-0.jpg",
-          "deezerId": 81102882,
-          "link": "https://www.deezer.com/track/81102882"
+          "title": "مشيالي مع شاب ملزق",
+          "artist": "Omar Id",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/460aa3914737dada6a33c9c99f2e4aca/250x250-000000-80-0-0.jpg",
+          "deezerId": 4331165562,
+          "link": "https://www.deezer.com/track/4331165562"
         },
         {
           "rank": 19,
-          "title": "Omry Maak",
-          "artist": "Angham",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/903669ffb2818115f3bdf64ecad3f9b2/250x250-000000-80-0-0.jpg",
-          "deezerId": 81103266,
-          "link": "https://www.deezer.com/track/81103266"
+          "title": "Pero Me Acuerdo de Tí",
+          "artist": "Christina Aguilera",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/ba70ee3970c1e61f59cc24ab561da73f/250x250-000000-80-0-0.jpg",
+          "deezerId": 993665,
+          "link": "https://www.deezer.com/track/993665"
         },
         {
           "rank": 20,
-          "title": "Bird Set Free",
-          "artist": "Sia",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/06bba49f4d5d214816298d39a67c572b/250x250-000000-80-0-0.jpg",
-          "deezerId": 111467160,
-          "link": "https://www.deezer.com/track/111467160"
+          "title": "Slow Down",
+          "artist": "Bobby V.",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0d3cb2ca458fc783c73768f8d0d5f9f2/250x250-000000-80-0-0.jpg",
+          "deezerId": 2261899,
+          "link": "https://www.deezer.com/track/2261899"
         }
       ]
     },
