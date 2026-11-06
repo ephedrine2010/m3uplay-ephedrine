@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T11:47:29.022Z",
+  "updated": "2026-11-06T11:43:35.438Z",
   "region": "EG",
   "sources": [
     {
@@ -19,62 +19,86 @@
         },
         {
           "rank": 2,
-          "title": "Surah Al-Masad",
-          "artist": "Qari Muhammad Shahid Manzoor",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2cc9345f1e927bfa4d0b5478ac96bc46/250x250-000000-80-0-0.jpg",
-          "deezerId": 3520964881,
-          "link": "https://www.deezer.com/track/3520964881"
+          "title": "Sonne",
+          "artist": "Rammstein",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/53c332c3e0196d3abac1840421e84184/250x250-000000-80-0-0.jpg",
+          "deezerId": 14539454,
+          "link": "https://www.deezer.com/track/14539454"
         },
         {
           "rank": 3,
-          "title": "Dancer in the Dark",
-          "artist": "Marc philippe",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/6b5fffb3720b6170af8a465ffa97287c/250x250-000000-80-0-0.jpg",
-          "deezerId": 495846652,
-          "link": "https://www.deezer.com/track/495846652"
+          "title": "Tennessee",
+          "artist": "Hans Zimmer",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/fe9f2f1290275e57df54a32e18d31471/250x250-000000-80-0-0.jpg",
+          "deezerId": 3598719,
+          "link": "https://www.deezer.com/track/3598719"
         },
         {
           "rank": 4,
-          "title": "Lost on You",
-          "artist": "LP",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/1820858941ca95542f36c3dac0f134f9/250x250-000000-80-0-0.jpg",
-          "deezerId": 3785938712,
-          "link": "https://www.deezer.com/track/3785938712"
+          "title": "Mn Tany Khat Elsaha",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5c315e66a7963a804ae1beaf13ef1caf/250x250-000000-80-0-0.jpg",
+          "deezerId": 4214622752,
+          "link": "https://www.deezer.com/track/4214622752"
         },
         {
           "rank": 5,
-          "title": "Bills",
-          "artist": "LunchMoney Lewis",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/1d6628ed849a49b0b79165c1f16dbe4c/250x250-000000-80-0-0.jpg",
-          "deezerId": 98345402,
-          "link": "https://www.deezer.com/track/98345402"
+          "title": "صباحك بيور",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/be0375f028ae1bdf56db1158844028d8/250x250-000000-80-0-0.jpg",
+          "deezerId": 4054671321,
+          "link": "https://www.deezer.com/track/4054671321"
         },
         {
           "rank": 6,
-          "title": "Raya",
-          "artist": "Zericxxn",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/cf66428d55c77d1694715c6f27986fed/250x250-000000-80-0-0.jpg",
-          "deezerId": 4186845722,
-          "link": "https://www.deezer.com/track/4186845722"
+          "title": "Akhok Gaybha Mn Elsefr",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/79dd58c38a80c67183d2bdcb7e35f3aa/250x250-000000-80-0-0.jpg",
+          "deezerId": 4181963772,
+          "link": "https://www.deezer.com/track/4181963772"
         },
         {
           "rank": 7,
-          "title": "Mâl(e) accompagnée",
-          "artist": "Léa Doffey",
-          "thumb": "",
-          "deezerId": 4350264702,
-          "link": "https://www.deezer.com/track/4350264702"
+          "title": "Arkab Eldababa",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/c8b369e65ac85a42ed86dd742bb1ab11/250x250-000000-80-0-0.jpg",
+          "deezerId": 4211283832,
+          "link": "https://www.deezer.com/track/4211283832"
         },
         {
           "rank": 8,
-          "title": "Kidz",
-          "artist": "Take That",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/91b6fa05197d386aad83f06242aa9e55/250x250-000000-80-0-0.jpg",
-          "deezerId": 7575008,
-          "link": "https://www.deezer.com/track/7575008"
+          "title": "Hamo Ababa La2 Hamo Ababa No",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0ba05f0addd91357ccb7892e94b98662/250x250-000000-80-0-0.jpg",
+          "deezerId": 4130850041,
+          "link": "https://www.deezer.com/track/4130850041"
         },
         {
           "rank": 9,
+          "title": "Elshabab Nabara",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/22bcb18af942ead44d71b4de5fc3c642/250x250-000000-80-0-0.jpg",
+          "deezerId": 4214598312,
+          "link": "https://www.deezer.com/track/4214598312"
+        },
+        {
+          "rank": 10,
+          "title": "انا 5 استار على كوكبى",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0e22ad7ed78ee74ec6d80048f6833af3/250x250-000000-80-0-0.jpg",
+          "deezerId": 3843065941,
+          "link": "https://www.deezer.com/track/3843065941"
+        },
+        {
+          "rank": 11,
+          "title": "Elsadara Bety",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0c94e810336de8dc023e3a634a2cd70f/250x250-000000-80-0-0.jpg",
+          "deezerId": 3908329291,
+          "link": "https://www.deezer.com/track/3908329291"
+        },
+        {
+          "rank": 12,
           "title": "I Get Money",
           "artist": "50 Cent",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/58ec83e8f74b55096f2115523eb9e7df/250x250-000000-80-0-0.jpg",
@@ -82,92 +106,68 @@
           "link": "https://www.deezer.com/track/145429558"
         },
         {
-          "rank": 10,
-          "title": "02:00 Am",
-          "artist": "Lege-Cy",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/39ec1146e4de62e3797fc205c2af3907/250x250-000000-80-0-0.jpg",
-          "deezerId": 2406099545,
-          "link": "https://www.deezer.com/track/2406099545"
-        },
-        {
-          "rank": 11,
-          "title": "الشارع اتفسد",
-          "artist": "Mostafa Elgen",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/65f890ab7137ce1dc453a4fef4f8f1cd/250x250-000000-80-0-0.jpg",
-          "deezerId": 3128420721,
-          "link": "https://www.deezer.com/track/3128420721"
-        },
-        {
-          "rank": 12,
-          "title": "MVP",
-          "artist": "Arsenik",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/73e49d95ca2f05aa084779dff1180b61/250x250-000000-80-0-0.jpg",
-          "deezerId": 4357243882,
-          "link": "https://www.deezer.com/track/4357243882"
-        },
-        {
           "rank": 13,
-          "title": "Soweto",
-          "artist": "Victony",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/a21fb655cf3e2fc8b05db68fc6eb34b1/250x250-000000-80-0-0.jpg",
-          "deezerId": 3279575181,
-          "link": "https://www.deezer.com/track/3279575181"
+          "title": "Kol Hayaty",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/9346f66804541490beca47721268cd7c/250x250-000000-80-0-0.jpg",
+          "deezerId": 3059980321,
+          "link": "https://www.deezer.com/track/3059980321"
         },
         {
           "rank": 14,
-          "title": "Intro to Shamstep",
-          "artist": "47 Soul",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/67cb7f328d33a1714842f1da2e8862d4/250x250-000000-80-0-0.jpg",
-          "deezerId": 3537776671,
-          "link": "https://www.deezer.com/track/3537776671"
+          "title": "Garee2a Awy - A COLORS SHOW",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/bcd0a882a71b52028859f925483a979b/250x250-000000-80-0-0.jpg",
+          "deezerId": 4090326081,
+          "link": "https://www.deezer.com/track/4090326081"
         },
         {
           "rank": 15,
-          "title": "Fool's Gold",
-          "artist": "Buffalo Traffic Jam",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2068c6b56a33cb18a6bd245a04a835b6/250x250-000000-80-0-0.jpg",
-          "deezerId": 3560352321,
-          "link": "https://www.deezer.com/track/3560352321"
+          "title": "Dancer in the Dark",
+          "artist": "Marc philippe",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6b5fffb3720b6170af8a465ffa97287c/250x250-000000-80-0-0.jpg",
+          "deezerId": 495846652,
+          "link": "https://www.deezer.com/track/495846652"
         },
         {
           "rank": 16,
-          "title": "Asyad Al Lwari",
-          "artist": "WalGz",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/b20cec5c84c8f4fa95141a3c2d6c8010/250x250-000000-80-0-0.jpg",
-          "deezerId": 3962738021,
-          "link": "https://www.deezer.com/track/3962738021"
+          "title": "Stay Alive (Prod. SUGA of BTS)",
+          "artist": "JUNG KOOK",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6040505af3ed92d79a7249567945ddc2/250x250-000000-80-0-0.jpg",
+          "deezerId": 1649359532,
+          "link": "https://www.deezer.com/track/1649359532"
         },
         {
           "rank": 17,
-          "title": "Malade Mental",
-          "artist": "Mouka",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0076b5e0b2c1cc91e60df1511ebe4f90/250x250-000000-80-0-0.jpg",
-          "deezerId": 4037407211,
-          "link": "https://www.deezer.com/track/4037407211"
+          "title": "Getlak",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
+          "deezerId": 4167205882,
+          "link": "https://www.deezer.com/track/4167205882"
         },
         {
           "rank": 18,
-          "title": "Dis-moi",
-          "artist": "Léa Doffey",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/785a10452f7c68f83e3d3305fa99965a/250x250-000000-80-0-0.jpg",
-          "deezerId": 4207919432,
-          "link": "https://www.deezer.com/track/4207919432"
+          "title": "Wala Ash Wala Kan",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8445af48f681444a7d8c5997ad8cd74a/250x250-000000-80-0-0.jpg",
+          "deezerId": 4199103732,
+          "link": "https://www.deezer.com/track/4199103732"
         },
         {
           "rank": 19,
+          "title": "SO WHAT? / زي القمر بتغيب",
+          "artist": "Saint Levant",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0b35fe0e7521c4d192fca75a212c9bc5/250x250-000000-80-0-0.jpg",
+          "deezerId": 4233937192,
+          "link": "https://www.deezer.com/track/4233937192"
+        },
+        {
+          "rank": 20,
           "title": "لاعبت الكبار",
           "artist": "حمو المرشدي",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/cbb5f9a0779d5113d30e60ef4c231be5/250x250-000000-80-0-0.jpg",
           "deezerId": 4271248202,
           "link": "https://www.deezer.com/track/4271248202"
-        },
-        {
-          "rank": 20,
-          "title": "boa duvet lain",
-          "artist": "Vision",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/743e6290a6c29b8a93d160f2d6da1245/250x250-000000-80-0-0.jpg",
-          "deezerId": 1927917477,
-          "link": "https://www.deezer.com/track/1927917477"
         }
       ]
     },
