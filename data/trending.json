@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06T11:43:35.438Z",
+  "updated": "2026-11-07T10:50:39.772Z",
   "region": "EG",
   "sources": [
     {
@@ -11,22 +11,6 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "Hatikva",
-          "artist": "Gerry Buikman and His Orchestra",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2da4ed659458ba42acef2d903f96bfa7/250x250-000000-80-0-0.jpg",
-          "deezerId": 8129380,
-          "link": "https://www.deezer.com/track/8129380"
-        },
-        {
-          "rank": 2,
-          "title": "Sonne",
-          "artist": "Rammstein",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/53c332c3e0196d3abac1840421e84184/250x250-000000-80-0-0.jpg",
-          "deezerId": 14539454,
-          "link": "https://www.deezer.com/track/14539454"
-        },
-        {
-          "rank": 3,
           "title": "Tennessee",
           "artist": "Hans Zimmer",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/fe9f2f1290275e57df54a32e18d31471/250x250-000000-80-0-0.jpg",
@@ -34,140 +18,156 @@
           "link": "https://www.deezer.com/track/3598719"
         },
         {
+          "rank": 2,
+          "title": "All The Stars",
+          "artist": "Kendrick Lamar",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/85a8f14b8f104b4d617cff2efd0e2e35/250x250-000000-80-0-0.jpg",
+          "deezerId": 456965032,
+          "link": "https://www.deezer.com/track/456965032"
+        },
+        {
+          "rank": 3,
+          "title": "Salam",
+          "artist": "Fawzi",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/d2b0725713debd19322e48ffcece8e72/250x250-000000-80-0-0.jpg",
+          "deezerId": 1474448502,
+          "link": "https://www.deezer.com/track/1474448502"
+        },
+        {
           "rank": 4,
-          "title": "Mn Tany Khat Elsaha",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5c315e66a7963a804ae1beaf13ef1caf/250x250-000000-80-0-0.jpg",
-          "deezerId": 4214622752,
-          "link": "https://www.deezer.com/track/4214622752"
+          "title": "Swing",
+          "artist": "EARTHGANG",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/2c6b316ce463338567c35a401e62f9cd/250x250-000000-80-0-0.jpg",
+          "deezerId": 2496427061,
+          "link": "https://www.deezer.com/track/2496427061"
         },
         {
           "rank": 5,
-          "title": "صباحك بيور",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/be0375f028ae1bdf56db1158844028d8/250x250-000000-80-0-0.jpg",
-          "deezerId": 4054671321,
-          "link": "https://www.deezer.com/track/4054671321"
+          "title": "Amarain",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/4a4735f3e4c9f9a0fd227745eb686557/250x250-000000-80-0-0.jpg",
+          "deezerId": 81102804,
+          "link": "https://www.deezer.com/track/81102804"
         },
         {
           "rank": 6,
-          "title": "Akhok Gaybha Mn Elsefr",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/79dd58c38a80c67183d2bdcb7e35f3aa/250x250-000000-80-0-0.jpg",
-          "deezerId": 4181963772,
-          "link": "https://www.deezer.com/track/4181963772"
+          "title": "Raya",
+          "artist": "Zericxxn",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/cf66428d55c77d1694715c6f27986fed/250x250-000000-80-0-0.jpg",
+          "deezerId": 4186845722,
+          "link": "https://www.deezer.com/track/4186845722"
         },
         {
           "rank": 7,
-          "title": "Arkab Eldababa",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c8b369e65ac85a42ed86dd742bb1ab11/250x250-000000-80-0-0.jpg",
-          "deezerId": 4211283832,
-          "link": "https://www.deezer.com/track/4211283832"
+          "title": "Castro",
+          "artist": "Fawzi",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/d7225c8aab701e29a24d012731d4221b/250x250-000000-80-0-0.jpg",
+          "deezerId": 3194352731,
+          "link": "https://www.deezer.com/track/3194352731"
         },
         {
           "rank": 8,
-          "title": "Hamo Ababa La2 Hamo Ababa No",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0ba05f0addd91357ccb7892e94b98662/250x250-000000-80-0-0.jpg",
-          "deezerId": 4130850041,
-          "link": "https://www.deezer.com/track/4130850041"
+          "title": "بخاف من مسلسل سيد الناس",
+          "artist": "Ahmed Saad",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0cbeb6eb5129c97fa52813dc9a34f8e5/250x250-000000-80-0-0.jpg",
+          "deezerId": 3253594221,
+          "link": "https://www.deezer.com/track/3253594221"
         },
         {
           "rank": 9,
-          "title": "Elshabab Nabara",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/22bcb18af942ead44d71b4de5fc3c642/250x250-000000-80-0-0.jpg",
-          "deezerId": 4214598312,
-          "link": "https://www.deezer.com/track/4214598312"
+          "title": "Dolarat w Shawakel",
+          "artist": "Fawzi",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e75628c2b78783fdcbe19084dc3ec2d5/250x250-000000-80-0-0.jpg",
+          "deezerId": 3727594402,
+          "link": "https://www.deezer.com/track/3727594402"
         },
         {
           "rank": 10,
-          "title": "انا 5 استار على كوكبى",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0e22ad7ed78ee74ec6d80048f6833af3/250x250-000000-80-0-0.jpg",
-          "deezerId": 3843065941,
-          "link": "https://www.deezer.com/track/3843065941"
+          "title": "Scared of the Dark",
+          "artist": "Lil Wayne",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/1aa3dfe91b3e5d3bc71eca6b6e9c8d39/250x250-000000-80-0-0.jpg",
+          "deezerId": 602456642,
+          "link": "https://www.deezer.com/track/602456642"
         },
         {
           "rank": 11,
-          "title": "Elsadara Bety",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0c94e810336de8dc023e3a634a2cd70f/250x250-000000-80-0-0.jpg",
-          "deezerId": 3908329291,
-          "link": "https://www.deezer.com/track/3908329291"
+          "title": "MALEMO",
+          "artist": "Zericxxn",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f1254bc3199ad7cabd1e3332203a3687/250x250-000000-80-0-0.jpg",
+          "deezerId": 4336938582,
+          "link": "https://www.deezer.com/track/4336938582"
         },
         {
           "rank": 12,
-          "title": "I Get Money",
-          "artist": "50 Cent",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/58ec83e8f74b55096f2115523eb9e7df/250x250-000000-80-0-0.jpg",
-          "deezerId": 145429558,
-          "link": "https://www.deezer.com/track/145429558"
+          "title": "Set It All Free",
+          "artist": "Scarlett Johansson",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/1e9813f18c89cfb06975ff788683c689/250x250-000000-80-0-0.jpg",
+          "deezerId": 136802542,
+          "link": "https://www.deezer.com/track/136802542"
         },
         {
           "rank": 13,
-          "title": "Kol Hayaty",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/9346f66804541490beca47721268cd7c/250x250-000000-80-0-0.jpg",
-          "deezerId": 3059980321,
-          "link": "https://www.deezer.com/track/3059980321"
+          "title": "Again (feat. XXXTENTACION)",
+          "artist": "Noah Cyrus",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/756519f0b63a45a65156cbcb341364f4/250x250-000000-80-0-0.jpg",
+          "deezerId": 408691402,
+          "link": "https://www.deezer.com/track/408691402"
         },
         {
           "rank": 14,
-          "title": "Garee2a Awy - A COLORS SHOW",
-          "artist": "TUL8TE",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/bcd0a882a71b52028859f925483a979b/250x250-000000-80-0-0.jpg",
-          "deezerId": 4090326081,
-          "link": "https://www.deezer.com/track/4090326081"
+          "title": "Sunflower",
+          "artist": "Post Malone",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/4642b8e3e0a89f92a6e2bfed13d8f31c/250x250-000000-80-0-0.jpg",
+          "deezerId": 747399412,
+          "link": "https://www.deezer.com/track/747399412"
         },
         {
           "rank": 15,
-          "title": "Dancer in the Dark",
-          "artist": "Marc philippe",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/6b5fffb3720b6170af8a465ffa97287c/250x250-000000-80-0-0.jpg",
-          "deezerId": 495846652,
-          "link": "https://www.deezer.com/track/495846652"
+          "title": "WE ON GO",
+          "artist": "BIA",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/b66dca598a478621f4757b3ea9ee1f3d/250x250-000000-80-0-0.jpg",
+          "deezerId": 3343819681,
+          "link": "https://www.deezer.com/track/3343819681"
         },
         {
           "rank": 16,
-          "title": "Stay Alive (Prod. SUGA of BTS)",
-          "artist": "JUNG KOOK",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/6040505af3ed92d79a7249567945ddc2/250x250-000000-80-0-0.jpg",
-          "deezerId": 1649359532,
-          "link": "https://www.deezer.com/track/1649359532"
+          "title": "At Last",
+          "artist": "Etta James",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/793a7368c289b642ed327f92414d097f/250x250-000000-80-0-0.jpg",
+          "deezerId": 2171224,
+          "link": "https://www.deezer.com/track/2171224"
         },
         {
           "rank": 17,
-          "title": "Getlak",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
-          "deezerId": 4167205882,
-          "link": "https://www.deezer.com/track/4167205882"
+          "title": "Le Beirut",
+          "artist": "Fairuz",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/55a59408a1efdaea9789e7dfd4290611/250x250-000000-80-0-0.jpg",
+          "deezerId": 3119300,
+          "link": "https://www.deezer.com/track/3119300"
         },
         {
           "rank": 18,
-          "title": "Wala Ash Wala Kan",
-          "artist": "TUL8TE",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/8445af48f681444a7d8c5997ad8cd74a/250x250-000000-80-0-0.jpg",
-          "deezerId": 4199103732,
-          "link": "https://www.deezer.com/track/4199103732"
+          "title": "Wahdon",
+          "artist": "Fairuz",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/d55f94fb71f48ff502aef3a92d51bb74/250x250-000000-80-0-0.jpg",
+          "deezerId": 3457176,
+          "link": "https://www.deezer.com/track/3457176"
         },
         {
           "rank": 19,
-          "title": "SO WHAT? / زي القمر بتغيب",
-          "artist": "Saint Levant",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0b35fe0e7521c4d192fca75a212c9bc5/250x250-000000-80-0-0.jpg",
-          "deezerId": 4233937192,
-          "link": "https://www.deezer.com/track/4233937192"
+          "title": "Snowman",
+          "artist": "Sia",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/b6b2668d918986d82c106a5b9838f40d/250x250-000000-80-0-0.jpg",
+          "deezerId": 424438852,
+          "link": "https://www.deezer.com/track/424438852"
         },
         {
           "rank": 20,
-          "title": "لاعبت الكبار",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/cbb5f9a0779d5113d30e60ef4c231be5/250x250-000000-80-0-0.jpg",
-          "deezerId": 4271248202,
-          "link": "https://www.deezer.com/track/4271248202"
+          "title": "Higher Love",
+          "artist": "Kygo",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f45ec14c6cc67e1428a60e3548be46c/250x250-000000-80-0-0.jpg",
+          "deezerId": 701281342,
+          "link": "https://www.deezer.com/track/701281342"
         }
       ]
     },
@@ -185,9 +185,149 @@
       "label": "Apple Music",
       "chart": "Most-played · EG",
       "play": "link",
-      "tile": true,
       "chartUrl": "https://music.apple.com/eg",
-      "tracks": []
+      "tracks": [
+        {
+          "rank": 1,
+          "title": "El Hazz",
+          "artist": "Wegz",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/33/f0/ec/33f0ece3-d007-4cdd-03b7-de6dfaa1442b/199806680476.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/el-hazz/6822433775?i=6822434904"
+        },
+        {
+          "rank": 2,
+          "title": "EL BADLA WEL FOSTAN",
+          "artist": "abulhawa",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c9/b3/31/c9b3319b-2686-9d1c-4fcd-9c629c8f3161/artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/el-badla-wel-fostan/6786618013?i=6786618014"
+        },
+        {
+          "rank": 3,
+          "title": "اخوك جايبها م الصفر",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f8/19/10/f81910e9-0e0a-5d77-fda2-9b80571cf162/6221216981868_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%A7%D8%AE%D9%88%D9%83-%D8%AC%D8%A7%D9%8A%D8%A8%D9%87%D8%A7-%D9%85-%D8%A7%D9%84%D8%B5%D9%81%D8%B1/6795519308?i=6795519311"
+        },
+        {
+          "rank": 4,
+          "title": "SUPREME",
+          "artist": "Afroto & Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/15/23/d2/1523d2aa-ef0a-ed01-9008-7013c44558fc/619165335553.jpg/100x102bb.jpg",
+          "link": "https://music.apple.com/eg/album/supreme/6815268087?i=6815268303"
+        },
+        {
+          "rank": 5,
+          "title": "Shoft Kalam",
+          "artist": "Marwan Pablo, Lege-Cy & HatemBas",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/01/c4/31/01c43187-da8b-fc50-b68e-2e71cd1d7c85/885288123609.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/shoft-kalam/6793678943?i=6793679161"
+        },
+        {
+          "rank": 6,
+          "title": "عشان بحبك",
+          "artist": "Amr Mostafa, Hamo El Morshedy & Wezza Montaser",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/9f/09/1b/9f091b0a-2bad-4413-0ebf-4f6e7df65452/6221117233622.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%B9%D8%B4%D8%A7%D9%86-%D8%A8%D8%AD%D8%A8%D9%83/6811945693?i=6811945696"
+        },
+        {
+          "rank": 7,
+          "title": "اركب الدبابه",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/d6/c1/f7d6c105-d70a-aa47-f9a4-2b273c579498/6221216993755_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%A7%D8%B1%D9%83%D8%A8-%D8%A7%D9%84%D8%AF%D8%A8%D8%A7%D8%A8%D9%87/6799391412?i=6799391413"
+        },
+        {
+          "rank": 8,
+          "title": "Wlad ElHalal",
+          "artist": "Tamer Ashour",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a1/1e/cd/a11ecd2f-ee9c-16f9-b38d-e760b43afc2a/619165335423.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/wlad-elhalal/6792757012?i=6792757021"
+        },
+        {
+          "rank": 9,
+          "title": "Kelma",
+          "artist": "Ramy Sabry",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d6/86/6b/d6866b86-9c68-5488-ea5b-b406ce47ebfb/689860602922_cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/kelma/1833232028?i=1833232274"
+        },
+        {
+          "rank": 10,
+          "title": "HASESS BIK",
+          "artist": "Zaid Khaled & Nasser",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0a/c8/b1/0ac8b1a4-a758-66bd-5d81-814d257c8313/26UM1IM20600.rgb.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/hasess-bik/6813444889?i=6813445326"
+        },
+        {
+          "rank": 11,
+          "title": "لاعبت الكبار",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8d/7f/24/8d7f245f-589b-2b70-a23e-4fc3c6a66d66/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D9%84%D8%A7%D8%B9%D8%A8%D8%AA-%D8%A7%D9%84%D9%83%D8%A8%D8%A7%D8%B1/6809517915?i=6809517923"
+        },
+        {
+          "rank": 12,
+          "title": "يا حبيبنا | ريدبُل مزيكا صالونات",
+          "artist": "Red Bull Sika, Hakim, Houda Bondok & Ahmed Tarek Yehia",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b7/ed/7e/b7ed7e10-b16d-4799-3232-458cd81bafbf/759009835259.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D9%8A%D8%A7-%D8%AD%D8%A8%D9%8A%D8%A8%D9%86%D8%A7-%D8%B1%D9%8A%D8%AF%D8%A8-%D9%84-%D9%85%D8%B2%D9%8A%D9%83%D8%A7-%D8%B5%D8%A7%D9%84%D9%88%D9%86%D8%A7%D8%AA/6803568777?i=6803568785"
+        },
+        {
+          "rank": 13,
+          "title": "Men Gheir Kalam",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/men-gheir-kalam/6797576792?i=6797576801"
+        },
+        {
+          "rank": 14,
+          "title": "كوكب النسيان",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/95/6d/d0/956dd0cb-9ec9-b311-85d7-7e7623270bec/6221216995742_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D9%83%D9%88%D9%83%D8%A8-%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D8%A7%D9%86/6799628007?i=6799628008"
+        },
+        {
+          "rank": 15,
+          "title": "Garee2a Awy - A COLORS SHOW",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/17/16/d8/1716d894-4de6-0494-3568-5d36af85304e/840054915345.png/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/garee2a-awy-a-colors-show/6783339190?i=6783339191"
+        },
+        {
+          "rank": 16,
+          "title": "Wala Ash Wala Kan",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/wala-ash-wala-kan/6797576792?i=6797577235"
+        },
+        {
+          "rank": 17,
+          "title": "عيال جديدة لانج",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4c/8f/72/4c8f72b1-5b27-6bf8-2ed3-6a5665e5bdb5/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%B9%D9%8A%D8%A7%D9%84-%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9-%D9%84%D8%A7%D9%86%D8%AC/6781349237?i=6781349378"
+        },
+        {
+          "rank": 18,
+          "title": "Khalik Maaya",
+          "artist": "Amr Diab",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Features/v4/be/aa/f0/beaaf038-dcc3-7cc3-0537-ff032c32594b/dj.rzniqsgh.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/khalik-maaya/582047931?i=582048008"
+        },
+        {
+          "rank": 19,
+          "title": "الولا حمو جه",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/22/14/e3/2214e37b-dad6-707e-9495-aae762338d19/6221216940070_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%A7%D9%84%D9%88%D9%84%D8%A7-%D8%AD%D9%85%D9%88-%D8%AC%D9%87/6771734683?i=6771734686"
+        },
+        {
+          "rank": 20,
+          "title": "Nano",
+          "artist": "TUL8TE & Saint Levant",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e9/e4/8f/e9e48fb1-33f2-487f-3eca-433ba3e8b0ca/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/nano/6771043145?i=6771043152"
+        }
+      ]
     },
     {
       "id": "anghami",
