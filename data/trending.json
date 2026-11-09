@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-08T10:59:18.340Z",
+  "updated": "2026-11-09T12:26:40.810Z",
   "region": "EG",
   "sources": [
     {
@@ -11,70 +11,6 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "M3a Nafsi",
-          "artist": "Ramy Sabry",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d53f8cdea61bc4300f17d9b55865b0ed/250x250-000000-80-0-0.jpg",
-          "deezerId": 3894803631,
-          "link": "https://www.deezer.com/track/3894803631"
-        },
-        {
-          "rank": 2,
-          "title": "Toaa We Teoam",
-          "artist": "Massar Egbari",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/a4e78a02231e081695a5ef565c8cb8c7/250x250-000000-80-0-0.jpg",
-          "deezerId": 3286904191,
-          "link": "https://www.deezer.com/track/3286904191"
-        },
-        {
-          "rank": 3,
-          "title": "Power Trip",
-          "artist": "J. Cole",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/8c9d7505ab6c7f3dccc5a4dc0ddfd79e/250x250-000000-80-0-0.jpg",
-          "deezerId": 1048706032,
-          "link": "https://www.deezer.com/track/1048706032"
-        },
-        {
-          "rank": 4,
-          "title": "Soul On Fire",
-          "artist": "Chris Grey",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/e36bdd7de2001568d38a16e5d7c277a4/250x250-000000-80-0-0.jpg",
-          "deezerId": 4334066042,
-          "link": "https://www.deezer.com/track/4334066042"
-        },
-        {
-          "rank": 5,
-          "title": "PAPA CASA",
-          "artist": "Ino Casablanca",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/627e2d5283d8090ec11a34890ca6226c/250x250-000000-80-0-0.jpg",
-          "deezerId": 4344813042,
-          "link": "https://www.deezer.com/track/4344813042"
-        },
-        {
-          "rank": 6,
-          "title": "Møkkamann",
-          "artist": "Plumbo",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/427efdaf52d70ba6897e060cdbcf1e78/250x250-000000-80-0-0.jpg",
-          "deezerId": 584415952,
-          "link": "https://www.deezer.com/track/584415952"
-        },
-        {
-          "rank": 7,
-          "title": "Tension",
-          "artist": "Diljit Dosanjh",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/8fb145546360f4fa5b9f9fef3a1e0a1c/250x250-000000-80-0-0.jpg",
-          "deezerId": 3205838331,
-          "link": "https://www.deezer.com/track/3205838331"
-        },
-        {
-          "rank": 8,
-          "title": "Helwa Ya Baladi",
-          "artist": "JadaL",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/977ee98fdc8056cd2dfc7bb8837b2517/250x250-000000-80-0-0.jpg",
-          "deezerId": 3992145301,
-          "link": "https://www.deezer.com/track/3992145301"
-        },
-        {
-          "rank": 9,
           "title": "Tennessee",
           "artist": "Hans Zimmer",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/fe9f2f1290275e57df54a32e18d31471/250x250-000000-80-0-0.jpg",
@@ -82,92 +18,156 @@
           "link": "https://www.deezer.com/track/3598719"
         },
         {
+          "rank": 2,
+          "title": "M3a Nafsi",
+          "artist": "Ramy Sabry",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/d53f8cdea61bc4300f17d9b55865b0ed/250x250-000000-80-0-0.jpg",
+          "deezerId": 3894803631,
+          "link": "https://www.deezer.com/track/3894803631"
+        },
+        {
+          "rank": 3,
+          "title": "Sonne",
+          "artist": "Rammstein",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6eabee34f76bd01d2562469d41c63c4d/250x250-000000-80-0-0.jpg",
+          "deezerId": 14381638,
+          "link": "https://www.deezer.com/track/14381638"
+        },
+        {
+          "rank": 4,
+          "title": "Mein Herz brennt",
+          "artist": "Rammstein",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6eabee34f76bd01d2562469d41c63c4d/250x250-000000-80-0-0.jpg",
+          "deezerId": 14381636,
+          "link": "https://www.deezer.com/track/14381636"
+        },
+        {
+          "rank": 5,
+          "title": "Links 2 3 4",
+          "artist": "Rammstein",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6eabee34f76bd01d2562469d41c63c4d/250x250-000000-80-0-0.jpg",
+          "deezerId": 14381637,
+          "link": "https://www.deezer.com/track/14381637"
+        },
+        {
+          "rank": 6,
+          "title": "Ich will",
+          "artist": "Rammstein",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6eabee34f76bd01d2562469d41c63c4d/250x250-000000-80-0-0.jpg",
+          "deezerId": 14381639,
+          "link": "https://www.deezer.com/track/14381639"
+        },
+        {
+          "rank": 7,
+          "title": "SHOGHLA",
+          "artist": "Mond",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/0a97a9031d5f62bc6cd2ea4dd1864201/250x250-000000-80-0-0.jpg",
+          "deezerId": 4381844001,
+          "link": "https://www.deezer.com/track/4381844001"
+        },
+        {
+          "rank": 8,
+          "title": "Immortality (feat. Bee Gees)",
+          "artist": "Céline Dion",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/177346106112348e15ec4f9add0c1ef4/250x250-000000-80-0-0.jpg",
+          "deezerId": 14552295,
+          "link": "https://www.deezer.com/track/14552295"
+        },
+        {
+          "rank": 9,
+          "title": "Took Her To The O",
+          "artist": "King Von",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/d7bdb06e43a48fed844fbdb9dd917937/250x250-000000-80-0-0.jpg",
+          "deezerId": 874915642,
+          "link": "https://www.deezer.com/track/874915642"
+        },
+        {
           "rank": 10,
-          "title": "Hatikva",
-          "artist": "Gerry Buikman and His Orchestra",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2da4ed659458ba42acef2d903f96bfa7/250x250-000000-80-0-0.jpg",
-          "deezerId": 8129380,
-          "link": "https://www.deezer.com/track/8129380"
+          "title": "DYSTOPIA",
+          "artist": "DudePlaya",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/96b1c32bec5475d8ea673e56ef42cb0c/250x250-000000-80-0-0.jpg",
+          "deezerId": 3223724951,
+          "link": "https://www.deezer.com/track/3223724951"
         },
         {
           "rank": 11,
-          "title": "A Thousand Miles",
-          "artist": "Vanessa Carlton",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/990e08407e928abdbb14db86e5563ed0/250x250-000000-80-0-0.jpg",
-          "deezerId": 983832,
-          "link": "https://www.deezer.com/track/983832"
+          "title": "Smack That",
+          "artist": "Akon",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/bc4d98904d61661cc6d7dd53745340d0/250x250-000000-80-0-0.jpg",
+          "deezerId": 979041,
+          "link": "https://www.deezer.com/track/979041"
         },
         {
           "rank": 12,
-          "title": "Pero Me Acuerdo de Tí",
-          "artist": "Christina Aguilera",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/ba70ee3970c1e61f59cc24ab561da73f/250x250-000000-80-0-0.jpg",
-          "deezerId": 993665,
-          "link": "https://www.deezer.com/track/993665"
+          "title": "Feuer frei!",
+          "artist": "Rammstein",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6eabee34f76bd01d2562469d41c63c4d/250x250-000000-80-0-0.jpg",
+          "deezerId": 14381640,
+          "link": "https://www.deezer.com/track/14381640"
         },
         {
           "rank": 13,
-          "title": "Wa Zaamt Enny Zalem",
-          "artist": "Amira Salem",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/f4c632b1e3c936d30ac5675b5fd57464/250x250-000000-80-0-0.jpg",
-          "deezerId": 649360582,
-          "link": "https://www.deezer.com/track/649360582"
+          "title": "I'm Still Here",
+          "artist": "Sia",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/9aa3f2aba0601be8b4745be21fcf63b8/250x250-000000-80-0-0.jpg",
+          "deezerId": 565609502,
+          "link": "https://www.deezer.com/track/565609502"
         },
         {
           "rank": 14,
-          "title": "يدوم الامان",
-          "artist": "Bahaa Sultan",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/efb562b75f54865eb1df2826a77d84c2/250x250-000000-80-0-0.jpg",
-          "deezerId": 3316779991,
-          "link": "https://www.deezer.com/track/3316779991"
+          "title": "SAFAH",
+          "artist": "Mond",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/722ea667f5dd87fd9de0dc7b163dedc6/250x250-000000-80-0-0.jpg",
+          "deezerId": 4399121151,
+          "link": "https://www.deezer.com/track/4399121151"
         },
         {
           "rank": 15,
-          "title": "hate that i made you love me",
-          "artist": "Ariana Grande",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/020b1804e8c8a2aba6770f5b2763847b/250x250-000000-80-0-0.jpg",
-          "deezerId": 4045817471,
-          "link": "https://www.deezer.com/track/4045817471"
+          "title": "Rain",
+          "artist": "Armin van Buuren",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/db20f9fcfd36c6f4b5ac1734f7e3a849/250x250-000000-80-0-0.jpg",
+          "deezerId": 6100530,
+          "link": "https://www.deezer.com/track/6100530"
         },
         {
           "rank": 16,
-          "title": "Garee2a Awy - A COLORS SHOW",
-          "artist": "TUL8TE",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/bcd0a882a71b52028859f925483a979b/250x250-000000-80-0-0.jpg",
-          "deezerId": 4090326081,
-          "link": "https://www.deezer.com/track/4090326081"
+          "title": "Concerning Hobbits",
+          "artist": "Howard Shore",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/c8e0799a199841a8181ca524373869bb/250x250-000000-80-0-0.jpg",
+          "deezerId": 14628816,
+          "link": "https://www.deezer.com/track/14628816"
         },
         {
           "rank": 17,
-          "title": "Getlak",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f90fab86a91b729ba79e235b89d8d51/250x250-000000-80-0-0.jpg",
-          "deezerId": 4167205882,
-          "link": "https://www.deezer.com/track/4167205882"
+          "title": "Dancer in the Dark",
+          "artist": "Marc philippe",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6b5fffb3720b6170af8a465ffa97287c/250x250-000000-80-0-0.jpg",
+          "deezerId": 495846652,
+          "link": "https://www.deezer.com/track/495846652"
         },
         {
           "rank": 18,
-          "title": "Shoft Kalam",
-          "artist": "Marwan Pablo",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/334c4ee30ce1a1fdae634c8677d0d34c/250x250-000000-80-0-0.jpg",
-          "deezerId": 4170855672,
-          "link": "https://www.deezer.com/track/4170855672"
+          "title": "Higher Love",
+          "artist": "Kygo",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5f45ec14c6cc67e1428a60e3548be46c/250x250-000000-80-0-0.jpg",
+          "deezerId": 701281342,
+          "link": "https://www.deezer.com/track/701281342"
         },
         {
           "rank": 19,
-          "title": "Sextape",
-          "artist": "Deftones",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/1e4053ff58942026723d2fbdeb9f3ced/250x250-000000-80-0-0.jpg",
-          "deezerId": 5979798,
-          "link": "https://www.deezer.com/track/5979798"
+          "title": "Aayshalak",
+          "artist": "Elissa",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/1a414fcc7e38420d819cf3dd5eb0a7ca/250x250-000000-80-0-0.jpg",
+          "deezerId": 1059521082,
+          "link": "https://www.deezer.com/track/1059521082"
         },
         {
           "rank": 20,
-          "title": "That's the Way It Is",
-          "artist": "Céline Dion",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/177346106112348e15ec4f9add0c1ef4/250x250-000000-80-0-0.jpg",
-          "deezerId": 14552286,
-          "link": "https://www.deezer.com/track/14552286"
+          "title": "prom dress",
+          "artist": "mxmtoon",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/ff590b97599b011e5d91c833fc69fde2/250x250-000000-80-0-0.jpg",
+          "deezerId": 2533318581,
+          "link": "https://www.deezer.com/track/2533318581"
         }
       ]
     },
@@ -238,87 +238,87 @@
         },
         {
           "rank": 8,
-          "title": "اركب الدبابه",
-          "artist": "Hamo El Morshedy",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/d6/c1/f7d6c105-d70a-aa47-f9a4-2b273c579498/6221216993755_Artwork.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/%D8%A7%D8%B1%D9%83%D8%A8-%D8%A7%D9%84%D8%AF%D8%A8%D8%A7%D8%A8%D9%87/6799391412?i=6799391413"
-        },
-        {
-          "rank": 9,
           "title": "HASESS BIK",
           "artist": "Zaid Khaled & Nasser",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0a/c8/b1/0ac8b1a4-a758-66bd-5d81-814d257c8313/26UM1IM20600.rgb.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/hasess-bik/6813444889?i=6813445326"
         },
         {
-          "rank": 10,
+          "rank": 9,
           "title": "Kelma",
           "artist": "Ramy Sabry",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d6/86/6b/d6866b86-9c68-5488-ea5b-b406ce47ebfb/689860602922_cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/kelma/1833232028?i=1833232274"
         },
         {
+          "rank": 10,
+          "title": "اركب الدبابه",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f7/d6/c1/f7d6c105-d70a-aa47-f9a4-2b273c579498/6221216993755_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%A7%D8%B1%D9%83%D8%A8-%D8%A7%D9%84%D8%AF%D8%A8%D8%A7%D8%A8%D9%87/6799391412?i=6799391413"
+        },
+        {
           "rank": 11,
-          "title": "يا حبيبنا | ريدبُل مزيكا صالونات",
-          "artist": "Red Bull Sika, Hakim, Houda Bondok & Ahmed Tarek Yehia",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b7/ed/7e/b7ed7e10-b16d-4799-3232-458cd81bafbf/759009835259.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/%D9%8A%D8%A7-%D8%AD%D8%A8%D9%8A%D8%A8%D9%86%D8%A7-%D8%B1%D9%8A%D8%AF%D8%A8-%D9%84-%D9%85%D8%B2%D9%8A%D9%83%D8%A7-%D8%B5%D8%A7%D9%84%D9%88%D9%86%D8%A7%D8%AA/6803568777?i=6803568785"
-        },
-        {
-          "rank": 12,
-          "title": "لاعبت الكبار",
-          "artist": "Hamo El Morshedy",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8d/7f/24/8d7f245f-589b-2b70-a23e-4fc3c6a66d66/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/%D9%84%D8%A7%D8%B9%D8%A8%D8%AA-%D8%A7%D9%84%D9%83%D8%A8%D8%A7%D8%B1/6809517915?i=6809517923"
-        },
-        {
-          "rank": 13,
-          "title": "Men Gheir Kalam",
-          "artist": "TUL8TE",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/men-gheir-kalam/6797576792?i=6797576801"
-        },
-        {
-          "rank": 14,
-          "title": "كوكب النسيان",
-          "artist": "Hamo El Morshedy",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/95/6d/d0/956dd0cb-9ec9-b311-85d7-7e7623270bec/6221216995742_Artwork.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/%D9%83%D9%88%D9%83%D8%A8-%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D8%A7%D9%86/6799628007?i=6799628008"
-        },
-        {
-          "rank": 15,
-          "title": "Wala Ash Wala Kan",
-          "artist": "TUL8TE",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/wala-ash-wala-kan/6797576792?i=6797577235"
-        },
-        {
-          "rank": 16,
-          "title": "Garee2a Awy - A COLORS SHOW",
-          "artist": "TUL8TE",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/17/16/d8/1716d894-4de6-0494-3568-5d36af85304e/840054915345.png/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/garee2a-awy-a-colors-show/6783339190?i=6783339191"
-        },
-        {
-          "rank": 17,
           "title": "Ma Tlaenash",
           "artist": "Elissa",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/01/43/d5014382-cf85-c94c-b4c7-c9cd20168cbd/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/ma-tlaenash/6825518480?i=6825519282"
         },
         {
+          "rank": 12,
+          "title": "Men Gheir Kalam",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/men-gheir-kalam/6797576792?i=6797576801"
+        },
+        {
+          "rank": 13,
+          "title": "يا حبيبنا | ريدبُل مزيكا صالونات",
+          "artist": "Red Bull Sika, Hakim, Houda Bondok & Ahmed Tarek Yehia",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b7/ed/7e/b7ed7e10-b16d-4799-3232-458cd81bafbf/759009835259.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D9%8A%D8%A7-%D8%AD%D8%A8%D9%8A%D8%A8%D9%86%D8%A7-%D8%B1%D9%8A%D8%AF%D8%A8-%D9%84-%D9%85%D8%B2%D9%8A%D9%83%D8%A7-%D8%B5%D8%A7%D9%84%D9%88%D9%86%D8%A7%D8%AA/6803568777?i=6803568785"
+        },
+        {
+          "rank": 14,
+          "title": "لاعبت الكبار",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8d/7f/24/8d7f245f-589b-2b70-a23e-4fc3c6a66d66/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D9%84%D8%A7%D8%B9%D8%A8%D8%AA-%D8%A7%D9%84%D9%83%D8%A8%D8%A7%D8%B1/6809517915?i=6809517923"
+        },
+        {
+          "rank": 15,
+          "title": "كوكب النسيان",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/95/6d/d0/956dd0cb-9ec9-b311-85d7-7e7623270bec/6221216995742_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D9%83%D9%88%D9%83%D8%A8-%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D8%A7%D9%86/6799628007?i=6799628008"
+        },
+        {
+          "rank": 16,
+          "title": "Wala Ash Wala Kan",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/wala-ash-wala-kan/6797576792?i=6797577235"
+        },
+        {
+          "rank": 17,
+          "title": "Garee2a Awy - A COLORS SHOW",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/17/16/d8/1716d894-4de6-0494-3568-5d36af85304e/840054915345.png/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/garee2a-awy-a-colors-show/6783339190?i=6783339191"
+        },
+        {
           "rank": 18,
+          "title": "Habbatal Aheb",
+          "artist": "Elissa",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/01/43/d5014382-cf85-c94c-b4c7-c9cd20168cbd/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/habbatal-aheb/6825518480?i=6825518506"
+        },
+        {
+          "rank": 19,
           "title": "عيال جديدة لانج",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4c/8f/72/4c8f72b1-5b27-6bf8-2ed3-6a5665e5bdb5/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D8%B9%D9%8A%D8%A7%D9%84-%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9-%D9%84%D8%A7%D9%86%D8%AC/6781349237?i=6781349378"
-        },
-        {
-          "rank": 19,
-          "title": "Khalik Maaya",
-          "artist": "Amr Diab",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Features/v4/be/aa/f0/beaaf038-dcc3-7cc3-0537-ff032c32594b/dj.rzniqsgh.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/khalik-maaya/582047931?i=582048008"
         },
         {
           "rank": 20,
