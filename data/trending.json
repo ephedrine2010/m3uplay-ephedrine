@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12T12:05:44.055Z",
+  "updated": "2026-11-13T11:48:21.070Z",
   "region": "EG",
   "sources": [
     {
@@ -11,38 +11,6 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "우리의 밤은 당신의 낮보다 아름답다",
-          "artist": "KONA",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/13ca981ef7acbfd6d1703781ba95e72d/250x250-000000-80-0-0.jpg",
-          "deezerId": 3288803841,
-          "link": "https://www.deezer.com/track/3288803841"
-        },
-        {
-          "rank": 2,
-          "title": "Plie",
-          "artist": "Ayumi HIRUSAKI",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/319382d90da92f1830ebff748c1f68b2/250x250-000000-80-0-0.jpg",
-          "deezerId": 1886589627,
-          "link": "https://www.deezer.com/track/1886589627"
-        },
-        {
-          "rank": 3,
-          "title": "Intro to Shamstep",
-          "artist": "47 Soul",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/67cb7f328d33a1714842f1da2e8862d4/250x250-000000-80-0-0.jpg",
-          "deezerId": 3537776671,
-          "link": "https://www.deezer.com/track/3537776671"
-        },
-        {
-          "rank": 4,
-          "title": "EL BADLA WEL FOSTAN",
-          "artist": "abulhawa",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/604ee24ac6fb27baefb9ff6db7defa21/250x250-000000-80-0-0.jpg",
-          "deezerId": 4126686381,
-          "link": "https://www.deezer.com/track/4126686381"
-        },
-        {
-          "rank": 5,
           "title": "Asocial",
           "artist": "St Graal",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/ec2c9e4b43abe25782dc8209ff6908da/250x250-000000-80-0-0.jpg",
@@ -50,39 +18,63 @@
           "link": "https://www.deezer.com/track/4333132482"
         },
         {
+          "rank": 2,
+          "title": "Armistice",
+          "artist": "Josman",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/829c61806a21bcfb0e1de3d6fb0c5c9a/250x250-000000-80-0-0.jpg",
+          "deezerId": 4391367101,
+          "link": "https://www.deezer.com/track/4391367101"
+        },
+        {
+          "rank": 3,
+          "title": "Reason",
+          "artist": "XO TEAM",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8d64125635ae54948fe4cf56cde44bc9/250x250-000000-80-0-0.jpg",
+          "deezerId": 1831182817,
+          "link": "https://www.deezer.com/track/1831182817"
+        },
+        {
+          "rank": 4,
+          "title": "Seneen",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f395d0957f83ec9c24dff879e8023696/250x250-000000-80-0-0.jpg",
+          "deezerId": 3762925162,
+          "link": "https://www.deezer.com/track/3762925162"
+        },
+        {
+          "rank": 5,
+          "title": "El Neyya",
+          "artist": "Lege-Cy",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/60177dc961cd9162134f0e840832175d/250x250-000000-80-0-0.jpg",
+          "deezerId": 2879283042,
+          "link": "https://www.deezer.com/track/2879283042"
+        },
+        {
           "rank": 6,
-          "title": "Where Ya At (feat. Drake)",
-          "artist": "Future",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/865cd8c71b697175d6eb271ac66cbf1d/250x250-000000-80-0-0.jpg",
-          "deezerId": 104088774,
-          "link": "https://www.deezer.com/track/104088774"
+          "title": "Mood Swings",
+          "artist": "Pop Smoke",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6a5f365d2f7ef3d1e4cf7ad24abe53ff/250x250-000000-80-0-0.jpg",
+          "deezerId": 3568938351,
+          "link": "https://www.deezer.com/track/3568938351"
         },
         {
           "rank": 7,
-          "title": "Salam",
-          "artist": "Fawzi",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d2b0725713debd19322e48ffcece8e72/250x250-000000-80-0-0.jpg",
-          "deezerId": 1474448502,
-          "link": "https://www.deezer.com/track/1474448502"
+          "title": "Gait Ala Bali",
+          "artist": "Amer Mounib",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/3ae1fbe9db0d64a9e8f6e250c24c2c8a/250x250-000000-80-0-0.jpg",
+          "deezerId": 80321420,
+          "link": "https://www.deezer.com/track/80321420"
         },
         {
           "rank": 8,
-          "title": "Raya",
-          "artist": "Zericxxn",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/cf66428d55c77d1694715c6f27986fed/250x250-000000-80-0-0.jpg",
-          "deezerId": 4186845722,
-          "link": "https://www.deezer.com/track/4186845722"
+          "title": "Plie",
+          "artist": "Ayumi HIRUSAKI",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/319382d90da92f1830ebff748c1f68b2/250x250-000000-80-0-0.jpg",
+          "deezerId": 1886589627,
+          "link": "https://www.deezer.com/track/1886589627"
         },
         {
           "rank": 9,
-          "title": "Tamally Maak",
-          "artist": "Amr Diab",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/123994eb2834a27c0832210a7cce6e16/250x250-000000-80-0-0.jpg",
-          "deezerId": 81102882,
-          "link": "https://www.deezer.com/track/81102882"
-        },
-        {
-          "rank": 10,
           "title": "Bills",
           "artist": "LunchMoney Lewis",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/1d6628ed849a49b0b79165c1f16dbe4c/250x250-000000-80-0-0.jpg",
@@ -90,84 +82,92 @@
           "link": "https://www.deezer.com/track/98345402"
         },
         {
+          "rank": 10,
+          "title": "Osad einy",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f8bc052bf7ebc5ebd4c93d5bd367a7d8/250x250-000000-80-0-0.jpg",
+          "deezerId": 477635012,
+          "link": "https://www.deezer.com/track/477635012"
+        },
+        {
           "rank": 11,
-          "title": "Sneakin’",
-          "artist": "Drake",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/6b429e2f4a481a9fc3883745c72c261e/250x250-000000-80-0-0.jpg",
-          "deezerId": 134712308,
-          "link": "https://www.deezer.com/track/134712308"
+          "title": "Santa Catarina",
+          "artist": "Lazywax",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/687cdb7f8907c0f50c2afc5a58f65e07/250x250-000000-80-0-0.jpg",
+          "deezerId": 966535742,
+          "link": "https://www.deezer.com/track/966535742"
         },
         {
           "rank": 12,
-          "title": "Window Shopper",
-          "artist": "50 Cent",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/58ec83e8f74b55096f2115523eb9e7df/250x250-000000-80-0-0.jpg",
-          "deezerId": 145429554,
-          "link": "https://www.deezer.com/track/145429554"
+          "title": "Mahragan Shela Maghrora",
+          "artist": "مسلم",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5063e698da1cda52c096580f9fe46967/250x250-000000-80-0-0.jpg",
+          "deezerId": 1047362342,
+          "link": "https://www.deezer.com/track/1047362342"
         },
         {
           "rank": 13,
-          "title": "Disco",
-          "artist": "Surf Curse",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/03d93ddda6e56f238c8f601c10a7de2a/250x250-000000-80-0-0.jpg",
-          "deezerId": 1418234392,
-          "link": "https://www.deezer.com/track/1418234392"
+          "title": "مع احترامي للي مقويك ( سنيت سلاحي اعلنت الحرب )",
+          "artist": "كريم كرستيانو",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/924e8a0058de5c44d2994b9aefe67924/250x250-000000-80-0-0.jpg",
+          "deezerId": 3171741731,
+          "link": "https://www.deezer.com/track/3171741731"
         },
         {
           "rank": 14,
-          "title": "ضحكتونى ياللى فارقتونى",
-          "artist": "Hamo ElTikha",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2e639aae55caaef6239f085a5ad31feb/250x250-000000-80-0-0.jpg",
-          "deezerId": 1922479357,
-          "link": "https://www.deezer.com/track/1922479357"
+          "title": "صحبي توب صحبي توب",
+          "artist": "كريم كرستيانو",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/ccb92084a0478a85734accaf98c16506/250x250-000000-80-0-0.jpg",
+          "deezerId": 3171741741,
+          "link": "https://www.deezer.com/track/3171741741"
         },
         {
           "rank": 15,
-          "title": "Marieta",
-          "artist": "Ibrahim Ferrer",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/05311ac70cb1d0a1d3baa2388b5c63e6/250x250-000000-80-0-0.jpg",
-          "deezerId": 2203896137,
-          "link": "https://www.deezer.com/track/2203896137"
+          "title": "احنا فرقة بدراعها تصد طلقة ( اخويا غايب بس سرته تمام )",
+          "artist": "كريم كرستيانو",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/c150c6a5f25a98f3a4b75ba1ba761b27/250x250-000000-80-0-0.jpg",
+          "deezerId": 3172053091,
+          "link": "https://www.deezer.com/track/3172053091"
         },
         {
           "rank": 16,
-          "title": "Be The One",
-          "artist": "Bree Runway",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/e8a4b0958e5caab62501f40d329cedc6/250x250-000000-80-0-0.jpg",
-          "deezerId": 2237572017,
-          "link": "https://www.deezer.com/track/2237572017"
+          "title": "ربنا يسترها علينا من الفين نظره علينا ( سهرتي في لفل بسهر احتفل )",
+          "artist": "كريم كرستيانو",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/705e1bfa4bf3cf0080302b57ce9d0704/250x250-000000-80-0-0.jpg",
+          "deezerId": 3174972351,
+          "link": "https://www.deezer.com/track/3174972351"
         },
         {
           "rank": 17,
-          "title": "Swing",
-          "artist": "EARTHGANG",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2c6b316ce463338567c35a401e62f9cd/250x250-000000-80-0-0.jpg",
-          "deezerId": 2496427061,
-          "link": "https://www.deezer.com/track/2496427061"
+          "title": "Soweto",
+          "artist": "Victony",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a21fb655cf3e2fc8b05db68fc6eb34b1/250x250-000000-80-0-0.jpg",
+          "deezerId": 3279575181,
+          "link": "https://www.deezer.com/track/3279575181"
         },
         {
           "rank": 18,
-          "title": "prom dress",
-          "artist": "mxmtoon",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/ff590b97599b011e5d91c833fc69fde2/250x250-000000-80-0-0.jpg",
-          "deezerId": 2533318581,
-          "link": "https://www.deezer.com/track/2533318581"
+          "title": "LAW NASYANY",
+          "artist": "Lege-Cy",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/13bada2d9f40062ced105f6040a53ef2/250x250-000000-80-0-0.jpg",
+          "deezerId": 3392648101,
+          "link": "https://www.deezer.com/track/3392648101"
         },
         {
           "rank": 19,
-          "title": "Ahlelela Ahlanas",
-          "artist": "Acnatro",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0b063f69d68528812c6ec28788d52a41/250x250-000000-80-0-0.jpg",
-          "deezerId": 3480676971,
-          "link": "https://www.deezer.com/track/3480676971"
+          "title": "بياع",
+          "artist": "Ramy Sabry",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/faa29a4a02d6d2fd81374beedbac17bd/250x250-000000-80-0-0.jpg",
+          "deezerId": 3443339331,
+          "link": "https://www.deezer.com/track/3443339331"
         },
         {
           "rank": 20,
-          "title": "Fool's Gold",
-          "artist": "Buffalo Traffic Jam",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2068c6b56a33cb18a6bd245a04a835b6/250x250-000000-80-0-0.jpg",
-          "deezerId": 3560352321,
-          "link": "https://www.deezer.com/track/3560352321"
+          "title": "ايوه يا حبيبتي وحشتيني",
+          "artist": "اسلام كابونجا",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/89d5823242f06a73a8ccf56b76f8646f/250x250-000000-80-0-0.jpg",
+          "deezerId": 4074825091,
+          "link": "https://www.deezer.com/track/4074825091"
         }
       ]
     },
