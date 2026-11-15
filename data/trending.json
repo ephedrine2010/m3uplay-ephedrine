@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-14T11:09:13.474Z",
+  "updated": "2026-11-15T11:42:46.503Z",
   "region": "EG",
   "sources": [
     {
@@ -19,30 +19,6 @@
         },
         {
           "rank": 2,
-          "title": "انا صبري فاض ياطبيب ( الشدة لو شدت هتبين )",
-          "artist": "Ahmed Moza",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/baa794808305fb55b8593e491b9bde23/250x250-000000-80-0-0.jpg",
-          "deezerId": 4135817691,
-          "link": "https://www.deezer.com/track/4135817691"
-        },
-        {
-          "rank": 3,
-          "title": "Asocial",
-          "artist": "St Graal",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/ec2c9e4b43abe25782dc8209ff6908da/250x250-000000-80-0-0.jpg",
-          "deezerId": 4333132482,
-          "link": "https://www.deezer.com/track/4333132482"
-        },
-        {
-          "rank": 4,
-          "title": "Plie",
-          "artist": "Ayumi HIRUSAKI",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/319382d90da92f1830ebff748c1f68b2/250x250-000000-80-0-0.jpg",
-          "deezerId": 1886589627,
-          "link": "https://www.deezer.com/track/1886589627"
-        },
-        {
-          "rank": 5,
           "title": "Dai Dai",
           "artist": "Shakira",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/a7f9bae0243c512059298a68d09f45a1/250x250-000000-80-0-0.jpg",
@@ -50,71 +26,55 @@
           "link": "https://www.deezer.com/track/4015341011"
         },
         {
+          "rank": 3,
+          "title": "Seven Million (feat. Future)",
+          "artist": "Lil Uzi Vert",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/757b65eef408035453c1904136991e40/250x250-000000-80-0-0.jpg",
+          "deezerId": 129916038,
+          "link": "https://www.deezer.com/track/129916038"
+        },
+        {
+          "rank": 4,
+          "title": "Instinct Killa",
+          "artist": "Crossnaders",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a769655dd175b5006629b47731254656/250x250-000000-80-0-0.jpg",
+          "deezerId": 475923042,
+          "link": "https://www.deezer.com/track/475923042"
+        },
+        {
+          "rank": 5,
+          "title": "Akhok Gaybha Mn Elsefr",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/79dd58c38a80c67183d2bdcb7e35f3aa/250x250-000000-80-0-0.jpg",
+          "deezerId": 4181963772,
+          "link": "https://www.deezer.com/track/4181963772"
+        },
+        {
           "rank": 6,
-          "title": "Omry Maak",
-          "artist": "Angham",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/903669ffb2818115f3bdf64ecad3f9b2/250x250-000000-80-0-0.jpg",
-          "deezerId": 81103266,
-          "link": "https://www.deezer.com/track/81103266"
+          "title": "Be Mine",
+          "artist": "INFINITE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e69c96aa2ed7d54025ccbfb10a9df005/250x250-000000-80-0-0.jpg",
+          "deezerId": 1259855492,
+          "link": "https://www.deezer.com/track/1259855492"
         },
         {
           "rank": 7,
-          "title": "London Town (feat. A$AP Rocky, A$AP Ant & Playboi Carti)",
-          "artist": "A$AP Mob",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/439bce94a10670b458c4acadaf238037/250x250-000000-80-0-0.jpg",
-          "deezerId": 135151144,
-          "link": "https://www.deezer.com/track/135151144"
+          "title": "Last Romeo",
+          "artist": "INFINITE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/3cde1e6f4428d940126c81dff08abf72/250x250-000000-80-0-0.jpg",
+          "deezerId": 1848071817,
+          "link": "https://www.deezer.com/track/1848071817"
         },
         {
           "rank": 8,
-          "title": "EL W2ala 7AMO GAH",
-          "artist": "حمو المرشدي",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/ec947e158283556ea726c0ea0d7c2f24/250x250-000000-80-0-0.jpg",
-          "deezerId": 4035830811,
-          "link": "https://www.deezer.com/track/4035830811"
+          "title": "Heartbeat City",
+          "artist": "The Cars",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/498d7625d3aa21448d05f74f782cdaa8/250x250-000000-80-0-0.jpg",
+          "deezerId": 5094181,
+          "link": "https://www.deezer.com/track/5094181"
         },
         {
           "rank": 9,
-          "title": "So Far Away",
-          "artist": "Avenged Sevenfold",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/4888c24a2a49758698399ddc2a18f0e9/250x250-000000-80-0-0.jpg",
-          "deezerId": 6715844,
-          "link": "https://www.deezer.com/track/6715844"
-        },
-        {
-          "rank": 10,
-          "title": "Try",
-          "artist": "P!nk",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/a43e104f2ff2872df2e1bf4207b6b5e6/250x250-000000-80-0-0.jpg",
-          "deezerId": 60200381,
-          "link": "https://www.deezer.com/track/60200381"
-        },
-        {
-          "rank": 11,
-          "title": "they don’t know ’bout us",
-          "artist": "BTS",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/a3b8e9462db0c02e082c706c624f9811/250x250-000000-80-0-0.jpg",
-          "deezerId": 3907717301,
-          "link": "https://www.deezer.com/track/3907717301"
-        },
-        {
-          "rank": 12,
-          "title": "Shoft Kalam",
-          "artist": "Marwan Pablo",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/334c4ee30ce1a1fdae634c8677d0d34c/250x250-000000-80-0-0.jpg",
-          "deezerId": 4170855672,
-          "link": "https://www.deezer.com/track/4170855672"
-        },
-        {
-          "rank": 13,
-          "title": "Shake It Off",
-          "artist": "Walk Off The Earth",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d108109344a4ad67bca3e802b5fd6f26/250x250-000000-80-0-0.jpg",
-          "deezerId": 89310213,
-          "link": "https://www.deezer.com/track/89310213"
-        },
-        {
-          "rank": 14,
           "title": "What's Up Danger",
           "artist": "Blackway",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/1aa3dfe91b3e5d3bc71eca6b6e9c8d39/250x250-000000-80-0-0.jpg",
@@ -122,39 +82,47 @@
           "link": "https://www.deezer.com/track/602456542"
         },
         {
+          "rank": 10,
+          "title": "Scared of the Dark",
+          "artist": "Lil Wayne",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/1aa3dfe91b3e5d3bc71eca6b6e9c8d39/250x250-000000-80-0-0.jpg",
+          "deezerId": 602456642,
+          "link": "https://www.deezer.com/track/602456642"
+        },
+        {
+          "rank": 11,
+          "title": "Maak Alby",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/574780da54948d8cbca0ce61487b2bb5/250x250-000000-80-0-0.jpg",
+          "deezerId": 3059586441,
+          "link": "https://www.deezer.com/track/3059586441"
+        },
+        {
+          "rank": 12,
+          "title": "LAW NASYANY",
+          "artist": "Lege-Cy",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/13bada2d9f40062ced105f6040a53ef2/250x250-000000-80-0-0.jpg",
+          "deezerId": 3392648101,
+          "link": "https://www.deezer.com/track/3392648101"
+        },
+        {
+          "rank": 13,
+          "title": "Choice",
+          "artist": "Frequency",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/b7e5f6d04c731f6ec81c047de6658ba0/250x250-000000-80-0-0.jpg",
+          "deezerId": 3664895852,
+          "link": "https://www.deezer.com/track/3664895852"
+        },
+        {
+          "rank": 14,
+          "title": "Seneen",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f395d0957f83ec9c24dff879e8023696/250x250-000000-80-0-0.jpg",
+          "deezerId": 3762925162,
+          "link": "https://www.deezer.com/track/3762925162"
+        },
+        {
           "rank": 15,
-          "title": "SOS",
-          "artist": "James Arthur",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/df584c4b683c3384217b01335c9dec7d/250x250-000000-80-0-0.jpg",
-          "deezerId": 1513817152,
-          "link": "https://www.deezer.com/track/1513817152"
-        },
-        {
-          "rank": 16,
-          "title": "What I All Care Is Love",
-          "artist": "Sim Soo Bong",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d12b9df1f27fdaa5aa2ca840e00a7357/250x250-000000-80-0-0.jpg",
-          "deezerId": 1581223392,
-          "link": "https://www.deezer.com/track/1581223392"
-        },
-        {
-          "rank": 17,
-          "title": "With You (feat. Omah Lay)",
-          "artist": "Davido",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/08304eb172098540c635de98530d4929/250x250-000000-80-0-0.jpg",
-          "deezerId": 3324595541,
-          "link": "https://www.deezer.com/track/3324595541"
-        },
-        {
-          "rank": 18,
-          "title": "Watch Me Now! (with NLE Choppa)",
-          "artist": "Ndotz",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/e3a8291ed7a6b0c6cc62efbd873a8bc7/250x250-000000-80-0-0.jpg",
-          "deezerId": 3838305921,
-          "link": "https://www.deezer.com/track/3838305921"
-        },
-        {
-          "rank": 19,
           "title": "FUNK POWER",
           "artist": "Yatashi",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/309b752f4f50ae47acbd9828d74757ed/250x250-000000-80-0-0.jpg",
@@ -162,12 +130,44 @@
           "link": "https://www.deezer.com/track/4030831831"
         },
         {
+          "rank": 16,
+          "title": "EL W2ala 7AMO GAH",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/ec947e158283556ea726c0ea0d7c2f24/250x250-000000-80-0-0.jpg",
+          "deezerId": 4035830811,
+          "link": "https://www.deezer.com/track/4035830811"
+        },
+        {
+          "rank": 17,
+          "title": "MTG DIABÓLICA",
+          "artist": "notdjfake",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/1e32c4b163c945c05dde6ca933182e64/250x250-000000-80-0-0.jpg",
+          "deezerId": 4048640091,
+          "link": "https://www.deezer.com/track/4048640091"
+        },
+        {
+          "rank": 18,
+          "title": "Elshabab Nabara",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/22bcb18af942ead44d71b4de5fc3c642/250x250-000000-80-0-0.jpg",
+          "deezerId": 4214598312,
+          "link": "https://www.deezer.com/track/4214598312"
+        },
+        {
+          "rank": 19,
+          "title": "Mn Tany Khat Elsaha",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5c315e66a7963a804ae1beaf13ef1caf/250x250-000000-80-0-0.jpg",
+          "deezerId": 4214622752,
+          "link": "https://www.deezer.com/track/4214622752"
+        },
+        {
           "rank": 20,
-          "title": "Nano",
-          "artist": "TUL8TE",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d34d3a8bbf8ece9727f43fb4ceb04ff4/250x250-000000-80-0-0.jpg",
-          "deezerId": 4030957121,
-          "link": "https://www.deezer.com/track/4030957121"
+          "title": "MALEMO",
+          "artist": "Zericxxn",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f1254bc3199ad7cabd1e3332203a3687/250x250-000000-80-0-0.jpg",
+          "deezerId": 4336938582,
+          "link": "https://www.deezer.com/track/4336938582"
         }
       ]
     },
@@ -294,31 +294,31 @@
         },
         {
           "rank": 16,
-          "title": "Garee2a Awy - A COLORS SHOW",
-          "artist": "TUL8TE",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/17/16/d8/1716d894-4de6-0494-3568-5d36af85304e/840054915345.png/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/garee2a-awy-a-colors-show/6783339190?i=6783339191"
-        },
-        {
-          "rank": 17,
-          "title": "Ma Tlaenash",
-          "artist": "Elissa",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/01/43/d5014382-cf85-c94c-b4c7-c9cd20168cbd/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/ma-tlaenash/6825518480?i=6825519282"
-        },
-        {
-          "rank": 18,
           "title": "عيال جديدة لانج",
           "artist": "Hamo El Morshedy",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4c/8f/72/4c8f72b1-5b27-6bf8-2ed3-6a5665e5bdb5/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/%D8%B9%D9%8A%D8%A7%D9%84-%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9-%D9%84%D8%A7%D9%86%D8%AC/6781349237?i=6781349378"
         },
         {
-          "rank": 19,
+          "rank": 17,
+          "title": "Garee2a Awy - A COLORS SHOW",
+          "artist": "TUL8TE",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/17/16/d8/1716d894-4de6-0494-3568-5d36af85304e/840054915345.png/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/garee2a-awy-a-colors-show/6783339190?i=6783339191"
+        },
+        {
+          "rank": 18,
           "title": "Wala Ash Wala Kan",
           "artist": "TUL8TE",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/wala-ash-wala-kan/6797576792?i=6797577235"
+        },
+        {
+          "rank": 19,
+          "title": "Ma Tlaenash",
+          "artist": "Elissa",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/d5/01/43/d5014382-cf85-c94c-b4c7-c9cd20168cbd/cover.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/ma-tlaenash/6825518480?i=6825519282"
         },
         {
           "rank": 20,
