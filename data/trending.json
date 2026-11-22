@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-21T12:00:12.700Z",
+  "updated": "2026-11-22T12:13:18.674Z",
   "region": "EG",
   "sources": [
     {
@@ -19,27 +19,27 @@
         },
         {
           "rank": 2,
-          "title": "Seneen",
-          "artist": "TUL8TE",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/f395d0957f83ec9c24dff879e8023696/250x250-000000-80-0-0.jpg",
-          "deezerId": 3762925162,
-          "link": "https://www.deezer.com/track/3762925162"
+          "title": "ياما قالوا",
+          "artist": "Ziad Adel",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/d3cd64d9acfa825be62c1d16d3fb1426/250x250-000000-80-0-0.jpg",
+          "deezerId": 4418777171,
+          "link": "https://www.deezer.com/track/4418777171"
         },
         {
           "rank": 3,
-          "title": "El Neyya",
-          "artist": "Lege-Cy",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/60177dc961cd9162134f0e840832175d/250x250-000000-80-0-0.jpg",
-          "deezerId": 2879283042,
-          "link": "https://www.deezer.com/track/2879283042"
+          "title": "على وين",
+          "artist": "Hleem Taj Alser",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/1542c51a2c045b72bede442c9b276140/250x250-000000-80-0-0.jpg",
+          "deezerId": 3745718902,
+          "link": "https://www.deezer.com/track/3745718902"
         },
         {
           "rank": 4,
-          "title": "Story of a Warrior",
-          "artist": "John Michael Howell",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/63135cc38c85d317f2ade61f4594de05/250x250-000000-80-0-0.jpg",
-          "deezerId": 4057555601,
-          "link": "https://www.deezer.com/track/4057555601"
+          "title": "حبيبي الاولاني",
+          "artist": "Ramy Sabry",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/4f6c9a726e52229bb2aee73b08a66216/250x250-000000-80-0-0.jpg",
+          "deezerId": 3615190392,
+          "link": "https://www.deezer.com/track/3615190392"
         },
         {
           "rank": 5,
@@ -51,14 +51,6 @@
         },
         {
           "rank": 6,
-          "title": "Queen & Poet",
-          "artist": "John Michael Howell",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2f325d9c7f688303de3161f0d7a19f19/250x250-000000-80-0-0.jpg",
-          "deezerId": 4005529321,
-          "link": "https://www.deezer.com/track/4005529321"
-        },
-        {
-          "rank": 7,
           "title": "A New Day Has Come",
           "artist": "Céline Dion",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/177346106112348e15ec4f9add0c1ef4/250x250-000000-80-0-0.jpg",
@@ -66,47 +58,103 @@
           "link": "https://www.deezer.com/track/14552283"
         },
         {
+          "rank": 7,
+          "title": "Ojuelegba",
+          "artist": "Wizkid",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/9be0538ebbb9c6fd3dcb74844e7e2e2a/250x250-000000-80-0-0.jpg",
+          "deezerId": 1755868257,
+          "link": "https://www.deezer.com/track/1755868257"
+        },
+        {
           "rank": 8,
-          "title": "Outrageous",
-          "artist": "Britney Spears",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/8a2b95cda407d004d829831d20e2e20b/250x250-000000-80-0-0.jpg",
-          "deezerId": 15392961,
-          "link": "https://www.deezer.com/track/15392961"
+          "title": "Snowman",
+          "artist": "Sia",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/b6b2668d918986d82c106a5b9838f40d/250x250-000000-80-0-0.jpg",
+          "deezerId": 424438852,
+          "link": "https://www.deezer.com/track/424438852"
         },
         {
           "rank": 9,
-          "title": "Hero",
-          "artist": "John Michael Howell",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0b2897e9b4329a1cdf1f6546804b1754/250x250-000000-80-0-0.jpg",
-          "deezerId": 3651568432,
-          "link": "https://www.deezer.com/track/3651568432"
+          "title": "Brand New Guy (feat. ScHoolboy Q)",
+          "artist": "A$AP Rocky",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/53431264c289f50774a41dbf444ac6a6/250x250-000000-80-0-0.jpg",
+          "deezerId": 1530187892,
+          "link": "https://www.deezer.com/track/1530187892"
         },
         {
           "rank": 10,
-          "title": "F*ckwithmeyouknowigotit",
-          "artist": "JAŸ-Z",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/c705bb2d42ed280b87294e55356f0ebc/250x250-000000-80-0-0.jpg",
-          "deezerId": 68861130,
-          "link": "https://www.deezer.com/track/68861130"
+          "title": "KANTE (feat. Fave)",
+          "artist": "Davido",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/89d5885fe38a406504224ed98c1ab605/250x250-000000-80-0-0.jpg",
+          "deezerId": 2182407377,
+          "link": "https://www.deezer.com/track/2182407377"
         },
         {
           "rank": 11,
-          "title": "Six Pills",
-          "artist": "Rosendale",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/e214a9c1f12259729f6d2ceae6c015f4/250x250-000000-80-0-0.jpg",
-          "deezerId": 1883322617,
-          "link": "https://www.deezer.com/track/1883322617"
+          "title": "عيال جديدة لانج",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5905dc404918bc576ee6b2ee72c1b1fd/250x250-000000-80-0-0.jpg",
+          "deezerId": 4094181321,
+          "link": "https://www.deezer.com/track/4094181321"
         },
         {
           "rank": 12,
-          "title": "LUNCH",
-          "artist": "Billie Eilish",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/5d284b31cb9ddeb1a0c79aede5a94e1c/250x250-000000-80-0-0.jpg",
-          "deezerId": 2801558032,
-          "link": "https://www.deezer.com/track/2801558032"
+          "title": "Jeune du ghetto",
+          "artist": "Azrane",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8760efbaa19d9c0c8db820436063bc46/250x250-000000-80-0-0.jpg",
+          "deezerId": 4297532462,
+          "link": "https://www.deezer.com/track/4297532462"
         },
         {
           "rank": 13,
+          "title": "Cella 2",
+          "artist": "Baby Gang",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/a590c3aff34f4c17c5011e152db31511/250x250-000000-80-0-0.jpg",
+          "deezerId": 1167738872,
+          "link": "https://www.deezer.com/track/1167738872"
+        },
+        {
+          "rank": 14,
+          "title": "Eté 90",
+          "artist": "Therapie TAXI",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/4864326bb55c52bb97ba34fa03a2b084/250x250-000000-80-0-0.jpg",
+          "deezerId": 1174144532,
+          "link": "https://www.deezer.com/track/1174144532"
+        },
+        {
+          "rank": 15,
+          "title": "L'Ghoul",
+          "artist": "Muslim",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/6264e157331a3be99faa7f1fed84f598/250x250-000000-80-0-0.jpg",
+          "deezerId": 1557314832,
+          "link": "https://www.deezer.com/track/1557314832"
+        },
+        {
+          "rank": 16,
+          "title": "Easy",
+          "artist": "Soulja",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/67a3887d8996b7d8c40bae3b6f28649e/250x250-000000-80-0-0.jpg",
+          "deezerId": 1666231922,
+          "link": "https://www.deezer.com/track/1666231922"
+        },
+        {
+          "rank": 17,
+          "title": "Drouba",
+          "artist": "Benzz",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/c11b7830a24ffddc437a4736a627d694/250x250-000000-80-0-0.jpg",
+          "deezerId": 2356561255,
+          "link": "https://www.deezer.com/track/2356561255"
+        },
+        {
+          "rank": 18,
+          "title": "CHIHIRO",
+          "artist": "Billie Eilish",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5d284b31cb9ddeb1a0c79aede5a94e1c/250x250-000000-80-0-0.jpg",
+          "deezerId": 2801558042,
+          "link": "https://www.deezer.com/track/2801558042"
+        },
+        {
+          "rank": 19,
           "title": "LAW NASYANY",
           "artist": "Lege-Cy",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/13bada2d9f40062ced105f6040a53ef2/250x250-000000-80-0-0.jpg",
@@ -114,60 +162,12 @@
           "link": "https://www.deezer.com/track/3392648101"
         },
         {
-          "rank": 14,
-          "title": "Feel Like A Monster",
-          "artist": "John Michael Howell",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/482cf3cc9fcd21f7a201b5bfa97d15dc/250x250-000000-80-0-0.jpg",
-          "deezerId": 3580785501,
-          "link": "https://www.deezer.com/track/3580785501"
-        },
-        {
-          "rank": 15,
-          "title": "HASESS BIK",
-          "artist": "Zaid Khaled",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/b36f70a7a78dfbb1c90354209c0890a5/250x250-000000-80-0-0.jpg",
-          "deezerId": 4294020772,
-          "link": "https://www.deezer.com/track/4294020772"
-        },
-        {
-          "rank": 16,
-          "title": "My Love",
-          "artist": "Céline Dion",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/177346106112348e15ec4f9add0c1ef4/250x250-000000-80-0-0.jpg",
-          "deezerId": 14552284,
-          "link": "https://www.deezer.com/track/14552284"
-        },
-        {
-          "rank": 17,
-          "title": "Welcome to Los Santos",
-          "artist": "MC Eiht",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/08585d7621c4d55899c79fc404c4f592/250x250-000000-80-0-0.jpg",
-          "deezerId": 2023251577,
-          "link": "https://www.deezer.com/track/2023251577"
-        },
-        {
-          "rank": 18,
-          "title": "Shoft Kalam",
-          "artist": "Marwan Pablo",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/334c4ee30ce1a1fdae634c8677d0d34c/250x250-000000-80-0-0.jpg",
-          "deezerId": 4170855672,
-          "link": "https://www.deezer.com/track/4170855672"
-        },
-        {
-          "rank": 19,
-          "title": "3arka B Ola",
-          "artist": "Essam Saasa",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/be59a5d6c4c5f2c335833146e0f8989f/250x250-000000-80-0-0.jpg",
-          "deezerId": 1107389742,
-          "link": "https://www.deezer.com/track/1107389742"
-        },
-        {
           "rank": 20,
-          "title": "ياما قالوا",
-          "artist": "Ziad Adel",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/d3cd64d9acfa825be62c1d16d3fb1426/250x250-000000-80-0-0.jpg",
-          "deezerId": 4418777171,
-          "link": "https://www.deezer.com/track/4418777171"
+          "title": "Malish Badeel",
+          "artist": "Amr Diab",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/b4d27b5330e5a279dc225a75267c5f63/250x250-000000-80-0-0.jpg",
+          "deezerId": 3439612761,
+          "link": "https://www.deezer.com/track/3439612761"
         }
       ]
     },
