@@ -45,7 +45,23 @@ export async function deleteDoc(ref) {
     delete window.__db[ref.id]; persist();
 }
 export async function addDoc(ref, value) { const id = 'new-playlist'; await setDoc({ ...ref, id }, value); return { id }; }
-export async function updateDoc(ref, value) { await setDoc(ref, { ...window.__db[ref.id], ...value }); }
+export async function updateDoc(ref, value) {
+    if ('collapsed' in value && window.__failLayout) throw new Error('fixture layout failure');
+    await setDoc(ref, { ...window.__db[ref.id], ...value });
+}
+export function writeBatch() {
+    const updates = [];
+    return {
+        update(ref, value) { updates.push([ref, value]); },
+        async commit() {
+            if (window.__failLayout) throw new Error('fixture layout failure');
+            for (const [ref] of updates) if (!window.__db[ref.id]) throw new Error('fixture missing document');
+            for (const [ref, value] of updates) window.__db[ref.id] = { ...window.__db[ref.id], ...value };
+            window.__layoutWrites = (window.__layoutWrites || 0) + 1;
+            persist();
+        }
+    };
+}
 `;
 
 const bootstrap = `
@@ -127,9 +143,9 @@ const addChannel = async handle => {
 try {
     await import('/js/app.js');
     const coordinator = await import('/js/player.js');
-    await waitFor(() => visible(document.querySelector('#discovery-home')) && document.querySelectorAll('.tb-band').length === 3, 'home loaded');
+    await waitFor(() => visible(document.querySelector('#discovery-home')) && document.querySelectorAll('.tb-band').length === 2, 'home loaded');
     check(document.querySelector('#discovery-home').firstElementChild.id === 'yt-channels', 'channels appear before trends');
-    check(!document.querySelector('#trends-board').textContent.match(/Anghami|Spotify/), 'removed sources stay hidden even with an old snapshot');
+    check(!document.querySelector('#trends-board').textContent.match(/YouTube|Anghami|Spotify/), 'removed trend sources stay hidden even with an old snapshot');
     check(document.querySelector('.yc-status').textContent.includes('first'), 'empty channel list has an add prompt');
     const settings = (await import('/js/yt-channels/config.js')).youtubeChannelsConfig;
     const configuredKey = settings.apiKey;
@@ -177,6 +193,104 @@ try {
     clickText(document.querySelector('.yc-channel'), 'Refresh');
     await waitFor(() => document.querySelectorAll('.yc-card').length === 4, 'refreshed videos');
     check(window.__apiRequests > requestCount, 'refresh requests current uploads');
+
+    const rowFor = id => [...document.querySelector('.yc-rows').children].find(row => row.dataset.channelId === id);
+    const order = () => [...document.querySelector('.yc-rows').children].map(row => row.dataset.channelId);
+    const savedChannel = id => Object.values(window.__db).find(value => value.channelId === id);
+    const waitLayout = () => waitFor(() => !document.querySelector('.yc-collapse').disabled, 'channel layout saved');
+    const originalRail = rowFor(anotherId).querySelector('.tb-rail');
+    rowFor(anotherId).querySelector('.yc-collapse').click();
+    check(rowFor(anotherId).querySelector('.yc-channel-body').hidden &&
+        rowFor(anotherId).querySelector('.yc-collapse').getAttribute('aria-expanded') === 'false', 'collapse hides videos while keeping the header accessible');
+    await waitLayout();
+    check(savedChannel(anotherId).collapsed === true, 'collapsed state is saved to the account');
+    rowFor(anotherId).querySelector('.yc-collapse').click(); await waitLayout();
+    check(!rowFor(anotherId).querySelector('.yc-channel-body').hidden, 'expand restores the video row');
+    check(rowFor(anotherId).querySelector('.tb-rail') === originalRail, 'collapse and expand preserve the existing video rail');
+    window.__failLayout = true;
+    rowFor(anotherId).querySelector('.yc-collapse').click(); await waitLayout();
+    check(!rowFor(anotherId).querySelector('.yc-channel-body').hidden && !savedChannel(anotherId).collapsed,
+        'failed collapse saves restore the previous layout');
+    window.__failLayout = false;
+
+    rowFor(anotherId).querySelector('summary').click();
+    clickText(rowFor(anotherId), 'Move down'); await waitLayout();
+    check(order().join() === [channelId, anotherId].join() && savedChannel(channelId).position === 0 && savedChannel(anotherId).position === 1,
+        'menu moves save the complete order atomically');
+    rowFor(channelId).querySelector('.yc-drag-handle').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    await waitLayout();
+    check(order().join() === [anotherId, channelId].join() && document.activeElement === rowFor(channelId).querySelector('.yc-drag-handle'),
+        'keyboard arrow keys reorder rows and retain focus');
+    window.__failLayout = true;
+    clickText(rowFor(anotherId), 'Move down'); await waitLayout();
+    check(order().join() === [anotherId, channelId].join() && savedChannel(anotherId).position === 0,
+        'failed batch saves restore the previous order without partial writes');
+    window.__failLayout = false;
+
+    const pointer = (target, type, y, pointerType = 'mouse', pointerId = 51) => target.dispatchEvent(new PointerEvent(type, {
+        bubbles: true, cancelable: true, clientX: 30, clientY: y, button: 0, buttons: type === 'pointerup' ? 0 : 1,
+        pointerType, pointerId, isPrimary: true
+    }));
+    const dragBelow = (id, targetId, pointerType = 'mouse', cancel = false) => {
+        const rows = document.querySelector('.yc-rows');
+        const handle = rowFor(id).querySelector('.yc-drag-handle');
+        const y = handle.getBoundingClientRect().top + 12;
+        const writes = window.__layoutWrites || 0;
+        pointer(handle, 'pointerdown', y, pointerType);
+        pointer(rows, 'pointermove', y + 8, pointerType);
+        const endY = rowFor(targetId).getBoundingClientRect().bottom + 12;
+        pointer(rows, 'pointermove', endY, pointerType);
+        check((window.__layoutWrites || 0) === writes, 'drag preview does not save before drop (' + pointerType + ')');
+        pointer(rows, cancel ? 'pointercancel' : 'pointerup', endY, pointerType);
+    };
+    dragBelow(anotherId, channelId); await waitLayout();
+    check(order().join() === [channelId, anotherId].join() && savedChannel(channelId).position === 0 && !document.querySelector('.yc-drag-ghost'),
+        'mouse drag reorders rows, saves on drop and removes its preview');
+    dragBelow(channelId, anotherId, 'touch'); await waitLayout();
+    check(order().join() === [anotherId, channelId].join(), 'touch drag can reorder channel rows');
+    const writesBeforeCancel = window.__layoutWrites;
+    dragBelow(anotherId, channelId, 'touch', true);
+    check(order().join() === [anotherId, channelId].join() && window.__layoutWrites === writesBeforeCancel,
+        'cancelled drags restore the previous order without a write');
+    const dragHandle = rowFor(anotherId).querySelector('.yc-drag-handle');
+    const dragStart = dragHandle.getBoundingClientRect().top + 10;
+    pointer(dragHandle, 'pointerdown', dragStart);
+    pointer(document.querySelector('.yc-rows'), 'pointermove', rowFor(channelId).getBoundingClientRect().bottom + 10);
+    document.querySelector('.yc-rows').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    check(order().join() === [anotherId, channelId].join() && !document.querySelector('.yc-drag-ghost'), 'Escape cancels a row drag');
+
+    const scrollHost = document.querySelector('#discovery-home');
+    scrollHost.scrollTop = 0;
+    const scrollHandle = rowFor(anotherId).querySelector('.yc-drag-handle');
+    const scrollStart = scrollHandle.getBoundingClientRect().top + 10;
+    pointer(scrollHandle, 'pointerdown', scrollStart);
+    pointer(document.querySelector('.yc-rows'), 'pointermove', scrollHost.getBoundingClientRect().bottom - 2);
+    await sleep(50);
+    check(scrollHost.scrollTop > 0, 'dragging near the pane edge scrolls to reach other channel rows');
+    pointer(document.querySelector('.yc-rows'), 'pointercancel', scrollStart);
+    scrollHost.scrollTop = 0;
+
+    window.__delayFeed = true;
+    clickText(rowFor(anotherId), 'Refresh');
+    const waitingHandle = rowFor(anotherId).querySelector('.yc-drag-handle');
+    const waitingStart = waitingHandle.getBoundingClientRect().top + 10;
+    pointer(waitingHandle, 'pointerdown', waitingStart);
+    pointer(document.querySelector('.yc-rows'), 'pointermove', waitingStart + 10);
+    await sleep(200);
+    check(!!document.querySelector('.yc-drag-ghost') && waitingHandle.isConnected,
+        'a feed response does not replace the row during a drag');
+    pointer(document.querySelector('.yc-rows'), 'pointercancel', waitingStart);
+    window.__delayFeed = false;
+    await waitFor(() => document.querySelectorAll('.yc-card').length === 4, 'deferred feed rendered after drag');
+    check(order().join() === [anotherId, channelId].join(), 'deferred feed rendering preserves the cancelled drag order');
+
+    rowFor(anotherId).querySelector('.yc-collapse').click(); await waitLayout();
+    await window.__authCallback(null);
+    await window.__authCallback({ uid: 'user1', email: 'first@example.test' });
+    await waitFor(() => document.querySelectorAll('.yc-card').length === 4, 'layout restored after sign-in');
+    check(order().join() === [anotherId, channelId].join() && rowFor(anotherId).querySelector('.yc-channel-body').hidden,
+        'custom order and collapse preferences survive a new account session');
+    rowFor(anotherId).querySelector('.yc-collapse').click(); await waitLayout();
 
     document.querySelector('[data-video-id="aaaaaaaaaaa"]').click();
     await waitFor(() => coordinator.isPlaying(), 'embedded playback');
@@ -287,6 +401,11 @@ try {
     check(home.scrollWidth <= home.clientWidth + 1, 'channel rails do not widen the home pane');
     check(document.querySelector('.yc-player-slot').getBoundingClientRect().height >= 200, 'video viewport meets the minimum embed height');
     home.scrollTop = 0;
+    if (${Boolean(process.env.YT_CHANNELS_SCREENSHOT)}) {
+        document.querySelector('.yc-player-head button').click();
+        rowFor(anotherId).querySelector('.yc-collapse').click(); await waitLayout();
+        home.scrollTop = 0;
+    }
     check(window.__pageErrors.length === 0, 'no uncaught page errors: ' + window.__pageErrors.join(', '));
     const result = document.createElement('pre'); result.id = 'test-result';
     result.textContent = JSON.stringify({ ok: true, checks }); document.body.append(result);
@@ -344,7 +463,8 @@ const server = createServer(async (request, response) => {
             .replace("</body>", '<script type="module" src="/__bootstrap.js"></script></body>');
         if (url.pathname === "/data/trending.json") {
             const data = JSON.parse(body);
-            data.sources.push({ id: "anghami", label: "Anghami", tile: true, tracks: [] }, { id: "spotify", label: "Spotify", tile: true, tracks: [] });
+            data.sources.push({ id: "youtube", label: "YouTube", tile: true, tracks: [] },
+                { id: "anghami", label: "Anghami", tile: true, tracks: [] }, { id: "spotify", label: "Spotify", tile: true, tracks: [] });
             body = JSON.stringify(data);
         }
         response.end(body);

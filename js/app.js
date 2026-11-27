@@ -17,7 +17,8 @@ import { fetchPreview } from "./trends_board/deezer.js";
 import { initYouTubeChannels } from "./yt-channels/index.js";
 import { createYouTubeApi } from "./yt-channels/api.js";
 import { youtubeChannelsConfig } from "./yt-channels/config.js";
-import { listChannels, saveChannel, deleteChannel } from "./yt-channels/storage.js";
+import { listChannels, saveChannel, deleteChannel, saveChannelOrder, saveChannelCollapsed } from "./yt-channels/storage.js";
+import { arrangeChannels } from "./yt-channels/preferences.js";
 
 // ---- state -----------------------------------------------------------------
 const state = {
@@ -29,6 +30,7 @@ const state = {
     channelFeeds: {},
     channelsLoading: false,
     channelsError: "",
+    channelPreferencesSaving: false,
     channelVideo: null,
     channelPlaybackError: ""
 };
@@ -63,6 +65,7 @@ watchAuth(async (user) => {
             channelView?.closeDialog();
             state.channels = [];
             state.channelFeeds = {};
+            state.channelPreferencesSaving = false;
         }
         state.uid = user.uid;
         $("#user-email").textContent = user.email;
@@ -81,6 +84,7 @@ watchAuth(async (user) => {
         state.channelFeeds = {};
         state.channelsError = "";
         state.channelsLoading = false;
+        state.channelPreferencesSaving = false;
         closeChannelPlayer();
         stop();
         channelView?.closeDialog();
@@ -456,6 +460,9 @@ channelView = initYouTubeChannels({
         exists: id => state.channels.some(channel => channel.channelId === id),
         onAdd: addYouTubeChannel,
         onRemove: removeYouTubeChannel,
+        onReorder: reorderYouTubeChannels,
+        onMove: moveYouTubeChannel,
+        onCollapse: collapseYouTubeChannel,
         onRefresh: channel => refreshChannelFeed(channel, { force: true }),
         onRetry: () => loadYouTubeChannels(state.uid),
         onPlay: playChannelVideo,
@@ -483,6 +490,7 @@ function showBoard() {
     trendsBoard.show();
 }
 function showTracks() {
+    channelView.cancelDrag();
     discoveryHome.classList.add("hidden");
     trendsBoard.hide();
     show("#track-list");
@@ -492,6 +500,7 @@ function renderYouTubeChannels() {
     channelView?.render({
         channels: state.channels, feeds: state.channelFeeds,
         loading: state.channelsLoading, error: state.channelsError,
+        preferencesSaving: state.channelPreferencesSaving,
         configured: !!youtubeChannelsConfig.apiKey.trim(),
         video: state.channelVideo, playing: isPlaying(), playbackError: state.channelPlaybackError
     });
@@ -540,9 +549,11 @@ async function refreshChannelFeed(channel, { force = false } = {}) {
 async function addYouTubeChannel(channel) {
     const uid = state.uid;
     if (!uid) throw new Error("Sign in to add a channel.");
+    if (state.channelPreferencesSaving) throw new Error("Wait for the channel layout to finish saving.");
     if (state.channels.some(c => c.channelId === channel.channelId)) throw new Error("This channel is already on your page.");
     let saved;
-    try { saved = await saveChannel(uid, channel); }
+    const position = Math.min(0, ...state.channels.map(item => Number.isFinite(item.position) ? item.position : 0)) - 1;
+    try { saved = await saveChannel(uid, { ...channel, position }); }
     catch { throw new Error("Couldn't save the channel. Please try again."); }
     if (state.uid !== uid) return;
     state.channels.unshift(saved);
@@ -553,7 +564,7 @@ async function addYouTubeChannel(channel) {
 }
 
 async function removeYouTubeChannel(channel) {
-    if (removingChannel) return;
+    if (removingChannel || state.channelPreferencesSaving) return;
     removingChannel = true;
     const uid = state.uid;
     try {
@@ -569,6 +580,58 @@ async function removeYouTubeChannel(channel) {
         channelView.root.querySelector(".yc-head button").focus();
     } catch { setStatus("Couldn't remove the channel. Please try again.", true); }
     finally { removingChannel = false; }
+}
+
+async function persistChannelLayout(channels, save, focusId, focusSelector, successMessage) {
+    if (!state.uid || state.channelsLoading || state.channelPreferencesSaving || removingChannel) return;
+    const uid = state.uid;
+    const request = channelRequest;
+    const sameSession = () => state.uid === uid && channelRequest === request && !request?.signal.aborted;
+    const previous = state.channels;
+    state.channels = channels;
+    state.channelPreferencesSaving = true;
+    renderYouTubeChannels();
+    try {
+        await save();
+        if (sameSession()) setStatus(successMessage);
+    } catch {
+        if (sameSession()) {
+            state.channels = previous;
+            setStatus("Couldn't save the channel layout. Your previous layout was restored.", true);
+        }
+    } finally {
+        if (sameSession()) {
+            state.channelPreferencesSaving = false;
+            renderYouTubeChannels();
+            channelView.focusChannel(focusId, focusSelector);
+        }
+    }
+}
+
+async function reorderYouTubeChannels(ids, focusId) {
+    if (ids.every((id, index) => id === state.channels[index]?.channelId) && ids.length === state.channels.length) return;
+    let channels;
+    try { channels = arrangeChannels(state.channels, ids); }
+    catch (error) { setStatus(error.message, true); renderYouTubeChannels(); return; }
+    await persistChannelLayout(channels, () => saveChannelOrder(channels), focusId, ".yc-drag-handle", "Channel order saved");
+}
+
+function moveYouTubeChannel(channel, direction) {
+    const ids = state.channels.map(item => item.channelId);
+    const from = ids.indexOf(channel.channelId);
+    const to = from + direction;
+    if (from < 0 || to < 0 || to >= ids.length) return;
+    [ids[from], ids[to]] = [ids[to], ids[from]];
+    return reorderYouTubeChannels(ids, channel.channelId);
+}
+
+function collapseYouTubeChannel(channel) {
+    const current = state.channels.find(item => item.channelId === channel.channelId);
+    if (!current) return;
+    const collapsed = !current.collapsed;
+    const channels = state.channels.map(item => item.channelId === channel.channelId ? { ...item, collapsed } : item);
+    return persistChannelLayout(channels, () => saveChannelCollapsed(channel.id, collapsed), channel.channelId,
+        ".yc-collapse", collapsed ? "Channel collapsed" : "Channel expanded");
 }
 
 function playChannelVideo(video) {

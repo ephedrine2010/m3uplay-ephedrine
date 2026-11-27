@@ -48,12 +48,20 @@ function videoCard(video, onPlay) {
 }
 
 export function buildChannelRow(channel, feed, handlers) {
+    const moveButton = (text, delta) => {
+        const button = el("button", { type: "button", class: `ghost yc-move-${delta < 0 ? "up" : "down"}`, text, onclick: () => {
+            menu.open = false;
+            handlers.onMove(channel, delta);
+        } });
+        return button;
+    };
     const menu = el("details", { class: "yc-menu" }, [
         el("summary", { "aria-label": `Options for ${channel.title}`, title: "Channel options", text: "⋯" }),
         el("div", { class: "yc-menu-items" }, [
             el("a", { href: `https://www.youtube.com/channel/${channel.channelId}`,
                 target: "_blank", rel: "noopener noreferrer", text: "Open on YouTube ↗" }),
-            el("button", { type: "button", class: "ghost", text: "Remove channel", onclick: () => {
+            moveButton("Move up", -1), moveButton("Move down", 1),
+            el("button", { type: "button", class: "ghost yc-remove", text: "Remove channel", onclick: () => {
                 menu.open = false;
                 handlers.onRemove(channel);
             } })
@@ -65,19 +73,30 @@ export function buildChannelRow(channel, feed, handlers) {
     const refresh = el("button", { type: "button", class: "ghost yc-refresh", text: "Refresh",
         "aria-label": `Refresh ${channel.title}`, onclick: () => handlers.onRefresh(channel) });
     refresh.disabled = !feed || feed.loading;
-    const row = el("section", { class: "yc-channel", "aria-label": channel.title }, [
-        el("div", { class: "yc-channel-head" }, [channelIdentity(channel), refresh, menu])
+    const bodyId = `yc-videos-${channel.channelId}`;
+    const body = el("div", { id: bodyId, class: "yc-channel-body" });
+    body.hidden = !!channel.collapsed;
+    const collapse = el("button", { type: "button", class: "ghost yc-collapse",
+        text: channel.collapsed ? "▸" : "▾", "aria-expanded": String(!channel.collapsed),
+        "aria-controls": bodyId, "aria-label": `${channel.collapsed ? "Expand" : "Collapse"} ${channel.title}`,
+        title: channel.collapsed ? "Expand videos" : "Collapse videos", onclick: () => handlers.onCollapse(channel) });
+    const drag = el("button", { type: "button", class: "ghost yc-drag-handle", text: "⠿",
+        "aria-label": `Reorder ${channel.title}. Use up and down arrow keys.`,
+        "aria-describedby": "yc-reorder-help", title: "Drag to reorder · ↑/↓ with keyboard" });
+    const row = el("section", { class: "yc-channel", "aria-label": channel.title,
+        dataset: { channelId: channel.channelId } }, [
+        el("div", { class: "yc-channel-head" }, [drag, collapse, channelIdentity(channel), refresh, menu]), body
     ]);
     if (!feed || feed.loading) {
-        row.append(el("p", { class: "yc-muted", role: "status", text: "Loading recent videos…" }));
+        body.append(el("p", { class: "yc-muted", role: "status", text: "Loading recent videos…" }));
     } else if (feed.error) {
-        row.append(el("p", { class: "yc-feed-error", role: "status", text: feed.error }));
+        body.append(el("p", { class: "yc-feed-error", role: "status", text: feed.error }));
     } else if (!feed.videos.length) {
-        row.append(el("p", { class: "yc-muted", text: "No public videos yet." }));
+        body.append(el("p", { class: "yc-muted", text: "No public videos yet." }));
     } else {
         const rail = buildRail(feed.videos.map(video => videoCard(video, handlers.onPlay)));
         rail.querySelector(".tb-rail").setAttribute("aria-label", `Recent videos from ${channel.title}`);
-        row.append(rail);
+        body.append(rail);
     }
     return row;
 }

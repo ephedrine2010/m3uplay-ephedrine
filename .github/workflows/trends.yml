@@ -1,9 +1,9 @@
 name: Refresh Egypt trends
 
-# Snapshots the Deezer/Apple/(YouTube) charts into data/trending.json once a day
+# Snapshots the Deezer/Apple charts into data/trending.json once a day
 # and commits it. The static client just fetches that file — no backend, no CORS,
-# no API keys in the browser. Deezer + Apple need no secrets; add a YT_API_KEY
-# repo secret to upgrade YouTube from a link-out tile to per-track cards.
+# no API keys in the browser. These two trend sources need no secrets.
+# Personal YouTube channels use YT_BROWSER_API_KEY in the Pages workflow.
 
 on:
   schedule:
@@ -24,8 +24,6 @@ jobs:
           node-version: "20"
 
       - name: Fetch trends
-        env:
-          YT_API_KEY: ${{ secrets.YT_API_KEY }}   # optional; empty → YouTube tile
         run: node scripts/fetch-trends.mjs
 
       - name: Commit if changed

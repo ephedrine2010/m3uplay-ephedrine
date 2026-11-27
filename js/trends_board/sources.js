@@ -7,7 +7,6 @@
 
 export const SOURCE_META = {
     deezer:  { accent: "#a45cff", glyph: "D" },
-    youtube: { accent: "#ff4e45", glyph: "▶" },
     apple:   { accent: "#fa2d5a", glyph: "" },   // Apple: no glyph, art carries it
 };
 

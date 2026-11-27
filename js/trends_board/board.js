@@ -14,11 +14,11 @@ export function buildBoard(data, handlers) {
     ]);
     const note = el("div", {
         class: "tb-note", html:
-            "👆 <b>Tip:</b> Deezer plays a 30&#8209;second preview and YouTube plays in&#8209;app; " +
+            "👆 <b>Tip:</b> Deezer plays a 30&#8209;second preview; " +
             "Apple Music opens on its own site."
     });
     // Also filter older snapshots cached before these sources were removed.
-    const bands = data.sources.filter(s => !["anghami", "spotify"].includes(s.id))
+    const bands = data.sources.filter(s => !["youtube", "anghami", "spotify"].includes(s.id))
         .map(s => buildBand(s, handlers));
     return el("div", { class: "tb-board" }, [head, note, ...bands]);
 }

@@ -1,7 +1,7 @@
 // ============================================================================
 //  data.js — loads the snapshot the GitHub Action commits (data/trending.json)
 //  and formats the "updated" stamp. Same-origin fetch → no CORS, no API keys in
-//  the browser. The client never talks to Deezer/Apple/YouTube directly.
+//  this module. Personal YouTube channels use a separate on-demand integration.
 // ============================================================================
 
 export async function loadTrending(url = "data/trending.json") {

@@ -21,10 +21,10 @@ is swapped out for a playlist’s track list the moment a playlist is opened.
 
 Personal channels and their shared video popup are documented in
 [`js/yt-channels/README.md`](../js/yt-channels/README.md). Both sections share
-one vertical home scroll container. **Anghami and Spotify have been removed**
+one vertical home scroll container. **The YouTube trend row, Anghami and Spotify have been removed**
 from the generator, snapshot and renderer; the renderer also filters stale
-snapshot entries for these two sources. The remaining source rows are Deezer,
-YouTube and Apple Music.
+snapshot entries for these three sources. The remaining source rows are Deezer
+and Apple Music. Personal YouTube channels remain available in their own section.
 
 It is deliberately a *discovery* layer, not a second player: it feeds the
 existing player for the sources we can play in-app, and links out for the rest.
@@ -40,16 +40,15 @@ answer. The board turns that mess into one consistent grid by matching the
 | Source | In board | Click action | Why |
 |---|---|---|---|
 | **Deezer** | card row (cover art) | ▶ play 30s **preview** in-app (`<audio>`) | Public API, no key, has preview MP3s |
-| **YouTube** | card row *(once keyed)* / tile | ▶ play **full** in-app (YT engine) | Data API needs a key; tile until then |
 | **Apple Music** | card row (cover art) | ↗ **open** track on Apple | Free RSS feed, but no in-app playback |
 
-YouTube remains a link-out chart tile until the trends API secret is set.
+Missing chart data falls back to a link-out tile for the corresponding source.
 
 ---
 
 ## 3. Architecture: snapshot → static JSON → dumb client
 
-The client **never** talks to Deezer/Apple/YouTube directly (CORS + keys). A
+The trends client loads a same-origin snapshot of Deezer/Apple charts. A
 scheduled job snapshots them server-side and commits one normalized JSON file
 that the static client fetches same-origin.
 
@@ -58,8 +57,7 @@ GitHub Action (daily cron)                 Static client (browser)
 ──────────────────────────────            ─────────────────────────────────
 scripts/fetch-trends.mjs                   fetch("data/trending.json")  (same-origin)
   ├─ Deezer  Top-Egypt playlist  ─┐          │
-  ├─ Apple   RSS most-played EG   ├─►  data/trending.json  ──►  render grouped cards/tiles
-  └─ YouTube mostPopular (if key)─┘          │
+  └─ Apple   RSS most-played EG  ─┴─►  data/trending.json  ──►  render grouped cards/tiles
                                            └─ on click → play in-app OR open ↗
 ```
 
@@ -89,9 +87,6 @@ Why this shape:
           "link": "https://www.deezer.com/track/…" }
       ]
     },
-    { "id": "youtube", "label": "YouTube", "chart": "Music charts · EG",
-      "play": "link", "tile": true, "chartUrl": "https://charts.youtube.com/charts/TopSongs/eg",
-      "tracks": [] },                          // tile: no cards until YT_API_KEY is set
     { "id": "apple", "label": "Apple Music", "play": "link", "tracks": [ /* thumb + link */ ] }
   ]
 }
@@ -238,10 +233,8 @@ engine was added.
   currently *have* a preview are kept.
 - **Apple:** `GET rss.applemarketingtools.com/api/v2/eg/music/most-played/20/songs.json`;
   artwork upscaled `100x100bb` → `300x300bb`; `play: "link"`.
-- **YouTube:** only if `process.env.YT_API_KEY` is set → Data API
-  `videos.list?chart=mostPopular&videoCategoryId=10&regionCode=EG`. Otherwise a
-  **link-out tile** to YouTube Charts EG.
-- **Anghami/Spotify:** removed; the daily job no longer emits these tiles.
+- **YouTube/Anghami/Spotify:** removed; the daily job no longer emits these sources.
+  The separate personal YouTube channel feature still uses `YT_BROWSER_API_KEY`.
 - `safe()` wraps each source so one failure can’t kill the whole file (it falls
   back to a tile). Writes `data/trending.json`.
 
@@ -250,16 +243,16 @@ Run locally: `node scripts/fetch-trends.mjs`.
 ## 8. The Action (`.github/workflows/trends.yml`)
 
 Daily `cron: "0 4 * * *"` + manual `workflow_dispatch`. Node 20, runs the fetcher
-with `YT_API_KEY` from repo secrets (optional), and commits `data/trending.json`
+without API secrets and commits `data/trending.json`
 only if it changed (`permissions: contents: write`).
 
 ---
 
 ## 9. How to extend / common changes
 
-- **Turn YouTube into real cards:** create a free **YouTube Data API v3** key,
-  add it as repo secret **`YT_API_KEY`**. Next snapshot fills `youtube.tracks`
-  and the client renders a card row with in-app play — **no code change**.
+- **Personal YouTube channels:** use the separate `js/yt-channels/` feature.
+  The YouTube trends row was explicitly removed; do not restore it by adding a
+  trends key. The old `YT_API_KEY` secret is no longer read by the trends job.
 - **Swap the Deezer chart** (its Egypt list skews eclectic — viral phonk + a
   block of 1960s oldies, because Deezer’s Egyptian userbase is small): change
   `DEEZER_EGYPT_CHART` in the fetcher to another playlist id (find one via
@@ -267,7 +260,7 @@ only if it changed (`permissions: contents: write`).
 - **Add a new source:** give it an entry in the fetcher (produce `tracks` or a
   `tile`), and — for identity — an accent+glyph in `js/trends_board/sources.js`.
   The renderer needs nothing else; `play` + `tile` drive everything.
-- **Change region:** `REGION` in the fetcher (Apple + YouTube use it directly;
+- **Change region:** `REGION` in the fetcher (Apple uses it directly;
   Deezer is a per-country playlist id, so also swap `DEEZER_EGYPT_CHART`).
 
 ---
@@ -279,7 +272,7 @@ the actual app in Chrome/Edge with auth/database/YouTube service fixtures and
 verify channel-first order, filtering of removed sources, shared playback and
 playlist switching. Run `node js/yt-channels/tests/browser.mjs`. See the feature
 README for scope and API setup. The notes below record the original July 2026
-verification of the trends board before the two tiles were removed.
+verification of the trends board before the removed sources were hidden.
 
 The app itself gates behind Google sign-in, so the board render + click routing
 were verified by executing the real modules against the real `data/trending.json`

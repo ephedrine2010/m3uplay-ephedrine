@@ -19,6 +19,11 @@ That reference is authoritative for the channel feature and its playback popup.
   playback. Its transport state stays synchronized with the bottom bar.
 - The menu offers Open on YouTube and confirmed Remove channel. Lists persist
   per account. A blocked embed offers an explicit link to the exact video.
+- Channel headers support mouse/touch dragging, keyboard/menu movement and
+  collapse. Account records persist `position` and `collapsed`; legacy records
+  keep newest-added order until a custom order is saved. Batched position
+  updates and individual collapse updates use the existing owner rules, with
+  optimistic UI rollback on failure. The existing playlist ↑/↓ controls remain.
 - Records use `playlists/{uid}_yt_{channelId}` with `owner`,
   `kind: "youtube-channel"`, `channelId`, `title`, `handle`, `thumb`, `uploadsId`,
   `url`, `addedAt`. Existing owner rules apply. Playlist queries exclude this
@@ -26,12 +31,12 @@ That reference is authoritative for the channel feature and its playback popup.
 - Feeds use a separate website/API-restricted browser key stored as GitHub
   repository secret `YT_BROWSER_API_KEY`. The Pages workflow generates an
   artifact config via `js/yt-channels/prepare-pages.mjs`; tracked config stays
-  empty. Choose GitHub Actions as the Pages source. The trends snapshot keeps
-  its separate server-side `YT_API_KEY` secret.
+  empty. Choose GitHub Actions as the Pages source. Deezer/Apple trends need no
+  API key; the legacy trends `YT_API_KEY` secret is no longer used.
 - `app.js` owns channel state and request cancellation. The YouTube engine's
   `setHost` rebuilds the iframe SDK instance when switching host containers.
   One-off errors retain identity for the fallback; playlist errors still skip.
-- **Anghami and Spotify have been removed** from the current trends UI, snapshot
+- **The YouTube trend row, Anghami and Spotify have been removed** from the current trends UI, snapshot
   and generator. Older investigation notes below describe historical decisions.
 
 ## 1. What this app is
@@ -109,7 +114,7 @@ js/
   app.js            # the controller: wires DOM <-> auth/firestore/player/m3u/trends_board
 css/trends_board.css # all .tb-* board styles (reuses style.css tokens)
 data/trending.json  # snapshot the board fetches (generated; committed)
-scripts/fetch-trends.mjs      # Node snapshot fetcher (Deezer/Apple/YouTube → trending.json)
+scripts/fetch-trends.mjs      # Node snapshot fetcher (Deezer/Apple → trending.json)
 .github/workflows/trends.yml  # daily cron + manual dispatch → runs fetcher, commits JSON
 documents/
   ARCHITECTURE.md   # this file
@@ -245,7 +250,7 @@ The player is engine-based (`js/players/`) so adding a source is "write one engi
 - **Stale comment:** `auth.js` header still references "Firebase Storage / folder" — outdated, only does Google sign-in now.
 - **Dead config:** `config.js` still has `appConfig.rootFolder = "playlists"` from the Storage era — unused.
 - **Unused exports:** `player.js` exports `stop`, `prev`, `getRepeat` that `app.js` doesn't currently call.
-- **No reorder on touch via drag** — uses ↑/↓ buttons (deliberate: native drag is unreliable on touch).
+- **Playlist tracks use ↑/↓ buttons** — native drag is unreliable on touch. Personal channel rows use Pointer Events for mouse/touch dragging.
 - **Editing a track name** isn't possible in-place (rows are read-only) — delete + re-add.
 - A stale `README.md` from the Firebase-Storage era may still exist at repo root; **this `documents/ARCHITECTURE.md` is the source of truth.**
 
@@ -256,7 +261,7 @@ The player is engine-based (`js/players/`) so adding a source is "write one engi
 - **Add a player feature (e.g., shuffle):** add state/logic in `player.js` (the coordinator), expose an export, wire a control in `index.html` + `app.js`.
 - **Add a new playback source (e.g., Bandcamp):** create `js/players/<source>.js` implementing the shared engine interface (`init`/`matches`/`play`/`pause`/`resume`/`stop`/`isPlaying`/`setActive`), add its DOM element to the player bar in `index.html`, then import + register it in `player.js`'s `engines` array (**before** `audio`, the catch-all). No other file changes needed. See §8 for sources already ruled out.
 - **Add a field to playlists (e.g., cover art):** extend the Firestore doc shape in `firestore.js` writes, render it in `app.js`.
-- **Re-enable manual reorder by drag:** implement pointer-event based reordering (avoid native HTML5 DnD on touch).
+- **Playlist track dragging, if requested:** adapt the channel rows' Pointer Events approach; avoid native HTML5 DnD on touch.
 - **Change styling/density:** everything is in `css/style.css`; row sizes live under `#playlist-list li`, `#track-list li`, `.t-play`, `.t-btn`, `.del`.
 
 ---

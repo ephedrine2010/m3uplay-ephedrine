@@ -1,6 +1,6 @@
 // ============================================================================
-//  tile.js — a single link-out tile for a source with no card data (including
-//  YouTube until a trends API key is added). Clicking opens the
+//  tile.js — a single link-out tile for a source with no card data.
+//  Clicking opens the
 //  source's chart in a new tab via onOpen(source).
 // ============================================================================
 

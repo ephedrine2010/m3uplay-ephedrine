@@ -1,8 +1,9 @@
 # Personal YouTube channels
 
 The home page displays each signed-in user's chosen YouTube channels **above**
-the existing Deezer, YouTube and Apple Music trends. Anghami and Spotify were
-removed from the snapshot, its generator and the renderer.
+the Deezer and Apple Music trends. The YouTube trend row, Anghami and Spotify
+were removed from the snapshot, its generator and the renderer. Personal
+YouTube channels and their playback remain available above the trends.
 
 ## One-time setup
 
@@ -49,8 +50,8 @@ artifacts or code from a fork or a pull request.
 
 This is a browser credential and is visible to visitors. Its website/API
 restrictions are required. Use a **separate key** from the Firebase config and
-the GitHub Action's server-side `YT_API_KEY` secret. Server secrets must never
-be copied into the browser configuration. A public-data API key does not require another
+any server credentials. The legacy trends secret `YT_API_KEY` is no longer used.
+Server secrets must never be copied into the browser configuration. A public-data API key does not require another
 YouTube sign-in or access to a user's YouTube account.
 
 There is no app compilation, proxy or new backend. Packaging runs only during
@@ -105,6 +106,16 @@ editing only a local file or adding a secret does not update the hosted config.
 - **Refresh** reloads that row. Opening the page again loads the current feed;
   repeat requests in the same session are cached for 10 minutes. Cache content
   is memory-only and cleared at sign-out.
+- Drag the **⠿ handle** up or down to reorder channel rows with a mouse or
+  touch. The row header follows the pointer, and dragging near the pane's top
+  or bottom scrolls the list. Drop to save; Escape or a cancelled gesture
+  restores the previous order. Video rails retain their horizontal panning.
+  Keyboard users can focus the handle and use **↑/↓**; the **⋯** menu also
+  provides **Move up / Move down**, disabled at the corresponding list edge.
+- Use **▾ / ▸** to collapse or expand a row's videos. The channel header stays
+  visible; the button exposes its expanded state to assistive technology.
+  Both custom order and collapsed state are saved per account and restored
+  after reload/sign-in. These preferences do not change the playback queue.
 - Click a thumbnail to open **one responsive 16:9 video player in a popup dialog
   on the same page**. Its controls and the bottom Play/Pause button
   stay synchronized; the selected card shows Playing or Paused. Playback stops
@@ -116,7 +127,8 @@ editing only a local file or adding a secret does not update the hosted config.
 - If embedding is blocked, the panel explains why and displays **Watch on
   YouTube ↗** for that exact video. Other playback errors show a general
   unavailable message with the same option. There is no automatic redirect.
-- The channel's **⋯** menu offers **Open on YouTube** and **Remove channel**.
+- The channel's **⋯** menu offers **Open on YouTube**, **Move up**, **Move down**
+  and **Remove channel**.
   Removal requires the app's existing confirmation popup and is saved only
   after the database delete succeeds. Removing the playing channel stops it.
 
@@ -128,6 +140,8 @@ editing only a local file or adding a secret does not update the hosted config.
 | `prepare-pages.mjs` | Generate the deployment artifact from `YT_BROWSER_API_KEY` without changing source |
 | `api.js` | Input validation, channel lookup, recent upload normalization, caching, request errors/timeouts |
 | `storage.js` | Owner-scoped Firestore CRUD for saved channels |
+| `preferences.js` | Legacy-compatible sorting and validated immutable reordering |
+| `reorder.js` | Mouse/touch pointer gestures, drag preview, edge scrolling, keyboard movement and cancellation |
 | `view.js` | Channel identities, cards, dates, row menus and rails |
 | `dialog.js` | Accessible add-channel dialog, lookup cancellation, preview and save UI |
 | `index.js` | View assembly, stable row DOM, native player popup and fallback presentation |
@@ -145,7 +159,9 @@ The home page's `#discovery-home` is the single vertical scroll container. It
 contains `#yt-channels` first and `#trends-board` second. Keep `min-width: 0` on
 the content, home, section and rails so only the rails scroll horizontally.
 Unchanged channel rows retain their DOM and scroll position when another feed
-loads. Replaced rails dispose their `ResizeObserver`.
+loads. Ordering and collapse updates also keep the video rail's DOM/scroll
+position. Feed responses can finish during dragging; row reconciliation is
+deferred until the gesture ends. Replaced rails dispose their `ResizeObserver`.
 
 ## Firestore model
 
@@ -161,7 +177,9 @@ playlists/{uid}_yt_{channelId} = {
   thumb: "https://…",
   uploadsId: "UU…",
   url: "https://www.youtube.com/channel/UC…",
-  addedAt: serverTimestamp()
+  addedAt: serverTimestamp(),
+  position: 0,                     // saved order; optional on legacy records
+  collapsed: false                 // optional on legacy records (default: expanded)
 }
 ```
 
@@ -173,6 +191,15 @@ in `documents/ARCHITECTURE.md` already cover these records; **no rule deployment
 is necessary**. If the live rules were independently tightened to validate a
 playlist-only schema, extend that validation for this document shape first.
 Channel lists sync when a page loads; this does not add a realtime listener.
+
+Records without positions retain their previous newest-added ordering. A new
+channel receives a position before the current first item. The first reorder
+normalizes all displayed positions to `0..n-1` and persists them with one
+Firestore write batch, preserving channel metadata and collapse preferences.
+Collapse uses an update of that channel's `collapsed` field only. No new rules
+or indexes are needed. The UI updates immediately, disables competing layout
+edits while saving, and restores the previous state on a failed write. Session
+guards prevent a late save response from restoring another account's layout.
 
 ## API and playback details
 
@@ -203,7 +230,7 @@ Thumbnails are lazy-loaded, and channel/video text is inserted as text, not HTML
 From the repository root:
 
 ```powershell
-node --test js/yt-channels/tests/api.test.mjs js/yt-channels/tests/prepare-pages.test.mjs
+node --test js/yt-channels/tests/api.test.mjs js/yt-channels/tests/preferences.test.mjs js/yt-channels/tests/prepare-pages.test.mjs
 node js/yt-channels/tests/browser.mjs
 ```
 
@@ -214,6 +241,11 @@ fixtures. This checks UI/integration without altering a real account or spending
 API quota. It does **not** prove a live API key's restrictions, Firebase rules,
 third-party embed availability or production network access; smoke-test those
 with the configured key and a signed-in browser before publishing.
+
+The browser checks cover mouse/touch row gestures, keyboard/menu alternatives,
+edge scrolling, cancellation, collapse persistence, and rollback after failed
+layout writes. Pointer gestures are synthetic browser events; test physical
+touch behavior on the target device as part of the deployment smoke test.
 
 Packaging checks exercise the generated config, unchanged source, excluded
 repository files, relative module imports, missing-secret failures, output-path

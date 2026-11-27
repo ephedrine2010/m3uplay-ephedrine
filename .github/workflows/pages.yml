@@ -43,7 +43,7 @@ jobs:
           node-version: "24"
 
       - name: Check channel API and deployment packaging
-        run: node --test js/yt-channels/tests/api.test.mjs js/yt-channels/tests/prepare-pages.test.mjs
+        run: node --test js/yt-channels/tests/api.test.mjs js/yt-channels/tests/preferences.test.mjs js/yt-channels/tests/prepare-pages.test.mjs
 
       - name: Prepare site with browser configuration
         env:

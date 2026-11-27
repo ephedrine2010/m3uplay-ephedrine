@@ -172,15 +172,6 @@
       ]
     },
     {
-      "id": "youtube",
-      "label": "YouTube",
-      "chart": "Music charts · EG",
-      "play": "link",
-      "tile": true,
-      "chartUrl": "https://charts.youtube.com/charts/TopSongs/eg",
-      "tracks": []
-    },
-    {
       "id": "apple",
       "label": "Apple Music",
       "chart": "Most-played · EG",

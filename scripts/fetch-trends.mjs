@@ -3,9 +3,8 @@
 //
 //  Runs server-side (locally or in GitHub Actions), so there is no CORS: it
 //  reaches each source directly and writes ONE normalized JSON file that the
-//  static client fetches same-origin. No API keys are required for Deezer or
-//  Apple; YouTube cards are produced only when YT_API_KEY is set (otherwise
-//  YouTube falls back to a link-out tile).
+//  static client fetches same-origin. Deezer and Apple need no API keys.
+//  Personal YouTube channels are handled separately by js/yt-channels/.
 //
 //  Run:  node scripts/fetch-trends.mjs
 //  Out:  data/trending.json
@@ -22,9 +21,6 @@ const OUT = resolve(__dirname, "..", "data", "trending.json");
 const REGION = "EG";
 const PER_SOURCE = 20;                         // tracks kept per card source
 const DEEZER_EGYPT_CHART = "1362501615";       // "Top Egypt" — user: Deezer Charts
-
-// Curated link-out targets for sources we can't (or choose not to) card.
-const YT_CHARTS_EGYPT   = "https://charts.youtube.com/charts/TopSongs/eg";
 
 // ---- tiny JSON GET with redirect handling (works on Node 16 + 18) ----------
 function getJSON(url) {
@@ -88,29 +84,6 @@ async function fetchApple() {
   };
 }
 
-async function fetchYouTube() {
-  const key = process.env.YT_API_KEY;
-  if (!key) {
-    // No key → link-out tile (no per-track cards). Add the secret to upgrade.
-    return { id: "youtube", label: "YouTube", chart: "Music charts · EG",
-             play: "link", tile: true, chartUrl: YT_CHARTS_EGYPT, tracks: [] };
-  }
-  const url = "https://www.googleapis.com/youtube/v3/videos"
-    + "?part=snippet&chart=mostPopular&videoCategoryId=10"
-    + `&regionCode=${REGION}&maxResults=${PER_SOURCE}&key=${key}`;
-  const j = await getJSON(url);
-  const tracks = (j.items || []).map((v, i) => ({
-    rank: i + 1,
-    title: v.snippet.title || "",
-    artist: v.snippet.channelTitle || "",
-    thumb: `https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`,
-    videoId: v.id,                              // full playback via YT engine
-    link: `https://youtu.be/${v.id}`
-  }));
-  return { id: "youtube", label: "YouTube", chart: "Music · EG", play: "youtube",
-           chartUrl: YT_CHARTS_EGYPT, tracks };
-}
-
 function tile(id, label, chart, chartUrl, note) {
   return { id, label, chart, play: "link", tile: true, chartUrl, note, tracks: [] };
 }
@@ -123,15 +96,13 @@ async function safe(fn, fallback) {
 
 async function main() {
   console.log("Fetching Egypt/MENA trends…");
-  const [deezer, apple, youtube] = await Promise.all([
+  const [deezer, apple] = await Promise.all([
     safe(fetchDeezer, tile("deezer", "Deezer", "Top Egypt", `https://www.deezer.com/playlist/${DEEZER_EGYPT_CHART}`)),
-    safe(fetchApple,  tile("apple", "Apple Music", "Most-played · EG", "https://music.apple.com/eg")),
-    safe(fetchYouTube, tile("youtube", "YouTube", "Music charts · EG", YT_CHARTS_EGYPT))
+    safe(fetchApple,  tile("apple", "Apple Music", "Most-played · EG", "https://music.apple.com/eg"))
   ]);
 
   const sources = [
     deezer,
-    youtube,
     apple
   ];
 
