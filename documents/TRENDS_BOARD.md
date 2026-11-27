@@ -26,6 +26,13 @@ from the generator, snapshot and renderer; the renderer also filters stale
 snapshot entries for these three sources. The remaining source rows are Deezer
 and Apple Music. Personal YouTube channels remain available in their own section.
 
+Each source header has a **▾/▸ collapse button** that hides or restores its
+cards/tile while keeping the header and chart link visible. Collapse is local
+view state: it survives switching to a playlist and back because the board DOM
+is retained, and resets on a full page reload. Toggling does not rebuild rails
+or change playback. The former preview/link-out Tip banner has been removed;
+the source headers retain their compact playback-mode badges.
+
 It is deliberately a *discovery* layer, not a second player: it feeds the
 existing player for the sources we can play in-app, and links out for the rest.
 

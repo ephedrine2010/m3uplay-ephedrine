@@ -22,23 +22,18 @@
 .tb-board { padding: 14px 16px 24px; min-width: 0; }
 
 /* ---- header ---- */
-.tb-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.tb-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
 .tb-head h1 { margin: 0; font-size: 1.35rem; letter-spacing: .2px; }
 .tb-sub { color: var(--muted); font-size: .8rem; }
-
-.tb-note {
-    display: inline-flex; align-items: center; gap: 6px; margin: 10px 0 18px;
-    font-size: .78rem; color: var(--muted);
-    background: var(--panel); border: 1px dashed var(--line);
-    padding: 6px 12px; border-radius: 999px;
-}
-.tb-note b { color: var(--text); font-weight: 600; }
 
 .tb-error { color: var(--muted); text-align: center; padding: 40px 16px; }
 
 /* ---- one source band ---- */
 .tb-band { margin-bottom: 22px; }
-.tb-band-head { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; }
+.tb-band-head { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; flex-wrap: wrap; }
+.tb-collapse { flex: 0 0 34px; width: 34px; min-height: 38px; padding: 4px; font-size: 1.2rem; }
+.tb-band-body[hidden] { display: none; }
+.tb-collapsed > .tb-band-head { margin-bottom: 0; }
 .tb-band-label { display: flex; align-items: center; gap: 9px; font-weight: 600; font-size: .98rem; }
 .tb-dot { width: 9px; height: 9px; border-radius: 3px; flex: 0 0 auto; }
 .tb-band-chart { color: var(--muted); font-weight: 400; font-size: .82rem; }

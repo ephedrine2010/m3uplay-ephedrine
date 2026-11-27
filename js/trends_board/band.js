@@ -21,8 +21,13 @@ const MODE_LABEL = {
 export function buildBand(source, handlers) {
     const meta = metaFor(source.id);
     const asTile = source.tile || source.tracks.length === 0;
+    const bodyId = `tb-content-${source.id}`;
+    const toggle = el("button", { type: "button", class: "ghost tb-collapse", text: "▾",
+        "aria-expanded": "true", "aria-controls": bodyId,
+        "aria-label": `Collapse ${source.label}`, title: "Collapse row" });
 
     const head = el("div", { class: "tb-band-head" }, [
+        toggle,
         el("span", { class: "tb-band-label" }, [
             el("span", { class: "tb-dot", style: `background:${meta.accent}` }),
             source.label,
@@ -32,9 +37,19 @@ export function buildBand(source, handlers) {
         el("button", { class: "tb-open-all", type: "button", text: "open all ↗", onclick: () => handlers.onOpen(source) })
     ]);
 
-    const body = asTile
+    const content = asTile
         ? buildTile(source, handlers.onOpen)
         : buildRail(source.tracks.map(t => buildCard(t, source, handlers.onActivate)));
+    const body = el("div", { id: bodyId, class: "tb-band-body" }, [content]);
 
-    return el("section", { class: "tb-band" }, [head, body]);
+    const band = el("section", { class: "tb-band" }, [head, body]);
+    toggle.addEventListener("click", () => {
+        body.hidden = !body.hidden;
+        toggle.textContent = body.hidden ? "▸" : "▾";
+        toggle.setAttribute("aria-expanded", String(!body.hidden));
+        toggle.setAttribute("aria-label", `${body.hidden ? "Expand" : "Collapse"} ${source.label}`);
+        toggle.title = body.hidden ? "Expand row" : "Collapse row";
+        band.classList.toggle("tb-collapsed", body.hidden);
+    });
+    return band;
 }

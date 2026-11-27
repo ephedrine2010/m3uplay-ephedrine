@@ -91,7 +91,9 @@ editing only a local file or adding a secret does not update the hosted config.
 
 ## User flow
 
-- **+ Add YouTube channel** opens a native modal dialog. Paste an `@handle`, a
+- The **＋ icon** (tooltip/accessible label: **Add YouTube channel**) opens a
+  native modal dialog. The section has no visible title, description or drag
+  instruction banner. Paste an `@handle`, a
   `youtube.com/@handle` URL, a `/channel/UC…` URL, or an older `/user/name` URL.
   Bare channel IDs are also accepted. Channel tab suffixes such as `/videos`
   work. Custom `/c/name` links and video links produce a helpful validation

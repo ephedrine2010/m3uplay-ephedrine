@@ -8,7 +8,8 @@ export function initYouTubeChannels({ mount, deps }) {
     const rows = el("div", { class: "yc-rows" });
     const status = el("div", { class: "yc-status", role: "status", "aria-live": "polite" });
     const retry = el("button", { type: "button", class: "ghost hidden", text: "Try again", onclick: deps.onRetry });
-    const addButton = el("button", { type: "button", text: "+ Add YouTube channel" });
+    const addButton = el("button", { type: "button", class: "icon-btn yc-add", text: "＋",
+        "aria-label": "Add YouTube channel", title: "Add YouTube channel" });
     const panel = el("dialog", { class: "yc-player", "aria-label": "YouTube video player" });
     const playerTitle = el("strong");
     const playerChannel = el("span", { class: "yc-muted" });
@@ -34,12 +35,8 @@ export function initYouTubeChannels({ mount, deps }) {
         if (event.clientX < bounds.left || event.clientX > bounds.right ||
             event.clientY < bounds.top || event.clientY > bounds.bottom) deps.onClosePlayer();
     });
-    const root = el("section", { id: "yt-channels", class: "yc-section", "aria-labelledby": "yc-title" }, [
-        el("div", { class: "yc-head" }, [el("div", {}, [
-            el("h1", { id: "yc-title", text: "Your YouTube channels" }),
-            el("p", { class: "yc-muted", text: "Recent uploads from the channels you choose." }),
-            el("p", { id: "yc-reorder-help", class: "yc-muted", text: "Drag ⠿ to reorder · Use ▾ to collapse a row." })
-        ]), addButton]), panel, status, retry, rows
+    const root = el("section", { id: "yt-channels", class: "yc-section", "aria-label": "YouTube channels" }, [
+        el("div", { class: "yc-head" }, [addButton]), panel, status, retry, rows
     ]);
     mount.append(root);
     const dialog = createChannelDialog({ mount: document.body, resolveChannel: deps.resolveChannel,

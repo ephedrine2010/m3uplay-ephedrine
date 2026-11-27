@@ -1,6 +1,6 @@
 // ============================================================================
-//  board.js — assembles the whole board element: title, the "how it behaves"
-//  note, and one band per source in the order the data file lists them.
+//  board.js — assembles the title and one collapsible band per source in the
+//  order the data file lists them.
 // ============================================================================
 
 import { el } from "./dom.js";
@@ -12,13 +12,8 @@ export function buildBoard(data, handlers) {
         el("h1", { text: "🔥 Trending in Egypt" }),
         el("span", { class: "tb-sub", text: "updated " + relTime(data.updated) })
     ]);
-    const note = el("div", {
-        class: "tb-note", html:
-            "👆 <b>Tip:</b> Deezer plays a 30&#8209;second preview; " +
-            "Apple Music opens on its own site."
-    });
     // Also filter older snapshots cached before these sources were removed.
     const bands = data.sources.filter(s => !["youtube", "anghami", "spotify"].includes(s.id))
         .map(s => buildBand(s, handlers));
-    return el("div", { class: "tb-board" }, [head, note, ...bands]);
+    return el("div", { class: "tb-board" }, [head, ...bands]);
 }

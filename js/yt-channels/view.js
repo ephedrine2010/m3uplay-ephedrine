@@ -82,7 +82,7 @@ export function buildChannelRow(channel, feed, handlers) {
         title: channel.collapsed ? "Expand videos" : "Collapse videos", onclick: () => handlers.onCollapse(channel) });
     const drag = el("button", { type: "button", class: "ghost yc-drag-handle", text: "⠿",
         "aria-label": `Reorder ${channel.title}. Use up and down arrow keys.`,
-        "aria-describedby": "yc-reorder-help", title: "Drag to reorder · ↑/↓ with keyboard" });
+        title: "Drag to reorder · ↑/↓ with keyboard" });
     const row = el("section", { class: "yc-channel", "aria-label": channel.title,
         dataset: { channelId: channel.channelId } }, [
         el("div", { class: "yc-channel-head" }, [drag, collapse, channelIdentity(channel), refresh, menu]), body

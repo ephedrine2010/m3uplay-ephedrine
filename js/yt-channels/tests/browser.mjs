@@ -130,8 +130,9 @@ const clickText = (parent, text) => {
 };
 const visible = element => !!element && !element.closest('.hidden') && getComputedStyle(element).display !== 'none';
 const dialog = () => document.querySelector('.yc-dialog');
+const openAddChannel = () => document.querySelector('button[aria-label="Add YouTube channel"]').click();
 const addChannel = async handle => {
-    clickText(document.querySelector('.yc-head'), '+ Add YouTube channel');
+    openAddChannel();
     const input = dialog().querySelector('input'); input.value = handle;
     input.dispatchEvent(new Event('input'));
     clickText(dialog(), 'Find channel');
@@ -146,19 +147,36 @@ try {
     await waitFor(() => visible(document.querySelector('#discovery-home')) && document.querySelectorAll('.tb-band').length === 2, 'home loaded');
     check(document.querySelector('#discovery-home').firstElementChild.id === 'yt-channels', 'channels appear before trends');
     check(!document.querySelector('#trends-board').textContent.match(/YouTube|Anghami|Spotify/), 'removed trend sources stay hidden even with an old snapshot');
+    check(!document.querySelector('#yc-title') && !document.querySelector('#yc-reorder-help') &&
+        !document.querySelector('#yt-channels').textContent.includes('Recent uploads from the channels you choose.'), 'channel heading and helper text are removed');
+    check(!document.querySelector('.tb-note'), 'the trends tip is removed');
+    const addIcon = document.querySelector('button[aria-label="Add YouTube channel"]');
+    check(addIcon.title === 'Add YouTube channel' && addIcon.getBoundingClientRect().width <= 48,
+        'add channel uses a compact labelled icon button');
+    const trendBands = [...document.querySelectorAll('.tb-band')];
+    const trendRails = trendBands.map(band => band.querySelector('.tb-rail'));
+    trendBands[0].querySelector('.tb-collapse').click();
+    check(trendBands[0].querySelector('.tb-band-body').hidden && !trendBands[1].querySelector('.tb-band-body').hidden,
+        'trends rows collapse independently while keeping other sources open');
+    trendBands[1].querySelector('.tb-collapse').click();
+    check(trendBands.every(band => band.querySelector('.tb-band-body').hidden &&
+        band.querySelector('.tb-collapse').getAttribute('aria-expanded') === 'false'), 'each trend source exposes its collapsed state');
+    trendBands.forEach(band => band.querySelector('.tb-collapse').click());
+    check(trendBands.every((band, index) => !band.querySelector('.tb-band-body').hidden && band.querySelector('.tb-rail') === trendRails[index]),
+        'expanding trends restores the existing rails');
     check(document.querySelector('.yc-status').textContent.includes('first'), 'empty channel list has an add prompt');
     const settings = (await import('/js/yt-channels/config.js')).youtubeChannelsConfig;
     const configuredKey = settings.apiKey;
     settings.apiKey = '';
     const requestsBeforeSetupCheck = window.__apiRequests;
-    clickText(document.querySelector('.yc-head'), '+ Add YouTube channel');
+    openAddChannel();
     dialog().querySelector('input').value = 'https://www.youtube.com/@SharkTankEgypt';
     clickText(dialog(), 'Find channel');
     await waitFor(() => dialog().textContent.includes('not been set up'), 'missing YouTube setup message');
     check(window.__apiRequests === requestsBeforeSetupCheck, 'missing setup is explained without contacting YouTube or claiming the channel is missing');
     clickText(dialog(), 'Cancel');
     settings.apiKey = configuredKey;
-    clickText(document.querySelector('.yc-head'), '+ Add YouTube channel');
+    openAddChannel();
     dialog().querySelector('input').value = '@fixture';
     clickText(dialog(), 'Find channel');
     await waitFor(() => ![...dialog().querySelectorAll('button')].find(node => node.textContent === 'Add channel').disabled, 'preview before save failure');
@@ -180,7 +198,7 @@ try {
     const apiModule = await import('/js/yt-channels/api.js');
     check(apiModule.parseChannelInput('@fixture').forHandle === '@fixture', 'actual browser API module loads');
 
-    clickText(document.querySelector('.yc-head'), '+ Add YouTube channel');
+    openAddChannel();
     dialog().querySelector('input').value = 'youtube.com/@fixture/videos';
     clickText(dialog(), 'Find channel');
     await waitFor(() => dialog().textContent.includes('already on your page'), 'duplicate resolution');
