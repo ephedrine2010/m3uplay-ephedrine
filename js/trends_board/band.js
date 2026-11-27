@@ -7,34 +7,38 @@
 // ============================================================================
 
 import { el } from "./dom.js";
-import { metaFor } from "./sources.js";
 import { buildCard } from "./card.js";
 import { buildTile } from "./tile.js";
 import { buildRail } from "./rail.js";
+import { icon, iconText } from "../icons.js";
 
 const MODE_LABEL = {
-    preview: "▶ in-app preview",
-    youtube: "▶ in-app",
-    link: "↗ opens source"
+    preview: "30 sec preview",
+    youtube: "In-app",
+    link: "Opens source"
 };
 
 export function buildBand(source, handlers) {
-    const meta = metaFor(source.id);
     const asTile = source.tile || source.tracks.length === 0;
     const bodyId = `tb-content-${source.id}`;
     const toggle = el("button", { type: "button", class: "ghost tb-collapse", text: "▾",
         "aria-expanded": "true", "aria-controls": bodyId,
         "aria-label": `Collapse ${source.label}`, title: "Collapse row" });
 
+    toggle.replaceChildren(icon('chevron'));
+    const label = el('span', { class: 'tb-band-label' }, [
+        icon(source.id === 'deezer' ? 'chart' : 'music'),
+        el('span', { class: 'tb-source-identity' }, [el('strong', { text: source.label }),
+            el('span', { class: 'tb-band-chart', text: source.chart })])
+    ]);
+    const open = el('button', { class: 'tb-open-all', type: 'button', title: `Open ${source.label} chart`,
+        'aria-label': `Open ${source.label} chart`, onclick: () => handlers.onOpen(source) });
+    open.append(icon('external'));
+    const mode = el('span', { class: 'tb-mode' });
+    iconText(mode, source.play === 'preview' ? 'play' : 'external', MODE_LABEL[source.play] || '');
     const head = el("div", { class: "tb-band-head" }, [
         toggle,
-        el("span", { class: "tb-band-label" }, [
-            el("span", { class: "tb-dot", style: `background:${meta.accent}` }),
-            source.label,
-            el("span", { class: "tb-band-chart", text: "· " + source.chart })
-        ]),
-        el("span", { class: "tb-mode", style: `--src:${meta.accent}`, text: MODE_LABEL[source.play] || "" }),
-        el("button", { class: "tb-open-all", type: "button", text: "open all ↗", onclick: () => handlers.onOpen(source) })
+        label, mode, open
     ]);
 
     const content = asTile
@@ -45,7 +49,6 @@ export function buildBand(source, handlers) {
     const band = el("section", { class: "tb-band" }, [head, body]);
     toggle.addEventListener("click", () => {
         body.hidden = !body.hidden;
-        toggle.textContent = body.hidden ? "▸" : "▾";
         toggle.setAttribute("aria-expanded", String(!body.hidden));
         toggle.setAttribute("aria-label", `${body.hidden ? "Expand" : "Collapse"} ${source.label}`);
         toggle.title = body.hidden ? "Expand row" : "Collapse row";

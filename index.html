@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>M3U Playlist Manager</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/trends_board.css" />
     <link rel="stylesheet" href="js/yt-channels/style.css" />
+    <link rel="stylesheet" href="css/apple.css" />
 
     <!-- Installable app (Add to Home screen) -->
     <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#0f1419" />
+    <meta name="theme-color" content="#f5f5f7" />
     <meta name="mobile-web-app-capable" content="yes" />
     <link rel="icon" href="icon.svg" />
     <link rel="apple-touch-icon" href="icon.svg" />
@@ -22,7 +23,7 @@
     <!-- ===== Sign-in screen ===== -->
     <section id="signin-box">
         <div class="signin-card">
-            <div class="signin-logo">🎵</div>
+            <div class="signin-logo" data-icon="music" aria-hidden="true"></div>
             <h1>M3U Player</h1>
             <p>Your playlists, anywhere. Sign in to start.</p>
             <button id="signin-btn" class="google-btn">
@@ -41,29 +42,38 @@
     <div id="app" class="hidden">
 
         <header id="topbar">
-            <div class="tb-left"><span id="brand" class="brand" title="Trending in Egypt">🎵 M3U Player</span></div>
+            <div class="tb-left">
+                <button id="library-toggle" class="icon-btn" title="Open library" aria-label="Open library" aria-controls="sidebar" aria-expanded="false" data-icon="menu"></button>
+                <h1 id="page-title">Home</h1>
+            </div>
             <div class="tb-center">
-                <button id="play-all-btn" class="ghost hidden">▶ Play all</button>
-                <button id="add-song-btn" class="ghost hidden">＋ Add</button>
-                <button id="download-btn" class="ghost hidden">⬇ Download</button>
+                <button id="play-all-btn" class="ghost hidden" data-icon="play" data-label="Play all">Play all</button>
+                <button id="add-song-btn" class="ghost hidden" data-icon="plus" data-label="Add track">Add track</button>
+                <button id="download-btn" class="ghost hidden" data-icon="download" data-label="Download">Download</button>
             </div>
             <div class="tb-right">
-                <span id="user-email"></span>
-                <button id="signout-btn" class="ghost">Sign out</button>
+                <button id="theme-toggle" class="icon-btn" title="Switch appearance" aria-label="Switch appearance" data-icon="moon"></button>
+                <div id="home-actions"></div>
             </div>
         </header>
 
         <main id="panes">
             <!-- Left: playlists -->
             <aside id="sidebar">
+                <div class="sidebar-brand">
+                    <button id="brand" class="brand" title="Home" data-icon="music" data-label="M3U Player">M3U Player</button>
+                    <button id="library-close" class="icon-btn" title="Close library" aria-label="Close library" data-icon="x"></button>
+                </div>
+                <button id="home-btn" class="sidebar-home" data-icon="home" data-label="Home" aria-current="page">Home</button>
                 <div id="sidebar-head">
                     <h2>Playlists</h2>
                     <span class="spacer"></span>
-                    <button id="new-pl-btn" class="icon-btn" title="New playlist">＋</button>
-                    <button id="import-btn" class="icon-btn" title="Import .m3u">⬆</button>
+                    <button id="new-pl-btn" class="icon-btn" title="New playlist" aria-label="New playlist" data-icon="plus"></button>
                 </div>
                 <ul id="playlist-list"></ul>
+                <button id="import-btn" class="sidebar-import" data-icon="upload" data-label="Import playlist">Import playlist</button>
                 <input id="import-file" type="file" accept=".m3u,.m3u8,audio/x-mpegurl,audio/mpegurl" class="hidden" />
+                <div class="sidebar-account"><span class="account-avatar" id="account-avatar" aria-hidden="true">M</span><div class="account-copy"><strong>Your library</strong><span id="user-email"></span></div><button id="signout-btn" class="icon-btn" title="Sign out" aria-label="Sign out" data-icon="signout"></button></div>
             </aside>
 
             <!-- Right: tracks of selected playlist -->
@@ -71,13 +81,14 @@
                 <ul id="track-list"></ul>
             </section>
         </main>
+        <button id="library-scrim" aria-label="Close library" tabindex="-1" hidden></button>
 
         <!-- Bottom: player bar -->
         <footer id="player-bar">
-            <div id="viz" class="viz" aria-hidden="true">
+            <div class="player-art" aria-hidden="true"><span data-icon="music"></span><div id="viz" class="viz">
                 <span></span><span></span><span></span><span></span>
                 <span></span><span></span><span></span><span></span>
-            </div>
+            </div></div>
             <div id="now-playing">Nothing playing</div>
             <button id="player-toggle" class="ghost hidden" type="button" aria-label="Pause playback">Pause</button>
             <audio id="audio" controls preload="none"></audio>
@@ -91,32 +102,35 @@
         </footer>
 
         <!-- New-playlist popup -->
-        <div id="new-pl-modal" class="modal-overlay hidden">
+        <dialog id="new-pl-modal" class="modal-overlay" aria-labelledby="new-playlist-title">
             <div class="modal">
-                <h3>New playlist</h3>
-                <input id="new-name" placeholder="Playlist name…" />
+                <h3 id="new-playlist-title">New playlist</h3>
+                <label for="new-name">Playlist name</label>
+                <input id="new-name" placeholder="My playlist" />
                 <div class="modal-actions">
                     <button id="new-pl-cancel" class="ghost">Cancel</button>
                     <button id="new-pl-create">Create</button>
                 </div>
             </div>
-        </div>
+        </dialog>
 
         <!-- Add-song popup -->
-        <div id="add-song-modal" class="modal-overlay hidden">
+        <dialog id="add-song-modal" class="modal-overlay" aria-labelledby="add-track-title">
             <div class="modal">
-                <h3>Add song</h3>
+                <h3 id="add-track-title">Add track</h3>
+                <label for="add-url">Audio, SoundCloud or YouTube link</label>
                 <input id="add-url" placeholder="https://…/song.mp3 · soundcloud.com/… · youtube.com/…" />
+                <label for="add-name">Name (optional)</label>
                 <input id="add-name" placeholder="Name (optional)" />
                 <div class="modal-actions">
                     <button id="add-song-done" class="ghost">Done</button>
                     <button id="add-track-btn">Add</button>
                 </div>
             </div>
-        </div>
+        </dialog>
 
         <!-- Confirm popup (reusable) -->
-        <div id="confirm-modal" class="modal-overlay hidden">
+        <dialog id="confirm-modal" class="modal-overlay" aria-labelledby="confirm-text">
             <div class="modal">
                 <h3 id="confirm-text">Are you sure?</h3>
                 <div class="modal-actions">
@@ -124,11 +138,11 @@
                     <button id="confirm-ok" class="danger">Remove</button>
                 </div>
             </div>
-        </div>
+        </dialog>
 
     </div>
 
-    <p id="status"></p>
+    <p id="status" role="status" aria-live="polite"></p>
 
     <script type="module" src="js/app.js"></script>
 </body>

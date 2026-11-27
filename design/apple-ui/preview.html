@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>M3U Player · Apple UI proposal</title>
+  <style>
+    /* HTML interpretations of the requested skill; exact Flutter tokens are
+       not present in this repository. No production styles are imported. */
+    :root {
+      --ground: #f5f5f7; --card: #fff; --sidebar: #eeeef0; --text: #202024;
+      --muted: #65656e; --edge: #dcdce1; --line: #e9e9ed; --accent: #005ac7;
+      --on-accent: #fff; --wash: #e4edfb; --hover: #f0f0f3; --chip: #e4e4e9;
+      --danger: #b92738; --scrim: #0008; --stage: #141416; --stage-text: #fff;
+      --art-ink: #202c3a; --art-paper: #e1e6eb; --art-blue: #becedc;
+      --art-white: #fff; --art-pale: #edf0f2; --art-grey: #c7cdd1;
+      --art-plum: #ddd5d8; --art-rust: #996b55; --art-sand: #e7dfd2;
+      --space-1: .25rem; --space-2: .5rem; --space-3: .75rem;
+      --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem;
+      --radius: 1.125rem; --small-radius: .75rem; --pill: 99rem;
+      --footnote: .6875rem; --caption: .8125rem; --body: .9375rem;
+      --row-title: 1rem; --title: 1.25rem; --large-title: 1.625rem;
+      --icon: 1.25rem; --target: 3rem; --sidebar-width: 15rem;
+      --motion: 140ms; --page-max: 78rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color-scheme: light;
+    }
+    [data-theme="dark"] {
+      --ground: #101011; --card: #1d1d1f; --sidebar: #171719; --text: #f5f5f7;
+      --muted: #aaaab4; --edge: #3c3c41; --line: #323236; --accent: #8ab8ff;
+      --on-accent: #102548; --wash: #253348; --hover: #2c2c30; --chip: #303035;
+      --danger: #ff98a2; --scrim: #000a; color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body { background: var(--ground); color: var(--text); font-size: var(--body); line-height: 1.5; }
+    button, input { font: inherit; }
+    button, a, input { -webkit-tap-highlight-color: transparent; }
+    button { color: inherit; cursor: pointer; }
+    button, .button { min-block-size: var(--target); border: 0; border-radius: var(--small-radius); background: transparent; }
+    button:hover, .button:hover { background: var(--hover); }
+    button:active { background: var(--wash); }
+    button:disabled { opacity: .5; cursor: default; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    svg.icon { inline-size: var(--icon); block-size: var(--icon); stroke: currentColor; stroke-width: 1.7; fill: none; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+    .sprites { position: absolute; inline-size: 0; block-size: 0; overflow: hidden; }
+    .icon-button { display: inline-flex; align-items: center; justify-content: center; inline-size: var(--target); min-inline-size: var(--target); min-block-size: var(--target); padding: var(--space-2); }
+    .primary { background: var(--accent); color: var(--on-accent); }
+    .primary:hover { background: var(--accent); opacity: .9; }
+    .secondary { border: 1px solid var(--edge); background: var(--card); padding-inline: var(--space-5); }
+    .text-button { display: inline-flex; gap: var(--space-2); align-items: center; justify-content: center; color: var(--accent); padding-inline: var(--space-3); white-space: nowrap; }
+    .muted { color: var(--muted); }
+    .caption { font-size: var(--caption); }
+    .numeric { font-variant-numeric: tabular-nums; }
+    .sr-only { position: absolute; inline-size: 1px; block-size: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    [hidden] { display: none !important; }
+    h1, h2, h3, p { margin: 0; }
+    .app { display: grid; grid-template-columns: var(--sidebar-width) minmax(0, 1fr); min-block-size: 100vh; padding-block-end: 6rem; }
+    .sidebar { position: fixed; inset-block: 0 6rem; inset-inline-start: 0; inline-size: var(--sidebar-width); padding: var(--space-6) var(--space-3) var(--space-4); display: flex; flex-direction: column; background: var(--sidebar); border-inline-end: 1px solid var(--edge); z-index: 20; overflow-y: auto; }
+    .brand { display: flex; gap: var(--space-3); align-items: center; padding: var(--space-2) var(--space-3) var(--space-8); font-size: var(--title); font-weight: 650; letter-spacing: -.025em; }
+    .brand-mark { background: var(--chip); color: var(--text); display: grid; place-items: center; inline-size: 2.625rem; block-size: 2.625rem; border-radius: .875rem; }
+    .brand-mark .icon { inline-size: 1.5rem; block-size: 1.5rem; }
+    .nav-item { inline-size: 100%; display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); text-align: start; margin-block-end: var(--space-1); }
+    .nav-item .icon { color: var(--muted); }
+    .nav-item[aria-current="page"] { background: var(--wash); color: var(--accent); font-weight: 600; }
+    .nav-item[aria-current="page"] .icon { color: var(--accent); }
+    .nav-label { flex: 1; overflow-wrap: anywhere; }
+    .count { color: var(--muted); font-size: var(--caption); font-variant-numeric: tabular-nums; }
+    .sidebar-label { display: flex; align-items: center; justify-content: space-between; margin-block: var(--space-5) var(--space-2); padding-inline-start: var(--space-3); color: var(--muted); }
+    .sidebar-label h2 { font-size: var(--footnote); font-weight: 650; letter-spacing: .1em; text-transform: uppercase; }
+    .import-button { margin-block-start: var(--space-4); }
+    .profile { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-3) 0; border-block-start: 1px solid var(--edge); margin-block-start: auto; }
+    .profile-copy { min-inline-size: 0; }
+    .profile-copy p { font-size: var(--caption); }
+    .avatar { inline-size: 2.625rem; block-size: 2.625rem; flex: none; display: grid; place-items: center; background: var(--chip); border-radius: 50%; font-weight: 650; font-size: var(--caption); }
+    main { grid-column: 2; min-inline-size: 0; padding-inline: var(--space-8); }
+    .main-inner { max-inline-size: var(--page-max); margin-inline: auto; }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); padding-block: var(--space-6) var(--space-5); }
+    .toolbar-title { display: flex; align-items: center; min-inline-size: 0; gap: var(--space-2); }
+    .toolbar h1 { font-size: var(--large-title); font-weight: 650; letter-spacing: -.025em; }
+    .toolbar-actions { display: flex; gap: var(--space-2); align-items: center; }
+    .preview-tag { font-size: var(--footnote); color: var(--muted); border: 1px solid var(--edge); border-radius: var(--pill); padding: var(--space-1) var(--space-3); white-space: nowrap; }
+    .mobile-menu, .drawer-close { display: none; }
+    .channel-stack { display: flex; flex-direction: column; gap: var(--space-4); }
+    .panel { border: 1px solid var(--edge); border-radius: var(--radius); background: var(--card); min-inline-size: 0; }
+    .panel-head { display: flex; align-items: center; gap: var(--space-1); padding: var(--space-3); min-block-size: 4.875rem; }
+    .grip { cursor: grab; color: var(--muted); touch-action: none; }
+    .grip:active { cursor: grabbing; }
+    .collapse { color: var(--muted); }
+    .collapse .icon { transition: transform var(--motion); }
+    .collapse[aria-expanded="false"] .icon { transform: rotate(-90deg); }
+    .channel-avatar { margin-inline: var(--space-1) var(--space-3); background: var(--chip); color: var(--text); font-size: var(--footnote); }
+    .row-identity { min-inline-size: 0; flex: 1; }
+    .row-identity h2, .row-identity h3 { font-size: var(--row-title); font-weight: 650; overflow-wrap: anywhere; }
+    .row-identity p { font-size: var(--caption); color: var(--muted); }
+    .row-tools { display: flex; align-items: center; gap: var(--space-1); margin-inline-start: auto; }
+    .row-tools > .icon-button { color: var(--muted); }
+    .header-note { font-size: var(--caption); color: var(--muted); padding-inline: var(--space-2); white-space: nowrap; }
+    .row-body { padding-block-end: var(--space-5); }
+    .rail { display: flex; gap: var(--space-4); overflow-x: auto; padding: var(--space-1) var(--space-6) var(--space-2); scroll-snap-type: x proximity; scrollbar-color: var(--edge) transparent; scrollbar-width: thin; }
+    .media { inline-size: 15rem; min-inline-size: 15rem; text-align: start; padding: 0; display: flex; flex-direction: column; align-items: stretch; border-radius: var(--small-radius); scroll-snap-align: start; background: transparent; }
+    .media:hover { background: transparent; }
+    .thumbnail { position: relative; aspect-ratio: 16/9; inline-size: 100%; overflow: hidden; background: var(--chip); border-radius: var(--small-radius); }
+    .art { inline-size: 100%; block-size: 100%; display: block; }
+    .media:hover .thumbnail { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .media-title { font-size: var(--caption); font-weight: 600; margin-block-start: var(--space-3); line-height: 1.4; }
+    .media-meta { font-size: var(--caption); color: var(--muted); margin-block-start: var(--space-1); }
+    .duration { position: absolute; inset-inline-end: var(--space-2); inset-block-end: var(--space-2); background: var(--stage); color: var(--stage-text); font-size: var(--footnote); font-variant-numeric: tabular-nums; border-radius: var(--space-1); padding: 1px var(--space-1); }
+    .thumbnail-play { position: absolute; inset-inline-start: var(--space-2); inset-block-end: var(--space-2); inline-size: 1.75rem; block-size: 1.75rem; display: grid; place-items: center; border-radius: 50%; background: var(--card); color: var(--text); }
+    .thumbnail-play .icon { inline-size: 1rem; block-size: 1rem; }
+    .section-heading { display: flex; align-items: baseline; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2); margin-block: var(--space-8) var(--space-4); }
+    .section-heading h2 { font-size: var(--title); font-weight: 650; letter-spacing: -.015em; }
+    .section-heading p { font-size: var(--caption); color: var(--muted); }
+    .trends { display: flex; flex-direction: column; gap: var(--space-4); }
+    .source-logo { inline-size: 2rem; block-size: 2rem; margin-inline: var(--space-2); color: var(--text); display: grid; place-items: center; }
+    .source-logo .icon { inline-size: 1.5rem; block-size: 1.5rem; }
+    .mode { display: inline-flex; align-items: center; gap: var(--space-1); border: 1px solid var(--edge); border-radius: var(--pill); padding: var(--space-1) var(--space-2); font-size: var(--footnote); color: var(--muted); white-space: nowrap; }
+    .mode .icon { inline-size: .875rem; block-size: .875rem; }
+    .album { inline-size: 8.5rem; min-inline-size: 8.5rem; }
+    .album .thumbnail { aspect-ratio: 1; }
+    .rank { font-size: var(--footnote); color: var(--muted); margin-inline-end: var(--space-1); font-weight: 400; }
+    .content-footer { padding-block: var(--space-6); color: var(--muted); font-size: var(--footnote); text-align: center; }
+    .player-bar { position: fixed; inset-inline: 0; inset-block-end: 0; z-index: 30; min-block-size: 6rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(17rem, 1.3fr) minmax(0, 1fr); gap: var(--space-6); align-items: center; padding: var(--space-3) var(--space-6); border-block-start: 1px solid var(--edge); background: var(--card); }
+    .now-playing { min-inline-size: 0; display: flex; align-items: center; gap: var(--space-3); }
+    .now-cover { inline-size: 3.5rem; block-size: 3.5rem; border-radius: var(--space-2); overflow: hidden; background: var(--chip); color: var(--muted); display: grid; place-items: center; flex: none; }
+    .now-copy { min-inline-size: 0; }
+    .now-copy strong { font-weight: 600; font-size: var(--caption); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .now-copy p { font-size: var(--caption); color: var(--muted); }
+    .transport { display: flex; flex-direction: column; align-items: center; }
+    .transport-buttons { display: flex; align-items: center; justify-content: center; gap: var(--space-2); }
+    .transport-buttons .main-play { background: var(--chip); border-radius: 50%; }
+    .progress { display: flex; gap: var(--space-3); align-items: center; inline-size: 100%; font-size: var(--footnote); color: var(--muted); }
+    .progress-line { flex: 1; block-size: 3px; border-radius: var(--pill); background: var(--line); }
+    .player-end { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); color: var(--muted); }
+    .volume { accent-color: var(--accent); inline-size: 5rem; min-block-size: var(--target); }
+    .preview-word { font-size: var(--footnote); color: var(--muted); }
+    dialog { inline-size: min(30rem, calc(100% - 2rem)); max-block-size: calc(100dvh - 2rem); overflow-y: auto; padding: var(--space-6); border: 0; border-radius: var(--radius); background: var(--card); color: var(--text); }
+    dialog::backdrop { background: var(--scrim); }
+    .dialog-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-block-end: var(--space-4); }
+    .dialog-head h2 { font-size: var(--title); font-weight: 650; }
+    .dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); margin-block-start: var(--space-6); }
+    .dialog-actions .primary { padding-inline: var(--space-5); }
+    .field { display: flex; flex-direction: column; gap: var(--space-2); margin-block-start: var(--space-5); }
+    .field label { font-size: var(--caption); font-weight: 600; }
+    input[type="text"], input[type="url"] { min-inline-size: 0; inline-size: 100%; min-block-size: var(--target); background: var(--ground); color: var(--text); border: 1px solid var(--edge); border-radius: var(--small-radius); padding: var(--space-3); }
+    .lookup-result { display: flex; align-items: center; gap: var(--space-3); border: 1px solid var(--edge); border-radius: var(--small-radius); padding: var(--space-4); margin-block-start: var(--space-4); }
+    .lookup-result strong { display: block; }
+    .inline-message { color: var(--danger); font-size: var(--caption); margin-block-start: var(--space-3); }
+    .video-dialog { inline-size: min(57rem, calc(100% - 2rem)); padding: 0; }
+    .video-dialog .dialog-head { padding: var(--space-4) var(--space-5); margin: 0; }
+    .video-dialog .dialog-head h2 { font-size: var(--row-title); }
+    .video-stage { position: relative; aspect-ratio: 16/9; background: var(--stage); }
+    .video-stage .art { opacity: .6; }
+    .stage-indicator { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: var(--space-3); color: var(--stage-text); }
+    .stage-indicator .icon { inline-size: 3rem; block-size: 3rem; }
+    .stage-indicator span { background: var(--stage); border-radius: var(--pill); padding: var(--space-1) var(--space-3); font-size: var(--caption); }
+    .video-info { padding: var(--space-5) var(--space-6); }
+    .video-info h3 { font-size: var(--title); margin-block-end: var(--space-1); }
+    .video-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-3); border-block-start: 1px solid var(--line); margin-block-start: var(--space-5); padding-block-start: var(--space-3); }
+    .link-button { min-block-size: var(--target); display: inline-flex; align-items: center; gap: var(--space-2); }
+    .menu-dialog { inline-size: min(23rem, calc(100% - 2rem)); }
+    .menu-item { inline-size: 100%; display: flex; gap: var(--space-3); align-items: center; text-align: start; padding-inline: var(--space-3); }
+    .danger { color: var(--danger); }
+    .menu-divider { border: 0; border-block-start: 1px solid var(--line); margin-block: var(--space-2); }
+    .dropzone { display: flex; flex-direction: column; gap: var(--space-3); align-items: center; text-align: center; border: 1px dashed var(--edge); border-radius: var(--small-radius); padding: var(--space-6); margin-block-start: var(--space-5); }
+    .dropzone input { inline-size: 100%; font-size: var(--caption); }
+    .playlist-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-3); padding: var(--space-5); }
+    .playlist-track { display: flex; gap: var(--space-4); align-items: center; padding: var(--space-3) var(--space-5); border-block-start: 1px solid var(--line); }
+    .playlist-track .media-meta { margin: 0; }
+    .track-art { inline-size: 3rem; block-size: 3rem; flex: none; border-radius: var(--space-2); overflow: hidden; }
+    .toast { position: fixed; inset-inline-start: 50%; inset-block-end: 7rem; transform: translateX(-50%); z-index: 60; inline-size: max-content; max-inline-size: calc(100% - 2rem); padding: var(--space-3) var(--space-5); border: 1px solid var(--edge); border-radius: var(--pill); background: var(--card); color: var(--text); font-size: var(--caption); text-align: center; pointer-events: none; }
+    .dragging { outline: 2px solid var(--accent); opacity: .75; }
+    .drawer-scrim { display: none; }
+    @media (min-width: 100rem) { main { padding-inline: 3rem; } }
+    @media (max-width: 70rem) {
+      :root { --sidebar-width: 13rem; }
+      main { padding-inline: var(--space-6); }
+      .header-note { display: none; }
+      .player-end .preview-word { display: none; }
+      .player-bar { grid-template-columns: minmax(0, 1fr) minmax(15rem, 1fr) auto; }
+      .mode { margin-inline-start: auto; }
+    }
+    @media (max-width: 50rem) {
+      .app { display: block; }
+      main { padding-inline: var(--space-5); }
+      .sidebar { inset-block-end: 0; inline-size: min(19rem, calc(100% - 3rem)); transform: translateX(-110%); transition: transform var(--motion); z-index: 50; }
+      [dir="rtl"] .sidebar { transform: translateX(110%); }
+      .sidebar[data-open] { transform: none; }
+      .sidebar .brand { padding-block-end: var(--space-6); }
+      .drawer-close { display: inline-flex; margin-inline-start: auto; }
+      .mobile-menu { display: inline-flex; }
+      .drawer-scrim[data-open] { display: block; position: fixed; inset: 0; background: var(--scrim); z-index: 40; border-radius: 0; inline-size: 100%; block-size: 100%; }
+      .toolbar { padding-block: var(--space-4); }
+      .toolbar h1 { font-size: var(--title); }
+      .player-bar { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-2); padding-inline: var(--space-4); }
+      .player-end, .progress, .transport-buttons .skip { display: none; }
+      .player-bar { min-block-size: 5rem; }
+      .app { padding-block-end: 5rem; }
+      .toast { inset-block-end: 6rem; }
+      .preview-tag { display: none; }
+      .row-tools { gap: 0; }
+      .row-identity p { font-size: var(--footnote); }
+      .channel-avatar { margin-inline-end: var(--space-2); inline-size: 2.25rem; block-size: 2.25rem; }
+      .panel-head { flex-wrap: wrap; padding: var(--space-2); gap: 0; }
+      .channel-head .row-identity { flex: 1; min-inline-size: 5rem; }
+      .channel-head .row-tools { margin-inline-start: auto; }
+      .panel-head > .mode { margin-inline-start: auto; margin-inline-end: var(--space-2); }
+      .row-tools .refresh { display: none; }
+      .rail { padding-inline: var(--space-4); }
+      .media { inline-size: 14rem; min-inline-size: 14rem; }
+      .album { inline-size: 8.5rem; min-inline-size: 8.5rem; }
+      .source-head .row-identity { flex: 1; min-inline-size: 5rem; }
+      .source-head .source-open { margin-inline-start: auto; }
+    }
+    @media (max-width: 25rem) {
+      main { padding-inline: var(--space-3); }
+      .toolbar-actions { gap: 0; }
+      .panel-head .row-identity h2, .panel-head .row-identity h3 { font-size: var(--body); }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
+    @media (prefers-contrast: more) { :root { --edge: #83838c; --line: #a4a4ab; } [data-theme="dark"] { --edge: #909099; --line: #686870; } }
+  </style>
+</head>
+<body>
+  <!-- Static outline Tabler glyphs. Artwork is illustrative SVG, not creator metadata. -->
+  <svg class="sprites" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <symbol id="i-music" viewBox="0 0 24 24"><path d="M6 17V5l12-2v12M6 8l12-2"/><ellipse cx="3" cy="17" rx="3" ry="3"/><ellipse cx="15" cy="15" rx="3" ry="3"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5 9v11h5v-6h4v6h5V9"/></symbol>
+      <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M4 17v4h16v-4"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v1m0 18v1M2 12h1m18 0h1M4.9 4.9l.7.7m12.8 12.8.7.7M4.9 19.1l.7-.7M18.4 5.6l.7-.7"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+      <symbol id="i-grip" viewBox="0 0 24 24"><path d="M9 5h.01M9 12h.01M9 19h.01M15 5h.01M15 12h.01M15 19h.01" stroke-width="3.5"/></symbol>
+      <symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="3.5"/></symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14-5L3 9m0-6v6h6M4 13a8 8 0 0 0 14 5l3-3m-6 0h6v6"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></symbol>
+      <symbol id="i-prev" viewBox="0 0 24 24"><path d="M5 5v14m14-14L8 12l11 7Z"/></symbol>
+      <symbol id="i-next" viewBox="0 0 24 24"><path d="M19 5v14M5 5l11 7-11 7Z"/></symbol>
+      <symbol id="i-volume" viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4ZM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+      <symbol id="i-external" viewBox="0 0 24 24"><path d="M10 6H5v14h14v-5M14 4h6v6m0-6L10 14"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+      <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6m4-6v6M6 7l1 14h10l1-14M9 7V3h6v4"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19V9m5 10V5m5 14v-7m5 7V3"/></symbol>
+      <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="4"/><path d="m10 9 5 3-5 3Z"/></symbol>
+
+      <symbol id="art-pitch" viewBox="0 0 480 270">
+        <rect width="480" height="270" fill="var(--art-ink)"/>
+        <path d="M305 0h175v270H305z" fill="var(--art-blue)"/>
+        <path d="M305 185h175v85H305z" fill="var(--art-grey)"/>
+        <path d="M334 208v-82q0-42 29-42t30 42v82M399 208v-107q0-35 24-35t25 35v107" fill="var(--art-ink)"/>
+        <circle cx="363" cy="65" r="17" fill="var(--art-ink)"/><circle cx="424" cy="47" r="15" fill="var(--art-ink)"/>
+        <path d="M295 208h185M324 220h143" stroke="var(--art-white)" opacity=".55"/>
+        <text x="28" y="36" fill="var(--art-blue)" font-size="12" letter-spacing="4">SAMPLE EPISODE / 01</text>
+        <text x="28" y="106" fill="var(--art-white)" font-size="49" font-weight="700" letter-spacing="-2">THE</text>
+        <text x="28" y="161" fill="var(--art-white)" font-size="58" font-weight="700" letter-spacing="-2">PITCH.</text>
+        <path d="M28 183h36" stroke="var(--art-blue)" stroke-width="2"/>
+        <text x="28" y="211" fill="var(--art-blue)" font-size="13">Big ideas. Real conversations.</text>
+      </symbol>
+      <symbol id="art-idea" viewBox="0 0 480 270">
+        <rect width="480" height="270" fill="var(--art-sand)"/>
+        <path d="M328 250V31h114v219" fill="var(--art-rust)"/>
+        <circle cx="385" cy="91" r="39" fill="none" stroke="var(--art-sand)" stroke-width="2"/>
+        <path d="m359 149 26-42 26 42m-26-42v88M350 213h70" stroke="var(--art-sand)" stroke-width="2" fill="none"/>
+        <text x="28" y="38" fill="var(--art-ink)" font-size="12" letter-spacing="4">SAMPLE EPISODE / 02</text>
+        <text x="28" y="111" fill="var(--art-ink)" font-size="45" font-weight="700">An idea.</text>
+        <text x="28" y="163" fill="var(--art-ink)" font-size="45" font-weight="700">A beginning.</text>
+        <text x="28" y="216" fill="var(--art-ink)" font-size="13">Inside the founder's journey</text>
+      </symbol>
+      <symbol id="art-deal" viewBox="0 0 480 270">
+        <rect width="480" height="270" fill="var(--art-plum)"/>
+        <path d="m305 87 55-32 55 32v64l-55 32-55-32Z" fill="none" stroke="var(--art-ink)" stroke-width="2"/>
+        <path d="m360 119 55-32m-55 32v64m0-64-55-32m24-13 55 32" fill="none" stroke="var(--art-ink)" stroke-width="2"/>
+        <text x="28" y="38" fill="var(--art-ink)" font-size="12" letter-spacing="4">SAMPLE EPISODE / 03</text>
+        <text x="28" y="109" fill="var(--art-ink)" font-size="48" font-weight="700">Made</text>
+        <text x="28" y="164" fill="var(--art-ink)" font-size="48" font-weight="700">to grow.</text>
+        <text x="28" y="216" fill="var(--art-ink)" font-size="13">The conversation after the pitch</text>
+      </symbol>
+      <symbol id="art-build" viewBox="0 0 480 270">
+        <rect width="480" height="270" fill="var(--art-paper)"/>
+        <rect x="273" y="48" width="175" height="165" rx="9" fill="var(--art-white)"/>
+        <path d="M273 76h175M289 62h3m5 0h3m5 0h3" stroke="var(--art-grey)" stroke-width="2"/>
+        <rect x="289" y="94" width="142" height="49" rx="4" fill="var(--art-blue)"/>
+        <rect x="289" y="154" width="66" height="42" rx="4" fill="var(--art-paper)"/><rect x="365" y="154" width="66" height="42" rx="4" fill="var(--art-plum)"/>
+        <text x="28" y="38" fill="var(--art-ink)" font-size="12" letter-spacing="4">SAMPLE TUTORIAL</text>
+        <text x="28" y="114" fill="var(--art-ink)" font-size="43" font-weight="700">Build</text>
+        <text x="28" y="163" fill="var(--art-ink)" font-size="43" font-weight="700">something.</text>
+        <text x="28" y="215" fill="var(--art-ink)" font-size="13">A better home for your next idea</text>
+      </symbol>
+      <symbol id="art-cover-1" viewBox="0 0 200 200"><rect width="200" height="200" fill="var(--art-plum)"/><circle cx="100" cy="94" r="58" fill="var(--art-rust)"/><path d="M24 94h152M100 36v116" stroke="var(--art-plum)" stroke-width="2"/><text x="100" y="180" text-anchor="middle" fill="var(--art-ink)" font-size="14" letter-spacing="4">AFTER HOURS</text></symbol>
+      <symbol id="art-cover-2" viewBox="0 0 200 200"><rect width="200" height="200" fill="var(--art-ink)"/><circle cx="142" cy="67" r="38" fill="var(--art-blue)"/><path d="m0 151 53-68 65 117H0m76 49 56-110 68 110Z" fill="var(--art-grey)"/><text x="20" y="36" fill="var(--art-white)" font-size="16" letter-spacing="3">STILL / HERE</text></symbol>
+      <symbol id="art-cover-3" viewBox="0 0 200 200"><rect width="200" height="200" fill="var(--art-sand)"/><path d="M25 175V80a75 75 0 0 1 150 0v95M45 175V80a55 55 0 0 1 110 0v95M65 175V80a35 35 0 0 1 70 0v95M85 175V80a15 15 0 0 1 30 0v95" stroke="var(--art-rust)" stroke-width="7" fill="none"/><text x="100" y="188" text-anchor="middle" fill="var(--art-ink)" font-size="11" letter-spacing="4">SLOW MOTION</text></symbol>
+      <symbol id="art-cover-4" viewBox="0 0 200 200"><rect width="200" height="200" fill="var(--art-blue)"/><rect x="30" y="30" width="140" height="140" fill="none" stroke="var(--art-ink)"/><circle cx="100" cy="100" r="49" fill="var(--art-paper)"/><circle cx="100" cy="100" r="25" fill="var(--art-ink)"/><text x="100" y="190" text-anchor="middle" fill="var(--art-ink)" font-size="11" letter-spacing="4">BETWEEN LINES</text></symbol>
+      <symbol id="art-cover-5" viewBox="0 0 200 200"><rect width="200" height="200" fill="var(--art-rust)"/><path d="m30 120 35-65 35 65 35-65 35 65" stroke="var(--art-sand)" stroke-width="4" fill="none"/><text x="100" y="162" text-anchor="middle" fill="var(--art-white)" font-size="18" letter-spacing="3">ON REPEAT</text></symbol>
+      <symbol id="art-cover-6" viewBox="0 0 200 200"><rect width="200" height="200" fill="var(--art-paper)"/><path d="M30 120h140M30 100h140M30 80h140M30 60h140" stroke="var(--art-ink)" stroke-width="4"/><circle cx="127" cy="100" r="45" fill="var(--art-plum)"/><text x="100" y="176" text-anchor="middle" fill="var(--art-ink)" font-size="13" letter-spacing="3">OPEN WINDOWS</text></symbol>
+    </defs>
+  </svg>
+
+  <div class="app">
+    <aside class="sidebar" id="library" aria-label="Library">
+      <div class="brand"><span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-music"/></svg></span><span>M3U Player</span><button class="icon-button drawer-close" aria-label="Close library"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+      <nav aria-label="Main navigation"><button class="nav-item" id="home-button" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg><span class="nav-label">Home</span></button></nav>
+      <div class="sidebar-label"><h2>Playlists</h2><button class="icon-button" id="new-playlist" title="New playlist" aria-label="New playlist"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+      <nav id="playlists" aria-label="Playlists"></nav>
+      <button class="nav-item import-button" id="import-button"><svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg><span>Import playlist</span></button>
+      <div style="flex:1;min-block-size:2rem"></div>
+      <div class="profile"><span class="avatar">E</span><div class="profile-copy"><strong>Your library</strong><p class="muted">Design preview</p></div></div>
+    </aside>
+    <button class="drawer-scrim" aria-label="Close library" tabindex="-1"></button>
+    <main id="main">
+      <div class="main-inner">
+        <header class="toolbar">
+          <div class="toolbar-title"><button class="icon-button mobile-menu" id="library-toggle" title="Open library" aria-label="Open library" aria-expanded="false" aria-controls="library"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button><h1 id="page-title">Home</h1></div>
+          <div class="toolbar-actions"><span class="preview-tag">Concept · Sample content</span><button class="icon-button" id="theme-toggle" title="Switch to dark appearance" aria-label="Switch to dark appearance"><svg class="icon" aria-hidden="true"><use href="#i-moon"/></svg></button><button class="icon-button primary" id="add-channel" title="Add YouTube channel" aria-label="Add YouTube channel"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button></div>
+        </header>
+        <div id="home-view">
+          <section id="channels" class="channel-stack" aria-label="Your chosen YouTube channels"></section>
+          <section aria-labelledby="trending-title">
+            <header class="section-heading"><h2 id="trending-title">Trending in Egypt</h2><p>Sample chart</p></header>
+            <div class="trends" id="trends"></div>
+          </section>
+        </div>
+        <section id="playlist-view" hidden aria-label="Playlist tracks"></section>
+        <p class="content-footer">UI concept · Illustrative artwork and sample content</p>
+      </div>
+    </main>
+    <footer class="player-bar" aria-label="Media player preview">
+      <div class="now-playing"><div class="now-cover" id="now-cover"><svg class="icon" aria-hidden="true"><use href="#i-music"/></svg></div><div class="now-copy"><strong id="now-title">Nothing playing</strong><p id="now-artist">Choose something you like</p></div></div>
+      <div class="transport"><div class="transport-buttons"><button class="icon-button skip" aria-label="Previous track" data-preview-control><svg class="icon" aria-hidden="true"><use href="#i-prev"/></svg></button><button class="icon-button main-play" id="bar-play" aria-label="Preview playback control"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg></button><button class="icon-button skip" aria-label="Next track" data-preview-control><svg class="icon" aria-hidden="true"><use href="#i-next"/></svg></button></div><div class="progress numeric"><span>0:00</span><span class="progress-line"></span><span>—</span></div></div>
+      <div class="player-end"><span class="preview-word">Player preview</span><svg class="icon" aria-hidden="true"><use href="#i-volume"/></svg><label class="sr-only" for="volume">Preview volume</label><input id="volume" class="volume" type="range" min="0" max="100" value="70"></div>
+    </footer>
+  </div>
+
+  <dialog id="channel-dialog" aria-labelledby="add-title">
+    <div class="dialog-head"><h2 id="add-title">Add YouTube channel</h2><button class="icon-button" data-close aria-label="Close add channel"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+    <p class="muted">Keep the channels you enjoy close by.</p>
+    <form id="channel-form"><div class="field"><label for="channel-input">Channel URL or @handle</label><input id="channel-input" type="text" placeholder="youtube.com/@SharkTankEgypt" autocomplete="off" required></div><p class="inline-message" id="channel-error" role="status" hidden></p><div class="lookup-result" id="channel-result" hidden></div><p class="caption muted" style="margin-block-start:1rem">Design preview · Lookup and saving are simulated.</p><div class="dialog-actions"><button class="secondary" type="button" data-close>Cancel</button><button class="primary" type="submit" id="channel-submit">Find channel</button></div></form>
+  </dialog>
+
+  <dialog id="video-dialog" class="video-dialog" aria-labelledby="video-dialog-title">
+    <header class="dialog-head"><div><h2 id="video-dialog-title">Video player</h2><p class="caption muted" id="video-channel"></p></div><button class="icon-button" data-close aria-label="Close video player"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></header>
+    <div class="video-stage"><svg class="art" aria-hidden="true"><use id="video-art" href="#art-pitch"/></svg><div class="stage-indicator"><svg class="icon" aria-hidden="true"><use href="#i-video"/></svg><span>Player layout preview</span></div></div>
+    <div class="video-info"><h3 id="video-title"></h3><p class="muted caption">Sample video · No media loaded in this proposal</p><div class="video-bottom"><button class="text-button" data-preview-control><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>Play / Pause</button><a class="link-button caption" id="video-external" target="_blank" rel="noopener noreferrer">Open channel on YouTube<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a></div></div>
+  </dialog>
+
+  <dialog id="row-menu" class="menu-dialog" aria-labelledby="row-menu-title"><div class="dialog-head"><h2 id="row-menu-title">Channel options</h2><button class="icon-button" data-close aria-label="Close channel options"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div><button class="menu-item" id="move-up"><svg class="icon" aria-hidden="true"><use href="#i-up"/></svg>Move up</button><button class="menu-item" id="move-down"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Move down</button><button class="menu-item" id="menu-refresh"><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg>Refresh channel</button><a class="menu-item button" id="menu-external" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Open on YouTube</a><hr class="menu-divider"><button class="menu-item danger" id="remove-channel"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg>Remove channel</button></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="dialog-head"><h2 id="confirm-title">Remove channel?</h2></div><p class="muted" id="confirm-copy"></p><div class="dialog-actions"><button class="secondary" data-close>Cancel</button><button class="secondary danger" id="confirm-remove">Remove channel</button></div></dialog>
+  <dialog id="playlist-dialog" aria-labelledby="playlist-dialog-title"><div class="dialog-head"><h2 id="playlist-dialog-title">New playlist</h2><button class="icon-button" data-close aria-label="Close new playlist"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div><form id="playlist-form"><div class="field"><label for="playlist-input">Name</label><input id="playlist-input" type="text" placeholder="My new playlist" required maxlength="80"></div><div class="dialog-actions"><button class="secondary" type="button" data-close>Cancel</button><button class="primary" type="submit">Create playlist</button></div></form></dialog>
+  <dialog id="import-dialog" aria-labelledby="import-title"><div class="dialog-head"><h2 id="import-title">Import playlist</h2><button class="icon-button" data-close aria-label="Close import playlist"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div><p class="muted">Bring a playlist from an .m3u or .m3u8 file.</p><label class="dropzone" for="import-file"><svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg><strong>Choose your playlist</strong><input id="import-file" type="file" accept=".m3u,.m3u8"></label><p class="caption muted" style="margin-block-start:1rem">Layout preview · No file is uploaded or imported.</p><div class="dialog-actions"><button class="secondary" data-close>Done</button></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script>
+    // Proposal state is memory-only. No app modules, network, storage or keys.
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+    const icon = name => `<svg class="icon" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+    const art = name => `<svg class="art" aria-hidden="true"><use href="#art-${name}"/></svg>`;
+    const escapeHTML = value => String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    let toastTimer, activeRow, lookup, invoker, confirmInvoker;
+    const mockVideos = [
+      { title: 'A great idea deserves a great pitch', meta: 'Sample upload · 1 day ago', duration: '24:18', art: 'pitch' },
+      { title: 'From the first idea to the first customer', meta: 'Sample upload · 3 days ago', duration: '18:42', art: 'idea' },
+      { title: 'The conversation after the pitch', meta: 'Sample upload · 5 days ago', duration: '32:06', art: 'deal' },
+      { title: 'What it takes to build something lasting', meta: 'Sample upload · 1 week ago', duration: '21:50', art: 'pitch' }
+    ];
+    const tracks = ['After Hours', 'Still Here', 'Slow Motion', 'Between Lines', 'On Repeat', 'Open Windows'].map((title, i) => ({ title, artist: ['Studio Sessions', 'The Evening Edit', 'Morning Notes', 'Side A', 'The Evening Edit', 'Studio Sessions'][i], art: `cover-${i + 1}` }));
+    const playlists = [{ name: 'Favorites', count: 18 }, { name: 'Late night', count: 12 }, { name: 'Focus', count: 24 }];
+
+    function toast(message) {
+      clearTimeout(toastTimer); $('#toast').textContent = message; $('#toast').hidden = false;
+      toastTimer = setTimeout(() => { $('#toast').hidden = true; }, 2800);
+    }
+    function openDialog(dialog, trigger) {
+      dialog._trigger = trigger || document.activeElement; dialog.showModal();
+    }
+    $$('dialog').forEach(dialog => {
+      dialog.addEventListener('click', event => {
+        if (event.target.closest('[data-close]')) dialog.close();
+        if (event.target === dialog) { const bounds = dialog.getBoundingClientRect(); if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close(); }
+      });
+      dialog.addEventListener('close', () => { if (dialog._trigger?.isConnected) dialog._trigger.focus(); });
+    });
+
+    function makeToggle(row, title, collapsed) {
+      const toggle = $('.collapse', row), body = $('.row-body', row);
+      const sync = () => {
+        body.hidden = collapsed;
+        toggle.setAttribute('aria-expanded', String(!collapsed));
+        toggle.setAttribute('aria-label', `${collapsed ? 'Expand' : 'Collapse'} ${title}`);
+        toggle.title = `${collapsed ? 'Expand' : 'Collapse'} ${title}`;
+      };
+      toggle.addEventListener('click', () => { collapsed = !collapsed; sync(); }); sync();
+    }
+    function openVideo(video, channel, trigger) {
+      $('#video-channel').textContent = channel.title;
+      $('#video-title').textContent = video.title;
+      $('#video-art').setAttribute('href', `#art-${video.art}`);
+      $('#video-external').href = `https://www.youtube.com/@${encodeURIComponent(channel.handle)}`;
+      openDialog($('#video-dialog'), trigger);
+    }
+    function setNowPlaying(track) {
+      $('#now-cover').innerHTML = art(track.art); $('#now-title').textContent = track.title;
+      $('#now-artist').textContent = `${track.artist} · Preview only`; toast('Player appearance preview — no media is loaded.');
+    }
+    function addChannel(channel) {
+      const row = document.createElement('section'); row.className = 'panel channel-row'; row.dataset.handle = channel.handle;
+      const id = `channel-${channel.handle.replace(/[^a-z0-9]/gi, '')}-${Date.now()}`;
+      row.setAttribute('aria-label', channel.title); row._channel = channel;
+      row.innerHTML = `<header class="panel-head channel-head"><button class="icon-button grip" aria-label="Reorder ${escapeHTML(channel.title)}. Use up and down arrow keys." title="Drag to reorder · ↑/↓ with keyboard">${icon('grip')}</button><button class="icon-button collapse" aria-controls="${id}">${icon('chevron')}</button><span class="avatar channel-avatar" aria-hidden="true">${escapeHTML(channel.initials)}</span><div class="row-identity"><h2>${escapeHTML(channel.title)}</h2><p><bdi>@${escapeHTML(channel.handle)}</bdi></p></div><div class="row-tools"><span class="header-note">Sample uploads</span><button class="icon-button refresh" title="Refresh channel" aria-label="Refresh ${escapeHTML(channel.title)}">${icon('refresh')}</button><button class="icon-button more" title="Channel options" aria-label="Options for ${escapeHTML(channel.title)}" aria-haspopup="dialog">${icon('more')}</button></div></header><div class="row-body" id="${id}"><div class="rail" aria-label="Videos from ${escapeHTML(channel.title)}"></div></div>`;
+      const videos = channel.handle.toLowerCase() === 'nagdywp' ? [
+        { ...mockVideos[0], title: 'Build a better WordPress home page', art: 'build' },
+        { ...mockVideos[1], title: 'A simpler way to organize your website', art: 'build' },
+        { ...mockVideos[2], title: 'The small details that make a site feel right', art: 'build' }
+      ] : mockVideos;
+      for (const video of videos) {
+        const button = document.createElement('button'); button.className = 'media';
+        button.setAttribute('aria-label', `Preview player for ${video.title}`);
+        button.innerHTML = `<span class="thumbnail">${art(video.art)}<span class="thumbnail-play">${icon('play')}</span><span class="duration">${video.duration}</span></span><span class="media-title">${escapeHTML(video.title)}</span><span class="media-meta">${video.meta}</span>`;
+        button.addEventListener('click', () => openVideo(video, channel, button)); $('.rail', row).append(button);
+      }
+      makeToggle(row, channel.title, Boolean(channel.collapsed));
+      $('.refresh', row).addEventListener('click', () => toast(`${channel.title}: sample content is already up to date.`));
+      $('.more', row).addEventListener('click', event => {
+        activeRow = row; invoker = event.currentTarget;
+        $('#row-menu-title').textContent = channel.title;
+        $('#move-up').disabled = !row.previousElementSibling; $('#move-down').disabled = !row.nextElementSibling;
+        $('#menu-external').href = `https://www.youtube.com/@${encodeURIComponent(channel.handle)}`;
+        openDialog($('#row-menu'), invoker);
+      });
+      $('.grip', row).addEventListener('keydown', event => {
+        if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
+        event.preventDefault(); moveRow(row, event.key === 'ArrowUp' ? -1 : 1); event.currentTarget.focus();
+      });
+      $('.grip', row).addEventListener('pointerdown', event => {
+        if (event.button !== 0) return;
+        const grip = event.currentTarget, original = [...row.parentNode.children]; let moved = false;
+        const startY = event.clientY; grip.setPointerCapture(event.pointerId);
+        const move = current => {
+          if (!moved && Math.abs(current.clientY - startY) < 7) return;
+          moved = true; row.classList.add('dragging');
+          const other = [...row.parentNode.children].filter(item => item !== row);
+          const before = other.find(item => current.clientY < item.getBoundingClientRect().top + item.getBoundingClientRect().height / 2);
+          if (before) row.parentNode.insertBefore(row, before); else row.parentNode.append(row);
+          if (current.clientY < 90) window.scrollBy(0, -18);
+          if (current.clientY > innerHeight - 140) window.scrollBy(0, 18);
+        };
+        const finish = current => {
+          row.classList.remove('dragging'); grip.removeEventListener('pointermove', move); grip.removeEventListener('pointerup', finish); grip.removeEventListener('pointercancel', cancel); grip.removeEventListener('lostpointercapture', cancel); document.removeEventListener('keydown', escape);
+          if (grip.hasPointerCapture(event.pointerId)) grip.releasePointerCapture(event.pointerId);
+          if (moved && current?.type !== 'pointercancel') toast('Channel order changed in this preview.');
+        };
+        const cancel = () => { original.forEach(item => $('#channels').append(item)); moved = false; finish(); };
+        const escape = current => { if (current.key === 'Escape') { current.preventDefault(); cancel(); } };
+        grip.addEventListener('pointermove', move); grip.addEventListener('pointerup', finish); grip.addEventListener('pointercancel', cancel); grip.addEventListener('lostpointercapture', cancel); document.addEventListener('keydown', escape);
+      });
+      $('#channels').append(row); return row;
+    }
+    function moveRow(row, direction) {
+      const sibling = direction < 0 ? row.previousElementSibling : row.nextElementSibling;
+      if (!sibling) return;
+      if (direction < 0) row.parentNode.insertBefore(row, sibling); else row.parentNode.insertBefore(sibling, row);
+      toast('Channel order changed in this preview.');
+    }
+    addChannel({ title: 'Shark Tank Egypt', handle: 'SharkTankEgypt', initials: 'ST' });
+    addChannel({ title: 'Nagdy WP', handle: 'NagdyWP', initials: 'NW', collapsed: true });
+
+    function buildTrend(source, index) {
+      const row = document.createElement('section'); row.className = 'panel';
+      row.innerHTML = `<header class="panel-head source-head"><button class="icon-button collapse" aria-controls="trend-${index}">${icon('chevron')}</button><span class="source-logo">${icon(source.icon)}</span><div class="row-identity"><h3>${source.title}</h3><p>${source.subtitle}</p></div><span class="mode">${icon(source.icon === 'chart' ? 'play' : 'external')}${source.mode}</span><a class="icon-button source-open" href="${source.url}" target="_blank" rel="noopener noreferrer" title="Open ${source.title}" aria-label="Open ${source.title}">${icon('external')}</a></header><div class="row-body" id="trend-${index}"><div class="rail" aria-label="${source.title} sample chart"></div></div>`;
+      tracks.forEach((track, i) => {
+        const button = document.createElement('button'); button.className = 'media album';
+        button.innerHTML = `<span class="thumbnail">${art(track.art)}</span><span class="media-title"><span class="rank numeric">${i + 1}</span>${track.title}</span><span class="media-meta">${track.artist}</span>`;
+        button.setAttribute('aria-label', `Preview ${track.title} by ${track.artist}`);
+        button.addEventListener('click', () => source.icon === 'chart' ? setNowPlaying(track) : toast('Apple Music opens on its own site in the app.'));
+        $('.rail', row).append(button);
+      });
+      makeToggle(row, source.title, index === 1); $('#trends').append(row);
+    }
+    buildTrend({ title: 'Deezer', subtitle: 'Top Egypt', icon: 'chart', mode: '30 sec preview', url: 'https://www.deezer.com/playlist/1362501615' }, 0);
+    buildTrend({ title: 'Apple Music', subtitle: 'Most played · Egypt', icon: 'music', mode: 'Opens source', url: 'https://music.apple.com/eg/new' }, 1);
+
+    $('#theme-toggle').addEventListener('click', () => {
+      const dark = document.documentElement.dataset.theme !== 'dark';
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      $('#theme-toggle').innerHTML = icon(dark ? 'sun' : 'moon');
+      $('#theme-toggle').title = `Switch to ${dark ? 'light' : 'dark'} appearance`;
+      $('#theme-toggle').setAttribute('aria-label', $('#theme-toggle').title);
+    });
+    $('#add-channel').addEventListener('click', event => {
+      lookup = null; $('#channel-form').reset(); $('#channel-result').hidden = true; $('#channel-error').hidden = true;
+      $('#channel-submit').textContent = 'Find channel'; openDialog($('#channel-dialog'), event.currentTarget); $('#channel-input').focus();
+    });
+    $('#channel-input').addEventListener('input', () => { lookup = null; $('#channel-result').hidden = true; $('#channel-error').hidden = true; $('#channel-submit').textContent = 'Find channel'; });
+    $('#channel-form').addEventListener('submit', event => {
+      event.preventDefault();
+      const input = $('#channel-input').value.trim();
+      if (lookup) {
+        if ($$('.channel-row').some(row => row.dataset.handle.toLowerCase() === lookup.handle.toLowerCase())) { $('#channel-error').textContent = 'This channel is already in your preview.'; $('#channel-error').hidden = false; return; }
+        const row = addChannel(lookup); $('#channels').prepend(row); $('#channel-dialog').close(); showHome(); toast('Channel added to this preview.'); return;
+      }
+      const match = input.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/)?@([\p{L}\p{N}_.-]{2,60})\/?$/u);
+      if (!match) { $('#channel-error').textContent = 'For this preview, enter @handle or youtube.com/@handle.'; $('#channel-error').hidden = false; return; }
+      const handle = match[1]; lookup = { handle, title: /^sharktankegypt$/i.test(handle) ? 'Shark Tank Egypt' : /^nagdywp$/i.test(handle) ? 'Nagdy WP' : handle, initials: handle.slice(0, 2).toUpperCase() };
+      $('#channel-result').innerHTML = `<span class="avatar">${escapeHTML(lookup.initials)}</span><div><strong>${escapeHTML(lookup.title)}</strong><span class="muted caption">@${escapeHTML(handle)} · Sample result</span></div>`;
+      $('#channel-result').hidden = false; $('#channel-error').hidden = true; $('#channel-submit').textContent = 'Add channel';
+    });
+    $('#move-up').addEventListener('click', () => { moveRow(activeRow, -1); $('#row-menu').close(); });
+    $('#move-down').addEventListener('click', () => { moveRow(activeRow, 1); $('#row-menu').close(); });
+    $('#menu-refresh').addEventListener('click', () => { $('#row-menu').close(); toast('Sample content is already up to date.'); });
+    $('#remove-channel').addEventListener('click', () => {
+      confirmInvoker = invoker; $('#row-menu').close(); $('#confirm-copy').textContent = `Remove ${activeRow._channel.title} from this preview? You can add it again.`;
+      openDialog($('#confirm-dialog'), confirmInvoker);
+    });
+    $('#confirm-remove').addEventListener('click', () => {
+      const fallback = $('.more', activeRow.nextElementSibling || activeRow.previousElementSibling || $('#channels')) || $('#add-channel');
+      $('#confirm-dialog')._trigger = fallback; activeRow.remove(); $('#confirm-dialog').close(); toast('Channel removed from this preview.');
+    });
+
+    function setDrawer(open) {
+      const sidebar = $('#library'); sidebar.toggleAttribute('data-open', open); $('.drawer-scrim').toggleAttribute('data-open', open);
+      $('#library-toggle').setAttribute('aria-expanded', String(open));
+      if (matchMedia('(max-width: 50rem)').matches) {
+        sidebar.inert = !open; $('#main').inert = open; $('.player-bar').inert = open;
+        if (open) $('.drawer-close').focus(); else $('#library-toggle').focus();
+      }
+    }
+    $('#library-toggle').addEventListener('click', () => setDrawer(true));
+    $('.drawer-close').addEventListener('click', () => setDrawer(false));
+    $('.drawer-scrim').addEventListener('click', () => setDrawer(false));
+    document.addEventListener('keydown', event => {
+      if (!$('#library').hasAttribute('data-open') || $$('dialog[open]').length) return;
+      if (event.key === 'Escape') { event.preventDefault(); setDrawer(false); }
+      if (event.key === 'Tab' && matchMedia('(max-width: 50rem)').matches) {
+        const buttons = $$('button, a', $('#library')).filter(button => button.getClientRects().length && !button.disabled);
+        const first = buttons[0], last = buttons.at(-1);
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    });
+    const compactQuery = matchMedia('(max-width: 50rem)');
+    function syncDrawer() { $('#library').inert = compactQuery.matches; $('#library').removeAttribute('data-open'); $('.drawer-scrim').removeAttribute('data-open'); $('#library-toggle').setAttribute('aria-expanded', 'false'); $('#main').inert = false; $('.player-bar').inert = false; }
+    compactQuery.addEventListener('change', syncDrawer); syncDrawer();
+    function showHome() {
+      $('#home-view').hidden = false; $('#playlist-view').hidden = true; $('#page-title').textContent = 'Home';
+      $$('.nav-item').forEach(item => item.removeAttribute('aria-current')); $('#home-button').setAttribute('aria-current', 'page');
+      if ($('#library').hasAttribute('data-open')) setDrawer(false);
+    }
+    $('#home-button').addEventListener('click', showHome);
+    function showPlaylist(playlist, button) {
+      $('#home-view').hidden = true; $('#playlist-view').hidden = false; $('#page-title').textContent = playlist.name;
+      $$('.nav-item').forEach(item => item.removeAttribute('aria-current')); button.setAttribute('aria-current', 'page');
+      $('#playlist-view').innerHTML = `<div class="panel"><header class="playlist-head"><div><h2 style="font-size:var(--title)">${escapeHTML(playlist.name)}</h2><p class="caption muted">Sample playlist</p></div><button class="text-button" data-play-all>${icon('play')}Play all</button></header><div class="playlist-tracks"></div></div>`;
+      for (const track of tracks.slice(0, playlist.count === 0 ? 0 : 4)) {
+        const item = document.createElement('div'); item.className = 'playlist-track';
+        item.innerHTML = `<div class="track-art">${art(track.art)}</div><div class="row-identity"><h3 style="font-size:var(--body)">${track.title}</h3><p>${track.artist}</p></div><button class="icon-button" aria-label="Preview ${track.title}">${icon('play')}</button>`;
+        $('button', item).addEventListener('click', () => setNowPlaying(track)); $('.playlist-tracks').append(item);
+      }
+      if (playlist.count === 0) $('.playlist-tracks').innerHTML = '<p class="muted" style="padding:var(--space-6)">Your new preview playlist is ready.</p>';
+      $('[data-play-all]').addEventListener('click', () => playlist.count ? setNowPlaying(tracks[0]) : toast('This preview playlist has no tracks yet.'));
+      if ($('#library').hasAttribute('data-open')) setDrawer(false);
+    }
+    function addPlaylist(playlist) {
+      const button = document.createElement('button'); button.className = 'nav-item';
+      button.innerHTML = `${icon('list')}<span class="nav-label">${escapeHTML(playlist.name)}</span><span class="count">${playlist.count}</span>`;
+      button.addEventListener('click', () => showPlaylist(playlist, button)); $('#playlists').append(button); return button;
+    }
+    playlists.forEach(addPlaylist);
+    $('#new-playlist').addEventListener('click', event => { $('#playlist-form').reset(); openDialog($('#playlist-dialog'), event.currentTarget); $('#playlist-input').focus(); });
+    $('#playlist-form').addEventListener('submit', event => {
+      event.preventDefault(); const name = $('#playlist-input').value.trim(); if (!name) return;
+      const playlist = { name, count: 0 }; const button = addPlaylist(playlist); $('#playlist-dialog').close(); showPlaylist(playlist, button); toast('Playlist created in this preview.');
+    });
+    $('#import-button').addEventListener('click', event => openDialog($('#import-dialog'), event.currentTarget));
+    $$('[data-preview-control]').forEach(button => button.addEventListener('click', () => toast('Playback controls are shown for design review. No media is loaded.')));
+    $('#bar-play').addEventListener('click', () => toast('Playback controls are shown for design review. No media is loaded.'));
+  </script>
+</body>
+</html>

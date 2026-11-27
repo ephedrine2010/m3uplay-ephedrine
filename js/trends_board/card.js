@@ -7,11 +7,14 @@
 import { el } from "./dom.js";
 import { coverImage } from "./image.js";
 import { metaFor } from "./sources.js";
+import { iconText } from "../icons.js";
 
 const isPlayable = play => play === "preview" || play === "youtube";
 
 export function buildCard(track, source, onActivate) {
     const meta = metaFor(source.id);
+    const pill = el('span', { class: 'tb-pill' });
+    iconText(pill, isPlayable(source.play) ? 'play' : 'external', isPlayable(source.play) ? 'Play' : 'Open');
     const thumb = el("div", { class: "tb-thumb" }, [
         coverImage(track),
         el("span", { class: "tb-rank", text: "#" + track.rank }),
@@ -19,7 +22,7 @@ export function buildCard(track, source, onActivate) {
             class: "tb-glyph", style: `background:${meta.accent}`, text: meta.glyph
         }),
         el("span", { class: "tb-overlay" }, [
-            el("span", { class: "tb-pill", text: isPlayable(source.play) ? "▶ Play" : "↗ Open" })
+            pill
         ])
     ]);
     return el("button", {

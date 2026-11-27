@@ -6,6 +6,7 @@
 
 import { el } from "./dom.js";
 import { metaFor } from "./sources.js";
+import { icon } from "../icons.js";
 
 export function buildTile(source, onOpen) {
     const meta = metaFor(source.id);
@@ -15,12 +16,11 @@ export function buildTile(source, onOpen) {
     }, [
         el("span", {
             class: "tb-tile-glyph", style: `background:${meta.accent}`,
-            text: meta.glyph || "♪"
-        }),
+        }, [icon('music')]),
         el("span", { class: "tb-tile-main" }, [
             el("b", { text: `Open ${source.chart}` }),
             el("span", { text: source.note || `Top charts on ${source.label}` })
         ]),
-        el("span", { class: "tb-tile-arrow", text: "↗" })
+        el("span", { class: "tb-tile-arrow" }, [icon('external')])
     ]);
 }

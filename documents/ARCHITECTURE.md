@@ -8,6 +8,13 @@
 
 ## Personal YouTube channels (current home page)
 
+**Current UI:** the owner-approved Apple treatment uses a desktop library
+sidebar, a mobile drawer, neutral bordered cards and light/dark appearance.
+`css/apple.css` loads after the base/feature styles; `js/ui.js` owns appearance
+and drawer focus, while `js/icons.js` supplies outline icons. Playlist dialogs
+are native `<dialog>` elements. See [APPLE_UI.md](APPLE_UI.md) for current
+layout/interaction details; older shell descriptions below are historical.
+
 The home page now places **personal YouTube channel rows above the trends** in
 one `#discovery-home` scroll container. All feature modules, styles, setup docs
 and standalone checks live in [`js/yt-channels/`](../js/yt-channels/README.md).

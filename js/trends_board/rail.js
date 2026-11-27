@@ -15,6 +15,7 @@
 // ============================================================================
 
 import { el } from "./dom.js";
+import { icon } from "../icons.js";
 
 const PAGE_RATIO = 0.8;      // how much of the visible width one ‹ › press moves
 const DRAG_SLOP = 4;         // px of movement before a press counts as a drag
@@ -111,6 +112,6 @@ export function buildRail(cards) {
 function navButton(side, glyph, label) {
     return el("button", {
         class: `tb-nav tb-nav-${side}`, type: "button",
-        "aria-label": label, title: label, tabindex: "-1", text: glyph
-    });
+        "aria-label": label, title: label, tabindex: "-1"
+    }, [icon(side === 'l' ? 'left' : 'right')]);
 }

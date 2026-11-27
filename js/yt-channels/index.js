@@ -3,13 +3,15 @@ import { el } from "../trends_board/dom.js";
 import { buildChannelRow } from "./view.js";
 import { createChannelDialog } from "./dialog.js";
 import { enableChannelReorder } from "./reorder.js";
+import { icon, iconText } from "../icons.js";
 
-export function initYouTubeChannels({ mount, deps }) {
+export function initYouTubeChannels({ mount, controls, deps }) {
     const rows = el("div", { class: "yc-rows" });
     const status = el("div", { class: "yc-status", role: "status", "aria-live": "polite" });
     const retry = el("button", { type: "button", class: "ghost hidden", text: "Try again", onclick: deps.onRetry });
     const addButton = el("button", { type: "button", class: "icon-btn yc-add", text: "＋",
         "aria-label": "Add YouTube channel", title: "Add YouTube channel" });
+    iconText(addButton, "plus");
     const panel = el("dialog", { class: "yc-player", "aria-label": "YouTube video player" });
     const playerTitle = el("strong");
     const playerChannel = el("span", { class: "yc-muted" });
@@ -25,6 +27,8 @@ export function initYouTubeChannels({ mount, deps }) {
         playerSlot, fallback, el("div", { class: "yc-player-meta" }, [playerTitle, playerChannel, transport])
     );
     fallback.append(fallbackMessage, watch);
+    iconText(panel.querySelector('.yc-player-head button'), 'x');
+    iconText(watch, 'external', 'Watch on YouTube');
     panel.addEventListener("cancel", event => {
         event.preventDefault();
         deps.onClosePlayer();
@@ -35,9 +39,11 @@ export function initYouTubeChannels({ mount, deps }) {
         if (event.clientX < bounds.left || event.clientX > bounds.right ||
             event.clientY < bounds.top || event.clientY > bounds.bottom) deps.onClosePlayer();
     });
+    const head = el("div", { class: "yc-head" }, [addButton]);
     const root = el("section", { id: "yt-channels", class: "yc-section", "aria-label": "YouTube channels" }, [
-        el("div", { class: "yc-head" }, [addButton]), panel, status, retry, rows
+        ...(controls ? [] : [head]), panel, status, retry, rows
     ]);
+    controls?.append(head);
     mount.append(root);
     const dialog = createChannelDialog({ mount: document.body, resolveChannel: deps.resolveChannel,
         onAdd: deps.onAdd, exists: deps.exists });
@@ -58,13 +64,14 @@ export function initYouTubeChannels({ mount, deps }) {
             playerChannel.textContent = video.channelTitle;
             watch.href = `https://www.youtube.com/watch?v=${video.videoId}`;
             fallbackMessage.textContent = error || "";
-            transport.textContent = playing ? "Pause" : "Play";
+            iconText(transport, playing ? "pause" : "play", playing ? "Pause" : "Play");
         }
         for (const card of rows.querySelectorAll(".yc-card")) {
             const selected = !!video && card.dataset.videoId === video.videoId;
             card.classList.toggle("yc-selected", selected);
             card.setAttribute("aria-pressed", String(selected));
-            card.querySelector(".yc-play-badge").textContent = selected ? (playing ? "▶ Playing" : error ? "Unavailable" : "Paused") : "▶";
+            iconText(card.querySelector(".yc-play-badge"), selected && playing ? "pause" : "play",
+                selected ? (playing ? "Playing" : error ? "Unavailable" : "Paused") : "");
         }
     }
 
@@ -111,7 +118,7 @@ export function initYouTubeChannels({ mount, deps }) {
             cached.node.querySelector(".yc-drag-handle").disabled = busy || channels.length < 2;
             const collapse = cached.node.querySelector(".yc-collapse");
             collapse.disabled = busy;
-            collapse.textContent = channel.collapsed ? "▸" : "▾";
+            collapse.replaceChildren(icon("chevron"));
             collapse.title = channel.collapsed ? "Expand videos" : "Collapse videos";
             collapse.setAttribute("aria-expanded", String(!channel.collapsed));
             collapse.setAttribute("aria-label", `${channel.collapsed ? "Expand" : "Collapse"} ${channel.title}`);
@@ -130,6 +137,7 @@ export function initYouTubeChannels({ mount, deps }) {
         reflectPlayback,
         closeDialog: dialog.close,
         cancelDrag: reorder.cancel,
+        focusAdd() { addButton.focus(); },
         focusChannel(id, selector) { rowCache.get(id)?.node.querySelector(selector)?.focus({ preventScroll: true }); }
     };
 }

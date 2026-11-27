@@ -9,7 +9,7 @@ import { relTime } from "./data.js";
 
 export function buildBoard(data, handlers) {
     const head = el("div", { class: "tb-head" }, [
-        el("h1", { text: "🔥 Trending in Egypt" }),
+        el("h2", { text: "Trending in Egypt" }),
         el("span", { class: "tb-sub", text: "updated " + relTime(data.updated) })
     ]);
     // Also filter older snapshots cached before these sources were removed.

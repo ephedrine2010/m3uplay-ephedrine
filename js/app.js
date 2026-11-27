@@ -19,6 +19,10 @@ import { createYouTubeApi } from "./yt-channels/api.js";
 import { youtubeChannelsConfig } from "./yt-channels/config.js";
 import { listChannels, saveChannel, deleteChannel, saveChannelOrder, saveChannelCollapsed } from "./yt-channels/storage.js";
 import { arrangeChannels } from "./yt-channels/preferences.js";
+import { icon, iconText } from "./icons.js";
+import { initUI, closeLibrary } from "./ui.js";
+
+initUI();
 
 // ---- state -----------------------------------------------------------------
 const state = {
@@ -69,6 +73,8 @@ watchAuth(async (user) => {
         }
         state.uid = user.uid;
         $("#user-email").textContent = user.email;
+        $("#user-email").title = user.email || "";
+        $("#account-avatar").textContent = (user.displayName || user.email || "M").slice(0, 1).toUpperCase();
         hide("#signin-box");
         show("#app");
         showBoard(); // show loading states without waiting for channel API calls
@@ -90,6 +96,8 @@ watchAuth(async (user) => {
         channelView?.closeDialog();
         renderYouTubeChannels();
         resolveConfirm(false);
+        closeLibrary();
+        closeNewPlaylist(); closeAddSong();
         show("#signin-box");
         hide("#app");
     }
@@ -128,15 +136,18 @@ function renderPlaylists() {
         const li = document.createElement("li");
         if (state.current && state.current.id === pl.id) li.classList.add("active");
 
-        const name = document.createElement("span");
+        const name = document.createElement("button");
+        name.type = "button";
         name.className = "pl-name";
-        name.textContent = pl.name;
+        iconText(name, "list", pl.name);
+        if (state.current?.id === pl.id) name.setAttribute("aria-current", "page");
         name.addEventListener("click", () => selectPlaylist(pl));
 
         const del = document.createElement("button");
         del.className = "del";
-        del.textContent = "✕";
+        del.append(icon("x"));
         del.title = "Delete playlist";
+        del.setAttribute("aria-label", `Delete playlist ${pl.name}`);
         del.addEventListener("click", (e) => { e.stopPropagation(); removePlaylist(pl); });
 
         li.append(name, del);
@@ -151,28 +162,29 @@ function askConfirm(message, okLabel = "Remove") {
     if (confirmResolve) resolveConfirm(false);
     $("#confirm-text").textContent = message;
     $("#confirm-ok").textContent = okLabel;
-    confirmModal.classList.remove("hidden");
+    confirmModal.showModal();
     $("#confirm-cancel").focus();
     return new Promise(resolve => { confirmResolve = resolve; });
 }
 function resolveConfirm(value) {
-    confirmModal.classList.add("hidden");
+    if (confirmModal.open) confirmModal.close();
     if (confirmResolve) { confirmResolve(value); confirmResolve = null; }
 }
 $("#confirm-ok").addEventListener("click", () => resolveConfirm(true));
 $("#confirm-cancel").addEventListener("click", () => resolveConfirm(false));
 confirmModal.addEventListener("click", (e) => { if (e.target === confirmModal) resolveConfirm(false); });
-confirmModal.addEventListener("keydown", (e) => { if (e.key === "Escape") resolveConfirm(false); });
+confirmModal.addEventListener("cancel", (e) => { e.preventDefault(); resolveConfirm(false); });
+confirmModal.addEventListener("close", () => { if (!confirmModal.open && confirmResolve) resolveConfirm(false); });
 
 // ---- New-playlist popup ----------------------------------------------------
 const newPlModal = $("#new-pl-modal");
 function openNewPlaylist() {
-    newPlModal.classList.remove("hidden");
+    newPlModal.showModal();
     const input = $("#new-name");
     input.value = "";
     input.focus();
 }
-function closeNewPlaylist() { newPlModal.classList.add("hidden"); }
+function closeNewPlaylist() { if (newPlModal.open) newPlModal.close(); }
 
 async function createPlaylistFromModal() {
     const name = ($("#new-name").value || "").trim();
@@ -239,7 +251,7 @@ function renderTracks() {
         return;
     }
     if (state.tracks.length === 0) {
-        ul.innerHTML = `<li class="empty">No tracks yet — add one below</li>`;
+        ul.innerHTML = `<li class="empty">No tracks yet. Use Add track to get started.</li>`;
         return;
     }
     const playing = playingIndex();
@@ -252,27 +264,32 @@ function renderTracks() {
 
         const playBtn = document.createElement("button");
         playBtn.className = "t-play" + (isCurrent ? " is-playing" : "");
-        playBtn.textContent = playingNow ? "⏸" : "▶";
+        playBtn.append(icon(playingNow ? "pause" : "play"));
         playBtn.title = playingNow ? "Pause" : "Play";
+        playBtn.setAttribute("aria-label", `${playingNow ? "Pause" : "Play"} ${t.name || nameFromUrl(t.url)}`);
         playBtn.addEventListener("click", () => toggleTrack(i));
 
         // Read-only track name (URL is hidden, kept in data). Tap to play/pause.
-        const nameEl = document.createElement("span");
+        const nameEl = document.createElement("button");
+        nameEl.type = "button";
         nameEl.className = "t-name-text";
         nameEl.textContent = t.name || nameFromUrl(t.url);
         nameEl.title = t.url || "";
         nameEl.addEventListener("click", () => toggleTrack(i));
 
         const up = document.createElement("button");
-        up.className = "t-btn"; up.textContent = "↑"; up.disabled = i === 0;
+        up.className = "t-btn"; up.append(icon("up")); up.disabled = i === 0;
+        up.title = "Move up"; up.setAttribute("aria-label", `Move ${t.name || "track"} up`);
         up.addEventListener("click", () => moveTrack(i, -1));
 
         const down = document.createElement("button");
-        down.className = "t-btn"; down.textContent = "↓"; down.disabled = i === state.tracks.length - 1;
+        down.className = "t-btn"; down.append(icon("down")); down.disabled = i === state.tracks.length - 1;
+        down.title = "Move down"; down.setAttribute("aria-label", `Move ${t.name || "track"} down`);
         down.addEventListener("click", () => moveTrack(i, +1));
 
         const del = document.createElement("button");
-        del.className = "del"; del.textContent = "✕"; del.title = "Remove";
+        del.className = "del"; del.append(icon("x")); del.title = "Remove";
+        del.setAttribute("aria-label", `Remove ${t.name || "track"}`);
         del.addEventListener("click", async () => {
             const ok = await askConfirm(`Remove "${t.name || nameFromUrl(t.url)}"?`);
             if (!ok) return;
@@ -300,12 +317,12 @@ function moveTrack(i, dir) {
 const addModal = $("#add-song-modal");
 function openAddSong() {
     if (!state.current) return;
-    addModal.classList.remove("hidden");
+    addModal.showModal();
     $("#add-url").value = "";
     $("#add-name").value = "";
     $("#add-url").focus();
 }
-function closeAddSong() { addModal.classList.add("hidden"); }
+function closeAddSong() { if (addModal.open) addModal.close(); }
 
 // Adds the song and keeps the popup open (clears fields) so you can add several.
 function addCurrentSong() {
@@ -385,11 +402,11 @@ function updatePlayAllBtn() {
     const btn = $("#play-all-btn");
     if (!btn) return;
     if (isPlaying()) {
-        btn.textContent = "⏹ Stop";
+        iconText(btn, "pause", "Pause");
     } else if (playingIndex() >= 0) {
-        btn.textContent = "▶ Continue";
+        iconText(btn, "play", "Continue");
     } else {
-        btn.textContent = "▶ Play all";
+        iconText(btn, "play", "Play all");
     }
 }
 
@@ -455,6 +472,7 @@ discoveryHome.className = "hidden";
 $("#content").append(discoveryHome);
 channelView = initYouTubeChannels({
     mount: discoveryHome,
+    controls: $("#home-actions"),
     deps: {
         resolveChannel: channelApi.resolveChannel,
         exists: id => state.channels.some(channel => channel.channelId === id),
@@ -485,11 +503,19 @@ const trendsBoard = initTrendsBoard({
 });
 
 function showBoard() {
+    $("#page-title").textContent = "Home";
+    $("#home-btn").setAttribute("aria-current", "page");
+    show("#home-actions");
+    closeLibrary();
     hide("#track-list");
     discoveryHome.classList.remove("hidden");
     trendsBoard.show();
 }
 function showTracks() {
+    $("#page-title").textContent = state.current?.name || "Playlist";
+    $("#home-btn").removeAttribute("aria-current");
+    hide("#home-actions");
+    closeLibrary();
     channelView.cancelDrag();
     discoveryHome.classList.add("hidden");
     trendsBoard.hide();
@@ -577,7 +603,7 @@ async function removeYouTubeChannel(channel) {
         delete state.channelFeeds[channel.channelId];
         renderYouTubeChannels();
         setStatus("Channel removed");
-        channelView.root.querySelector(".yc-head button").focus();
+        channelView.focusAdd();
     } catch { setStatus("Couldn't remove the channel. Please try again.", true); }
     finally { removingChannel = false; }
 }
@@ -666,6 +692,7 @@ $("#brand").addEventListener("click", () => {
     renderPlaylists();   // clear the active highlight
     showBoard();
 });
+$("#home-btn").addEventListener("click", () => $("#brand").click());
 
 // YouTube video can be collapsed to audio-only (the player keeps playing —
 // the iframe is just clipped out of view, not removed).
@@ -699,7 +726,7 @@ function reflectPlayState() {
     updateNowPlaying();
     const transport = $("#player-toggle");
     transport.classList.toggle("hidden", !state.channelVideo || !!state.channelPlaybackError);
-    transport.textContent = isPlaying() ? "Pause" : "Play";
+    iconText(transport, isPlaying() ? "pause" : "play", isPlaying() ? "Pause" : "Play");
     transport.setAttribute("aria-label", isPlaying() ? "Pause playback" : "Resume playback");
     channelView?.reflectPlayback(state.channelVideo, isPlaying(), state.channelPlaybackError);
 }

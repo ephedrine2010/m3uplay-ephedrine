@@ -1,2 +1,5 @@
 # Generated deployment files contain the public browser credential.
 /_site/
+
+# Local design skill.
+/.claude/skills/pos-apple-design/

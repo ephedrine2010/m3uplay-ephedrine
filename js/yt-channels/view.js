@@ -1,6 +1,7 @@
 // DOM-only builders. Untrusted channel/video text is always assigned as text.
 import { el } from "../trends_board/dom.js";
 import { buildRail } from "../trends_board/rail.js";
+import { icon, iconText } from "../icons.js";
 
 export function channelAvatar(channel) {
     const fallback = el("span", { class: "yc-avatar", text: (channel.title || "Y").slice(0, 1) });
@@ -36,6 +37,7 @@ function videoCard(video, onPlay) {
     const image = el("img", { src: video.thumb, alt: "", loading: "lazy", draggable: "false" });
     image.addEventListener("error", () => image.remove(), { once: true });
     const badge = el("span", { class: "yc-play-badge", text: "▶" });
+    badge.replaceChildren(icon("play"));
     const button = el("button", {
         type: "button", class: "yc-card", "aria-label": `Play ${video.title}`,
         dataset: { videoId: video.videoId }, onclick: () => onPlay(video)
@@ -70,8 +72,22 @@ export function buildChannelRow(channel, feed, handlers) {
     menu.addEventListener("keydown", event => {
         if (event.key === "Escape") { menu.open = false; menu.querySelector("summary").focus(); }
     });
+    iconText(menu.querySelector('summary'), 'more');
+    iconText(menu.querySelector('a'), 'external', 'Open on YouTube');
+    iconText(menu.querySelector('.yc-move-up'), 'up', 'Move up');
+    iconText(menu.querySelector('.yc-move-down'), 'down', 'Move down');
+    iconText(menu.querySelector('.yc-remove'), 'trash', 'Remove channel');
     const refresh = el("button", { type: "button", class: "ghost yc-refresh", text: "Refresh",
         "aria-label": `Refresh ${channel.title}`, onclick: () => handlers.onRefresh(channel) });
+    iconText(refresh, 'refresh');
+    refresh.title = `Refresh ${channel.title}`;
+    // Refresh remains in the menu on compact screens, where the header is tight.
+    const menuRefresh = el('button', { type: 'button', class: 'ghost yc-menu-refresh', onclick: () => {
+        menu.open = false; handlers.onRefresh(channel);
+    } });
+    iconText(menuRefresh, 'refresh', 'Refresh');
+    menu.querySelector('.yc-menu-items').prepend(menuRefresh);
+    menuRefresh.disabled = !feed || feed.loading;
     refresh.disabled = !feed || feed.loading;
     const bodyId = `yc-videos-${channel.channelId}`;
     const body = el("div", { id: bodyId, class: "yc-channel-body" });
@@ -83,6 +99,8 @@ export function buildChannelRow(channel, feed, handlers) {
     const drag = el("button", { type: "button", class: "ghost yc-drag-handle", text: "⠿",
         "aria-label": `Reorder ${channel.title}. Use up and down arrow keys.`,
         title: "Drag to reorder · ↑/↓ with keyboard" });
+    collapse.replaceChildren(icon('chevron'));
+    drag.replaceChildren(icon('grip'));
     const row = el("section", { class: "yc-channel", "aria-label": channel.title,
         dataset: { channelId: channel.channelId } }, [
         el("div", { class: "yc-channel-head" }, [drag, collapse, channelIdentity(channel), refresh, menu]), body

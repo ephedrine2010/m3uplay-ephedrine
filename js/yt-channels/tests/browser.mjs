@@ -66,6 +66,8 @@ export function writeBatch() {
 
 const bootstrap = `
 const checks = [];
+if (${Boolean(process.env.YT_CHANNELS_TEXT_SCALE)}) document.documentElement.style.fontSize = ${JSON.stringify(process.env.YT_CHANNELS_TEXT_SCALE || '100%')};
+if (${Boolean(process.env.YT_CHANNELS_RTL)}) document.documentElement.dir = 'rtl';
 window.__pageErrors = [];
 window.addEventListener('error', event => window.__pageErrors.push(event.message));
 window.addEventListener('unhandledrejection', event => window.__pageErrors.push(String(event.reason)));
@@ -145,6 +147,31 @@ try {
     await import('/js/app.js');
     const coordinator = await import('/js/player.js');
     await waitFor(() => visible(document.querySelector('#discovery-home')) && document.querySelectorAll('.tb-band').length === 2, 'home loaded');
+    const themeToggle = document.querySelector('#theme-toggle');
+    const originalTheme = document.documentElement.dataset.theme;
+    themeToggle.click();
+    check(document.documentElement.dataset.theme !== originalTheme &&
+        localStorage.getItem('m3u-appearance') === document.documentElement.dataset.theme,
+        'appearance toggle applies and remembers the device preference');
+    themeToggle.click();
+    const compactLayout = matchMedia('(max-width: 800px)').matches;
+    if (compactLayout) {
+        check(document.querySelector('#sidebar').inert, 'closed phone library is removed from keyboard navigation');
+        document.querySelector('#library-toggle').click();
+        check(document.querySelector('#sidebar').hasAttribute('data-open') && document.querySelector('#content').inert &&
+            document.activeElement.id === 'library-close', 'phone library opens with focus and background isolation');
+        document.querySelector('#signout-btn').focus();
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }));
+        check(document.activeElement.id === 'brand', 'library keyboard traversal stays inside the drawer');
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+        check(!document.querySelector('#sidebar').hasAttribute('data-open') && !document.querySelector('#content').inert &&
+            document.activeElement.id === 'library-toggle', 'Escape closes the library and restores focus');
+        document.querySelector('#library-toggle').click();
+    }
+    document.querySelector('#new-pl-btn').click();
+    check(document.querySelector('#new-pl-modal').open && document.activeElement.id === 'new-name', 'new playlist uses a native modal with input focus');
+    document.querySelector('#new-pl-cancel').click();
+    if (compactLayout) document.querySelector('#home-btn').click();
     check(document.querySelector('#discovery-home').firstElementChild.id === 'yt-channels', 'channels appear before trends');
     check(!document.querySelector('#trends-board').textContent.match(/YouTube|Anghami|Spotify/), 'removed trend sources stay hidden even with an old snapshot');
     check(!document.querySelector('#yc-title') && !document.querySelector('#yc-reorder-help') &&
@@ -188,6 +215,11 @@ try {
     clickText(dialog(), 'Add channel');
     await waitFor(() => !dialog().open && document.querySelectorAll('.yc-card').length === 2, 'save retry succeeds');
     check(document.querySelectorAll('.yc-channel').length === 1, 'channel appears after adding');
+    const firstMenu = document.querySelector('.yc-menu'); firstMenu.open = true;
+    await sleep(0);
+    const menuBounds = firstMenu.querySelector('.yc-menu-items').getBoundingClientRect();
+    check(menuBounds.left >= 0 && menuBounds.right <= innerWidth + 1, 'channel menu stays inside the viewport');
+    firstMenu.open = false;
     check(document.querySelectorAll('.yc-card').length === 2, 'recent videos render as thumbnail cards');
     check(document.querySelector('.yc-card').textContent.includes('<b>Latest video</b>'), 'videos sort newest first and titles stay plain text');
     check(!document.querySelector('.yc-card b'), 'video title HTML is not executed');
@@ -356,8 +388,13 @@ try {
     document.querySelector('[data-video-id="aaaaaaaaaaa"]').click();
     await waitFor(() => coordinator.isPlaying(), 'channel playback before switching');
     clickText(document.querySelector('#playlist-list'), 'Saved playlist');
+    check(document.querySelector('#page-title').textContent === 'Saved playlist' &&
+        document.querySelector('#home-actions').classList.contains('hidden'), 'playlist toolbar shows the selected name and track actions');
+    document.querySelector('#add-song-btn').click();
+    check(document.querySelector('#add-song-modal').open && document.activeElement.id === 'add-url', 'add track opens a native modal');
+    document.querySelector('#add-song-done').click();
     check(!visible(document.querySelector('#discovery-home')) && !coordinator.isPlaying(), 'opening a playlist stops and hides channel playback');
-    clickText(document.querySelector('#topbar'), '▶ Play all');
+    clickText(document.querySelector('#topbar'), 'Play all');
     await waitFor(() => coordinator.isPlaying() && coordinator.currentTrack()?.name === 'Playable song', 'mixed playlist auto-skip');
     check(coordinator.currentTrack().name === 'Playable song', 'saved playlists still skip blocked videos');
     window.__blocked.add('aaaaaaaaaaa');
@@ -416,6 +453,10 @@ try {
     const home = document.querySelector('#discovery-home');
     check(document.querySelector('#app').scrollWidth <= window.innerWidth + 1,
         'app fits viewport (' + document.querySelector('#app').scrollWidth + '/' + window.innerWidth + ')');
+    const contentBounds = document.querySelector('#content').getBoundingClientRect();
+    const playerBounds = document.querySelector('#player-bar').getBoundingClientRect();
+    check(contentBounds.left >= -1 && contentBounds.right <= innerWidth + 1 && contentBounds.bottom <= playerBounds.top + 1,
+        'content stays inside the viewport above the persistent player');
     check(home.scrollWidth <= home.clientWidth + 1, 'channel rails do not widen the home pane');
     check(document.querySelector('.yc-player-slot').getBoundingClientRect().height >= 200, 'video viewport meets the minimum embed height');
     home.scrollTop = 0;
@@ -423,6 +464,12 @@ try {
         document.querySelector('.yc-player-head button').click();
         rowFor(anotherId).querySelector('.yc-collapse').click(); await waitLayout();
         home.scrollTop = 0;
+        document.activeElement.blur();
+        const screenshotAppearance = ${JSON.stringify(process.env.YT_CHANNELS_APPEARANCE || '')};
+        if (screenshotAppearance) {
+            if (document.documentElement.dataset.theme !== screenshotAppearance) themeToggle.click();
+        }
+        await waitLayout();
     }
     check(window.__pageErrors.length === 0, 'no uncaught page errors: ' + window.__pageErrors.join(', '));
     const result = document.createElement('pre'); result.id = 'test-result';
