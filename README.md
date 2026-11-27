@@ -74,7 +74,11 @@ service cloud.firestore {
 ## Run it (needs http, not file://)
 
 - **Local:** `python -m http.server 8000` → <http://localhost:8000>
-- **Deploy:** any static host (GitHub Pages, your own server). It's just static files.
+- **Deploy:** GitHub Pages using [`.github/workflows/pages.yml`](.github/workflows/pages.yml).
+  Add repository secret `YT_BROWSER_API_KEY`, select **Settings → Pages → Source:
+  GitHub Actions**, then run **Deploy M3U Player** from Actions. The workflow
+  generates the browser config in the deployment artifact; keep the tracked
+  config key empty. See the [channel setup guide](js/yt-channels/README.md).
 
 ## Notes
 

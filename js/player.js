@@ -23,6 +23,7 @@ let onChange = () => {};
 let notify = () => {};  // surfaces a short user-facing message (a status toast)
 let errorSkips = 0;     // consecutive unplayable tracks auto-skipped in a row
 let oneOff = false;     // true while playing a single ad-hoc track (trends board)
+let onPlaybackError = () => {};
 
 // Events every engine reports back through. The coordinator owns the queue, so
 // auto-advance, the auto-skip guard and the change notifications all live here.
@@ -30,7 +31,16 @@ const callbacks = {
     onPlay:  () => { errorSkips = 0; onChange(index, queue[index]); },
     onPause: () => onChange(index, queue[index]),
     onEnded: () => next(),
-    onError: (msg) => {
+    onError: (msg, details) => {
+        // One-offs have no next item. Keep their identity for an explicit
+        // Watch-on-YouTube fallback instead of replacing it with a generic toast.
+        if (oneOff) {
+            active?.pause();
+            onPlaybackError({ message: msg, ...details, track: currentTrack() });
+            notify(msg || "This item couldn't be played.");
+            onChange(index, queue[index]);
+            return;
+        }
         // A track that can't play here. Warn and auto-advance, but a per-queue
         // guard stops us looping forever if every track is unplayable.
         if (++errorSkips >= queue.length) {
@@ -47,9 +57,10 @@ const callbacks = {
 export function setRepeat(on) { repeat = !!on; }
 export function getRepeat() { return repeat; }
 
-export function initPlayer(audioElement, scIframe, ytWidget, changeCb, notifyCb) {
+export function initPlayer(audioElement, scIframe, ytWidget, changeCb, notifyCb, errorCb) {
     onChange = changeCb || (() => {});
     notify = notifyCb || (() => {});
+    onPlaybackError = errorCb || (() => {});
     audio.init(audioElement, callbacks);
     soundcloud.init(scIframe, callbacks);
     youtube.init(ytWidget, callbacks);
@@ -88,6 +99,8 @@ export function playAt(i) {
     engine.play(url);
     onChange(index, queue[index]);
 }
+
+export function setYouTubeHost(host) { youtube.setHost(host); }
 
 // Make `engine` the only audible/visible player: stop + hide all the others.
 function _activate(engine) {

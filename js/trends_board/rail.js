@@ -47,7 +47,10 @@ export function buildRail(cards) {
         wrap.classList.toggle("at-end", rail.scrollLeft >= max - 1);
     }
     rail.addEventListener("scroll", sync, { passive: true });
-    if (window.ResizeObserver) new ResizeObserver(sync).observe(rail);
+    const resizeObserver = window.ResizeObserver ? new ResizeObserver(sync) : null;
+    resizeObserver?.observe(rail);
+    // Dynamic channel feeds can replace rails; release the observer on removal.
+    wrap.dispose = () => resizeObserver?.disconnect();
     // images load after the first paint and change scrollWidth
     requestAnimationFrame(sync);
     sync();

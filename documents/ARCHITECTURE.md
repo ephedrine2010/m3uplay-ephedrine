@@ -1,10 +1,38 @@
 # M3U Player — Architecture & Reference
 
-> **Last updated:** 2026-07-09
+> **Last updated:** 2026-11-27
 > **Audience:** developers and AI agents working on this codebase.
 > **Goal of this doc:** let anyone (human or AI) understand the whole app quickly without re-reading every file or re-discovering past decisions.
 
 ---
+
+## Personal YouTube channels (current home page)
+
+The home page now places **personal YouTube channel rows above the trends** in
+one `#discovery-home` scroll container. All feature modules, styles, setup docs
+and standalone checks live in [`js/yt-channels/`](../js/yt-channels/README.md).
+That reference is authoritative for the channel feature and its playback popup.
+
+- Add by channel URL or `@handle`, preview the resolved channel, then save it.
+- Up to 12 recent uploads per channel; click a thumbnail to play in a responsive
+  native popup dialog. Close, Escape or backdrop click dismisses it and stops
+  playback. Its transport state stays synchronized with the bottom bar.
+- The menu offers Open on YouTube and confirmed Remove channel. Lists persist
+  per account. A blocked embed offers an explicit link to the exact video.
+- Records use `playlists/{uid}_yt_{channelId}` with `owner`,
+  `kind: "youtube-channel"`, `channelId`, `title`, `handle`, `thumb`, `uploadsId`,
+  `url`, `addedAt`. Existing owner rules apply. Playlist queries exclude this
+  kind; channel queries filter it after the owner query.
+- Feeds use a separate website/API-restricted browser key stored as GitHub
+  repository secret `YT_BROWSER_API_KEY`. The Pages workflow generates an
+  artifact config via `js/yt-channels/prepare-pages.mjs`; tracked config stays
+  empty. Choose GitHub Actions as the Pages source. The trends snapshot keeps
+  its separate server-side `YT_API_KEY` secret.
+- `app.js` owns channel state and request cancellation. The YouTube engine's
+  `setHost` rebuilds the iframe SDK instance when switching host containers.
+  One-off errors retain identity for the fallback; playlist errors still skip.
+- **Anghami and Spotify have been removed** from the current trends UI, snapshot
+  and generator. Older investigation notes below describe historical decisions.
 
 ## 1. What this app is
 
@@ -101,7 +129,7 @@ documents/
   - **`audio.js`** — native `<audio>`. The catch-all (`matches()` always `true`). Auto-advances on the `ended` event.
   - **`soundcloud.js`** — SC Widget iframe; binds `FINISH` → `onEnded`, `PLAY`/`PAUSE` → `onPlay`/`onPause`.
   - **`youtube.js`** — YouTube IFrame API; player created lazily (`pendingId` covers a click before the API is ready). `ENDED` → `onEnded`; `onError` (embed-blocked 101/150, removed/private/region-locked 100/2/5) → `onError`.
-- **`app.js`** — the only stateful controller. Holds `state = { uid, playlists[], current, tracks[] }` and wires every DOM event to the modules.
+- **`app.js`** — the application-state controller. Holds account/playlist state plus personal channels, feed results, loading/errors and the selected channel video. Injects effects into feature views; engines retain SDK state and the channel dialog retains transient UI state.
 
 ---
 

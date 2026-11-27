@@ -17,7 +17,10 @@ const playlistsRef = collection(db, "playlists");
 export async function listPlaylists(uid) {
     const snap = await getDocs(query(playlistsRef, where("owner", "==", uid)));
     const out = [];
-    snap.forEach(d => out.push({ id: d.id, ...d.data() }));
+    snap.forEach(d => {
+        const data = d.data();
+        if (data.kind !== "youtube-channel") out.push({ id: d.id, ...data });
+    });
     out.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
     return out;
 }

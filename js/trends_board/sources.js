@@ -9,8 +9,6 @@ export const SOURCE_META = {
     deezer:  { accent: "#a45cff", glyph: "D" },
     youtube: { accent: "#ff4e45", glyph: "▶" },
     apple:   { accent: "#fa2d5a", glyph: "" },   // Apple: no glyph, art carries it
-    anghami: { accent: "#7c3aed", glyph: "a" },
-    spotify: { accent: "#1db954", glyph: "S" },
 };
 
 export const DEFAULT_META = { accent: "#3b82f6", glyph: "♪" };

@@ -1,6 +1,6 @@
 # Trends Board (“Trending in Egypt”) — Reference
 
-> **Last updated:** 2026-07-09
+> **Last updated:** 2026-11-27
 > **Audience:** developers and AI agents working on this codebase.
 > **Goal:** explain the discovery board end-to-end — what it is, how the data
 > gets there, how playback works, the non-obvious gotchas, and how to extend it —
@@ -10,14 +10,21 @@
 
 ## 1. What it is
 
-A **discovery board** that shows what music is trending in Egypt/MENA, grouped by
+A **trends board** that shows what music is trending in Egypt/MENA, grouped by
 source, and lets the user play or open each track. It is the **landing view** of
-the app: it fills the right-hand `#content` pane by default (after sign-in) and
+the app: it appears below personal YouTube channels in `#discovery-home` by default (after sign-in) and
 is swapped out for a playlist’s track list the moment a playlist is opened.
 
 - **Appears** on login (before any playlist is selected).
 - **Disappears** when a playlist is tapped in the sidebar.
 - **Returns** when the user clicks the **🎵 M3U Player** brand (top-left).
+
+Personal channels and their shared video popup are documented in
+[`js/yt-channels/README.md`](../js/yt-channels/README.md). Both sections share
+one vertical home scroll container. **Anghami and Spotify have been removed**
+from the generator, snapshot and renderer; the renderer also filters stale
+snapshot entries for these two sources. The remaining source rows are Deezer,
+YouTube and Apple Music.
 
 It is deliberately a *discovery* layer, not a second player: it feeds the
 existing player for the sources we can play in-app, and links out for the rest.
@@ -35,11 +42,8 @@ answer. The board turns that mess into one consistent grid by matching the
 | **Deezer** | card row (cover art) | ▶ play 30s **preview** in-app (`<audio>`) | Public API, no key, has preview MP3s |
 | **YouTube** | card row *(once keyed)* / tile | ▶ play **full** in-app (YT engine) | Data API needs a key; tile until then |
 | **Apple Music** | card row (cover art) | ↗ **open** track on Apple | Free RSS feed, but no in-app playback |
-| **Anghami** | single **tile** | ↗ **open** chart on Anghami | Un-embeddable (see main CLAUDE.md), no API |
-| **Spotify** | single **tile** | ↗ **open** Top 50 on Spotify | Preview-only embed / Premium OAuth — skipped |
 
-“Link out in a new tab” is always allowed (no iframe/CORS/embedding barrier), so
-the sources we *can’t* embed (Anghami, Spotify) still work as tiles.
+YouTube remains a link-out chart tile until the trends API secret is set.
 
 ---
 
@@ -56,12 +60,13 @@ scripts/fetch-trends.mjs                   fetch("data/trending.json")  (same-or
   ├─ Deezer  Top-Egypt playlist  ─┐          │
   ├─ Apple   RSS most-played EG   ├─►  data/trending.json  ──►  render grouped cards/tiles
   └─ YouTube mostPopular (if key)─┘          │
-  (+ Anghami/Spotify curated tiles)          └─ on click → play in-app OR open ↗
+                                           └─ on click → play in-app OR open ↗
 ```
 
 Why this shape:
-- **No CORS, no proxy, no API keys in the browser** — the client only fetches its
-  own file.
+- **Trends need no browser key or proxy** — this module only fetches its own
+  snapshot. Personal channels are a separate on-demand integration with a
+  dedicated restricted browser key; see their feature reference.
 - **Uniform** — every source is normalized to the same track shape at build time.
 - Fits the project ethos: no backend, no build step for the *app* (the Action is
   separate infra). Freshness is daily, which is right for a trends board.
@@ -87,9 +92,7 @@ Why this shape:
     { "id": "youtube", "label": "YouTube", "chart": "Music charts · EG",
       "play": "link", "tile": true, "chartUrl": "https://charts.youtube.com/charts/TopSongs/eg",
       "tracks": [] },                          // tile: no cards until YT_API_KEY is set
-    { "id": "apple", "label": "Apple Music", "play": "link", "tracks": [ /* thumb + link */ ] },
-    { "id": "anghami", "label": "Anghami", "play": "link", "tile": true, "chartUrl": "…", "note": "…" },
-    { "id": "spotify", "label": "Spotify", "play": "link", "tile": true, "chartUrl": "…", "note": "…" }
+    { "id": "apple", "label": "Apple Music", "play": "link", "tracks": [ /* thumb + link */ ] }
   ]
 }
 ```
@@ -183,9 +186,10 @@ dark theme. `rail.js` adds the missing affordances:
 **Layout gotcha:** the rail can only scroll if its ancestors refuse to widen.
 `#content` is a `1fr` grid item and grid/flex items default to `min-width:
 auto` (= min-content), so without an explicit **`min-width: 0`** on `#content`,
-`#trends-board` and `.tb-board` the pane grows to fit the 20 cards instead of
-letting the rail scroll. `#trends-board` is also pinned to `overflow-x: hidden`
-so the rails are the only things that move sideways.
+`#discovery-home`, `#trends-board` and `.tb-board` the pane grows to fit the 20
+cards instead of letting the rail scroll. `#discovery-home` owns vertical
+scrolling and hides horizontal overflow; the nested trends container has
+`overflow: visible` so the home page uses a single vertical scrollbar.
 
 ---
 
@@ -193,7 +197,7 @@ so the rails are the only things that move sideways.
 
 - **`index.html`** — links `css/trends_board.css`; gives the brand `id="brand"`.
 - **`app.js`**
-  - `initTrendsBoard({ mount: #content, deps })` where `deps` inject the player
+  - `initTrendsBoard({ mount: #discovery-home, deps })` where `deps` inject the player
     (`playOneOff`), `resolvePreview: fetchPreview`, `openExternal` (window.open +
     toast), and `notify` (status toast). The board module never imports app/player
     directly — everything is injected, so it stays decoupled and testable.
@@ -237,7 +241,7 @@ engine was added.
 - **YouTube:** only if `process.env.YT_API_KEY` is set → Data API
   `videos.list?chart=mostPopular&videoCategoryId=10&regionCode=EG`. Otherwise a
   **link-out tile** to YouTube Charts EG.
-- **Anghami/Spotify:** curated link-out tiles (constants at the top of the file).
+- **Anghami/Spotify:** removed; the daily job no longer emits these tiles.
 - `safe()` wraps each source so one failure can’t kill the whole file (it falls
   back to a tile). Writes `data/trending.json`.
 
@@ -269,6 +273,13 @@ only if it changed (`permissions: contents: write`).
 ---
 
 ## 10. Verification notes
+
+Current integration checks are in `js/yt-channels/tests/browser.mjs`; they run
+the actual app in Chrome/Edge with auth/database/YouTube service fixtures and
+verify channel-first order, filtering of removed sources, shared playback and
+playlist switching. Run `node js/yt-channels/tests/browser.mjs`. See the feature
+README for scope and API setup. The notes below record the original July 2026
+verification of the trends board before the two tiles were removed.
 
 The app itself gates behind Google sign-in, so the board render + click routing
 were verified by executing the real modules against the real `data/trending.json`

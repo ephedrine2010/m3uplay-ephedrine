@@ -1,0 +1,73 @@
+name: Deploy M3U Player
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+  # Commits pushed by the trends job's GITHUB_TOKEN do not trigger push
+  # workflows. Deploy after that trusted main-branch workflow completes.
+  workflow_run:
+    workflows: [Refresh Egypt trends]
+    branches: [main]
+    types: [completed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: >-
+      (github.event_name != 'workflow_run' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Check channel API and deployment packaging
+        run: node --test js/yt-channels/tests/api.test.mjs js/yt-channels/tests/prepare-pages.test.mjs
+
+      - name: Prepare site with browser configuration
+        env:
+          YT_BROWSER_API_KEY: ${{ secrets.YT_BROWSER_API_KEY }}
+        run: node js/yt-channels/prepare-pages.mjs
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload prepared site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    needs: prepare
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

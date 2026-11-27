@@ -24,8 +24,6 @@ const PER_SOURCE = 20;                         // tracks kept per card source
 const DEEZER_EGYPT_CHART = "1362501615";       // "Top Egypt" — user: Deezer Charts
 
 // Curated link-out targets for sources we can't (or choose not to) card.
-const ANGHAMI_TOP_EGYPT = "https://play.anghami.com/playlist/6471768";
-const SPOTIFY_TOP_EGYPT = "https://open.spotify.com/search/Top%2050%20Egypt/playlists";
 const YT_CHARTS_EGYPT   = "https://charts.youtube.com/charts/TopSongs/eg";
 
 // ---- tiny JSON GET with redirect handling (works on Node 16 + 18) ----------
@@ -134,11 +132,7 @@ async function main() {
   const sources = [
     deezer,
     youtube,
-    apple,
-    tile("anghami", "Anghami", "Top in Egypt", ANGHAMI_TOP_EGYPT,
-         "MENA's biggest — can't be embedded, so it opens on Anghami."),
-    tile("spotify", "Spotify", "Top 50 · Egypt", SPOTIFY_TOP_EGYPT,
-         "Full playback needs Premium — opens on Spotify.")
+    apple
   ];
 
   const out = { updated: new Date().toISOString(), region: REGION, sources };

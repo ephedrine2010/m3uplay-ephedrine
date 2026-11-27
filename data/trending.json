@@ -328,26 +328,6 @@
           "link": "https://music.apple.com/eg/album/mategy/6796408980?i=6796409269"
         }
       ]
-    },
-    {
-      "id": "anghami",
-      "label": "Anghami",
-      "chart": "Top in Egypt",
-      "play": "link",
-      "tile": true,
-      "chartUrl": "https://play.anghami.com/playlist/6471768",
-      "note": "MENA's biggest — can't be embedded, so it opens on Anghami.",
-      "tracks": []
-    },
-    {
-      "id": "spotify",
-      "label": "Spotify",
-      "chart": "Top 50 · Egypt",
-      "play": "link",
-      "tile": true,
-      "chartUrl": "https://open.spotify.com/search/Top%2050%20Egypt/playlists",
-      "note": "Full playback needs Premium — opens on Spotify.",
-      "tracks": []
     }
   ]
 }

@@ -10,18 +10,32 @@ import {
 import { serializeM3U, parseM3U, nameFromUrl, extractUrl } from "./m3u.js";
 import {
     initPlayer, setQueue, playAt, playingIndex, setRepeat,
-    pause, resume, isPlaying, playOneOff, isOneOff, currentTrack, stop
+    pause, resume, isPlaying, playOneOff, isOneOff, currentTrack, stop, setYouTubeHost
 } from "./player.js";
 import { initTrendsBoard } from "./trends_board/index.js";
 import { fetchPreview } from "./trends_board/deezer.js";
+import { initYouTubeChannels } from "./yt-channels/index.js";
+import { createYouTubeApi } from "./yt-channels/api.js";
+import { youtubeChannelsConfig } from "./yt-channels/config.js";
+import { listChannels, saveChannel, deleteChannel } from "./yt-channels/storage.js";
 
 // ---- state -----------------------------------------------------------------
 const state = {
     uid: null,
     playlists: [],   // [{ id, name, tracks }]
     current: null,   // selected playlist { id, name }
-    tracks: []       // editable copy of current playlist's tracks
+    tracks: [],      // editable copy of current playlist's tracks
+    channels: [],
+    channelFeeds: {},
+    channelsLoading: false,
+    channelsError: "",
+    channelVideo: null,
+    channelPlaybackError: ""
 };
+const channelApi = createYouTubeApi(youtubeChannelsConfig);
+let channelView = null;
+let channelRequest = null;
+let removingChannel = false;
 
 // ---- DOM helpers -----------------------------------------------------------
 const $ = sel => document.querySelector(sel);
@@ -42,17 +56,36 @@ function setStatus(msg, isError = false) {
 // ============================================================================
 watchAuth(async (user) => {
     if (user) {
+        if (state.uid !== user.uid) {
+            channelRequest?.abort();
+            channelApi.clearCache();
+            closeChannelPlayer();
+            channelView?.closeDialog();
+            state.channels = [];
+            state.channelFeeds = {};
+        }
         state.uid = user.uid;
         $("#user-email").textContent = user.email;
         hide("#signin-box");
         show("#app");
-        await loadPlaylists();
-        showBoard();   // land on the discovery board until a playlist is opened
+        showBoard(); // show loading states without waiting for channel API calls
+        await Promise.all([loadPlaylists(), loadYouTubeChannels(user.uid)]);
     } else {
         state.uid = null;
         state.playlists = [];
         state.current = null;
         state.tracks = [];
+        channelRequest?.abort();
+        channelApi.clearCache();
+        state.channels = [];
+        state.channelFeeds = {};
+        state.channelsError = "";
+        state.channelsLoading = false;
+        closeChannelPlayer();
+        stop();
+        channelView?.closeDialog();
+        renderYouTubeChannels();
+        resolveConfirm(false);
         show("#signin-box");
         hide("#app");
     }
@@ -67,13 +100,16 @@ $("#signout-btn").addEventListener("click", () => signOutUser());
 //  PLAYLISTS (left pane)
 // ============================================================================
 async function loadPlaylists() {
+    const uid = state.uid;
     setStatus("Loading playlists…");
     try {
-        state.playlists = await listPlaylists(state.uid);
+        const playlists = await listPlaylists(uid);
+        if (state.uid !== uid) return;
+        state.playlists = playlists;
         renderPlaylists();
         setStatus("");
     } catch (e) {
-        setStatus(e.message, true);
+        if (state.uid === uid) setStatus(e.message, true);
     }
 }
 
@@ -108,9 +144,11 @@ function renderPlaylists() {
 const confirmModal = $("#confirm-modal");
 let confirmResolve = null;
 function askConfirm(message, okLabel = "Remove") {
+    if (confirmResolve) resolveConfirm(false);
     $("#confirm-text").textContent = message;
     $("#confirm-ok").textContent = okLabel;
     confirmModal.classList.remove("hidden");
+    $("#confirm-cancel").focus();
     return new Promise(resolve => { confirmResolve = resolve; });
 }
 function resolveConfirm(value) {
@@ -120,6 +158,7 @@ function resolveConfirm(value) {
 $("#confirm-ok").addEventListener("click", () => resolveConfirm(true));
 $("#confirm-cancel").addEventListener("click", () => resolveConfirm(false));
 confirmModal.addEventListener("click", (e) => { if (e.target === confirmModal) resolveConfirm(false); });
+confirmModal.addEventListener("keydown", (e) => { if (e.key === "Escape") resolveConfirm(false); });
 
 // ---- New-playlist popup ----------------------------------------------------
 const newPlModal = $("#new-pl-modal");
@@ -176,6 +215,7 @@ async function removePlaylist(pl) {
 //  TRACKS (right pane)
 // ============================================================================
 function selectPlaylist(pl) {
+    closeChannelPlayer();
     if (isOneOff()) stop();   // leaving discovery: stop any trends preview
     state.current = { id: pl.id, name: pl.name };
     state.tracks = (pl.tracks || []).map(t => ({ name: t.name || "", url: t.url || "" }));
@@ -394,17 +434,39 @@ function updateNowPlaying() {
     $("#now-playing").textContent = t ? (t.name || nameFromUrl(t.url)) : "Nothing playing";
 }
 
-initPlayer($("#audio"), $("#sc-widget"), $("#yt-widget"), reflectPlayState, (msg) => setStatus(msg));
+initPlayer($("#audio"), $("#sc-widget"), $("#yt-widget"), reflectPlayState, (msg) => setStatus(msg), (error) => {
+    if (state.channelVideo && error.track?.videoId === state.channelVideo.videoId) {
+        state.channelPlaybackError = error.message;
+        renderYouTubeChannels();
+    }
+});
 setRepeat(true); // looping is always on (no toggle)
 
 // ============================================================================
-//  TRENDS BOARD (discovery) — shown by default in #content; hidden once a
-//  playlist is opened; brought back by clicking the 🎵 brand.
+//  DISCOVERY — personal channels above the daily trends, one scroll container.
 // ============================================================================
-const trendsBoard = initTrendsBoard({
-    mount: $("#content"),
+const discoveryHome = document.createElement("div");
+discoveryHome.id = "discovery-home";
+discoveryHome.className = "hidden";
+$("#content").append(discoveryHome);
+channelView = initYouTubeChannels({
+    mount: discoveryHome,
     deps: {
-        player: { playOneOff },
+        resolveChannel: channelApi.resolveChannel,
+        exists: id => state.channels.some(channel => channel.channelId === id),
+        onAdd: addYouTubeChannel,
+        onRemove: removeYouTubeChannel,
+        onRefresh: channel => refreshChannelFeed(channel, { force: true }),
+        onRetry: () => loadYouTubeChannels(state.uid),
+        onPlay: playChannelVideo,
+        onToggle: toggleChannelPlayback,
+        onClosePlayer: closeChannelPlayer
+    }
+});
+const trendsBoard = initTrendsBoard({
+    mount: discoveryHome,
+    deps: {
+        player: { playOneOff: track => { closeChannelPlayer(); playOneOff(track); } },
         resolvePreview: fetchPreview,   // fresh Deezer preview URL at click-time
         openExternal: (url, label) => {
             if (!url) { setStatus("No link for this item.", true); return; }
@@ -415,8 +477,125 @@ const trendsBoard = initTrendsBoard({
     }
 });
 
-function showBoard() { hide("#track-list"); trendsBoard.show(); }
-function showTracks() { trendsBoard.hide(); show("#track-list"); }
+function showBoard() {
+    hide("#track-list");
+    discoveryHome.classList.remove("hidden");
+    trendsBoard.show();
+}
+function showTracks() {
+    discoveryHome.classList.add("hidden");
+    trendsBoard.hide();
+    show("#track-list");
+}
+
+function renderYouTubeChannels() {
+    channelView?.render({
+        channels: state.channels, feeds: state.channelFeeds,
+        loading: state.channelsLoading, error: state.channelsError,
+        configured: !!youtubeChannelsConfig.apiKey.trim(),
+        video: state.channelVideo, playing: isPlaying(), playbackError: state.channelPlaybackError
+    });
+}
+
+async function loadYouTubeChannels(uid) {
+    if (!uid) return;
+    channelRequest?.abort();
+    const request = channelRequest = new AbortController();
+    state.channelsLoading = true;
+    state.channelsError = "";
+    renderYouTubeChannels();
+    try {
+        const channels = await listChannels(uid);
+        if (request.signal.aborted || state.uid !== uid) return;
+        state.channels = channels;
+        state.channelFeeds = {};
+        state.channelsLoading = false;
+        renderYouTubeChannels();
+        await Promise.allSettled(channels.map(channel => refreshChannelFeed(channel)));
+    } catch (error) {
+        if (request.signal.aborted || state.uid !== uid) return;
+        state.channelsLoading = false;
+        state.channelsError = "Couldn't load your saved channels. Please try again.";
+        renderYouTubeChannels();
+    }
+}
+
+async function refreshChannelFeed(channel, { force = false } = {}) {
+    const uid = state.uid;
+    const signal = channelRequest?.signal;
+    if (!uid || signal?.aborted) return;
+    state.channelFeeds[channel.channelId] = { loading: true, videos: [], error: "" };
+    renderYouTubeChannels();
+    try {
+        const videos = await channelApi.recentVideos(channel, { force, signal });
+        if (signal?.aborted || state.uid !== uid || !state.channels.some(c => c.channelId === channel.channelId)) return;
+        state.channelFeeds[channel.channelId] = { loading: false, videos, error: "" };
+    } catch (error) {
+        if (signal?.aborted || state.uid !== uid || !state.channels.some(c => c.channelId === channel.channelId)) return;
+        state.channelFeeds[channel.channelId] = { loading: false, videos: [], error: error.message };
+    }
+    renderYouTubeChannels();
+}
+
+async function addYouTubeChannel(channel) {
+    const uid = state.uid;
+    if (!uid) throw new Error("Sign in to add a channel.");
+    if (state.channels.some(c => c.channelId === channel.channelId)) throw new Error("This channel is already on your page.");
+    let saved;
+    try { saved = await saveChannel(uid, channel); }
+    catch { throw new Error("Couldn't save the channel. Please try again."); }
+    if (state.uid !== uid) return;
+    state.channels.unshift(saved);
+    renderYouTubeChannels();
+    setStatus(`Added ${channel.title}`);
+    // Saving closes the dialog immediately; feeds show their own loading state.
+    void refreshChannelFeed(saved);
+}
+
+async function removeYouTubeChannel(channel) {
+    if (removingChannel) return;
+    removingChannel = true;
+    const uid = state.uid;
+    try {
+        if (!await askConfirm(`Remove "${channel.title}" from your page? You can add it again anytime.`)) return;
+        if (state.uid !== uid) return;
+        await deleteChannel(channel.id);
+        if (state.uid !== uid) return;
+        if (state.channelVideo?.channelId === channel.channelId) closeChannelPlayer();
+        state.channels = state.channels.filter(c => c.channelId !== channel.channelId);
+        delete state.channelFeeds[channel.channelId];
+        renderYouTubeChannels();
+        setStatus("Channel removed");
+        channelView.root.querySelector(".yc-head button").focus();
+    } catch { setStatus("Couldn't remove the channel. Please try again.", true); }
+    finally { removingChannel = false; }
+}
+
+function playChannelVideo(video) {
+    state.channelVideo = video;
+    state.channelPlaybackError = "";
+    setYouTubeHost(channelView.playerSlot);
+    renderYouTubeChannels();
+    playOneOff({ name: `${video.title} — ${video.channelTitle}`, url: video.url, videoId: video.videoId });
+}
+
+function closeChannelPlayer() {
+    if (!state.channelVideo) return;
+    state.channelVideo = null;
+    state.channelPlaybackError = "";
+    stop();
+    setYouTubeHost($("#player-bar"));
+    $("#yt-widget").hidden = true;
+    renderYouTubeChannels();
+}
+
+function toggleChannelPlayback() {
+    if (!state.channelVideo) return;
+    if (!currentTrack() || state.channelPlaybackError) playChannelVideo(state.channelVideo);
+    else if (isPlaying()) pause();
+    else resume();
+    reflectPlayState();
+}
 
 $("#brand").addEventListener("click", () => {
     state.current = null;
@@ -455,7 +634,14 @@ function reflectPlayState() {
     updatePlayAllBtn();
     renderTracks();
     updateNowPlaying();
+    const transport = $("#player-toggle");
+    transport.classList.toggle("hidden", !state.channelVideo || !!state.channelPlaybackError);
+    transport.textContent = isPlaying() ? "Pause" : "Play";
+    transport.setAttribute("aria-label", isPlaying() ? "Pause playback" : "Resume playback");
+    channelView?.reflectPlayback(state.channelVideo, isPlaying(), state.channelPlaybackError);
 }
+
+$("#player-toggle").addEventListener("click", toggleChannelPlayback);
 audioEl.addEventListener("play", reflectPlayState);
 audioEl.addEventListener("pause", reflectPlayState);
 audioEl.addEventListener("ended", reflectPlayState);

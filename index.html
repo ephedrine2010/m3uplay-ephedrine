@@ -6,6 +6,7 @@
     <title>M3U Playlist Manager</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/trends_board.css" />
+    <link rel="stylesheet" href="js/yt-channels/style.css" />
 
     <!-- Installable app (Add to Home screen) -->
     <link rel="manifest" href="manifest.json" />
@@ -78,6 +79,7 @@
                 <span></span><span></span><span></span><span></span>
             </div>
             <div id="now-playing">Nothing playing</div>
+            <button id="player-toggle" class="ghost hidden" type="button" aria-label="Pause playback">Pause</button>
             <audio id="audio" controls preload="none"></audio>
             <iframe id="sc-widget" allow="autoplay" hidden></iframe>
             <!-- YouTube: the IFrame API replaces #yt-player with an <iframe>.

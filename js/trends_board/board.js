@@ -15,8 +15,10 @@ export function buildBoard(data, handlers) {
     const note = el("div", {
         class: "tb-note", html:
             "👆 <b>Tip:</b> Deezer plays a 30&#8209;second preview and YouTube plays in&#8209;app; " +
-            "Apple, Anghami &amp; Spotify open on their own site."
+            "Apple Music opens on its own site."
     });
-    const bands = data.sources.map(s => buildBand(s, handlers));
+    // Also filter older snapshots cached before these sources were removed.
+    const bands = data.sources.filter(s => !["anghami", "spotify"].includes(s.id))
+        .map(s => buildBand(s, handlers));
     return el("div", { class: "tb-board" }, [head, note, ...bands]);
 }
