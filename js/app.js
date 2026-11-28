@@ -5,7 +5,7 @@
 
 import { watchAuth, signIn, signOutUser } from "./auth.js";
 import {
-    listPlaylists, createPlaylist, savePlaylistTracks, deletePlaylist
+    listPlaylists, createPlaylist, savePlaylistTracks, deletePlaylist, savePlaylistOrder
 } from "./firestore.js";
 import { serializeM3U, parseM3U, nameFromUrl, extractUrl, youTubeId } from "./m3u.js";
 import {
@@ -19,6 +19,8 @@ import { createYouTubeApi } from "./yt-channels/api.js";
 import { youtubeChannelsConfig } from "./yt-channels/config.js";
 import { listChannels, saveChannel, deleteChannel, saveChannelOrder, saveChannelCollapsed } from "./yt-channels/storage.js";
 import { arrangeChannels } from "./yt-channels/preferences.js";
+import { enableListReorder } from "./yt-channels/reorder.js";
+import { arrangePlaylists, comparePlaylists } from "./playlist-order.js";
 import { createPlaylistImportDialog } from "./yt-playlists/dialog.js";
 import { icon, iconText } from "./icons.js";
 import { initUI, closeLibrary } from "./ui.js";
@@ -29,6 +31,7 @@ initUI();
 const state = {
     uid: null,
     playlists: [],   // [{ id, name, tracks }]
+    playlistOrderSaving: false,
     current: null,   // selected playlist { id, name }
     tracks: [],      // editable copy of current playlist's tracks
     channels: [],
@@ -46,6 +49,8 @@ let channelView = null;
 let channelRequest = null;
 let removingChannel = false;
 let playlistImport = null;
+let playlistReorder = null;
+let playlistOrderRequest = null;
 
 // ---- DOM helpers -----------------------------------------------------------
 const $ = sel => document.querySelector(sel);
@@ -76,6 +81,8 @@ watchAuth(async (user) => {
             saveTimer = null;
             stop();
             state.playlists = [];
+            state.playlistOrderSaving = false;
+            playlistOrderRequest = null;
             state.current = null;
             state.tracks = [];
             renderPlaylists();
@@ -94,6 +101,10 @@ watchAuth(async (user) => {
     } else {
         state.uid = null;
         state.playlists = [];
+        state.playlistOrderSaving = false;
+        playlistOrderRequest = null;
+        playlistReorder?.cancel();
+        renderPlaylists();
         state.current = null;
         state.tracks = [];
         channelRequest?.abort();
@@ -141,14 +152,18 @@ async function loadPlaylists() {
 }
 
 function renderPlaylists() {
+    playlistReorder?.cancel();
     const ul = $("#playlist-list");
     ul.innerHTML = "";
+    ul.setAttribute("aria-busy", String(state.playlistOrderSaving));
+    $("#new-pl-btn").disabled = state.playlistOrderSaving;
     if (state.playlists.length === 0) {
         ul.innerHTML = `<li class="empty">No playlists yet</li>`;
         return;
     }
     for (const pl of state.playlists) {
         const li = document.createElement("li");
+        li.dataset.playlistId = pl.id;
         if (state.current && state.current.id === pl.id) li.classList.add("active");
 
         const name = document.createElement("button");
@@ -158,15 +173,74 @@ function renderPlaylists() {
         if (state.current?.id === pl.id) name.setAttribute("aria-current", "page");
         name.addEventListener("click", () => selectPlaylist(pl));
 
+        const drag = document.createElement("button");
+        drag.type = "button";
+        drag.className = "pl-drag-handle";
+        drag.append(icon("grip"));
+        drag.title = "Drag to reorder · ↑/↓ with keyboard";
+        drag.setAttribute("aria-label", `Reorder ${pl.name}. Use up and down arrow keys.`);
+        drag.disabled = state.playlistOrderSaving || state.playlists.length < 2;
+
         const del = document.createElement("button");
         del.className = "del";
+        del.disabled = state.playlistOrderSaving;
         del.append(icon("x"));
         del.title = "Delete playlist";
         del.setAttribute("aria-label", `Delete playlist ${pl.name}`);
         del.addEventListener("click", (e) => { e.stopPropagation(); removePlaylist(pl); });
 
-        li.append(name, del);
+        li.append(drag, name, del);
         ul.appendChild(li);
+    }
+}
+
+playlistReorder = enableListReorder({
+    rows: $("#playlist-list"), itemKey: "playlistId", handleSelector: ".pl-drag-handle",
+    rowSelector: "li[data-playlist-id]", previewSelector: null, scrollHostSelector: "#sidebar",
+    classPrefix: "pl", onReorder: reorderPlaylists
+});
+
+function focusPlaylistHandle(id) {
+    const row = [...$("#playlist-list").children].find(item => item.dataset.playlistId === id);
+    row?.querySelector(".pl-drag-handle")?.focus({ preventScroll: true });
+}
+
+async function reorderPlaylists(ids, focusId) {
+    if (!state.uid || state.playlistOrderSaving) return;
+    if (ids.length === state.playlists.length && ids.every((id, index) => id === state.playlists[index].id)) return;
+    const previous = state.playlists;
+    let arranged;
+    try { arranged = arrangePlaylists(previous, ids); }
+    catch (error) { setStatus(error.message, true); renderPlaylists(); return; }
+    const uid = state.uid;
+    const request = playlistOrderRequest = {};
+    const sameSession = () => state.uid === uid && playlistOrderRequest === request;
+    state.playlists = arranged;
+    state.playlistOrderSaving = true;
+    renderPlaylists();
+    try {
+        await savePlaylistOrder(arranged);
+        if (sameSession()) setStatus("Playlist order saved");
+    } catch {
+        if (sameSession()) {
+            if (state.playlists === arranged) {
+                const latest = new Map(arranged.map(playlist => [playlist.id, playlist]));
+                state.playlists = previous.map(playlist => {
+                    const restored = { ...latest.get(playlist.id) };
+                    if (playlist.position === undefined) delete restored.position;
+                    else restored.position = playlist.position;
+                    return restored;
+                });
+            }
+            setStatus("Couldn't save playlist order. Please try again.", true);
+        }
+    } finally {
+        if (sameSession()) {
+            state.playlistOrderSaving = false;
+            playlistOrderRequest = null;
+            renderPlaylists();
+            focusPlaylistHandle(focusId);
+        }
     }
 }
 
@@ -262,7 +336,7 @@ playlistImport = createPlaylistImportDialog({
         if (state.uid !== uid) return;
         const saved = { id, name: playlist.title, tracks: playlist.tracks, source: "youtube", sourceUrl: playlist.url, youtubePlaylistId: playlist.playlistId };
         state.playlists.push(saved);
-        state.playlists.sort((a, b) => a.name.localeCompare(b.name));
+        state.playlists.sort(comparePlaylists);
         selectPlaylist(saved);
         setStatus(`Imported ${playlist.tracks.length} videos`);
     }

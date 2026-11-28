@@ -5,6 +5,12 @@ the Deezer and Apple Music trends. The YouTube trend row, Anghami and Spotify
 were removed from the snapshot, its generator and the renderer. Personal
 YouTube channels and their playback remain available above the trends.
 
+The rail also supports **editable YouTube playlist imports**. That flow uses
+this feature's API client, browser-key configuration, tests and shared video
+popup; its dialog and guide live in
+[`js/yt-playlists/`](../yt-playlists/README.md). Imported playlists use the
+normal library and do not become channel rows.
+
 ## One-time setup
 
 1. In Google Cloud Console, enable **YouTube Data API v3** and create a dedicated
@@ -56,10 +62,11 @@ YouTube sign-in or access to a user's YouTube account.
 
 There is no app compilation, proxy or new backend. Packaging runs only during
 deployment. GitHub secrets are not available to a local static server. With
-the local config empty, saved channels remain removable and a setup message is shown;
-other discovery sources and playlists continue working. Live lookup and video
-feeds become available once the restricted key is configured. Do not ask end
-users to supply credentials in the channel dialog.
+the local config empty, saved channels remain removable and a setup message is
+shown; existing saved playlists and individual-video playback continue working.
+Channel lookup/feeds and YouTube playlist import become available once the
+restricted key is configured. Do not ask end users to supply credentials in
+either the channel or playlist-import dialog.
 
 For a local configured preview, supply `YT_BROWSER_API_KEY` in your local
 environment and run `node js/yt-channels/prepare-pages.mjs`. Serve the generated
@@ -136,27 +143,36 @@ editing only a local file or adding a secret does not update the hosted config.
   Removal requires the app's existing confirmation popup and is saved only
   after the database delete succeeds. Removing the playing channel stops it.
 
+The same video popup serves YouTube items from saved playlists, including
+manual and M3U lists. Saved queues advance/repeat and auto-skip unavailable
+videos; channel videos retain the one-off behaviour above. The popup is
+mounted under `document.body`, outside `#discovery-home`, so it remains visible
+when a playlist replaces Home. See the
+[playlist playback reference](../yt-playlists/README.md#layout-and-playback).
+
 ## Files and ownership
 
 | File | Responsibility |
 | --- | --- |
 | `config.js` | Empty key placeholder, 12-video limit, session cache lifetime |
 | `prepare-pages.mjs` | Generate the deployment artifact from `YT_BROWSER_API_KEY` without changing source |
-| `api.js` | Input validation, channel lookup, recent upload normalization, caching, request errors/timeouts |
+| `api.js` | Channel/playlist input validation, channel lookup/feed cache, complete playlist imports and shared request errors/timeouts |
 | `storage.js` | Owner-scoped Firestore CRUD for saved channels |
 | `preferences.js` | Legacy-compatible sorting and validated immutable reordering |
-| `reorder.js` | Mouse/touch pointer gestures, drag preview, edge scrolling, keyboard movement and cancellation |
+| `reorder.js` | Shared list gestures: `enableChannelReorder` retains channel defaults; `enableListReorder` also supports sidebar playlists |
 | `view.js` | Channel identities, cards, dates, row menus and rails |
 | `dialog.js` | Accessible add-channel dialog, lookup cancellation, preview and save UI |
-| `index.js` | View assembly, stable row DOM, native player popup and fallback presentation |
+| `index.js` | View assembly, stable channel-row DOM, body-mounted shared player popup and fallback presentation |
 | `style.css` | Feature styles and the shared discovery scroll container |
 | `tests/*.mjs` | Standalone Node/API and browser integration checks; no npm dependencies |
 
 The deployment entry point is [`.github/workflows/pages.yml`](../../.github/workflows/pages.yml).
 
-`js/app.js` remains the controller: it owns the account's channel list, feed
-results, loading/error state and selected video. It injects effects into this
-feature. The API factory holds only a disposable response cache. Request
+`js/app.js` remains the controller: it owns the account's channel/playlist
+lists, feed results, loading/error state and selected `channelVideo` or
+`playlistVideo`. It injects effects into this feature. The API factory holds
+only a disposable channel-feed response cache; import previews are fetched
+on request. Request
 cancellation and UID checks discard results after sign-out or account changes.
 
 The home page's `#discovery-home` is the single vertical scroll container. It
@@ -196,6 +212,11 @@ is necessary**. If the live rules were independently tightened to validate a
 playlist-only schema, extend that validation for this document shape first.
 Channel lists sync when a page loads; this does not add a realtime listener.
 
+Normal sidebar playlists now save their own `position` values independently
+of channel positions. Their grips use the same gesture helper with separate
+selectors and scroll host; existing channel header movement and video-rail
+panning remain unchanged. See the [library-order guide](../yt-playlists/README.md#library-order).
+
 Records without positions retain their previous newest-added ordering. A new
 channel receives a position before the current first item. The first reorder
 normalizes all displayed positions to `0..n-1` and persists them with one
@@ -224,6 +245,18 @@ guards prevent a late save response from restoring another account's layout.
    playlist errors still auto-skip with the existing all-unplayable guard.
 5. Stopping a YouTube play clears pending lazy playback so a late iframe API
    load cannot restart a closed video. The iframe sets its `origin` explicitly.
+6. Saved playlists share the popup. The coordinator invokes the app's
+   `prepareTrackPlayback` through its `beforePlay` callback before loading each
+   queue item, including auto-advance. The app selects the dialog host for
+   YouTube and the bottom bar for audio/SoundCloud. Keep host changes before
+   loading, since moving a live iframe recreates its SDK instance.
+
+`resolvePlaylist` uses `playlists.list` for metadata and every 50-item
+`playlistItems.list` page for tracks. Imports keep source order and repeated
+entries; do not reuse the recent-feed deduplication, newest-first sorting,
+12-video limit or ten-minute cache. Creator labels use
+`videoOwnerChannelTitle`. Import limits and the normal playlist schema are in
+the [playlist guide](../yt-playlists/README.md).
 
 Each feed failure is isolated to its row. Quota errors, network failures,
 not-found channels and timeouts receive readable messages; refresh can retry.
@@ -234,15 +267,16 @@ Thumbnails are lazy-loaded, and channel/video text is inserted as text, not HTML
 From the repository root:
 
 ```powershell
-node --test js/yt-channels/tests/api.test.mjs js/yt-channels/tests/preferences.test.mjs js/yt-channels/tests/prepare-pages.test.mjs
+node --test js/yt-channels/tests/*.test.mjs
 node js/yt-channels/tests/browser.mjs
 ```
 
 The browser check needs Chrome or Edge; set `CHROME_PATH` if its executable is
 not in a standard location. It runs the actual app and feature modules through
 a temporary localhost server, substituting auth, Firestore and YouTube service
-fixtures. This checks UI/integration without altering a real account or spending
-API quota. It does **not** prove a live API key's restrictions, Firebase rules,
+fixtures, with native-audio and SoundCloud events also substituted. This checks
+UI/integration without altering a real account or spending API quota. It does
+**not** prove a live API key's restrictions, Firebase rules,
 third-party embed availability or production network access; smoke-test those
 with the configured key and a signed-in browser before publishing.
 
@@ -250,6 +284,12 @@ The browser checks cover mouse/touch row gestures, keyboard/menu alternatives,
 edge scrolling, cancellation, collapse persistence, and rollback after failed
 layout writes. Pointer gestures are synthetic browser events; test physical
 touch behavior on the target device as part of the deployment smoke test.
+
+The same suite covers playlist source choices, import pagination/preview/save
+retry, thumbnail grids and editable rows, shared popup playback, mixed queues,
+metadata-preserving autosave/navigation, M3U/empty-list creation and account
+changes during lookup. The [playlist guide](../yt-playlists/README.md#verification)
+records the 2026-11-28 local result and screenshot controls.
 
 Packaging checks exercise the generated config, unchanged source, excluded
 repository files, relative module imports, missing-secret failures, output-path

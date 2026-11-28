@@ -6,14 +6,15 @@
 
 import {
     getFirestore, collection, query, where, getDocs,
-    addDoc, doc, updateDoc, deleteDoc, serverTimestamp
+    addDoc, doc, updateDoc, deleteDoc, serverTimestamp, writeBatch
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { app } from "./firebase.js";
+import { comparePlaylists } from "./playlist-order.js";
 
 const db = getFirestore(app);
 const playlistsRef = collection(db, "playlists");
 
-// All playlists owned by this user, sorted by name.
+// Saved positions take priority; older/unpositioned playlists sort by name.
 export async function listPlaylists(uid) {
     const snap = await getDocs(query(playlistsRef, where("owner", "==", uid)));
     const out = [];
@@ -21,7 +22,7 @@ export async function listPlaylists(uid) {
         const data = d.data();
         if (data.kind !== "youtube-channel") out.push({ id: d.id, ...data });
     });
-    out.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+    out.sort(comparePlaylists);
     return out;
 }
 
@@ -53,4 +54,11 @@ export async function renamePlaylist(id, name) {
 
 export async function deletePlaylist(id) {
     await deleteDoc(doc(db, "playlists", id));
+}
+
+// One atomic batch changes only library positions, preserving tracks/metadata.
+export async function savePlaylistOrder(playlists) {
+    const batch = writeBatch(db);
+    playlists.forEach((playlist, position) => batch.update(doc(db, "playlists", playlist.id), { position }));
+    await batch.commit();
 }

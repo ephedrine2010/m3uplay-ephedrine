@@ -1,10 +1,12 @@
 // Pointer gestures only. The app owns the order and saves once, on drop.
 // A dedicated handle keeps vertical row dragging separate from video-rail panning.
-export function enableChannelReorder({ rows, onReorder, onEnd }) {
+export function enableListReorder({ rows, onReorder, onEnd = () => {},
+    itemKey = "channelId", handleSelector = ".yc-drag-handle", rowSelector = ".yc-channel",
+    previewSelector = ".yc-channel-head", scrollHostSelector = "#discovery-home", classPrefix = "yc" }) {
     let gesture = null;
     let frame = 0;
     const children = () => [...rows.children];
-    const ids = () => children().map(row => row.dataset.channelId);
+    const ids = () => children().map(row => row.dataset[itemKey]);
 
     function arrange(y) {
         const row = gesture.row;
@@ -16,7 +18,7 @@ export function enableChannelReorder({ rows, onReorder, onEnd }) {
 
     function animate() {
         if (!gesture?.moved) return;
-        const host = rows.closest("#discovery-home");
+        const host = rows.closest(scrollHostSelector);
         if (host) {
             const bounds = host.getBoundingClientRect();
             const top = Math.max(0, bounds.top);
@@ -37,26 +39,26 @@ export function enableChannelReorder({ rows, onReorder, onEnd }) {
         gesture = null;
         cancelAnimationFrame(frame);
         current.ghost?.remove();
-        current.row.classList.remove("yc-row-dragging");
-        rows.classList.remove("yc-reordering");
+        current.row.classList.remove(`${classPrefix}-row-dragging`);
+        rows.classList.remove(`${classPrefix}-reordering`);
         if (rows.hasPointerCapture?.(current.pointerId)) rows.releasePointerCapture(current.pointerId);
         if (cancelled) {
-            const nodes = new Map(children().map(row => [row.dataset.channelId, row]));
+            const nodes = new Map(children().map(row => [row.dataset[itemKey], row]));
             current.original.forEach(id => { if (nodes.has(id)) rows.append(nodes.get(id)); });
         }
         const order = ids();
         const changed = !cancelled && current.moved && order.some((id, index) => id !== current.original[index]);
         if (changed) {
-            onReorder(order, current.row.dataset.channelId);
+            onReorder(order, current.row.dataset[itemKey]);
         }
         onEnd();
-        if (!changed && current.row.isConnected) current.row.querySelector(".yc-drag-handle")?.focus({ preventScroll: true });
+        if (!changed && current.row.isConnected) current.row.querySelector(handleSelector)?.focus({ preventScroll: true });
     }
 
     rows.addEventListener("pointerdown", event => {
-        const handle = event.target.closest(".yc-drag-handle");
+        const handle = event.target.closest(handleSelector);
         if (!handle || handle.disabled || gesture || event.button !== 0 || event.isPrimary === false || children().length < 2) return;
-        const row = handle.closest(".yc-channel");
+        const row = handle.closest(rowSelector);
         gesture = { row, pointerId: event.pointerId, startY: event.clientY, y: event.clientY,
             offset: event.clientY - row.getBoundingClientRect().top, original: ids(), moved: false };
         handle.focus({ preventScroll: true });
@@ -73,16 +75,16 @@ export function enableChannelReorder({ rows, onReorder, onEnd }) {
             gesture.moved = true;
             rows.querySelectorAll(".yc-menu[open]").forEach(menu => { menu.open = false; });
             const bounds = gesture.row.getBoundingClientRect();
-            const ghost = gesture.row.querySelector(".yc-channel-head").cloneNode(true);
-            ghost.classList.add("yc-drag-ghost");
+            const ghost = (previewSelector ? gesture.row.querySelector(previewSelector) : gesture.row).cloneNode(true);
+            ghost.classList.add(`${classPrefix}-drag-ghost`);
             ghost.setAttribute("aria-hidden", "true");
             ghost.inert = true;
             ghost.style.left = `${bounds.left}px`;
             ghost.style.width = `${bounds.width}px`;
             document.body.append(ghost);
             gesture.ghost = ghost;
-            gesture.row.classList.add("yc-row-dragging");
-            rows.classList.add("yc-reordering");
+            gesture.row.classList.add(`${classPrefix}-row-dragging`);
+            rows.classList.add(`${classPrefix}-reordering`);
             animate(); // scroll immediately at an edge, then continue each frame
         }
         gesture.ghost.style.top = `${event.clientY - Math.min(gesture.offset, 42)}px`;
@@ -98,13 +100,13 @@ export function enableChannelReorder({ rows, onReorder, onEnd }) {
         if (gesture?.pointerId === event.pointerId) finish(true);
     });
     rows.addEventListener("keydown", event => {
-        if (event.key === "Escape" && gesture) { event.preventDefault(); finish(true); return; }
+        if (event.key === "Escape" && gesture) { event.preventDefault(); event.stopPropagation(); finish(true); return; }
         if (gesture) return;
-        const handle = event.target.closest(".yc-drag-handle");
+        const handle = event.target.closest(handleSelector);
         if (!handle || handle.disabled || !["ArrowUp", "ArrowDown"].includes(event.key)) return;
         event.preventDefault();
         const order = ids();
-        const id = handle.closest(".yc-channel").dataset.channelId;
+        const id = handle.closest(rowSelector).dataset[itemKey];
         const from = order.indexOf(id);
         const to = from + (event.key === "ArrowUp" ? -1 : 1);
         if (to < 0 || to >= order.length) return;
@@ -113,3 +115,6 @@ export function enableChannelReorder({ rows, onReorder, onEnd }) {
     });
     return { isActive: () => !!gesture, cancel: () => finish(true) };
 }
+
+// Preserve the channel feature's existing interface and gesture defaults.
+export function enableChannelReorder(options) { return enableListReorder(options); }

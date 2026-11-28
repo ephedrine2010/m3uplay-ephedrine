@@ -5,14 +5,14 @@ keep your playlists in the cloud (Firestore), play them in a built-in player,
 and download any playlist as an `.m3u` file. Designed for an ~8″ touch screen.
 
 ```
-┌─ Google login ─────────────────────────────────────────┐
-│ PLAYLISTS +│ Selected playlist   [Play all][Add][⬇]     │
-│ chill     │ Thumbnail gallery or editable track rows  │
-│ favourites│ YouTube selection opens the player popup │
-│           │                                          │
-├────────────┴─────────────────────────────────────────── ┤
-│  ⏮   ▶ Song A   ──●──── 1:23 / 4:05   🔊    ⏭           │
-└──────────────────────────────────────────────────────── ┘
+┌────────────┬───────────────────────────────────────────┐
+│ PLAYLISTS +│ Playlist title   [Play all][Add][Download] │
+│ chill      │ Thumbnail gallery or editable track rows │
+│ favourites │ YouTube selection opens the player popup │
+│            │                                          │
+├────────────┴───────────────────────────────────────────┤
+│ Now playing · audio/SoundCloud or YouTube transport     │
+└────────────────────────────────────────────────────────┘
 ```
 
 ## How it works
@@ -99,6 +99,11 @@ service cloud.firestore {
   playlists retain editable rows with YouTube thumbnails, supplied artwork, or
   a music placeholder. Adding, reordering and removing tracks preserves the
   imported artwork and creator names.
+- Every playlist in the left sidebar, including YouTube imports, has a grip
+  for mouse/touch dragging up or down. Focus the grip and press ↑/↓ to reorder
+  with a keyboard. The order is saved per account; reordering keeps the selected
+  playlist and current playback. Existing libraries stay alphabetical until
+  rearranged. See the [library-order details](js/yt-playlists/README.md#library-order).
 - Selecting any YouTube track opens the shared YouTube player dialog, including
   tracks added manually. Playlist playback advances automatically and retains
   the existing repeat behaviour. Mixed queues switch to the bottom audio or
@@ -108,11 +113,6 @@ service cloud.firestore {
   integration suite, set `CHROME_PATH` to a Chromium executable and run
   `node js/yt-channels/tests/browser.mjs`. Fixtures exercise imports, pagination,
   save failures, thumbnails, dialog playback, mixed queues and account isolation.
-
-See the [playlist feature guide](js/yt-playlists/README.md) for import formats,
-limits, storage, playback details and screenshot options. Developer references
-are [ARCHITECTURE.md](documents/ARCHITECTURE.md),
-[APPLE_UI.md](documents/APPLE_UI.md) and [CLAUDE.md](CLAUDE.md).
 
 - The built-in player plays whatever the **browser** supports (mp3/m4a/ogg —
   mp3 is universal). It plays only while the tab is open.
@@ -124,3 +124,10 @@ are [ARCHITECTURE.md](documents/ARCHITECTURE.md),
 - The old Firebase **Storage** approach (files, CORS, public IAM) is gone; you
   can delete the `playlists/` folder in Storage and the public-read IAM binding
   if you want to clean up.
+
+## References
+
+See the [playlist feature guide](js/yt-playlists/README.md) for import formats,
+limits, storage, playback details and screenshot options. Developer references
+are [ARCHITECTURE.md](documents/ARCHITECTURE.md),
+[APPLE_UI.md](documents/APPLE_UI.md) and [CLAUDE.md](CLAUDE.md).

@@ -58,10 +58,14 @@ export function writeBatch() {
     return {
         update(ref, value) { updates.push([ref, value]); },
         async commit() {
+            const playlistOrder = updates.some(([ref]) => window.__db[ref.id]?.kind !== 'youtube-channel');
+            if (playlistOrder && window.__holdPlaylistOrder) await new Promise(resolve => { window.__releasePlaylistOrder = resolve; });
+            if (playlistOrder && window.__failPlaylistOrder) throw new Error('fixture playlist layout failure');
             if (window.__failLayout) throw new Error('fixture layout failure');
             for (const [ref] of updates) if (!window.__db[ref.id]) throw new Error('fixture missing document');
             for (const [ref, value] of updates) window.__db[ref.id] = { ...window.__db[ref.id], ...value };
             window.__layoutWrites = (window.__layoutWrites || 0) + 1;
+            if (playlistOrder) window.__playlistOrderWrites = (window.__playlistOrderWrites || 0) + 1;
             persist();
         }
     };
@@ -553,6 +557,95 @@ try {
     await waitFor(() => document.querySelector('#page-title').textContent === 'Empty collection', 'empty playlist creation');
     check(document.querySelector('#track-list .empty') && !document.querySelector('#track-list').classList.contains('playlist-grid'),
         'creating an empty playlist still opens the manual editor');
+
+    const sidebar = document.querySelector('#sidebar');
+    const library = document.querySelector('#playlist-list');
+    const libraryOrder = () => [...library.querySelectorAll('[data-playlist-id]')].map(row => row.dataset.playlistId);
+    const libraryRow = id => [...library.children].find(row => row.dataset.playlistId === id);
+    const waitLibrarySave = () => waitFor(() => library.getAttribute('aria-busy') === 'false', 'playlist order saved');
+    const openLibrary = () => { if (compactLayout && sidebar.inert) document.querySelector('#library-toggle').click(); };
+    clickText(library, 'Imported mix');
+    document.querySelector('#track-list .t-art').click();
+    await waitFor(() => coordinator.isPlaying(), 'audio before library reorder');
+    openLibrary();
+    check(library.querySelectorAll('.pl-drag-handle').length === 4 && libraryRow('new-playlist').querySelector('.pl-drag-handle'),
+        'manual, M3U and YouTube playlists all expose sidebar drag handles');
+    const originalLibraryData = JSON.stringify(window.__db['new-playlist'].tracks);
+    libraryRow('new-playlist').querySelector('.pl-drag-handle').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true, cancelable: true }));
+    await waitLibrarySave();
+    check(libraryOrder()[0] === 'new-playlist' && window.__db['new-playlist'].position === 0 &&
+        document.activeElement === libraryRow('new-playlist').querySelector('.pl-drag-handle'),
+        'keyboard movement saves YouTube playlist positions and restores handle focus');
+    check(document.querySelector('#page-title').textContent === 'Imported mix' && coordinator.isPlaying() && coordinator.currentTrack().name === 'Local audio',
+        'sidebar reordering preserves the selected playlist and active playback');
+    const libraryPointer = (target, type, y, pointerType = 'mouse') => target.dispatchEvent(new PointerEvent(type, {
+        bubbles: true, cancelable: true, clientX: 35, clientY: y, button: 0, buttons: type === 'pointerup' ? 0 : 1,
+        pointerType, pointerId: 71, isPrimary: true
+    }));
+    const beginLibraryDrag = (id, targetY, pointerType = 'mouse') => {
+        const row = libraryRow(id);
+        libraryPointer(row.querySelector('.pl-drag-handle'), 'pointerdown', row.getBoundingClientRect().top + 18, pointerType);
+        const writes = window.__playlistOrderWrites || 0;
+        libraryPointer(library, 'pointermove', targetY, pointerType);
+        check((window.__playlistOrderWrites || 0) === writes, 'sidebar drag preview waits for drop before saving (' + pointerType + ')');
+    };
+    beginLibraryDrag('new-playlist', library.lastElementChild.getBoundingClientRect().bottom + 10);
+    check(document.querySelector('.pl-drag-ghost') && libraryOrder().at(-1) === 'new-playlist', 'mouse drag previews the YouTube playlist in its new sidebar position');
+    libraryPointer(library, 'pointerup', library.getBoundingClientRect().bottom + 10);
+    await waitLibrarySave();
+    check(libraryOrder().at(-1) === 'new-playlist' && !document.querySelector('.pl-drag-ghost') &&
+        window.__db['new-playlist'].position === 3, 'mouse drop persists sidebar order and removes the preview');
+    beginLibraryDrag('new-playlist', library.firstElementChild.getBoundingClientRect().top - 10, 'touch');
+    libraryPointer(library, 'pointerup', library.getBoundingClientRect().top - 10, 'touch');
+    await waitLibrarySave();
+    check(libraryOrder()[0] === 'new-playlist' && window.__db['new-playlist'].position === 0, 'touch dragging can reorder imported YouTube playlists');
+    const beforeLibraryCancel = libraryOrder().join();
+    const writesBeforeLibraryCancel = window.__playlistOrderWrites;
+    beginLibraryDrag('new-playlist', library.lastElementChild.getBoundingClientRect().bottom + 10);
+    library.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+    check(libraryOrder().join() === beforeLibraryCancel && window.__playlistOrderWrites === writesBeforeLibraryCancel &&
+        !document.querySelector('.pl-drag-ghost') && (!compactLayout || sidebar.hasAttribute('data-open')),
+        'Escape cancels a sidebar drag without saving or closing the phone library');
+    beginLibraryDrag('new-playlist', library.lastElementChild.getBoundingClientRect().bottom + 10, 'touch');
+    libraryPointer(library, 'pointercancel', 0, 'touch');
+    check(libraryOrder().join() === beforeLibraryCancel && window.__playlistOrderWrites === writesBeforeLibraryCancel,
+        'cancelled touch gestures restore the previous library order without a write');
+    window.__failPlaylistOrder = true;
+    libraryRow('new-playlist').querySelector('.pl-drag-handle').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
+    await waitLibrarySave();
+    check(libraryOrder().join() === beforeLibraryCancel && document.querySelector('#status').textContent.includes("Couldn't save playlist order") &&
+        !document.querySelector('#new-pl-btn').disabled, 'failed sidebar order saves restore the previous order and reenable controls');
+    window.__failPlaylistOrder = false;
+    check(JSON.stringify(window.__db['new-playlist'].tracks) === originalLibraryData && window.__db['new-playlist'].source === 'youtube',
+        'sidebar order writes preserve imported tracks and source metadata');
+    const sidebarStyle = sidebar.getAttribute('style');
+    sidebar.style.maxHeight = '320px';
+    sidebar.scrollTop = 0;
+    await sleep(20);
+    beginLibraryDrag('new-playlist', sidebar.getBoundingClientRect().bottom - 2);
+    await sleep(40);
+    check(sidebar.scrollTop > 0, 'dragging near the library edge scrolls to reach other playlists');
+    libraryPointer(library, 'pointercancel', 0);
+    if (sidebarStyle == null) sidebar.removeAttribute('style'); else sidebar.setAttribute('style', sidebarStyle);
+    sidebar.scrollTop = 0;
+    window.__holdPlaylistOrder = true;
+    libraryRow('new-playlist').querySelector('.pl-drag-handle').dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
+    await waitFor(() => window.__releasePlaylistOrder, 'pending playlist order write');
+    check(document.querySelector('#new-pl-btn').disabled && [...library.querySelectorAll('.pl-drag-handle')].every(handle => handle.disabled),
+        'competing library edits are disabled while order is saving');
+    await window.__authCallback(null);
+    await window.__authCallback({ uid: 'user2', email: 'second@example.test' });
+    window.__releasePlaylistOrder();
+    await sleep(20);
+    check(library.querySelectorAll('.pl-name').length === 0 && !document.querySelector('.pl-drag-ghost'),
+        'a late playlist order response cannot restore another account library');
+    window.__holdPlaylistOrder = false;
+    await window.__authCallback(null);
+    await window.__authCallback({ uid: 'user1', email: 'first@example.test' });
+    const expectedLibraryOrder = ['new-playlist-3', 'new-playlist', 'new-playlist-2', 'playlist1'];
+    await waitFor(() => library.querySelectorAll('.pl-name').length === 4, 'saved sidebar order restored');
+    check(libraryOrder().join() === expectedLibraryOrder.join() && (await firestore.listPlaylists('user1')).map(item => item.id).join() === expectedLibraryOrder.join(),
+        'saved sidebar order survives signing out and back in with YouTube playlists included');
 
     document.querySelector('#brand').click();
     document.querySelector('[data-video-id="aaaaaaaaaaa"]').click();

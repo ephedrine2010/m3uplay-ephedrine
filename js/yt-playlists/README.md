@@ -29,10 +29,29 @@ An import is a snapshot. Changes on YouTube do not refresh the saved copy,
 and local edits do not change the source playlist. Importing the same source
 again creates another independent copy.
 
+## Library order
+
+Every playlist in the left sidebar has a grip, including imported YouTube
+playlists, manual lists and M3U imports. Drag it vertically with a mouse or
+touch, or focus the grip and press ↑/↓. Dragging shows a floating preview and
+scrolls the library near its edges. Drop saves the new order; Escape or
+pointer cancellation restores the previous order without saving. Escape
+during dragging keeps the mobile library drawer open.
+
+Ordering is per account and survives sign-out/sign-in. It changes the optional
+playlist `position` field in one atomic database batch, preserving track order,
+artwork, source metadata, current selection and playback. Competing library
+edits are disabled while saving; failure restores the previous positions.
+Late save results cannot restore another account's library. Existing lists
+stay alphabetical until rearranged. Positioned lists appear first;
+unpositioned or newly created/imported lists follow in alphabetical order.
+Sidebar order is independent of the channel headers' order on Home and the
+move-up/move-down controls for tracks inside a playlist.
+
 ```text
 Playlists [+]                 Evening sessions
-  My favourites              24 tracks · Imported from YouTube · Editable copy
-  Evening sessions
+  ⠿ My favourites            24 tracks · Imported from YouTube · Editable copy
+  ⠿ Evening sessions
                              [ thumbnail ] [ thumbnail ]
                              Video title   Video title
                              Creator       Creator
@@ -112,6 +131,7 @@ collection, with optional source metadata:
 {
   owner: "<firebase uid>",
   name: "Evening sessions",
+  position: 0, // optional; set when the sidebar library is reordered
   source: "youtube",
   sourceUrl: "https://www.youtube.com/playlist?list=PL…",
   youtubePlaylistId: "PL…",
@@ -146,6 +166,8 @@ not round-trip YouTube source metadata, thumbnail URLs or creator labels.
 | `../yt-channels/api.js` | `parsePlaylistInput`, `resolvePlaylist`, full pagination, normalization and shared request errors |
 | `../app.js` | Source menu, account state, import persistence, grid/row rendering, autosave and player presentation |
 | `../firestore.js` | `createPlaylist(uid, name, tracks, metadata)` stores optional YouTube source fields |
+| `../playlist-order.js` | Legacy-compatible library sorting and validation of full playlist orders |
+| `../yt-channels/reorder.js` | Shared pointer/keyboard list gestures; sidebar and channel configurations remain independent |
 | `../player.js` | Queue, auto-advance, repeat and `beforePlay` hook |
 | `../yt-channels/index.js` | Shared player dialog mounted under `document.body`, outside the hidden Home container |
 | `../../css/apple.css` | Source menu, gallery, artwork rows and compact layouts |
@@ -171,13 +193,15 @@ The shared tests cover playlist URL validation, full pagination, retained
 order/repeats, creator metadata, private/empty/oversized inputs, cancellation,
 preview/save retry, thumbnails, safe titles, popup pause/resume, automatic
 advance past blocked videos, mixed-source queues, focus restoration,
-immediate playlist switching after edits, M3U/empty-list creation and account
-isolation. The browser harness substitutes auth, database transport, YouTube
+immediate playlist switching after edits, M3U/empty-list creation, sidebar
+mouse/touch/keyboard ordering, edge scrolling, cancellation, failed-save
+rollback, order persistence, and account isolation during pending saves.
+The browser harness substitutes auth, database transport, YouTube
 responses/SDK, native audio events and SoundCloud widget events; it does not
 exercise real provider playback or production configuration.
 
-Local verification on 2026-11-28 passed **19 Node tests**, **103 desktop browser
-checks** at 1280×900 and **107 phone browser checks** at 390×844. Gallery and
+Local verification on 2026-11-28 passed **22 Node tests**, **122 desktop browser
+checks** at 1280×900 and **126 phone browser checks** at 390×844. Gallery and
 popup screenshots were reviewed. This records local verification, not a
 hosted deployment or live-account test.
 

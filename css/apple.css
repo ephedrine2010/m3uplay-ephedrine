@@ -66,6 +66,14 @@ input:focus { border-color: var(--line); outline: 2px solid var(--accent); outli
 .pl-name .app-icon { color: var(--muted); }
 .pl-name span { overflow-wrap: anywhere; }
 #playlist-list li.active .pl-name, #playlist-list li.active .app-icon { color: var(--accent); }
+.pl-drag-handle { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 36px; min-width: 36px; padding: var(--space-2); min-height: var(--target); background: transparent; color: var(--muted); cursor: grab; touch-action: none; user-select: none; }
+.pl-drag-handle .app-icon { width: 18px; height: 18px; }
+.pl-drag-handle:disabled { cursor: default; }
+.pl-reordering, .pl-reordering * { cursor: grabbing; user-select: none; }
+#playlist-list .pl-row-dragging { opacity: .3; outline: 2px dashed var(--accent); border-radius: var(--radius-sm); }
+.pl-drag-ghost { position: fixed; z-index: 65; display: flex; align-items: center; gap: 0; margin: 0; pointer-events: none; list-style: none; border: 1px solid var(--accent); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); }
+.pl-drag-ghost .pl-name { flex: 1; min-width: 0; display: flex; justify-content: flex-start; gap: var(--space-2); padding: var(--space-3); color: var(--text); background: transparent; text-align: start; white-space: normal; }
+.pl-drag-ghost .pl-name span { overflow-wrap: anywhere; }
 .del { color: var(--muted); background: transparent; line-height: 1; }
 .del:hover { color: var(--danger); }
 .sidebar-import { margin-block: var(--space-3) var(--space-8); }

@@ -1,6 +1,6 @@
 # Trends Board (“Trending in Egypt”) — Reference
 
-> **Last updated:** 2026-11-27
+> **Last updated:** 2026-11-28
 > **Audience:** developers and AI agents working on this codebase.
 > **Goal:** explain the discovery board end-to-end — what it is, how the data
 > gets there, how playback works, the non-obvious gotchas, and how to extend it —
@@ -203,8 +203,10 @@ scrolling and hides horizontal overflow; the nested trends container has
     (`playOneOff`), `resolvePreview: fetchPreview`, `openExternal` (window.open +
     toast), and `notify` (status toast). The board module never imports app/player
     directly — everything is injected, so it stays decoupled and testable.
-  - `showBoard()` = hide `#track-list`, `trendsBoard.show()`.
-    `showTracks()` = `trendsBoard.hide()`, show `#track-list`.
+  - `showBoard()` = hide `#track-list`/`#playlist-info`, `trendsBoard.show()`.
+    `showTracks()` = `trendsBoard.hide()`, show the selected list's grid/rows
+    and `#playlist-info`. Imported-list details are in the
+    [playlist guide](../js/yt-playlists/README.md).
   - Called: `showBoard()` after login; `showTracks()` in `selectPlaylist()`;
     `showBoard()` again on brand click and when the open playlist is deleted.
 - **`player.js`** — three small additions (see below).
@@ -218,8 +220,9 @@ part of a saved playlist:
   it. Sets an internal `oneOff` flag.
 - One-offs **stop at end instead of repeating** (so a 30s preview doesn’t loop) —
   `next()` checks `oneOff` before the repeat branch.
-- `setQueue()` clears `oneOff`; opening a playlist calls `stop()` first if a
-  one-off was playing.
+- `setQueue()` clears `oneOff`; opening any playlist stops current playback
+  and closes the shared YouTube popup. Home navigation does the same and
+  flushes pending saved-playlist edits.
 - `isOneOff()` and `currentTrack()` — the latter returns `queue[index]` so the
   now-playing label is correct for **both** playlist tracks and one-offs
   (`app.js updateNowPlaying()` now uses it instead of `state.tracks[i]`).

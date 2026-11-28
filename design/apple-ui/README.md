@@ -36,15 +36,18 @@ layout review and does not validate whether that YouTube channel exists.
 
 ## Design source
 
-Requested skill: [pos-apple-design](../../.claude/skills/pos-apple-design/SKILL.md),
-including its component and accessibility references. That skill comes from a
-Flutter project; its Dart palette, type, icon package and layout helpers are
-absent here. This HTML expresses the visual rules through centralized CSS
-tokens and inline outline Tabler glyphs. It is a proposal, not an approved
-replacement design or an exact reproduction of the missing Dart tokens.
+The requested reference was the local `pos-apple-design` skill, including its
+component and accessibility guidance. Its `.claude/skills/pos-apple-design/`
+directory is excluded from Git and is not present in this checkout. The
+reference came from a Flutter project whose Dart palette, type, icon package
+and layout helpers are also absent here. This HTML expresses those visual
+rules through centralized CSS tokens and inline outline Tabler glyphs.
+It preserves the original design proposal; the current implementation and
+later playlist additions are documented in
+[APPLE_UI.md](../../documents/APPLE_UI.md).
 
 The preview has visible keyboard focus, native dialogs, labelled icon buttons,
 48 px control targets, reduced-motion support and directional CSS. Browser
 layout checks cover desktop/mobile, light/dark, compact-breakpoint widths,
 enlarged text and an RTL layout smoke check. Screen-reader and native Arabic
-localization review remain part of implementation if the design is approved.
+localization review remain part of live-device verification.
