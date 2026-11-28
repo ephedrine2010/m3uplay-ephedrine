@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-27T13:24:51.278Z",
+  "updated": "2026-11-28T12:38:21.879Z",
   "region": "EG",
   "sources": [
     {
@@ -11,14 +11,30 @@
       "tracks": [
         {
           "rank": 1,
-          "title": "That's the Way It Is",
-          "artist": "Céline Dion",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/177346106112348e15ec4f9add0c1ef4/250x250-000000-80-0-0.jpg",
-          "deezerId": 14552286,
-          "link": "https://www.deezer.com/track/14552286"
+          "title": "انا هونت عليك",
+          "artist": "Hoda Bondok",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/ba8a2e9383f72b9f0885c1c948d83d54/250x250-000000-80-0-0.jpg",
+          "deezerId": 2275872877,
+          "link": "https://www.deezer.com/track/2275872877"
         },
         {
           "rank": 2,
+          "title": "Ha'ak Alaya",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8445af48f681444a7d8c5997ad8cd74a/250x250-000000-80-0-0.jpg",
+          "deezerId": 4199103722,
+          "link": "https://www.deezer.com/track/4199103722"
+        },
+        {
+          "rank": 3,
+          "title": "Meen Kan Sabab",
+          "artist": "Muslim",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/39a5d0df72e764a63a1b20b6a5ff79f4/250x250-000000-80-0-0.jpg",
+          "deezerId": 1776144717,
+          "link": "https://www.deezer.com/track/1776144717"
+        },
+        {
+          "rank": 4,
           "title": "Kol Elly Fi Alby",
           "artist": "Muslim",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/76da3783147e56efc6a3730fcf6c3f4f/250x250-000000-80-0-0.jpg",
@@ -26,7 +42,15 @@
           "link": "https://www.deezer.com/track/1518125842"
         },
         {
-          "rank": 3,
+          "rank": 5,
+          "title": "Law Bas Nergaa",
+          "artist": "Muslim",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/e4b1ed635b5ff61b89429f519f9cf152/250x250-000000-80-0-0.jpg",
+          "deezerId": 2040965397,
+          "link": "https://www.deezer.com/track/2040965397"
+        },
+        {
+          "rank": 6,
           "title": "PEACE & VIOLENCE",
           "artist": "Faouzia",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/776a3cb328fbe9bbeac062cfe657966f/250x250-000000-80-0-0.jpg",
@@ -34,87 +58,31 @@
           "link": "https://www.deezer.com/track/3532559821"
         },
         {
-          "rank": 4,
-          "title": "Feel Like A Monster",
-          "artist": "John Michael Howell",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/482cf3cc9fcd21f7a201b5bfa97d15dc/250x250-000000-80-0-0.jpg",
-          "deezerId": 3580785501,
-          "link": "https://www.deezer.com/track/3580785501"
-        },
-        {
-          "rank": 5,
-          "title": "Queen & Poet",
-          "artist": "John Michael Howell",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2f325d9c7f688303de3161f0d7a19f19/250x250-000000-80-0-0.jpg",
-          "deezerId": 4005529321,
-          "link": "https://www.deezer.com/track/4005529321"
-        },
-        {
-          "rank": 6,
-          "title": "Ghasb Anny",
-          "artist": "Zap Tharwat",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/46c5fb955577f72bc0c7b82508821655/250x250-000000-80-0-0.jpg",
-          "deezerId": 1975403167,
-          "link": "https://www.deezer.com/track/1975403167"
-        },
-        {
           "rank": 7,
-          "title": "El 2Arib Menak Da3id",
-          "artist": "Fadel Chaker",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/43c8d9c13d0f4d7cbfc5ff9a24354798/250x250-000000-80-0-0.jpg",
-          "deezerId": 2192882017,
-          "link": "https://www.deezer.com/track/2192882017"
+          "title": "REDRED",
+          "artist": "CORTIS",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8205858eac90419715886271bfac6722/250x250-000000-80-0-0.jpg",
+          "deezerId": 3964491871,
+          "link": "https://www.deezer.com/track/3964491871"
         },
         {
           "rank": 8,
-          "title": "Medusa",
-          "artist": "John Michael Howell",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/094067e142d787201d6e70e8127b994c/250x250-000000-80-0-0.jpg",
-          "deezerId": 3995389891,
-          "link": "https://www.deezer.com/track/3995389891"
+          "title": "Abl Mawsalek",
+          "artist": "Muslim",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/1b4e8b067f4fdeff7db55e94604c8fba/250x250-000000-80-0-0.jpg",
+          "deezerId": 1458367922,
+          "link": "https://www.deezer.com/track/1458367922"
         },
         {
           "rank": 9,
-          "title": "Story of a Warrior",
-          "artist": "John Michael Howell",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/63135cc38c85d317f2ade61f4594de05/250x250-000000-80-0-0.jpg",
-          "deezerId": 4057555601,
-          "link": "https://www.deezer.com/track/4057555601"
+          "title": "Doux",
+          "artist": "Dad is playing machine",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/f70c30b5e5b09fd60e78ce95fce8c870/250x250-000000-80-0-0.jpg",
+          "deezerId": 4300389302,
+          "link": "https://www.deezer.com/track/4300389302"
         },
         {
           "rank": 10,
-          "title": "Etnaset",
-          "artist": "Muslim",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/85101214fdf03f259b4e60fce132ac4f/250x250-000000-80-0-0.jpg",
-          "deezerId": 1527318522,
-          "link": "https://www.deezer.com/track/1527318522"
-        },
-        {
-          "rank": 11,
-          "title": "3ereft Eimtek",
-          "artist": "Ahmed Santa",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/f4a38c56455d2a594dc3089a727bbb46/250x250-000000-80-0-0.jpg",
-          "deezerId": 2760375251,
-          "link": "https://www.deezer.com/track/2760375251"
-        },
-        {
-          "rank": 12,
-          "title": "Jamaican (Bam Bam)",
-          "artist": "HUGEL",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/48508c979e3b80e675c0f90ee052a43d/250x250-000000-80-0-0.jpg",
-          "deezerId": 3889748961,
-          "link": "https://www.deezer.com/track/3889748961"
-        },
-        {
-          "rank": 13,
-          "title": "Sun is Shining (Lovelee Dae)",
-          "artist": "Tommy Phillips",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/2f45ad83f4766d4d27f1ab540d6b85d1/250x250-000000-80-0-0.jpg",
-          "deezerId": 4192199712,
-          "link": "https://www.deezer.com/track/4192199712"
-        },
-        {
-          "rank": 14,
           "title": "Mabahrbsh",
           "artist": "Muslim",
           "thumb": "https://cdn-images.dzcdn.net/images/cover/82df56ce84bdd600dd575ff1270bb81e/250x250-000000-80-0-0.jpg",
@@ -122,52 +90,84 @@
           "link": "https://www.deezer.com/track/1679639957"
         },
         {
+          "rank": 11,
+          "title": "Ghasb Anny",
+          "artist": "Zap Tharwat",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/46c5fb955577f72bc0c7b82508821655/250x250-000000-80-0-0.jpg",
+          "deezerId": 1975403167,
+          "link": "https://www.deezer.com/track/1975403167"
+        },
+        {
+          "rank": 12,
+          "title": "عيال جديدة لانج",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5905dc404918bc576ee6b2ee72c1b1fd/250x250-000000-80-0-0.jpg",
+          "deezerId": 4094181321,
+          "link": "https://www.deezer.com/track/4094181321"
+        },
+        {
+          "rank": 13,
+          "title": "Etnaset",
+          "artist": "Muslim",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/85101214fdf03f259b4e60fce132ac4f/250x250-000000-80-0-0.jpg",
+          "deezerId": 1527318522,
+          "link": "https://www.deezer.com/track/1527318522"
+        },
+        {
+          "rank": 14,
+          "title": "Saaban Aleky",
+          "artist": "Muslim",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/57b545922a6cc6674bbcc0f675854050/250x250-000000-80-0-0.jpg",
+          "deezerId": 2183980807,
+          "link": "https://www.deezer.com/track/2183980807"
+        },
+        {
           "rank": 15,
-          "title": "Again (feat. Gucci Mane)",
-          "artist": "Young Thug",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/f2484e8bd7f951eca0abf960c266e4ab/250x250-000000-80-0-0.jpg",
-          "deezerId": 3038485451,
-          "link": "https://www.deezer.com/track/3038485451"
+          "title": "Ana Mn Gherak",
+          "artist": "Bahaa Sultan",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/5cdc5496edd411722a5d0d822582a976/250x250-000000-80-0-0.jpg",
+          "deezerId": 3058420171,
+          "link": "https://www.deezer.com/track/3058420171"
         },
         {
           "rank": 16,
-          "title": "Hero",
-          "artist": "John Michael Howell",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/0b2897e9b4329a1cdf1f6546804b1754/250x250-000000-80-0-0.jpg",
-          "deezerId": 3651568432,
-          "link": "https://www.deezer.com/track/3651568432"
+          "title": "Baoul Aady",
+          "artist": "Tamer Ashour",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/3bbe9245bfbb0da50727684519b464d0/250x250-000000-80-0-0.jpg",
+          "deezerId": 1269270202,
+          "link": "https://www.deezer.com/track/1269270202"
         },
         {
           "rank": 17,
-          "title": "BZNS",
-          "artist": "Mond",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/df250d229497698b044c78ba5726e20f/250x250-000000-80-0-0.jpg",
-          "deezerId": 3775925922,
-          "link": "https://www.deezer.com/track/3775925922"
+          "title": "NUEVAYoL",
+          "artist": "Bad Bunny",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/d98eaccfbb945bdf68241d6de7fe6a49/250x250-000000-80-0-0.jpg",
+          "deezerId": 3171002981,
+          "link": "https://www.deezer.com/track/3171002981"
         },
         {
           "rank": 18,
-          "title": "Omry Maak",
-          "artist": "Angham",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/903669ffb2818115f3bdf64ecad3f9b2/250x250-000000-80-0-0.jpg",
-          "deezerId": 81103266,
-          "link": "https://www.deezer.com/track/81103266"
+          "title": "GO!",
+          "artist": "CORTIS",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8f9f78c1d05272b49f357a7603c6a5eb/250x250-000000-80-0-0.jpg",
+          "deezerId": 3540344801,
+          "link": "https://www.deezer.com/track/3540344801"
         },
         {
           "rank": 19,
-          "title": "Mat Albi",
-          "artist": "George Al Rassi",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/e369d206a67a8158ce957aeb6dd04062/250x250-000000-80-0-0.jpg",
-          "deezerId": 551307902,
-          "link": "https://www.deezer.com/track/551307902"
+          "title": "Akhok Gaybha Mn Elsefr",
+          "artist": "حمو المرشدي",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/79dd58c38a80c67183d2bdcb7e35f3aa/250x250-000000-80-0-0.jpg",
+          "deezerId": 4181963772,
+          "link": "https://www.deezer.com/track/4181963772"
         },
         {
           "rank": 20,
-          "title": "Mahragan Al Habs Wa3er",
-          "artist": "حمو الطيخا",
-          "thumb": "https://cdn-images.dzcdn.net/images/cover/cf3c6204a2b522c645d782a02ff857b3/250x250-000000-80-0-0.jpg",
-          "deezerId": 1072411602,
-          "link": "https://www.deezer.com/track/1072411602"
+          "title": "Men Gheir Kalam",
+          "artist": "TUL8TE",
+          "thumb": "https://cdn-images.dzcdn.net/images/cover/8445af48f681444a7d8c5997ad8cd74a/250x250-000000-80-0-0.jpg",
+          "deezerId": 4199103672,
+          "link": "https://www.deezer.com/track/4199103672"
         }
       ]
     },
@@ -236,17 +236,17 @@
         },
         {
           "rank": 9,
-          "title": "حبيبى امستمع",
-          "artist": "Hamo El Morshedy",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fb/2e/79/fb2e79cd-c96f-1db3-1a3d-1a150abb496f/6221217057012_Artwork.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/%D8%AD%D8%A8%D9%8A%D8%A8%D9%89-%D8%A7%D9%85%D8%B3%D8%AA%D9%85%D8%B9/6832012484?i=6832012486"
-        },
-        {
-          "rank": 10,
           "title": "EL BADLA WEL FOSTAN",
           "artist": "abulhawa",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/69/2b/ba/692bba2d-f8d0-77e3-eb89-4aca6b6a5e86/26UM1IM46191.rgb.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/el-badla-wel-fostan/6833831459?i=6833831462"
+        },
+        {
+          "rank": 10,
+          "title": "حبيبى امستمع",
+          "artist": "Hamo El Morshedy",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/fb/2e/79/fb2e79cd-c96f-1db3-1a3d-1a150abb496f/6221217057012_Artwork.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/%D8%AD%D8%A8%D9%8A%D8%A8%D9%89-%D8%A7%D9%85%D8%B3%D8%AA%D9%85%D8%B9/6832012484?i=6832012486"
         },
         {
           "rank": 11,
@@ -306,17 +306,17 @@
         },
         {
           "rank": 19,
+          "title": "Khalik Maaya",
+          "artist": "Amr Diab",
+          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Features/v4/be/aa/f0/beaaf038-dcc3-7cc3-0537-ff032c32594b/dj.rzniqsgh.jpg/300x300bb.jpg",
+          "link": "https://music.apple.com/eg/album/khalik-maaya/582047931?i=582048008"
+        },
+        {
+          "rank": 20,
           "title": "Wala Ash Wala Kan",
           "artist": "TUL8TE",
           "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2d/2f/73/2d2f739c-eb8c-fd9e-c67a-f7704d3fb66e/cover.jpg/300x300bb.jpg",
           "link": "https://music.apple.com/eg/album/wala-ash-wala-kan/6797576792?i=6797577235"
-        },
-        {
-          "rank": 20,
-          "title": "عيال جديدة لانج",
-          "artist": "Hamo El Morshedy",
-          "thumb": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4c/8f/72/4c8f72b1-5b27-6bf8-2ed3-6a5665e5bdb5/cover.jpg/300x300bb.jpg",
-          "link": "https://music.apple.com/eg/album/%D8%B9%D9%8A%D8%A7%D9%84-%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9-%D9%84%D8%A7%D9%86%D8%AC/6781349237?i=6781349378"
         }
       ]
     }
