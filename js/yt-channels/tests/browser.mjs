@@ -44,7 +44,11 @@ export async function deleteDoc(ref) {
     if (window.__failDelete) throw new Error('fixture delete failure');
     delete window.__db[ref.id]; persist();
 }
-export async function addDoc(ref, value) { const id = 'new-playlist'; await setDoc({ ...ref, id }, value); return { id }; }
+export async function addDoc(ref, value) {
+    const next = window.__db['new-playlist'] ? Object.keys(window.__db).filter(key => key.startsWith('new-playlist')).length + 1 : 1;
+    const id = next === 1 ? 'new-playlist' : 'new-playlist-' + next;
+    await setDoc({ ...ref, id }, value); return { id };
+}
 export async function updateDoc(ref, value) {
     if ('collapsed' in value && window.__failLayout) throw new Error('fixture layout failure');
     await setDoc(ref, { ...window.__db[ref.id], ...value });
@@ -77,6 +81,15 @@ const anotherId = 'UCaaaaaaaaaaaaaaaaaaaaaa';
 window.__blocked = new Set();
 window.__ytInstances = [];
 window.__apiRequests = 0;
+// Deterministic media events for testing queue transitions without autoplay or
+// external audio requests. The production audio and SoundCloud modules run.
+Object.defineProperty(HTMLMediaElement.prototype, 'paused', { get() { return this.__fixturePaused !== false; } });
+HTMLMediaElement.prototype.play = function () { this.__fixturePaused = false; this.dispatchEvent(new Event('playing')); return Promise.resolve(); };
+HTMLMediaElement.prototype.pause = function () { const wasPlaying = !this.paused; this.__fixturePaused = true; if (wasPlaying) this.dispatchEvent(new Event('pause')); };
+window.__scCallbacks = {};
+const scWidget = { bind(event, callback) { window.__scCallbacks[event] = callback; },
+    pause() {}, play() { window.__scCallbacks.play?.(); }, load() { window.__scCallbacks.play?.(); } };
+window.SC = { Widget: Object.assign(() => scWidget, { Events: { PLAY: 'play', PAUSE: 'pause', FINISH: 'finish' } }) };
 window.fetch = async (input, options = {}) => {
     if (!String(input).startsWith('https://www.googleapis.com/youtube/v3/')) return originalFetch(input, options);
     window.__apiRequests++;
@@ -85,6 +98,17 @@ window.fetch = async (input, options = {}) => {
         const id = url.searchParams.get('forHandle') === '@another' ? anotherId : channelId;
         return new Response(JSON.stringify({ items: [{ id, snippet: { title: id === anotherId ? 'Another Channel' : 'Fixture Channel', customUrl: id === anotherId ? '@another' : '@fixture' },
             contentDetails: { relatedPlaylists: { uploads: id === anotherId ? 'UUanother' : 'UUfixture' } } }] }));
+    }
+    if (url.pathname.endsWith('/playlists')) {
+        if (window.__privatePlaylist) return new Response(JSON.stringify({ items: [] }));
+        return new Response(JSON.stringify({ items: [{ id: 'PLfixture_playlist_123', snippet: { title: 'Imported sessions' }, contentDetails: { itemCount: 4 } }] }));
+    }
+    if (url.searchParams.get('playlistId') === 'PLfixture_playlist_123') {
+        if (window.__delayPlaylist) await new Promise(resolve => setTimeout(resolve, 150));
+        const item = (videoId, title) => ({ snippet: { title, videoOwnerChannelTitle: 'Video creator', thumbnails: { medium: { url: '/fixture-thumb.svg' } } }, contentDetails: { videoId } });
+        return new Response(JSON.stringify(url.searchParams.has('pageToken')
+            ? { items: [item('aaaaaaaaaaa', '<b>Second video</b>'), item('ddddddddddd', 'Private video')] }
+            : { items: [item('ccccccccccc', 'First video'), item('bbbbbbbbbbb', 'Blocked video')], nextPageToken: 'second' }));
     }
     if (window.__delayFeed) await new Promise(resolve => setTimeout(resolve, 150));
     if (window.__quotaFailure) return new Response(JSON.stringify({ error: { errors: [{ reason: 'quotaExceeded' }] } }), { status: 403 });
@@ -131,7 +155,7 @@ const clickText = (parent, text) => {
     element.click(); return element;
 };
 const visible = element => !!element && !element.closest('.hidden') && getComputedStyle(element).display !== 'none';
-const dialog = () => document.querySelector('.yc-dialog');
+const dialog = () => document.querySelector('.yc-dialog[aria-labelledby="yc-dialog-title"]');
 const openAddChannel = () => document.querySelector('button[aria-label="Add YouTube channel"]').click();
 const addChannel = async handle => {
     openAddChannel();
@@ -169,6 +193,12 @@ try {
         document.querySelector('#library-toggle').click();
     }
     document.querySelector('#new-pl-btn').click();
+    check(!document.querySelector('#playlist-add-menu').hidden, 'playlist plus opens source choices');
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+    check(document.querySelector('#playlist-add-menu').hidden && document.activeElement.id === 'new-pl-btn' &&
+        (!compactLayout || document.querySelector('#sidebar').hasAttribute('data-open')), 'Escape closes playlist choices and keeps the library available');
+    document.querySelector('#new-pl-btn').click();
+    document.querySelector('#new-empty-pl-btn').click();
     check(document.querySelector('#new-pl-modal').open && document.activeElement.id === 'new-name', 'new playlist uses a native modal with input focus');
     document.querySelector('#new-pl-cancel').click();
     if (compactLayout) document.querySelector('#home-btn').click();
@@ -402,6 +432,128 @@ try {
     await waitFor(() => coordinator.playingIndex() === -1, 'all-unplayable guard');
     check(!coordinator.isPlaying(), 'an entirely unplayable repeated playlist stops');
     window.__blocked.clear();
+
+    const openPlaylistImport = () => {
+        if (compactLayout && document.querySelector('#sidebar').inert) document.querySelector('#library-toggle').click();
+        document.querySelector('#new-pl-btn').click();
+        document.querySelector('#add-yt-playlist-btn').click();
+        document.querySelector('#yt-playlist-url').value = 'https://www.youtube.com/playlist?list=PLfixture_playlist_123';
+    };
+    const importDialog = () => document.querySelector('#yt-playlist-dialog');
+    openPlaylistImport();
+    window.__privatePlaylist = true;
+    clickText(importDialog(), 'Preview');
+    await waitFor(() => importDialog().textContent.includes('unavailable or private'), 'private playlist error');
+    check(importDialog().open && [...importDialog().querySelectorAll('button')].find(button => button.textContent === 'Import').disabled,
+        'private playlist errors keep import disabled without saving');
+    window.__privatePlaylist = false;
+    window.__delayPlaylist = true;
+    clickText(importDialog(), 'Preview');
+    clickText(importDialog(), 'Cancel');
+    await sleep(200);
+    check(!importDialog().open && !window.__db['new-playlist'], 'closing playlist preview cancels late results');
+    window.__delayPlaylist = false;
+    openPlaylistImport();
+    clickText(importDialog(), 'Preview');
+    await waitFor(() => document.querySelector('#yt-playlist-name').value === 'Imported sessions', 'playlist preview');
+    check(importDialog().textContent.includes('3 videos') && importDialog().textContent.includes('1 unavailable'),
+        'preview loads all pages and explains unavailable entries');
+    document.querySelector('#yt-playlist-name').value = 'Evening sessions';
+    window.__failSave = true;
+    clickText(importDialog(), 'Import');
+    await waitFor(() => importDialog().textContent.includes("Couldn't save"), 'playlist save failure');
+    check(importDialog().open && !window.__db['new-playlist'], 'failed playlist imports remain retryable');
+    window.__failSave = false;
+    clickText(importDialog(), 'Import');
+    await waitFor(() => !importDialog().open && document.querySelector('#page-title').textContent === 'Evening sessions', 'playlist imported');
+    check(window.__db['new-playlist'].source === 'youtube' && window.__db['new-playlist'].tracks.length === 3 &&
+        document.querySelector('#track-list').classList.contains('playlist-grid'), 'import creates an account playlist displayed as a thumbnail gallery');
+    check(document.querySelectorAll('#track-list .t-art img').length === 3 &&
+        document.querySelector('#track-list').textContent.includes('<b>Second video</b>') && !document.querySelector('#track-list b'),
+        'playlist cards show thumbnails and render video titles safely');
+    await sleep(30);
+    const galleryBounds = document.querySelector('#track-list').getBoundingClientRect();
+    check([...document.querySelectorAll('#track-list li')].every(card => card.getBoundingClientRect().right <= galleryBounds.right + 1),
+        'playlist gallery fits the viewport');
+    document.querySelector('#track-list .t-art').click();
+    await waitFor(() => coordinator.isPlaying(), 'imported thumbnail playback');
+    check(document.querySelector('.yc-player').open && visible(document.querySelector('.yc-player')) &&
+        !visible(document.querySelector('#discovery-home')), 'playlist thumbnails use the existing player dialog while Home is hidden');
+    check(document.querySelector('.yc-player-meta').textContent.includes('First video') &&
+        document.querySelector('#track-list .playing').textContent.includes('Playing'), 'dialog and selected thumbnail show the current video');
+    clickText(document.querySelector('.yc-player-meta'), 'Pause');
+    check(!coordinator.isPlaying() && document.querySelector('#track-list .playing').textContent.includes('Paused'), 'playlist popup pause synchronizes the gallery');
+    clickText(document.querySelector('.yc-player-meta'), 'Play');
+    await waitFor(() => coordinator.isPlaying(), 'playlist resume');
+    const instancesBeforeAdvance = window.__ytInstances.length;
+    window.__blocked.add('bbbbbbbbbbb');
+    const importedPlayer = window.__ytInstances.at(-1);
+    importedPlayer.options.events.onStateChange({ data: 0, target: importedPlayer });
+    await waitFor(() => coordinator.isPlaying() && coordinator.playingIndex() === 2, 'playlist auto advance past blocked entry');
+    check(document.querySelector('.yc-player-meta').textContent.includes('<b>Second video</b>') &&
+        window.__ytInstances.length === instancesBeforeAdvance, 'playlist auto advance reuses the dialog and skips blocked videos');
+    document.querySelector('.yc-player-head button').click();
+    check(!coordinator.isPlaying() && !document.querySelector('.yc-player').open &&
+        document.activeElement.closest('li')?.dataset.trackIndex === '2', 'closing a playlist video stops playback and restores thumbnail focus');
+    window.__blocked.clear();
+    const addTrack = (url, name) => {
+        document.querySelector('#add-song-btn').click();
+        document.querySelector('#add-url').value = url;
+        document.querySelector('#add-name').value = name;
+        document.querySelector('#add-track-btn').click();
+        document.querySelector('#add-song-done').click();
+    };
+    addTrack(location.origin + '/fixture.wav', 'Manual audio');
+    addTrack('https://soundcloud.com/fixture/song', 'Manual SoundCloud');
+    document.querySelector('[data-track-index="2"] .t-art').click();
+    await waitFor(() => coordinator.isPlaying(), 'YouTube before audio transition');
+    const youtubeBeforeAudio = window.__ytInstances.at(-1);
+    youtubeBeforeAudio.options.events.onStateChange({ data: 0, target: youtubeBeforeAudio });
+    check(coordinator.currentTrack().name === 'Manual audio' && !document.querySelector('.yc-player').open &&
+        !document.querySelector('#audio').hidden, 'mixed playlist advances from the YouTube dialog into the bottom audio player');
+    document.querySelector('#audio').dispatchEvent(new Event('ended'));
+    document.querySelector('#sc-widget').dispatchEvent(new Event('load'));
+    window.__scCallbacks.play();
+    check(coordinator.currentTrack().name === 'Manual SoundCloud' && !document.querySelector('#sc-widget').hidden &&
+        !document.querySelector('.yc-player').open, 'mixed playlist SoundCloud items use the existing SoundCloud player');
+    window.__scCallbacks.finish();
+    await waitFor(() => coordinator.isPlaying() && coordinator.playingIndex() === 0, 'mixed queue loops back to YouTube');
+    check(document.querySelector('.yc-player').open, 'advancing from SoundCloud back to YouTube reopens the shared dialog');
+    document.querySelector('.yc-player-head button').click();
+    document.querySelector('[data-track-index="0"] [data-action="down"]').click();
+    clickText(document.querySelector('#playlist-list'), 'Saved playlist');
+    await waitFor(() => window.__db['new-playlist'].tracks.length === 5, 'pending edits flushed before switching');
+    check(window.__db['new-playlist'].tracks[1].channelTitle === 'Video creator' && window.__db['new-playlist'].tracks[1].thumb &&
+        window.__db.playlist1.tracks.length === 2, 'reordering and immediate switching preserve imported metadata in the correct playlist');
+    check(!document.querySelector('#track-list').classList.contains('playlist-grid') &&
+        document.querySelector('#track-list .t-art img'), 'manual playlists retain editable rows with YouTube thumbnails');
+    document.querySelector('[data-track-index="1"] .t-art').click();
+    await waitFor(() => coordinator.isPlaying(), 'manual YouTube thumbnail');
+    check(document.querySelector('.yc-player').open, 'manually added YouTube entries also use the shared dialog');
+    clickText(document.querySelector('#playlist-list'), 'Evening sessions');
+    check(!coordinator.isPlaying() && !document.querySelector('.yc-player').open &&
+        document.querySelectorAll('#track-list li').length === 5, 'switching playlists stops playback, closes the popup and restores saved edits');
+
+    if (compactLayout && document.querySelector('#sidebar').inert) document.querySelector('#library-toggle').click();
+    document.querySelector('#new-pl-btn').click();
+    document.querySelector('#import-btn').click();
+    const transfer = new DataTransfer();
+    transfer.items.add(new File(['#EXTM3U\\n#EXTINF:-1,Local audio\\n' + location.origin + '/fixture.wav\\n#EXTINF:-1,Imported YouTube video\\nhttps://youtu.be/aaaaaaaaaaa\\n'], 'Imported mix.m3u', { type: 'audio/x-mpegurl' }));
+    document.querySelector('#import-file').files = transfer.files;
+    document.querySelector('#import-file').dispatchEvent(new Event('change'));
+    await waitFor(() => document.querySelector('#page-title').textContent === 'Imported mix', 'M3U import from source menu');
+    check(!document.querySelector('#track-list').classList.contains('playlist-grid') && document.querySelectorAll('#track-list li').length === 2 &&
+        !document.querySelector('#track-list li:first-child img') && document.querySelector('#track-list li:last-child img'),
+        'M3U imports retain editable rows, audio placeholders and YouTube thumbnails');
+    if (compactLayout && document.querySelector('#sidebar').inert) document.querySelector('#library-toggle').click();
+    document.querySelector('#new-pl-btn').click();
+    document.querySelector('#new-empty-pl-btn').click();
+    document.querySelector('#new-name').value = 'Empty collection';
+    document.querySelector('#new-pl-create').click();
+    await waitFor(() => document.querySelector('#page-title').textContent === 'Empty collection', 'empty playlist creation');
+    check(document.querySelector('#track-list .empty') && !document.querySelector('#track-list').classList.contains('playlist-grid'),
+        'creating an empty playlist still opens the manual editor');
+
     document.querySelector('#brand').click();
     document.querySelector('[data-video-id="aaaaaaaaaaa"]').click();
     await waitFor(() => coordinator.isPlaying(), 'channel playback after playlist');
@@ -438,12 +590,18 @@ try {
     await waitFor(() => document.querySelectorAll('.yc-card').length === 2, 'quota retry');
     window.__delayFeed = true;
     clickText(document.querySelector('.yc-channel'), 'Refresh');
+    openPlaylistImport();
+    window.__delayPlaylist = true;
+    clickText(importDialog(), 'Preview');
     await window.__authCallback(null);
     await window.__authCallback({ uid: 'user2', email: 'second@example.test' });
     await sleep(200);
     check(document.querySelectorAll('.yc-channel').length === 0, "late responses cannot expose another account's channels");
+    check(!importDialog().open && document.querySelectorAll('#playlist-list .pl-name').length === 0,
+        'account changes cancel playlist previews and clear the previous account library');
     await window.__authCallback(null);
     window.__delayFeed = false;
+    window.__delayPlaylist = false;
     await window.__authCallback({ uid: 'user1', email: 'first@example.test' });
     await waitFor(() => document.querySelectorAll('.yc-card').length === 2, 'saved channels restored');
     check(document.querySelector('.yc-channel').textContent.includes('Another Channel'), 'saved channels return after sign-out and sign-in');
@@ -470,6 +628,14 @@ try {
             if (document.documentElement.dataset.theme !== screenshotAppearance) themeToggle.click();
         }
         await waitLayout();
+        const playlistScreenshot = ${JSON.stringify(process.env.YT_PLAYLISTS_SCREENSHOT_VIEW || '')};
+        if (playlistScreenshot) {
+            clickText(document.querySelector('#playlist-list'), 'Evening sessions');
+            if (playlistScreenshot === 'player') {
+                document.querySelector('#track-list .t-art').click();
+                await waitFor(() => coordinator.isPlaying(), 'playlist screenshot playback');
+            }
+        }
     }
     check(window.__pageErrors.length === 0, 'no uncaught page errors: ' + window.__pageErrors.join(', '));
     const result = document.createElement('pre'); result.id = 'test-result';
@@ -523,6 +689,8 @@ const server = createServer(async (request, response) => {
         const extension = extname(file);
         response.setHeader("Content-Type", { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml" }[extension] || "application/octet-stream");
         if (extension === ".js") body = body.toString().replaceAll("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js", "/__firestore.js");
+        if (url.pathname === "/js/app.js") body = body.toString().replaceAll("https://i.ytimg.com/vi/", "/fixture-thumb.svg?video=");
+        if (url.pathname === "/js/players/soundcloud.js") body = body.toString().replaceAll("https://w.soundcloud.com/player/?url=", "/__soundcloud?url=");
         if (url.pathname === "/js/yt-channels/config.js") body = 'export const youtubeChannelsConfig = { apiKey: "fixture-key", videoLimit: 12, cacheMs: 600000 };';
         if (url.pathname === "/") body = body.toString().replace(/<script[^>]*>[\s\S]*?<\/script>/g, "")
             .replace("</body>", '<script type="module" src="/__bootstrap.js"></script></body>');

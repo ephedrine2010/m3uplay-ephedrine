@@ -1,6 +1,25 @@
 // Public YouTube metadata only. Playback goes through the existing iframe engine.
 const CHANNEL_ID = /^UC[\w-]{22}$/;
 const VIDEO_ID = /^[\w-]{11}$/;
+const PLAYLIST_ID = /^[\w-]{10,100}$/;
+
+export function parsePlaylistInput(value) {
+    const input = String(value || "").trim();
+    let url;
+    try { url = new URL(/^https?:\/\//i.test(input) ? input : `https://${input}`); }
+    catch { throw new Error("Paste a YouTube playlist link."); }
+    if (!["https:", "http:"].includes(url.protocol) ||
+        !["youtube.com", "www.youtube.com", "m.youtube.com", "music.youtube.com", "youtu.be", "www.youtu.be"].includes(url.hostname) ||
+        url.username || url.password || url.port) {
+        throw new Error("Paste a YouTube playlist link containing list=, rather than a single video link.");
+    }
+    const id = url.searchParams.get("list");
+    if (["WL", "HL"].includes(id) || (id || "").startsWith("RD")) {
+        throw new Error("Use a regular YouTube playlist. Mixes, Watch later and history cannot be imported.");
+    }
+    if (!PLAYLIST_ID.test(id || "")) throw new Error("Paste a YouTube playlist link containing list=, rather than a single video link.");
+    return id;
+}
 
 export function parseChannelInput(value) {
     const input = String(value || "").trim();
@@ -28,9 +47,10 @@ export function createYouTubeApi(config, fetcher = (...args) => fetch(...args)) 
     const cache = new Map();
     const limit = Math.max(1, Math.min(50, Number(config.videoLimit) || 12));
 
-    async function request(resource, params, signal) {
+    async function request(resource, params, signal, context = "channel") {
         const apiKey = String(config.apiKey || "").trim();
-        if (!apiKey) throw new Error("YouTube channel lookup has not been set up by the app owner yet.");
+        if (!apiKey) throw new Error("YouTube lookup has not been set up by the app owner yet.");
+        if (signal?.aborted) throw new DOMException("Cancelled", "AbortError");
         const query = new URLSearchParams({ ...params, key: apiKey });
         const controller = new AbortController();
         const abort = () => controller.abort();
@@ -59,6 +79,9 @@ export function createYouTubeApi(config, fetcher = (...args) => fetch(...args)) 
                 }
                 if (hasReason("accessNotConfigured", "SERVICE_DISABLED", "API_KEY_SERVICE_BLOCKED")) {
                     throw new Error("The app's YouTube API access is not enabled or allowed. Please contact the app owner.");
+                }
+                if (context === "playlist" && (response.status === 404 || hasReason("playlistNotFound", "playlistItemsNotAccessible", "playlistOperationUnsupported"))) {
+                    throw new Error("This playlist is unavailable or private. Check the link and use a public playlist.");
                 }
                 if (response.status === 404) throw new Error("This channel's videos are unavailable.");
                 throw new Error("Couldn't load YouTube right now. Please try again later.");
@@ -118,5 +141,48 @@ export function createYouTubeApi(config, fetcher = (...args) => fetch(...args)) 
         return videos;
     }
 
-    return { resolveChannel, recentVideos, clearCache: () => cache.clear() };
+    // Import every page in playlist order. Repeated videos are intentional entries.
+    async function resolvePlaylist(input, { signal } = {}) {
+        const playlistId = parsePlaylistInput(input);
+        const data = await request("playlists", { part: "snippet,contentDetails", id: playlistId }, signal, "playlist");
+        const playlist = data.items?.[0];
+        if (!playlist) throw new Error("This playlist is unavailable or private. Check the link and use a public playlist.");
+        const tooLarge = () => new Error("Import supports playlists with up to 500 videos. Choose a smaller playlist.");
+        if (playlist.contentDetails?.itemCount > 500) throw tooLarge();
+        const tracks = [];
+        let pageToken = "";
+        let count = 0;
+        const tokens = new Set();
+        do {
+            const page = await request("playlistItems", {
+                part: "snippet,contentDetails", playlistId, maxResults: "50", ...(pageToken ? { pageToken } : {})
+            }, signal, "playlist");
+            for (const item of page.items || []) {
+                if (++count > 500) throw tooLarge();
+                const snippet = item.snippet || {};
+                const videoId = item.contentDetails?.videoId || snippet.resourceId?.videoId;
+                if (!VIDEO_ID.test(videoId || "") || ["Private video", "Deleted video"].includes(snippet.title)) continue;
+                tracks.push({
+                    name: snippet.title || "YouTube video",
+                    url: `https://www.youtube.com/watch?v=${videoId}`,
+                    thumb: snippet.thumbnails?.medium?.url || snippet.thumbnails?.default?.url || "",
+                    channelTitle: snippet.videoOwnerChannelTitle || ""
+                });
+            }
+            pageToken = page.nextPageToken || "";
+            if (pageToken && tokens.has(pageToken)) throw new Error("Couldn't load the complete playlist. Please try again.");
+            tokens.add(pageToken);
+        } while (pageToken);
+        if (!tracks.length) throw new Error("This playlist has no available videos to import.");
+        // Leave room below Firestore's document limit, including field overhead.
+        if (new TextEncoder().encode(JSON.stringify(tracks)).length > 750000) throw tooLarge();
+        return {
+            playlistId, title: playlist.snippet?.title || "YouTube playlist",
+            url: `https://www.youtube.com/playlist?list=${playlistId}`,
+            thumb: playlist.snippet?.thumbnails?.medium?.url || tracks[0].thumb,
+            tracks, skipped: count - tracks.length
+        };
+    }
+
+    return { resolveChannel, recentVideos, resolvePlaylist, clearCache: () => cache.clear() };
 }

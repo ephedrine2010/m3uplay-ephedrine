@@ -24,6 +24,7 @@ let notify = () => {};  // surfaces a short user-facing message (a status toast)
 let errorSkips = 0;     // consecutive unplayable tracks auto-skipped in a row
 let oneOff = false;     // true while playing a single ad-hoc track (trends board)
 let onPlaybackError = () => {};
+let beforePlay = () => {};
 
 // Events every engine reports back through. The coordinator owns the queue, so
 // auto-advance, the auto-skip guard and the change notifications all live here.
@@ -57,10 +58,11 @@ const callbacks = {
 export function setRepeat(on) { repeat = !!on; }
 export function getRepeat() { return repeat; }
 
-export function initPlayer(audioElement, scIframe, ytWidget, changeCb, notifyCb, errorCb) {
+export function initPlayer(audioElement, scIframe, ytWidget, changeCb, notifyCb, errorCb, beforePlayCb) {
     onChange = changeCb || (() => {});
     notify = notifyCb || (() => {});
     onPlaybackError = errorCb || (() => {});
+    beforePlay = beforePlayCb || (() => {});
     audio.init(audioElement, callbacks);
     soundcloud.init(scIframe, callbacks);
     youtube.init(ytWidget, callbacks);
@@ -93,6 +95,7 @@ export function currentTrack() { return index >= 0 ? queue[index] : null; }
 export function playAt(i) {
     if (i < 0 || i >= queue.length) return;
     index = i;
+    beforePlay(queue[i]);
     const url = queue[i].url;
     const engine = engines.find(e => e.matches(url)) || audio;
     _activate(engine);

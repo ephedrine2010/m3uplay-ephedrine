@@ -68,16 +68,21 @@
                 <div id="sidebar-head">
                     <h2>Playlists</h2>
                     <span class="spacer"></span>
-                    <button id="new-pl-btn" class="icon-btn" title="New playlist" aria-label="New playlist" data-icon="plus"></button>
+                    <button id="new-pl-btn" class="icon-btn" title="Add playlist" aria-label="Add playlist" aria-expanded="false" aria-controls="playlist-add-menu" data-icon="plus"></button>
+                    <div id="playlist-add-menu" class="playlist-add-menu" hidden>
+                        <button id="new-empty-pl-btn" type="button" data-icon="plus" data-label="Create empty playlist">Create empty playlist</button>
+                        <button id="add-yt-playlist-btn" type="button" data-icon="play" data-label="Add YouTube playlist">Add YouTube playlist</button>
+                        <button id="import-btn" type="button" data-icon="upload" data-label="Import M3U file">Import M3U file</button>
+                    </div>
                 </div>
                 <ul id="playlist-list"></ul>
-                <button id="import-btn" class="sidebar-import" data-icon="upload" data-label="Import playlist">Import playlist</button>
                 <input id="import-file" type="file" accept=".m3u,.m3u8,audio/x-mpegurl,audio/mpegurl" class="hidden" />
                 <div class="sidebar-account"><span class="account-avatar" id="account-avatar" aria-hidden="true">M</span><div class="account-copy"><strong>Your library</strong><span id="user-email"></span></div><button id="signout-btn" class="icon-btn" title="Sign out" aria-label="Sign out" data-icon="signout"></button></div>
             </aside>
 
             <!-- Right: tracks of selected playlist -->
             <section id="content">
+                <p id="playlist-info" class="hidden"></p>
                 <ul id="track-list"></ul>
             </section>
         </main>

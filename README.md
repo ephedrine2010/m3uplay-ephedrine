@@ -6,10 +6,10 @@ and download any playlist as an `.m3u` file. Designed for an ~8″ touch screen.
 
 ```
 ┌─ Google login ─────────────────────────────────────────┐
-│  PLAYLISTS │            TRACKS              [Save][⬇]    │
-│  (left)    │   ▶ 1. Song A                              │
-│  chill     │     2. Song B                              │
-│  + Create  │     + Add track                            │
+│ PLAYLISTS +│ Selected playlist   [Play all][Add][⬇]     │
+│ chill     │ Thumbnail gallery or editable track rows  │
+│ favourites│ YouTube selection opens the player popup │
+│           │                                          │
 ├────────────┴─────────────────────────────────────────── ┤
 │  ⏮   ▶ Song A   ──●──── 1:23 / 4:05   🔊    ⏭           │
 └──────────────────────────────────────────────────────── ┘
@@ -19,11 +19,14 @@ and download any playlist as an `.m3u` file. Designed for an ~8″ touch screen.
 
 - **Auth:** Firebase Authentication (Google sign-in).
 - **Data:** Firestore — each playlist is a document:
-  `playlists/{id} = { owner, name, tracks: [{name, url}], updatedAt }`.
-  No files, no Storage, no CORS, no tokens.
-- **Playback:** a built-in player that handles two URL types automatically:
+  `playlists/{id} = { owner, name, tracks: [{name, url, thumb?, channelTitle?}], updatedAt }`.
+  Imported YouTube lists also retain optional source metadata. M3U import and
+  download happen in the browser; Firebase Storage is not used.
+- **Playback:** a built-in player that handles three URL types automatically:
   - **Direct audio URLs** (`.mp3`, streams, etc.) — played via the native HTML5 `<audio>` element.
   - **SoundCloud links** (`soundcloud.com/…`) — played via the official SoundCloud Widget iframe (no API key needed, works on any public track). The widget appears inline in the player bar.
+  - **YouTube links** — played in the shared video popup through the YouTube
+    IFrame API. Importing a playlist uses the same browser API key as channel lookup.
 - **Download:** generates an `.m3u` file in the browser from the current tracks
   (open it in VLC/AIMP/etc. as a local file — local files expand to all tracks).
 
@@ -37,7 +40,10 @@ and download any playlist as an `.m3u` file. Designed for an ~8″ touch screen.
 | `js/firebase.js` | Initializes Firebase once |
 | `js/auth.js` | Google sign-in |
 | `js/firestore.js` | Playlist CRUD in Firestore |
-| `js/player.js` | Two-mode player: `<audio>` for direct URLs, SC Widget iframe for SoundCloud links |
+| `js/player.js` | Queue coordinator for direct audio, SoundCloud and YouTube |
+| `js/yt-playlists/` | YouTube playlist import dialog and [feature guide](js/yt-playlists/README.md) |
+| `js/yt-channels/` | Personal channels, shared YouTube metadata access and video popup |
+| `css/apple.css` | Current appearance, library menu, artwork rows and thumbnail grid |
 | `js/m3u.js` | Serialize tracks to `.m3u` (for Download) |
 | `js/app.js` | UI wiring |
 
@@ -81,6 +87,32 @@ service cloud.firestore {
   config key empty. See the [channel setup guide](js/yt-channels/README.md).
 
 ## Notes
+
+- **YouTube playlists:** use **Playlists → + → Add YouTube playlist**, paste a
+  public playlist link, preview its videos, optionally rename it, and import.
+  Imports create editable copies in your account; later changes on YouTube do
+  not update them. Up to 500 playlist entries are supported, with unavailable
+  entries skipped and reported before import. Mixes, Watch later and history
+  are not supported. The existing `YT_BROWSER_API_KEY` setup is shared with
+  channel lookup; no additional user account permissions are requested.
+- Imported YouTube playlists use a responsive thumbnail grid. Manual and M3U
+  playlists retain editable rows with YouTube thumbnails, supplied artwork, or
+  a music placeholder. Adding, reordering and removing tracks preserves the
+  imported artwork and creator names.
+- Selecting any YouTube track opens the shared YouTube player dialog, including
+  tracks added manually. Playlist playback advances automatically and retains
+  the existing repeat behaviour. Mixed queues switch to the bottom audio or
+  SoundCloud player for those items, then reopen the dialog for YouTube videos.
+  Closing the dialog stops playback; switching playlists also stops playback.
+- Verification: `node --test js/yt-channels/tests/*.test.mjs`; for the browser
+  integration suite, set `CHROME_PATH` to a Chromium executable and run
+  `node js/yt-channels/tests/browser.mjs`. Fixtures exercise imports, pagination,
+  save failures, thumbnails, dialog playback, mixed queues and account isolation.
+
+See the [playlist feature guide](js/yt-playlists/README.md) for import formats,
+limits, storage, playback details and screenshot options. Developer references
+are [ARCHITECTURE.md](documents/ARCHITECTURE.md),
+[APPLE_UI.md](documents/APPLE_UI.md) and [CLAUDE.md](CLAUDE.md).
 
 - The built-in player plays whatever the **browser** supports (mp3/m4a/ogg —
   mp3 is universal). It plays only while the tab is open.

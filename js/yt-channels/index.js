@@ -41,10 +41,12 @@ export function initYouTubeChannels({ mount, controls, deps }) {
     });
     const head = el("div", { class: "yc-head" }, [addButton]);
     const root = el("section", { id: "yt-channels", class: "yc-section", "aria-label": "YouTube channels" }, [
-        ...(controls ? [] : [head]), panel, status, retry, rows
+        ...(controls ? [] : [head]), status, retry, rows
     ]);
     controls?.append(head);
     mount.append(root);
+    // Shared by channel cards and saved playlists, including when Home is hidden.
+    document.body.append(panel);
     const dialog = createChannelDialog({ mount: document.body, resolveChannel: deps.resolveChannel,
         onAdd: deps.onAdd, exists: deps.exists });
     addButton.addEventListener("click", dialog.open);

@@ -7,7 +7,7 @@ import { watchAuth, signIn, signOutUser } from "./auth.js";
 import {
     listPlaylists, createPlaylist, savePlaylistTracks, deletePlaylist
 } from "./firestore.js";
-import { serializeM3U, parseM3U, nameFromUrl, extractUrl } from "./m3u.js";
+import { serializeM3U, parseM3U, nameFromUrl, extractUrl, youTubeId } from "./m3u.js";
 import {
     initPlayer, setQueue, playAt, playingIndex, setRepeat,
     pause, resume, isPlaying, playOneOff, isOneOff, currentTrack, stop, setYouTubeHost
@@ -19,6 +19,7 @@ import { createYouTubeApi } from "./yt-channels/api.js";
 import { youtubeChannelsConfig } from "./yt-channels/config.js";
 import { listChannels, saveChannel, deleteChannel, saveChannelOrder, saveChannelCollapsed } from "./yt-channels/storage.js";
 import { arrangeChannels } from "./yt-channels/preferences.js";
+import { createPlaylistImportDialog } from "./yt-playlists/dialog.js";
 import { icon, iconText } from "./icons.js";
 import { initUI, closeLibrary } from "./ui.js";
 
@@ -36,12 +37,15 @@ const state = {
     channelsError: "",
     channelPreferencesSaving: false,
     channelVideo: null,
+    playlistVideo: null,
+    playlistReturnIndex: null,
     channelPlaybackError: ""
 };
 const channelApi = createYouTubeApi(youtubeChannelsConfig);
 let channelView = null;
 let channelRequest = null;
 let removingChannel = false;
+let playlistImport = null;
 
 // ---- DOM helpers -----------------------------------------------------------
 const $ = sel => document.querySelector(sel);
@@ -67,6 +71,14 @@ watchAuth(async (user) => {
             channelApi.clearCache();
             closeChannelPlayer();
             channelView?.closeDialog();
+            playlistImport?.close();
+            clearTimeout(saveTimer);
+            saveTimer = null;
+            stop();
+            state.playlists = [];
+            state.current = null;
+            state.tracks = [];
+            renderPlaylists();
             state.channels = [];
             state.channelFeeds = {};
             state.channelPreferencesSaving = false;
@@ -94,6 +106,9 @@ watchAuth(async (user) => {
         closeChannelPlayer();
         stop();
         channelView?.closeDialog();
+        playlistImport?.close();
+        clearTimeout(saveTimer);
+        saveTimer = null;
         renderYouTubeChannels();
         resolveConfirm(false);
         closeLibrary();
@@ -139,7 +154,7 @@ function renderPlaylists() {
         const name = document.createElement("button");
         name.type = "button";
         name.className = "pl-name";
-        iconText(name, "list", pl.name);
+        iconText(name, pl.source === "youtube" ? "play" : "list", pl.name);
         if (state.current?.id === pl.id) name.setAttribute("aria-current", "page");
         name.addEventListener("click", () => selectPlaylist(pl));
 
@@ -178,6 +193,28 @@ confirmModal.addEventListener("close", () => { if (!confirmModal.open && confirm
 
 // ---- New-playlist popup ----------------------------------------------------
 const newPlModal = $("#new-pl-modal");
+const playlistMenu = $("#playlist-add-menu");
+function closePlaylistMenu(restoreFocus = false) {
+    playlistMenu.hidden = true;
+    $("#new-pl-btn").setAttribute("aria-expanded", "false");
+    if (restoreFocus) $("#new-pl-btn").focus();
+}
+$("#new-pl-btn").addEventListener("click", () => {
+    playlistMenu.hidden = !playlistMenu.hidden;
+    $("#new-pl-btn").setAttribute("aria-expanded", String(!playlistMenu.hidden));
+    if (!playlistMenu.hidden) playlistMenu.querySelector("button").focus();
+});
+playlistMenu.addEventListener("click", () => closePlaylistMenu());
+document.addEventListener("click", event => {
+    if (!$("#sidebar-head").contains(event.target)) closePlaylistMenu();
+});
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !playlistMenu.hidden) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        closePlaylistMenu(true);
+    }
+}, true);
 function openNewPlaylist() {
     newPlModal.showModal();
     const input = $("#new-name");
@@ -201,7 +238,7 @@ async function createPlaylistFromModal() {
     }
 }
 
-$("#new-pl-btn").addEventListener("click", openNewPlaylist);
+$("#new-empty-pl-btn").addEventListener("click", openNewPlaylist);
 $("#new-pl-cancel").addEventListener("click", closeNewPlaylist);
 $("#new-pl-create").addEventListener("click", createPlaylistFromModal);
 newPlModal.addEventListener("click", (e) => { if (e.target === newPlModal) closeNewPlaylist(); });
@@ -210,11 +247,37 @@ $("#new-name").addEventListener("keydown", (e) => {
     else if (e.key === "Escape") closeNewPlaylist();
 });
 
+playlistImport = createPlaylistImportDialog({
+    mount: document.body,
+    resolvePlaylist: channelApi.resolvePlaylist,
+    onImport: async playlist => {
+        const uid = state.uid;
+        if (!uid) throw new Error("Sign in before importing a playlist.");
+        let id;
+        try {
+            id = await createPlaylist(uid, playlist.title, playlist.tracks, {
+                source: "youtube", sourceUrl: playlist.url, youtubePlaylistId: playlist.playlistId
+            });
+        } catch { throw new Error("Couldn't save this playlist. Please try again."); }
+        if (state.uid !== uid) return;
+        const saved = { id, name: playlist.title, tracks: playlist.tracks, source: "youtube", sourceUrl: playlist.url, youtubePlaylistId: playlist.playlistId };
+        state.playlists.push(saved);
+        state.playlists.sort((a, b) => a.name.localeCompare(b.name));
+        selectPlaylist(saved);
+        setStatus(`Imported ${playlist.tracks.length} videos`);
+    }
+});
+$("#add-yt-playlist-btn").addEventListener("click", () => playlistImport.open());
+
 async function removePlaylist(pl) {
     if (!await askConfirm(`Delete playlist "${pl.name}"?`, "Delete")) return;
     try {
         await deletePlaylist(pl.id);
         if (state.current && state.current.id === pl.id) {
+            clearTimeout(saveTimer);
+            saveTimer = null;
+            closeChannelPlayer();
+            stop();
             state.current = null;
             state.tracks = [];
             hide("#play-all-btn"); hide("#add-song-btn"); hide("#download-btn");
@@ -231,10 +294,11 @@ async function removePlaylist(pl) {
 //  TRACKS (right pane)
 // ============================================================================
 function selectPlaylist(pl) {
+    flushPendingSave();
     closeChannelPlayer();
-    if (isOneOff()) stop();   // leaving discovery: stop any trends preview
-    state.current = { id: pl.id, name: pl.name };
-    state.tracks = (pl.tracks || []).map(t => ({ name: t.name || "", url: t.url || "" }));
+    stop();
+    state.current = { id: pl.id, name: pl.name, source: pl.source || "" };
+    state.tracks = (pl.tracks || []).map(t => ({ ...t, name: t.name || "", url: t.url || "" }));
     show("#play-all-btn"); show("#add-song-btn"); show("#download-btn");
     setQueue(state.tracks);
     updatePlayAllBtn();
@@ -245,7 +309,12 @@ function selectPlaylist(pl) {
 
 function renderTracks() {
     const ul = $("#track-list");
+    const active = ul.contains(document.activeElement) ? document.activeElement : null;
+    const focused = active ? { index: active.closest("li")?.dataset.trackIndex, action: active.dataset.action } : null;
     ul.innerHTML = "";
+    const gallery = state.current?.source === "youtube";
+    ul.classList.toggle("playlist-grid", gallery);
+    $("#playlist-info").textContent = state.current ? `${state.tracks.length} tracks${gallery ? " · Imported from YouTube · Editable copy" : ""}` : "";
     if (!state.current) {
         ul.innerHTML = `<li class="empty">Pick a playlist on the left</li>`;
         return;
@@ -257,14 +326,32 @@ function renderTracks() {
     const playing = playingIndex();
     state.tracks.forEach((t, i) => {
         const li = document.createElement("li");
+        li.dataset.trackIndex = i;
         if (i === playing) li.classList.add("playing");
 
         const isCurrent = i === playing;
         const playingNow = isCurrent && isPlaying();
 
         const playBtn = document.createElement("button");
-        playBtn.className = "t-play" + (isCurrent ? " is-playing" : "");
-        playBtn.append(icon(playingNow ? "pause" : "play"));
+        playBtn.type = "button";
+        playBtn.dataset.action = "play";
+        playBtn.className = "t-play t-art" + (isCurrent ? " is-playing" : "");
+        const videoId = youTubeId(t.url);
+        const validVideoId = /^[\w-]{11}$/.test(videoId || "");
+        const artwork = /^https:\/\//i.test(t.thumb || "") ? t.thumb : validVideoId ? `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg` : "";
+        const fallback = icon("music");
+        fallback.classList.add("t-art-fallback");
+        playBtn.append(fallback);
+        if (artwork) {
+            const image = document.createElement("img");
+            image.src = artwork; image.alt = ""; image.loading = "lazy";
+            image.addEventListener("error", () => image.remove(), { once: true });
+            playBtn.append(image);
+        }
+        const badge = document.createElement("span");
+        badge.className = "t-play-badge";
+        iconText(badge, playingNow ? "pause" : "play", isCurrent ? (playingNow ? "Playing" : "Paused") : "");
+        playBtn.append(badge);
         playBtn.title = playingNow ? "Pause" : "Play";
         playBtn.setAttribute("aria-label", `${playingNow ? "Pause" : "Play"} ${t.name || nameFromUrl(t.url)}`);
         playBtn.addEventListener("click", () => toggleTrack(i));
@@ -272,27 +359,38 @@ function renderTracks() {
         // Read-only track name (URL is hidden, kept in data). Tap to play/pause.
         const nameEl = document.createElement("button");
         nameEl.type = "button";
+        nameEl.dataset.action = "name";
         nameEl.className = "t-name-text";
-        nameEl.textContent = t.name || nameFromUrl(t.url);
+        const title = document.createElement("strong");
+        title.textContent = t.name || nameFromUrl(t.url);
+        const source = document.createElement("span");
+        source.className = "t-source";
+        source.textContent = t.channelTitle || (validVideoId ? "YouTube" : /soundcloud\.com\//i.test(t.url) ? "SoundCloud" : "Audio");
+        nameEl.append(title, source);
         nameEl.title = t.url || "";
         nameEl.addEventListener("click", () => toggleTrack(i));
 
         const up = document.createElement("button");
         up.className = "t-btn"; up.append(icon("up")); up.disabled = i === 0;
+        up.dataset.action = "up";
         up.title = "Move up"; up.setAttribute("aria-label", `Move ${t.name || "track"} up`);
         up.addEventListener("click", () => moveTrack(i, -1));
 
         const down = document.createElement("button");
         down.className = "t-btn"; down.append(icon("down")); down.disabled = i === state.tracks.length - 1;
+        down.dataset.action = "down";
         down.title = "Move down"; down.setAttribute("aria-label", `Move ${t.name || "track"} down`);
         down.addEventListener("click", () => moveTrack(i, +1));
 
         const del = document.createElement("button");
         del.className = "del"; del.append(icon("x")); del.title = "Remove";
+        del.dataset.action = "remove";
         del.setAttribute("aria-label", `Remove ${t.name || "track"}`);
         del.addEventListener("click", async () => {
             const ok = await askConfirm(`Remove "${t.name || nameFromUrl(t.url)}"?`);
             if (!ok) return;
+            closeChannelPlayer();
+            stop();
             state.tracks.splice(i, 1);
             setQueue(state.tracks);
             renderTracks();
@@ -302,11 +400,16 @@ function renderTracks() {
         li.append(playBtn, nameEl, up, down, del);
         ul.appendChild(li);
     });
+    if (focused?.index != null && focused.action) {
+        ul.querySelector(`[data-track-index="${focused.index}"] [data-action="${focused.action}"]`)?.focus({ preventScroll: true });
+    }
 }
 
 function moveTrack(i, dir) {
     const j = i + dir;
     if (j < 0 || j >= state.tracks.length) return;
+    closeChannelPlayer();
+    stop();
     [state.tracks[i], state.tracks[j]] = [state.tracks[j], state.tracks[i]];
     setQueue(state.tracks);
     renderTracks();
@@ -367,7 +470,15 @@ let saveTimer = null;
 function cleanTracks() {
     return state.tracks
         .filter(t => (t.url || "").trim() !== "")
-        .map(t => ({ name: (t.name || "").trim() || nameFromUrl(t.url), url: t.url.trim() }));
+        .map(t => ({
+            name: (t.name || "").trim() || nameFromUrl(t.url), url: t.url.trim(),
+            ...(t.thumb ? { thumb: t.thumb } : {}),
+            ...(t.channelTitle ? { channelTitle: t.channelTitle } : {})
+        }));
+}
+
+function flushPendingSave() {
+    if (saveTimer) void persist(false);
 }
 
 // Debounced auto-save — fires ~1s after the last edit. Does NOT re-render, so
@@ -375,6 +486,8 @@ function cleanTracks() {
 function scheduleSave() {
     if (!state.current) return;
     clearTimeout(saveTimer);
+    const cached = state.playlists.find(item => item.id === state.current.id);
+    if (cached) cached.tracks = cleanTracks();
     setStatus("Saving…");
     saveTimer = setTimeout(() => persist(false), 1000);
 }
@@ -382,15 +495,19 @@ function scheduleSave() {
 async function persist(reRender) {
     if (!state.current) return;
     clearTimeout(saveTimer);
+    saveTimer = null;
+    const id = state.current.id;
+    const uid = state.uid;
     const cleaned = cleanTracks();
+    const cached = state.playlists.find(item => item.id === id);
+    if (cached) cached.tracks = cleaned;
     try {
-        await savePlaylistTracks(state.current.id, cleaned);
-        const cached = state.playlists.find(p => p.id === state.current.id);
-        if (cached) cached.tracks = cleaned;
-        if (reRender) { state.tracks = cleaned; setQueue(state.tracks); renderTracks(); }
+        await savePlaylistTracks(id, cleaned);
+        if (state.uid !== uid) return;
+        if (reRender && state.current?.id === id) { state.tracks = cleaned; setQueue(state.tracks); renderTracks(); }
         setStatus("Saved ✓");
     } catch (e) {
-        setStatus(e.message, true);
+        if (state.uid === uid) setStatus(e.message, true);
     }
 }
 
@@ -460,7 +577,7 @@ initPlayer($("#audio"), $("#sc-widget"), $("#yt-widget"), reflectPlayState, (msg
         state.channelPlaybackError = error.message;
         renderYouTubeChannels();
     }
-});
+}, prepareTrackPlayback);
 setRepeat(true); // looping is always on (no toggle)
 
 // ============================================================================
@@ -503,6 +620,7 @@ const trendsBoard = initTrendsBoard({
 });
 
 function showBoard() {
+    hide("#playlist-info");
     $("#page-title").textContent = "Home";
     $("#home-btn").setAttribute("aria-current", "page");
     show("#home-actions");
@@ -512,6 +630,7 @@ function showBoard() {
     trendsBoard.show();
 }
 function showTracks() {
+    show("#playlist-info");
     $("#page-title").textContent = state.current?.name || "Playlist";
     $("#home-btn").removeAttribute("aria-current");
     hide("#home-actions");
@@ -528,7 +647,7 @@ function renderYouTubeChannels() {
         loading: state.channelsLoading, error: state.channelsError,
         preferencesSaving: state.channelPreferencesSaving,
         configured: !!youtubeChannelsConfig.apiKey.trim(),
-        video: state.channelVideo, playing: isPlaying(), playbackError: state.channelPlaybackError
+        video: state.playlistVideo || state.channelVideo, playing: isPlaying(), playbackError: state.channelPlaybackError
     });
 }
 
@@ -661,6 +780,7 @@ function collapseYouTubeChannel(channel) {
 }
 
 function playChannelVideo(video) {
+    state.playlistVideo = null;
     state.channelVideo = video;
     state.channelPlaybackError = "";
     setYouTubeHost(channelView.playerSlot);
@@ -669,16 +789,25 @@ function playChannelVideo(video) {
 }
 
 function closeChannelPlayer() {
-    if (!state.channelVideo) return;
+    if (!state.channelVideo && !state.playlistVideo) return;
+    const returnIndex = state.playlistReturnIndex;
     state.channelVideo = null;
+    state.playlistVideo = null;
+    state.playlistReturnIndex = null;
     state.channelPlaybackError = "";
     stop();
     setYouTubeHost($("#player-bar"));
     $("#yt-widget").hidden = true;
     renderYouTubeChannels();
+    if (returnIndex != null) $("#track-list").querySelector(`[data-track-index="${returnIndex}"] .t-play`)?.focus({ preventScroll: true });
 }
 
 function toggleChannelPlayback() {
+    if (state.playlistVideo) {
+        if (isPlaying()) pause(); else resume();
+        reflectPlayState();
+        return;
+    }
     if (!state.channelVideo) return;
     if (!currentTrack() || state.channelPlaybackError) playChannelVideo(state.channelVideo);
     else if (isPlaying()) pause();
@@ -687,6 +816,9 @@ function toggleChannelPlayback() {
 }
 
 $("#brand").addEventListener("click", () => {
+    flushPendingSave();
+    closeChannelPlayer();
+    stop();
     state.current = null;
     hide("#play-all-btn"); hide("#add-song-btn"); hide("#download-btn");
     renderPlaylists();   // clear the active highlight
@@ -715,20 +847,43 @@ function toggleTrack(i) {
     updateNowPlaying();
 }
 
+// Move the shared iframe before loading, including queue auto-advance. Moving a
+// live iframe recreates it, so doing this after engine.play would lose the video.
+function prepareTrackPlayback(track) {
+    if (isOneOff() && state.channelVideo) return;
+    state.channelVideo = null;
+    state.channelPlaybackError = "";
+    const videoId = youTubeId(track.url);
+    if (/^[\w-]{11}$/.test(videoId || "")) {
+        state.playlistVideo = { videoId, title: track.name || "YouTube video", channelTitle: track.channelTitle || "YouTube", url: track.url };
+        state.playlistReturnIndex = playingIndex();
+        setYouTubeHost(channelView.playerSlot);
+    } else {
+        state.playlistVideo = null;
+        state.playlistReturnIndex = null;
+        setYouTubeHost($("#player-bar"));
+    }
+}
+
 // Keep the equalizer + row icons in sync with the real play/pause state
 // (covers pausing via the native audio controls too).
 const audioEl = $("#audio");
 const viz = $("#viz");
 function reflectPlayState() {
+    if (state.playlistVideo && !currentTrack()) {
+        state.playlistVideo = null;
+        setYouTubeHost($("#player-bar"));
+        $("#yt-widget").hidden = true;
+    }
     viz.classList.toggle("playing", isPlaying());
     updatePlayAllBtn();
     renderTracks();
     updateNowPlaying();
     const transport = $("#player-toggle");
-    transport.classList.toggle("hidden", !state.channelVideo || !!state.channelPlaybackError);
+    transport.classList.toggle("hidden", !(state.channelVideo || state.playlistVideo) || !!state.channelPlaybackError);
     iconText(transport, isPlaying() ? "pause" : "play", isPlaying() ? "Pause" : "Play");
     transport.setAttribute("aria-label", isPlaying() ? "Pause playback" : "Resume playback");
-    channelView?.reflectPlayback(state.channelVideo, isPlaying(), state.channelPlaybackError);
+    channelView?.reflectPlayback(state.playlistVideo || state.channelVideo, isPlaying(), state.channelPlaybackError);
 }
 
 $("#player-toggle").addEventListener("click", toggleChannelPlayback);

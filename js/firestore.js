@@ -26,11 +26,14 @@ export async function listPlaylists(uid) {
 }
 
 // Create a playlist (optionally pre-filled, e.g. from an imported file).
-export async function createPlaylist(uid, name, tracks = []) {
+export async function createPlaylist(uid, name, tracks = [], metadata = {}) {
     const ref = await addDoc(playlistsRef, {
         owner: uid,
         name,
         tracks,
+        ...(metadata.source === "youtube" ? {
+            source: "youtube", sourceUrl: metadata.sourceUrl, youtubePlaylistId: metadata.youtubePlaylistId
+        } : {}),
         updatedAt: serverTimestamp()
     });
     return ref.id;
